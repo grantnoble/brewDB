@@ -1,0 +1,9 @@
+CREATE TABLE persons
+(
+persons_id mediumint unsigned NOT NULL auto_increment,
+persons_first_name varchar(255),
+persons_last_name varchar(255),
+PRIMARY KEY (persons_id),
+INDEX (persons_last_name),
+INDEX (persons_first_name)
+) AUTO_INCREMENT=60001;

@@ -1,0 +1,27 @@
+CREATE TABLE fermentables
+(
+fermentables_id mediumint unsigned NOT NULL auto_increment,
+fermentables_name varchar(255) NOT NULL,
+fermentables_version tinyint unsigned NOT NULL default 1,
+fermentables_type enum('Grain', 'Extract', 'Dry Extract', 'Sugar', 'Adjunct'),
+fermentables_amount float,
+fermentables_yield tinyint unsigned,
+fermentables_color float,
+fermentables_add_after_boil enum('True', 'False'),
+fermentables_origin varchar(255),
+fermentables_supplier varchar(255),
+fermentables_notes varchar(255),
+fermentables_coarse_fine_diff tinyint unsigned,
+fermentables_moisture tinyint unsigned,
+fermentables_diastatic_power float, 
+fermentables_protein tinyint unsigned, 
+fermentables_max_in_batch tinyint unsigned,
+fermentables_recommend_mash enum('True', 'False'),
+fermentables_ibu_gal_per_lb float,
+fermentables_display_amount varchar(255), 
+fermentables_potential float, 
+fermentables_inventory varchar(255),
+fermentables_display_color varchar(255),
+PRIMARY KEY (fermentables_id),
+INDEX (fermentables_name)
+) AUTO_INCREMENT=10001 CHARACTER SET utf8 COLLATE utf8_unicode_ci;

@@ -1,0 +1,9 @@
+CREATE TABLE recipes_persons
+(
+recipes_persons_id mediumint unsigned NOT NULL auto_increment,
+recipes_rec_id mediumint unsigned NOT NULL,
+persons_rec_id mediumint unsigned NOT NULL,
+PRIMARY KEY (recipes_persons_id),
+INDEX (recipes_rec_id),
+INDEX (persons_rec_id)
+);

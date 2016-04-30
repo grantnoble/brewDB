@@ -1,0 +1,9 @@
+CREATE TABLE recipes_fermentables
+(
+recipes_fermentables_id mediumint unsigned NOT NULL auto_increment,
+recipes_rec_id mediumint unsigned NOT NULL,
+fermentables_rec_id mediumint unsigned NOT NULL,
+PRIMARY KEY (recipes_fermentables_id),
+INDEX (recipes_rec_id),
+INDEX (fermentables_rec_id)
+);

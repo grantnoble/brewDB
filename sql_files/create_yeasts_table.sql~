@@ -1,0 +1,26 @@
+CREATE TABLE yeasts
+(
+yeast_id mediumint unsigned NOT NULL auto_increment,
+yeast_name varchar(255) NOT NULL,
+yeast_version tinyint unsigned NOT NULL default 1,
+yeast_type enum('Ale', 'Lager', 'Wheat', 'Wine', 'Champagne'),
+yeast_form enum('Liquid', 'Dry', 'Slant', 'Culture'),
+yeast_amount float,
+yeast_amount_is_weight enum('True', 'False'),
+yeast_laboratory varchar(255),
+yeast_product_id varchar(255),
+yeast_min_temperature mediumint unsigned,
+yeast_max_temperature mediumint unsigned,
+yeast_flocculation enum('Low', 'Medium', 'High', 'Very High'),
+yeast_attenuation float,
+yeast_notes varchar(255),
+yeast_best_for varchar(255),
+yeast_max_reuse mediumint unsigned,
+PRIMARY KEY (yeast_id),
+INDEX (yeast_name),
+INDEX (yeast_type),
+INDEX (yeast_form),
+INDEX (yeast_laboratory),
+INDEX (yeast_product_id),
+INDEX (yeast_flocculation)
+) AUTO_INCREMENT=30001;

@@ -1,0 +1,26 @@
+CREATE TABLE hops
+(
+hop_id mediumint unsigned NOT NULL auto_increment,
+hop_name varchar(255) NOT NULL,
+hop_version tinyint unsigned NOT NULL default 1,
+hop_alpha tinyint unsigned,
+hop_amount float,
+hop_use enum('Boil', 'Dry Hop', 'Mash', 'First Wort', 'Aroma'),
+hop_time mediumint unsigned,
+hop_notes varchar(255),
+hop_type enum('Bittering', 'Aroma', 'Both'),
+hop_form enum('Pellet', 'Plug', 'Leaf'),
+hop_beta tinyint unsigned,
+hop_hsi tinyint unsigned,
+hop_origin varchar(255),
+hop_substitutes varchar(255),
+hop_humulene tinyint unsigned,
+hop_caryophyllene tinyint unsigned,
+hop_cohumulone tinyint unsigned,
+hop_myrcene tinyint unsigned,
+hop_display_amount varchar(255),
+hop_inventory varchar(255),
+hop_display_time varchar(255),
+PRIMARY KEY (hop_id),
+INDEX (hop_name)
+) AUTO_INCREMENT=20001 CHARACTER SET utf8 COLLATE utf8_unicode_ci;

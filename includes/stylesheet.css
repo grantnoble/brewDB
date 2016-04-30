@@ -1,0 +1,157 @@
+html,body {
+	font-family: "Droid Sans", sans-serif;
+	font-size: .9em;
+	margin:0;
+	padding:0;
+	height:100%;
+}
+
+input, select, button {font-size:.85em;} 
+textarea {font-size:1em;} 
+
+legend{font-weight:bold;}
+
+#container {
+	min-height:100%;
+	position:relative;
+	width:1200px;
+	margin:0 auto;
+}
+
+header {
+	background:#FFF;
+	height:150px;
+	position:fixed;
+	width:100%;
+}
+
+nav {
+	padding-bottom:50px;
+}
+
+nav ul {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+
+nav ul li {
+	margin:0;
+	padding:5px 20px;
+	position:relative;
+	height:20px;
+	line-height:20px;
+	background-color:#EEE;
+}
+
+nav > ul > li {
+	float: left;
+	height:30px;
+	line-height:30px;
+	background-color:#CCC;
+}
+
+nav li > ul {
+	visibility:hidden;
+	width:150px;
+	position: absolute;
+	top:0px;
+	left:150px;
+	border-left:1px solid #000;
+}
+
+nav > ul > li > ul {
+	top:40px;
+	left:0;
+	z-index:1;
+
+}
+
+nav li:hover {
+	background-color:#999;
+}
+
+nav li:hover > ul {
+	visibility:visible;
+}
+
+nav a:link {
+	color:blue;
+	text-decoration:none;
+}
+
+nav a:visited {
+	color:blue;
+	text-decoration:none;
+}
+
+section {
+	padding-top:150px;
+	min-height:100%;
+	clear:both;
+	padding-bottom:50px;
+}
+
+footer {
+	position:absolute;
+	bottom:0;
+	width:99%;
+	height:50px;
+	text-align:right;
+}
+
+.five_ingredients {
+	height:160px;
+	padding-right:15px;
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+
+.five_ingredients_view {
+	height:150px;
+	padding-right:15px;
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+
+.three_ingredients {
+	height:105px;
+	padding-right:15px;
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+
+.three_ingredients_view {
+	height:95px;
+	padding-right:15px;
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+
+.button { 
+	margin-top:10px;
+}
+
+.float_left {
+	float:left;
+	margin-top:10px;
+}
+.list_table td,th {
+	padding-right:15px;
+}
+
+.row{clear:both}
+.three_cols{width:25%;float:left;}
+.four_cols{width:33.33%;float:left;}
+.five_cols{width:41.66%;float:left;}
+.six_cols{width:50%;float:left;}
+.seven_cols{width:58.33%;float:left;}
+.eight_cols{width:66.66%;float:left;}
+.nine_cols{width:75%;float:left;}
+
+
+fieldset{
+border-radius: 10px;
+padding: 10px; /*Just to prevent the content from being to close to the corner*/
+}
+

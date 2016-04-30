@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bjcp_categories>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>1</number>
+    <name>Light Lager</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>2</number>
+    <name>Pilsner</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>3</number>
+    <name>European Amber Lager</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>4</number>
+    <name>Dark Lager</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>5</number>
+    <name>Bock</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>6</number>
+    <name>Light Hybrid Beer</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>7</number>
+    <name>Amber Hybrid Beer</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>8</number>
+    <name>English Pale Ale</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>9</number>
+    <name>Scottish and Irish Ale</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>10</number>
+    <name>American Ale</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>11</number>
+    <name>English Brown Ale</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>12</number>
+    <name>Porter</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>13</number>
+    <name>Stout</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>14</number>
+    <name>India Pale Ale(IPA)</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>15</number>
+    <name>German Wheat and Rye Beer</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>16</number>
+    <name>Belgian and French Ale</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>17</number>
+    <name>Sour Ale</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>18</number>
+    <name>Belgian Strong Ale</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>19</number>
+    <name>Strong Ale</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>20</number>
+    <name>Fruit Beer</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>21</number>
+    <name>Spice/Herb/Vegetable Beer</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>22</number>
+    <name>Smoke-Flavored/Wood-Aged Beer</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>beer</class>
+    <number>23</number>
+    <name>Specialty Beer</name>
+    <notes>This is explicitly a catch-all category for any beer that does not fit into an existing style category.  No beer is ever "out of style" in this category, unless it fits elsewhere.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>mead</class>
+    <number>24</number>
+    <name>Traditional Mead</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>mead</class>
+    <number>25</number>
+    <name>Melomel (Fruit Mead)</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>mead</class>
+    <number>26</number>
+    <name>Other Mead</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>cider</class>
+    <number>27</number>
+    <name>Standard Cider and Perry</name>
+    <notes>The styles represented in this category are the principal established styles. The Common Cider and Common Perry styles are analogous to the cider and perry categories of earlier style standards. There are well-known styles not represented here, for example, Asturian (Spanish),for which there are presently insufficient appreciation and a lack of commercial examples for reference.  In the case of a cider made to a style not explicitly represented here, it should be entered in the closest applicable category. The first decision is whether the cider was made with apples with significant tannin content that gives the cider noticeable astringency or bitterness. If not, it should be entered as a Common Cider. If so, the choice is between the English and French sub-categories; this decision should be based on whether the cider tends more toward sweet, rich, somewhat fruity (French) or drier and more austere (English). For perry of a non-represented style, the decision is, as above, based on tannin content. If in doubt, enter as Common Perry.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2008</revision>
+    <class>cider</class>
+    <number>28</number>
+    <name>Specialty Cider and Perry</name>
+    <notes>Specialty cider/perry includes beverages made with added flavorings (spices and/or other fruits), those made with substantial amounts of sugar-sources to increase starting gravities, and the beverage made from a combination of apple and pear juice (sometimes called "pider").   The same general characteristics and fault descriptions apply to specialty ciders as to standard ciders (preceding category), with the exception of adjuncts allowed.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>1</number>
+    <name>Standard American Beer</name>
+    <notes>This category describes everyday American beers that have a wide public appeal. Containing both ales and lagers, the beers of this category are not typically complex, and have smooth, accessible flavors. The ales tend to have lager-like qualities, or are designed to appeal to mass-market lager drinkers as crossover beers. Mass-market beers with a more international appeal or origin are described in the International Lager category.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>2</number>
+    <name>International Lager</name>
+    <notes>International lagers are the premium mass-market lagers produced in most countries in the world. Whether developed from American or European styles, they all tend to have a fairly uniform character and are heavily marketed. Loosely derived from original Pilsner-type laters, with colored variations having additional malt flavors while retaining a broad appeal to most palates. In many countries, the styles will be referred to by their local country names. The use of the term "international" doesn&#8217;t mean that any beers are actually labeled as such, it is more of a categorization of similar beers produced worldwide.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>3</number>
+    <name>Czech Lager</name>
+    <notes>Czech lagers are generally divided by gravity class (draft, lager, special) and color (pale, amber, dark). Czech lagers in general are differentiated from German and other Western lagers in that German lagers are almost always fully attenuated, while Czech lagers can have a slight amount of unfermented extract remaining in the finished beer. This helps provide a slightly higher finishing gravity (and thus slightly lower apparent attenuation), slightly fuller body and mouthfeel, and a richer, slightly more complex flavor profile in equivalent color and strength beers. German lagers tend to have a cleaner fermentation profile, while Czech lagers are often fermented cooler (7 - 10 &#176;C) and for a longer time, and can have a light, barely noticeable (near threshold) amount of diacetyl that often is perceived more as a rounded body than overtly in aroma and flavor [significant buttery diacetyl is a flaw]. Czech lager yeast strains are not always as clean and attenuative as German strains, which helps achieve the higher finishing gravity (along with the mashing methods and cooler fermentation). Czech lagers are traditionally made with decoction mashes (often double decoction), even with modern malts, while most modern German lagers are made with infusion or step infusion mashes. These differences characterize the richness, mouthfeel, and flavor profile that distinguishes Czech lagers.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>4</number>
+    <name>Pale Malty European Lager</name>
+    <notes>This style category contains malty, pale, Pilsner malt-driven German lagers of vollbier to starkbier strength. While malty, they are still well-attenuated, clean lagers, as are most German beers.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>5</number>
+    <name>Pale Bitter European Lager</name>
+    <notes>This category describes German-origin beers that are pale and have an even to bitter balance with a mild to moderately strong hoppy character featuring classic German hops. They are generally bottom-fermented or are lagered to provide a smooth profile, and are well-attenuated as are most German beers.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>6</number>
+    <name>Amber Malty European Lager</name>
+    <notes>This category groups amber-colored, German-origin, bottom-fermented lagerbiers that have a malty balance and are vollbier to starkbier in strength.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>7</number>
+    <name>Amber Bitter European Lager</name>
+    <notes>This category groups amber-colored, evenly balanced to bitter balanced beers of German or Austrian origin.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>8</number>
+    <name>Dark European Lager</name>
+    <notes>This category contains German vollbier lagers darker than amber-brown color.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>9</number>
+    <name>Strong European Beer</name>
+    <notes>This category contains more strongly flavored and higher alcohol lagers from Germany and the Baltic region. Most are dark, but some pale versions are known.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>10</number>
+    <name>German Wheat Beer</name>
+    <notes>This category contains vollbier- and starkbier-strength German wheat beers without sourness, in light and dark colors.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>11</number>
+    <name>British Bitter</name>
+    <notes>The family of British bitters grew out of English pale ales as a draught product in the late 1800s. The use of crystal malts in bitters became more widespread after WWI. Traditionally served very fresh under no pressure (gravity or hand pump only) at cellar temperatures (i.e., &#8220;real ale&#8221;). Most bottled or kegged versions of UK-produced bitters are often higher-alcohol and more highly carbonated versions of cask products produced for export, and have a different character and balance than their draught counterparts in Britain (often being sweeter and less hoppy than the cask versions). These guidelines reflect the &#8220;real ale&#8221; version of the style, not the export formulations of commercial products.
+    Several regional variations of bitter exist, ranging from darker, sweeter versions served with nearly no head to brighter, hoppier, paler versions with large foam stands, and everything in between.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>12</number>
+    <name>Pale Commonwealth Beer</name>
+    <notes>This category contains pale, moderately-strong, hop-forward, bitter ales from countries within the former British Empire.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>13</number>
+    <name>Brown British Beer</name>
+    <notes>While Dark Mild, Brown Ale, and English Porter may have long and storied histories, these guidelines describe the modern versions. They are grouped together for judging purposes only since they often have similar flavors and balance, not because of any implied common ancestry. The similar characteristics are low to moderate strength, dark color, generally malty balance, and British ancestry. These styles have no historic relationship to each other; especially, none of these styles evolved into any of the others, or was ever a component of another. The category name was never used historically to describe this grouping of beers; it is our name for the judging category. &#8220;Brown Beer&#8221; was a distinct and important historical product, and is not related to this category name.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>14</number>
+    <name>Scottish Ale</name>
+    <notes>The original meaning of "schilling" (/-) ales have been described incorrectly for years. A single style of beer was never designated as a 60/-, 70/- or 80/-. The schillings only referring to the cost of the barrel of beer. Meaning there were 54/- Stouts and 86/- IPAs and so on. The Scottish Ales in question were termed Light, Heavy and Export which cover the spectrum of costs from around 60/- to 90/- and simply dark, malt-focused ales. The larger 120/- ales fall outside of this purview as well as the strongest Scotch ales (aka Wee Heavy).The Scottish Light, Heavy and Export guidelines read nearly the same for each style of beers. As the gravity increases, so does the character of the beers in question. Historically, the three types of beer were parti-gyled to different strengths, and represented an adaptation of English pale ales but with reduced strengths and hopping rates, and darker colors (often from added caramel). More modern versions (post-WWII, at least), tended to use more complex grists.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>15</number>
+    <name>Irish Beer</name>
+    <notes>The traditional beers of Ireland contained in this category are amber to dark, top-fermented beers of moderate to slightly strong strength, and are often widely misunderstood due to differences in export versions, or overly focusing on the specific attributes of beer produced by high-volume, well-known breweries. Each of the styles in this grouping has a wider range than is commonly believed.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>16</number>
+    <name>Dark British Beer</name>
+    <notes>This category contains average to strong, bitter to sweet, modern British and Irish stouts that originated in England even if some are now more widely associated with Ireland. In this case, &#8220;British&#8221; means the broader British Isles not Great Britain.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>17</number>
+    <name>Strong British Ale</name>
+    <notes>This category contains the stronger, non-roasty beers of the British Isles.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>18</number>
+    <name>Pale American Ale</name>
+    <notes>This category contains modern American ales of average strength and light color that are moderately malty to moderately bitter.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>19</number>
+    <name>Amber and Brown American Beer</name>
+    <notes>This category contains modern American amber and brown warm-fermented beers of standard strength that can be balanced to bitter.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>20</number>
+    <name>American Porter and Stout</name>
+    <notes>These beers all evolved from their English namesakes to be wholly transformed by American craft brewers. Generally, these styles are bigger, stronger, more roast-forward, and more hop-centric than their Anglo cousins. These styles are grouped together due to a similar shared history and flavor profile.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>21</number>
+    <name>IPA</name>
+    <notes>The IPA category is for modern American IPAs and their derivatives. This does not imply that English IPAs aren&#8217;t proper IPAs or that there isn&#8217;t a relationship between them. This is simply a method of grouping similar styles for competition purposes. English IPAs are grouped with other English-derived beers, and the stronger Double IPA is grouped with stronger American beers. The term &#8220;IPA&#8221; is intentionally not spelled out as &#8220;India Pale Ale&#8221; since none of these beers historically went to India, and many aren&#8217;t pale. However, the term IPA has come to be a balance-defined style in modern craft beer.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>22</number>
+    <name>Strong American Ale</name>
+    <notes>This category includes modern American strong ales with a varying balance of malt and hops. The category is defined mostly by alcohol strength and a lack of roast.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>23</number>
+    <name>European Sour Ale</name>
+    <notes>This category contains the traditional sour beer styles of Europe that are still produced, many (but not all) with a wheat component. Most have low bitterness, with the sourness of the beer providing the balance that hop bitterness would otherwise contribute. Some are sweetened or flavored, whether at the brewery or upon consumption.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>24</number>
+    <name>Belgian Ale</name>
+    <notes>This category contains the maltier to balanced, more highly flavored Belgian and French ales.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>25</number>
+    <name>Strong Belgian Ale</name>
+    <notes>This category contains the pale, well-attenuated, balanced to bitter beers, often more driven by yeast character than malt flavors, with generally higher alcohol (although a range exists within styles).</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>26</number>
+    <name>Trappist Ale</name>
+    <notes>"Trappist" is a protected legal appellation, and cannot be used commercially except by genuine Trappist monasteries that brew their own beer. However, we can use it to describe the type or styles of beer produced by those breweries and those who make beers of a similar style. Trappist type beers are all characterized by very high attenuation, high carbonation through bottle conditioning, and interesting (and often aggressive) yeast character.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>27</number>
+    <name>Historical Beer</name>
+    <notes>The Historical Beer category contains styles that either have all but died out in modern times, or that were much more popular in past times and are known only through recreations. This category can also be used for traditional or indigenous beers of cultural importance within certain countries. Placing a beer in the historical category does not imply that it is not currently being produced, just that it is a very minor style or perhaps is in the process of rediscovery by craft brewers.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>28</number>
+    <name>American Wild Ale</name>
+    <notes>The name "American Wild Ale" is in common use by craft brewers and homebrewers. However, the word "Wild" does not imply that these beers are necessarily spontaneously-fermented; rather, it indicates that they are influenced by microbes other than traditional brewer&#8217;s yeasts. This category is intended for a wide range of beers that do not fit traditional European sour or wild styles. All of the styles in this category are essentially specialty beers where many creative interpretations are possible, and the styles are defined only by the use of specific fermentation profiles and ingredients. As specialty styles, the mandatory description provided by the entrant is of the utmost importance to the judge.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>29</number>
+    <name>Fruit Beer</name>
+    <notes>The Fruit Beer category is for beer made with any fruit or combination of fruit under the definitions of this category. The "culinary, not botanical," definition of fruit is used here - fleshy, seed-associated structures of plants that are sweet or sour, and edible in the raw state. Examples include pome fruit (apple, pear, quince), stone fruit (cherry, plum, peach, apricot, mango, etc.), berries (any fruit with the word &#8216;berry&#8217; in it), currants, citrus fruit, dried fruit (dates, prunes, raisins, etc.), tropical fruit (banana, pineapple, guava, papaya, etc.), figs, pomegranate, prickly pear, and so on. It does not mean spices, herbs, or vegetables as defined in Category 30, especially botanical fruit treated as culinary vegetables. Basically, if you have to justify a fruit using the word &#8220;technically&#8221; as part of the description, then that&#8217;s not what we mean.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>30</number>
+    <name>Spiced Beer</name>
+    <notes>We use the common or culinary definitions of spices, herbs, and vegetables, not botanical or scientific ones. In general, spices are the dried seeds, seed pods, fruit, roots, bark, etc. of plants used for flavoring food. Herbs are leafy plants or parts of plants (leaves, flowers, petals, stalks) used for flavoring foods. Vegetables are savory or less sweet edible plant products, used primarily for cooking or sometimes eating raw. Vegetables can include some botanical fruit. This category explicitly includes all culinary spices, herbs, and vegetables, as well as nuts (anything with &#8216;nut&#8217; in the name, including coconut), chile peppers, coffee, chocolate, spruce tips, rose hips, hibiscus, fruit peels/zest (but not juice), rhubarb, and the like. It does not include culinary fruit or grains. Flavorful fermentable sugars and syrups (agave nectar, maple syrup, molasses, sorghum, treacle, honey, etc.) can be included only in combination with other allowable ingredients, and should not have a dominant character. Any combination of allowable ingredients may also be entered. See Category 29 for a definition and examples of fruit.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>31</number>
+    <name>Alternative Fermentables Beer</name>
+    <notes>This category contains specialty beers that have some additional ingredient (grain or sugar) that adds a distinctive character.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>32</number>
+    <name>Smoked Beer</name>
+    <notes>This category contains specialty beers that have a smoke character.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>33</number>
+    <name>Wood Beer</name>
+    <notes>This category contains specialty beers with a wood-aged character, with or without added alcohol character.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>beer</class>
+    <number>34</number>
+    <name>Specialty Beer</name>
+    <notes>While there are many Specialty-Type Beers in these guidelines, the Specialty Beer category is intended for those beers that do not fit anywhere else. As the number of Specialty-Type categories is quite large, most beers are expected to be entered elsewhere unless there is something quite unusual or unique about them. Please check each other Specialty-Type category first before deciding to enter a beer in one of these styles.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>mead</class>
+    <number>1</number>
+    <name>Traditional Mead</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>mead</class>
+    <number>2</number>
+    <name>Fruit Mead</name>
+    <notes>A mead made with fruit is called a "Melomel" , although some melomels also have other names (cyser, pyment). We are introducing category names for certain types of melomels based on the variety of fruit used; these are more entry categories than actual styles. We selected different names for the category and subcategories to avoid the confusion of using the same names in different ways.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>mead</class>
+    <number>3</number>
+    <name>Spiced Mead</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>mead</class>
+    <number>4</number>
+    <name>Specialty Mead</name>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>cider</class>
+    <number>1</number>
+    <name>Standard Cider and Perry</name>
+    <notes>The styles represented in this category are the principal established styles. "New World" is simply a name change from the "Common" of earlier versions. There are known styles not represented here. In particular, Spanish (Asturian and Basque) does not yet have a style definition because there is presently insufficient appreciation and understanding, as well as a lack of commercial examples of known quality for reference.</notes>
+  </bjcp>
+  <bjcp>
+    <revision>BJCP-2015</revision>
+    <class>cider</class>
+    <number>2</number>
+    <name>Specialty Cider and Perry</name>
+    <notes>Specialty cider/perry includes beverages made with added flavorings (spices and/or other fruits), those made with substantial amounts of sugar-sources to increase starting gravities, and the beverage made from a combination of apple and pear juice (sometimes called "pider" ).</notes>
+  </bjcp>
+</bjcp_categories>
