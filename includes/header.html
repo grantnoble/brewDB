@@ -50,18 +50,51 @@ body {
 	margin-bottom:5px;
 }
 fieldset.fieldset {
-    border: 1px groove #ddd !important;
-    padding: 0 1.0em 1.0em 1.0em !important;
-    margin: 0 2.0em 1.5em 0 !important;
+    border: 2px solid #ccc !important;
+    border-radius: 8px;
+    padding: 0 0.5em 0.5em 0.5em !important;
+    margin: 0 0 1.5em 1.0em !important;
 }
 legend.fieldset {
         font-size: 1.0em !important;
         font-weight: bold !important;
         text-align: left !important;
-        padding: 0 10px 0 10px;
-        margin: 0 0 5px 0;
+        padding: 0 1em 0 1em;
+        margin: 0 0 0.5em 0;
         border: none;
         width:auto;
+}
+.table-no-border>thead>tr>th, 
+.table-no-border>tbody>tr>th, 
+.table-no-border>tfoot>tr>th, 
+.table-no-border>thead>tr>td, 
+.table-no-border>tbody>tr>td, 
+.table-no-border>tfoot>tr>td {
+    border-top: none; 
+    padding-top: 0px;
+    padding-bottom: 5px;
+}
+.table-no-border {
+	margin-bottom: 0px;
+} 
+
+.five-ingredients {
+	height: 240px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+
+/* Turn off number spin wheels for Firefox */
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+/* Turn off number spin wheels for webkit browsers like Safari and Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 </style>
 	
@@ -81,7 +114,6 @@ legend.fieldset {
 		</div><!-- navbar-header -->
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="index.php">Home</a></li>
 				<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Styles<span class="caret"></span></a>
 					<ul class="dropdown-menu">
