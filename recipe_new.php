@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	// insert the recipe record
 	$query = "INSERT INTO recipes (recipe_name, recipe_type, recipe_style_id, recipe_batch_size, recipe_mash_efficiency, recipe_designer, recipe_notes, recipe_est_og, recipe_est_fg, recipe_est_color, recipe_est_ibu, recipe_est_abv, recipe_date)
 		VALUES ('" . $details['name'] . "','" .  $details['type'] . "'," . $details['style_id'] . "," . $details['batch_size'] . "," .  $details['mash_efficiency'] . ",'" . $details['designer'] . "','" . $details['notes'] . "'," . $details['est_og'] . "," . $details['est_fg'] . "," . $details['est_color'] . "," . $details['est_ibu'] . "," . $details['est_abv'] . ",'" . $details['date'] . "')";
-	echo $query;$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
 	// retrieve the id of the last insert as the recipe_id for the recipes_fermentables, recipes_hops, recipes_yeasts, and recipes_miscs records
 	$recipe_id = mysqli_insert_id($connection);
@@ -156,7 +156,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 
     // After saving to the database, redirect back to the new recipe page
-    header("Location: recipe_new.php");
+	echo '<script type="text/javascript">
+	window.location = "recipe_new.php"
+	</script>';
 }
 
 // end of PHP section, now create the HTML form
@@ -208,13 +210,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		
 		<div class="col-xs-4 col-md-4">
 			<label for="name" class="label-sm">Recipe Name</label>
-			<input type="text" class="form-control input-sm" id="name" name="name" required value="<?php echo $details['name']; ?>" />
+			<input type="text" class="form-control input-sm" id="name" name="name" required />
 		</div>
 		
 		<div class="col-xs-4 col-md-5">
 			<label for="style" class="label-sm">Style</label>
-			<select class="form-control input-sm" id="style" name="style" required >
-				<option><?php echo $style['name']; ?></option>
+			<select class="form-control input-sm" id="style" name="style" required onchange="getstyleinfo(this.value);">
+				<option value="" disabled selected>Select a style...</option>
 				<?php
 				$query = "SELECT style_name FROM styles ORDER BY style_name";
 				$result = mysqli_query($connection, $query);
@@ -229,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		<div class="col-xs-4 col-md-3">
 			<label for="type" class="label-sm">Type</label>
 			<select class="form-control input-sm" id="type" name="type" required >
-				<option><?php echo $details['type']; ?></option>
+				<option value="" disabled selected>Select a type...</option>
 				<option>All Grain</option>
 				<option>Extract</option>
 				<option>Partial Mash</option>
@@ -242,19 +244,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		
 		<div class="col-xs-5 col-sm-4 col-md-3">
 			<label for="date" class="label-sm">Date (yyyy-mm-dd)</label>
-			<input type="date" class="form-control input-sm" id="date" name="date" value="<?php echo $details['date']; ?>"/>
+			<input type="date" class="form-control input-sm" id="date" name="date" value="<?php echo date("Y-m-d"); ?>"/>
 		</div>
 		
 		<div class="col-xs-4 col-sm-4 col-md-3">
 			<label for="batch_size" class="label-sm">Batch Size (L)</label>
-			<input type="number" class="form-control input-sm" min="0" step="1" id="batch_size" name="batch_size" required value="<?php echo $details['batch_size']; ?>"/>
+			<?php
+			$query = "SELECT preference_batch_size, preference_mash_efficiency FROM preferences";
+			$result = mysqli_query($connection, $query);
+			while ($row = mysqli_fetch_array ( $result ))
+			{
+				echo '<input type="number" class="form-control input-sm" min="0" step="1" id="batch_size" name="batch_size" required value="' . $row['preference_batch_size'] . '"/>';
+				echo '<input type="hidden" name="mash_efficiency" required value="' . $row['preference_mash_efficiency'] . '"/>';
+			}
+			?>
 		</div>
 		
-		<input type="hidden" name="mash_efficiency" required oninvalid="this.setCustomValidity('Mash efficiency required.')" onchange="this.setCustomValidity('');calc_og_color_ibu();" value="<?php echo $details['mash_efficiency']; ?>"/>
-
 		<div class="hidden-xs col-sm-4 col-md-6">
 			<label for="designer" class="label-sm">Designer</label>
-			<input list="persons" class="form-control input-sm" id="designer" name="designer" value="<?php echo $details['designer']; ?>"/>
+			<input list="persons" class="form-control input-sm" id="designer" name="designer" />
 				<datalist id="persons">
 				<?php
 				$query = "SELECT person_first_name, person_last_name FROM persons ORDER BY person_last_name";
@@ -273,7 +281,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		
 		<div class="col-xs-12 col-md-12">
 			<label for="notes" class="label-sm">Recipe Notes</label>
-			<textarea class="form-control input-sm" rows=2 cols=100 id="notes" name="notes"><?php echo $details['notes']; ?></textarea>
+			<textarea class="form-control input-sm" rows=2 cols=100 id="notes" name="notes"></textarea>
 		</div>
 		
 	</div>
@@ -313,15 +321,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		</div>
 		
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_og_min" name="style_og_min" readonly="yes" value="<?php echo $style['og_min']; ?>" />
+			<input type="text" class="form-control input-sm" id="style_og_min" name="style_og_min" readonly="yes" />
 		</div>
 		
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="est_og" name="est_og" readonly="yes" value="<?php echo $details['est_og']; ?>" />
+			<input type="text" class="form-control input-sm" id="est_og" name="est_og" readonly="yes" />
 		</div>
 		
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_og_max" name="style_og_max" readonly="yes" value="<?php echo $style['og_max']; ?>" />
+			<input type="text" class="form-control input-sm" id="style_og_max" name="style_og_max" readonly="yes" />
 		</div>
 		
 	</div>
@@ -333,15 +341,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_fg_min" name="style_fg_min" readonly="yes" value="<?php echo $style['fg_min']; ?>" />
+			<input type="text" class="form-control input-sm" id="style_fg_min" name="style_fg_min" readonly="yes" />
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="est_fg" name="est_fg" readonly="yes" value="<?php echo $details['est_fg']; ?>" />
+			<input type="text" class="form-control input-sm" id="est_fg" name="est_fg" readonly="yes" />
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_fg_max" name="style_fg_max" readonly="yes" value="<?php echo $style['fg_max']; ?>" />
+			<input type="text" class="form-control input-sm" id="style_fg_max" name="style_fg_max" readonly="yes" />
 		</div>
         
 	</div>
@@ -353,15 +361,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_abv_min" name="style_abv_min" readonly="yes" value="<?php echo $style['abv_min']; ?>" />
+			<input type="text" class="form-control input-sm" id="style_abv_min" name="style_abv_min" readonly="yes" />
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="est_abv" name="est_abv" readonly="yes" value="<?php echo $details['est_abv']; ?>" />
+			<input type="text" class="form-control input-sm" id="est_abv" name="est_abv" readonly="yes" />
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_abv_max" name="style_abv_max" readonly="yes" value="<?php echo $style['abv_max']; ?>" />
+			<input type="text" class="form-control input-sm" id="style_abv_max" name="style_abv_max" readonly="yes" />
 		</div>
         
 	</div>
@@ -373,15 +381,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_ibu_min" name="style_ibu_min" readonly="yes" value="<?php echo $style['ibu_min']; ?>" />
+			<input type="text" class="form-control input-sm" id="style_ibu_min" name="style_ibu_min" readonly="yes" />
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="est_ibu" name="est_ibu" readonly="yes" value="<?php echo $details['est_ibu']; ?>" />
+			<input type="text" class="form-control input-sm" id="est_ibu" name="est_ibu" readonly="yes" />
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_ibu_max" name="style_ibu_max" readonly="yes" value="<?php echo $style['ibu_max']; ?>" />
+			<input type="text" class="form-control input-sm" id="style_ibu_max" name="style_ibu_max" readonly="yes" />
 		</div>
         
 	</div>
@@ -393,15 +401,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_color_min" name="style_color_min" readonly="yes" value="<?php echo $style['color_min']; ?>" />
+			<input type="text" class="form-control input-sm" id="style_color_min" name="style_color_min" readonly="yes" />
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="est_color" name="est_color" readonly="yes" value="<?php echo $details['est_color']; ?>" />
+			<input type="text" class="form-control input-sm" id="est_color" name="est_color" readonly="yes" />
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_color_max" name="style_color_max" readonly="yes" value="<?php echo $style['color_max']; ?>" />
+			<input type="text" class="form-control input-sm" id="style_color_max" name="style_color_max" readonly="yes" />
 		</div>
         
 	</div>
@@ -464,7 +472,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		
 		<div class="col-xs-6 col-sm-2 col-md-3">
 		<?php
-		echo '<select class="form-control input-sm" name="fermentable' . $i . '_name" onchange="getfermentableinfo(this.value,' .$i. '); set_flag(' . $ingredient . ', ' . $i . ');">';
+		echo '<select class="form-control input-sm" name="fermentable' . $i . '_name" onchange="getfermentableinfo(this.value,' .$i. ');">';
 		echo '<option>'; echo $fermentables[$i]['name']; echo '</option>';
 		$query = "SELECT fermentable_name FROM fermentables ORDER BY fermentable_name";
 		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
@@ -478,37 +486,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 		<div class="col-xs-3 col-sm-2 col-md-1">
 		<?php
-		echo '<input type="number" class="form-control input-sm" min="0" step="0.001" name="fermentable' . $i . '_amount" onchange="fermentables_messages(' .$i. '); calc_og_color_ibu(); set_flag(' . $ingredient . ', ' . $i . ');" value="'; echo $fermentables[$i]['amount']; echo '"/>';
+		echo '<input type="number" class="form-control input-sm" min="0" step="0.001" name="fermentable' . $i . '_amount" onchange="fermentables_messages(' .$i. '); calc_og_color_ibu();" />';
 		?>
 		</div>
 			
 		<div class="hidden-xs col-sm-2 col-md-1">
 		<?php
-		echo '<input type="number" class="form-control input-sm" name="fermentable' . $i . '_percent" readonly="yes" value="'; echo $fermentables[$i]['percent']; echo '"/>';
+		echo '<input type="number" class="form-control input-sm" name="fermentable' . $i . '_percent" readonly="yes" />';
 		?>
 		</div>
 			
 		<div class="hidden-xs col-sm-2 col-md-1">
 		<?php
-		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_yield" readonly="yes" value="'; echo $fermentables[$i]['yield']; echo '"/>';
+		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_yield" readonly="yes" />';
 		?>
 		</div>
 			
 		<div class="hidden-xs col-sm-2 col-md-1">
 		<?php
-		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_color" readonly="yes" value="'; echo $fermentables[$i]['color']; echo '"/>';
+		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_color" readonly="yes" />';
 		?>
 		</div>
 			
 		<div class="col-xs-3 col-sm-2 col-md-1">
 		<?php
-		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_type" readonly="yes" value="'; echo $fermentables[$i]['type']; echo '"/>';
+		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_type" readonly="yes" />';
 		?>
 		</div>
 		
 		<div class="col-xs-3 col-sm-2 col-md-2">
 		<?php
-		echo '<select class="form-control input-sm" name="fermentable' . $i . '_use" onchange="set_flag(' . $ingredient . ', ' . $i . ')">';
+		echo '<select class="form-control input-sm" name="fermentable' . $i . '_use" >';
 		echo '<option>'; echo $fermentables[$i]['use']; echo '</option>';
 		?>
 		<option>Mashed</option>
@@ -520,12 +528,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		</div>
 		
 		<?php
-		// the recipes_fermentables record id
-		echo '<input type="hidden" name="fermentable' . $i . '_record_id" value="'; echo $fermentables[$i]['record_id']; echo '"/>';
 		// the fermentable id
-		echo '<input type="hidden" name="fermentable' . $i . '_id" value="'; echo $fermentables[$i]['id']; echo '"/>';
-		// the update flag
-		echo '<input type="hidden" name="fermentable' . $i . '_flag" value="'; echo $fermentables[$i]['flag']; echo '"/>';
+		echo '<input type="hidden" name="fermentable' . $i . '_id" />';
 		?>
 		
 		</div>
@@ -542,19 +546,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 	<div class="row">
 	
-		<div class="col-xs-6 col-sm-2 col-md-2">
+		<div class="col-xs-6 col-sm-2 col-md-3">
 			<label class="label-sm">Hop</label>
 		</div>
 		
-		<div class="col-xs-3 col-sm-2 col-md-2">
-			<label class="label-sm">Amount (g)</label>
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Amount&nbsp;(g)</label>
 		</div>
 		
-		<div class="hidden-xs col-sm-2 col-md-2">
+		<div class="hidden-xs col-sm-2 col-md-1">
 			<label class="label-sm">Alpha (%)</label>
 		</div>
 		
-		<div class="col-xs-3 col-sm-2 col-md-2">
+		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Time (min)</label>
 		</div>
 		
@@ -573,8 +577,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	for ($i=0; $i<=14; $i++)
 	{
 		echo '<div class="row margin-bottom-half_em">';
-		echo '<div class="col-xs-6 col-sm-2 col-md-2">';
-		echo '<select class="form-control input-sm" name="hop' . $i . '_name" onchange="gethopinfo(this.value,' .$i. '); set_flag(' . $ingredient . ', ' . $i . ');">';
+		echo '<div class="col-xs-6 col-sm-2 col-md-3">';
+		echo '<select class="form-control input-sm" name="hop' . $i . '_name" onchange="gethopinfo(this.value,' .$i. ');">';
 		echo '<option>'; echo $hops[$i]['name']; echo '</option>';
 		$query = "SELECT hop_name FROM hops ORDER BY hop_name";
 		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
@@ -585,20 +589,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		echo '</select>';
 		echo '</div>';
 		
-		echo '<div class="col-xs-3 col-sm-2 col-md-2">';
-		echo '<input type="number" class="form-control input-sm" min="0" step="any" name="hop' . $i . '_amount" onchange="hops_messages(' .$i. '); calc_ibu(); set_flag(' . $ingredient . ', ' . $i . ');" value="'; echo $hops[$i]['amount']; echo '"/>';
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
+		echo '<input type="number" class="form-control input-sm" min="0" step="any" name="hop' . $i . '_amount" onchange="hops_messages(' .$i. '); calc_ibu();" />';
+		echo '</div>';
+
+		echo '<div class="hidden-xs col-sm-2 col-md-1">';
+		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="hop' . $i . '_alpha" onchange="hops_messages(' .$i. '); calc_ibu();" />';
+		echo '</div>';
+
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
+		echo '<input type="number" class="form-control input-sm" min="0" step="1" name="hop' . $i . '_time" onchange="hops_messages(' .$i. '); calc_ibu();" />';
 		echo '</div>';
 
 		echo '<div class="hidden-xs col-sm-2 col-md-2">';
-		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="hop' . $i . '_alpha" onchange="hops_messages(' .$i. '); calc_ibu(); set_flag(' . $ingredient . ', ' . $i . ');" value="'; echo $hops[$i]['alpha']; echo '"/>';
-		echo '</div>';
-
-		echo '<div class="col-xs-3 col-sm-2 col-md-2">';
-		echo '<input type="number" class="form-control input-sm" min="0" step="1" name="hop' . $i . '_time" onchange="hops_messages(' .$i. '); calc_ibu(); set_flag(' . $ingredient . ', ' . $i . ');" value="'; echo $hops[$i]['time']; echo '"/>';
-		echo '</div>';
-
-		echo '<div class="hidden-xs col-sm-2 col-md-2">';
-		echo '<select class="form-control input-sm" name="hop' . $i . '_form" onchange="set_flag(' . $ingredient . ', ' . $i . ')">';
+		echo '<select class="form-control input-sm" name="hop' . $i . '_form" >';
 		echo '<option>'; echo $hops[$i]['form']; echo '</option>';
 		echo '<option>Pellet</option>';
 		echo '<option>Plug</option>';
@@ -607,7 +611,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		echo '</div>';
 
 		echo '<div class="hidden-xs col-sm-2 col-md-2">';
-		echo '<select class="form-control input-sm" name="hop' . $i . '_use" onchange="set_flag(' . $ingredient . ', ' . $i . ')">';
+		echo '<select class="form-control input-sm" name="hop' . $i . '_use" >';
 		echo '<option>'; echo $hops[$i]['use']; echo '</option>';
 		echo '<option>Aroma</option>';
 		echo '<option>Boil</option>';
@@ -617,12 +621,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		echo '</select>';
 		echo '</div>';
 
-		// the recipes_hops record id
-		echo '<input type="hidden" name="hop' . $i . '_record_id" value="'; echo $hops[$i]['record_id']; echo '"/>';
 		// the hops id
-		echo '<input type="hidden" name="hop' . $i . '_id" value="'; echo $hops[$i]['id']; echo '"/>';
-		// the update flag
-		echo '<input type="hidden" name="hop' . $i . '_flag" value="'; echo $hops[$i]['flag']; echo '"/>';
+		echo '<input type="hidden" name="hop' . $i . '_id" />';
 		
 		echo '</div>';
 	}
@@ -663,7 +663,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		echo '<div class="row margin-bottom-half_em">';
 		echo '<div class="col-xs-6 col-sm-3 col-md-3">';
-		echo '<select class="form-control input-sm" name="yeast' . $i . '_fullname" onchange="getyeastinfo(this.value,' .$i. '); set_flag(' . $ingredient . ', ' . $i . ');">';
+		echo '<select class="form-control input-sm" name="yeast' . $i . '_fullname" onchange="getyeastinfo(this.value,' .$i. ');">';
 		echo '<option>'; echo $yeasts[$i]['fullname']; echo '</option>';
 		$query = "SELECT yeast_fullname FROM yeasts ORDER BY yeast_fullname";
 		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
@@ -675,27 +675,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		echo '</div>';
 		
 		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
-		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_type" readonly="yes" value="'; echo $yeasts[$i]['type']; echo '"/>';
+		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_type" readonly="yes" />';
 		echo '</div>';
 		
 		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
-		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_form" readonly="yes" value="'; echo $yeasts[$i]['form']; echo '"/>';
+		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_form" readonly="yes" />';
 		echo '</div>';
 		
 		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
-		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_attenuation" readonly="yes" value="'; echo $yeasts[$i]['attenuation']; echo '"/>';
+		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_attenuation" readonly="yes" />';
 		echo '</div>';
 		
 		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
-		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_flocculation" readonly="yes" value="'; echo $yeasts[$i]['flocculation']; echo '"/>';
+		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_flocculation" readonly="yes" />';
 		echo '</div>';
 		
-		// the recipes_yeasts record id
-		echo '<input type="hidden" name="yeast' . $i . '_record_id" value="'; echo $yeasts[$i]['record_id']; echo '"/>';
 		// the yeast id
 		echo '<input type="hidden" name="yeast' . $i . '_id" value="'; echo $yeasts[$i]['id']; echo '"/>';
-		// the update flag
-		echo '<input type="hidden" name="yeast' . $i . '_flag" value="'; echo $yeasts[$i]['flag']; echo '"/>';
 		
 		echo '</div>';
 	}
@@ -712,11 +708,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			<label class="label-sm">Ingredient</label>
 		</div>
 		
-		<div class="col-xs-3 col-sm-2 col-md-2">
+		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Amount</label>
 		</div>
 		
-		<div class="col-xs-3 col-sm-2 col-md-2">
+		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Unit</label>
 		</div>
 		
@@ -733,7 +729,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		echo '<div class="row margin-bottom-half_em">';
 		
 		echo '<div class="col-xs-6 col-sm-2 col-md-3">';
-		echo '<select class="form-control input-sm" name="misc' . $i . '_name" onchange="getmiscinfo(this.value,' .$i. '); set_flag(' . $ingredient . ', ' . $i . ');">';
+		echo '<select class="form-control input-sm" name="misc' . $i . '_name" onchange="getmiscinfo(this.value,' .$i. ');" >';
 		echo '<option>'; echo $miscs[$i]['name']; echo '</option>';
         $query = "SELECT misc_name FROM miscs ORDER BY misc_name";
 		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
@@ -744,24 +740,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		echo '</select>';
 		echo '</div>';
 		
-		echo '<div class="col-xs-3 col-sm-2 col-md-2">';
-		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="misc' . $i . '_amount" onchange="miscs_messages(' .$i. '); set_flag(' . $ingredient . ', ' . $i . ')" value="'; echo $miscs[$i]['amount']; echo '"/> ';
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
+		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="misc' . $i . '_amount" onchange="miscs_messages(' .$i. ');" /> ';
 		echo '</div>';
 
-		echo '<div class="col-xs-3 col-sm-2 col-md-2">';
-		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_unit" onchange="miscs_messages(' .$i. '); set_flag(' . $ingredient . ', ' . $i . ')" value="'; echo $miscs[$i]['unit']; echo '"/> ';
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
+		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_unit" onchange="miscs_messages(' .$i. ');" /> ';
 		echo '</div>';
 
 		echo '<div class="hidden-xs col-sm-2 col-md-2">';
-		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_type" readonly="yes" value="'; echo $miscs[$i]['type']; echo '"/> ';
+		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_type" readonly="yes" /> ';
 		echo '</div>';
 		
-		// the recipes_miscs record id
-		echo '<input type="hidden" name="misc' . $i . '_record_id" value="'; echo $miscs[$i]['record_id']; echo '"/> ';
 		// the miscs id
 		echo '<input type="hidden" name="misc' . $i . '_id" value="'; echo $miscs[$i]['id']; echo '"/> ';
-		// the update flag
-		echo '<input type="hidden" name="misc' . $i . '_flag" value="'; echo $miscs[$i]['flag']; echo '"/> ';
 		
 		echo '</div>';
 	}

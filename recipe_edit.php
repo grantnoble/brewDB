@@ -226,7 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		}
 	}
 
-	// After saving to the database, redirect back to the new recipe page
+	// After saving to the database, redirect back to the list recipes page
 	echo '<script type="text/javascript">
 	window.location = "recipes_list.php"
 	</script>';
@@ -445,10 +445,12 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
 		$miscs[$i]['flag'] = 0;
 	}
 }
-// else if id isn't set, or isn't valid, redirect back to view page
+// else if id isn't set, or isn't valid, redirect back to list recipes page
 else
 {
-    header("Location: recipes_list.php");
+	echo '<script type="text/javascript">
+	window.location = "recipes_list.php"
+	</script>';
 }
 
 // end of PHP section, now create the HTML form
@@ -511,7 +513,7 @@ else
 		
 		<div class="col-xs-4 col-md-5">
 			<label for="style" class="label-sm">Style</label>
-			<select class="form-control input-sm" id="style" name="style" required >
+			<select class="form-control input-sm" id="style" name="style" required onchange="getstyleinfo(this.value);">
 				<option><?php echo $style['name']; ?></option>
 				<?php
 				$query = "SELECT style_name FROM styles ORDER BY style_name";
@@ -840,19 +842,19 @@ else
 
 	<div class="row">
 	
-		<div class="col-xs-6 col-sm-2 col-md-2">
+		<div class="col-xs-6 col-sm-2 col-md-3">
 			<label class="label-sm">Hop</label>
 		</div>
 		
-		<div class="col-xs-3 col-sm-2 col-md-2">
-			<label class="label-sm">Amount (g)</label>
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Amount&nbsp;(g)</label>
 		</div>
 		
-		<div class="hidden-xs col-sm-2 col-md-2">
+		<div class="hidden-xs col-sm-2 col-md-1">
 			<label class="label-sm">Alpha (%)</label>
 		</div>
 		
-		<div class="col-xs-3 col-sm-2 col-md-2">
+		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Time (min)</label>
 		</div>
 		
@@ -871,7 +873,7 @@ else
 	for ($i=0; $i<=14; $i++)
 	{
 		echo '<div class="row margin-bottom-half_em">';
-		echo '<div class="col-xs-6 col-sm-2 col-md-2">';
+		echo '<div class="col-xs-6 col-sm-2 col-md-3">';
 		echo '<select class="form-control input-sm" name="hop' . $i . '_name" onchange="gethopinfo(this.value,' .$i. '); set_flag(' . $ingredient . ', ' . $i . ');">';
 		echo '<option>'; echo $hops[$i]['name']; echo '</option>';
 		$query = "SELECT hop_name FROM hops ORDER BY hop_name";
@@ -883,15 +885,15 @@ else
 		echo '</select>';
 		echo '</div>';
 		
-		echo '<div class="col-xs-3 col-sm-2 col-md-2">';
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
 		echo '<input type="number" class="form-control input-sm" min="0" step="any" name="hop' . $i . '_amount" onchange="hops_messages(' .$i. '); calc_ibu(); set_flag(' . $ingredient . ', ' . $i . ');" value="'; echo $hops[$i]['amount']; echo '"/>';
 		echo '</div>';
 
-		echo '<div class="hidden-xs col-sm-2 col-md-2">';
+		echo '<div class="hidden-xs col-sm-2 col-md-1">';
 		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="hop' . $i . '_alpha" onchange="hops_messages(' .$i. '); calc_ibu(); set_flag(' . $ingredient . ', ' . $i . ');" value="'; echo $hops[$i]['alpha']; echo '"/>';
 		echo '</div>';
 
-		echo '<div class="col-xs-3 col-sm-2 col-md-2">';
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
 		echo '<input type="number" class="form-control input-sm" min="0" step="1" name="hop' . $i . '_time" onchange="hops_messages(' .$i. '); calc_ibu(); set_flag(' . $ingredient . ', ' . $i . ');" value="'; echo $hops[$i]['time']; echo '"/>';
 		echo '</div>';
 
@@ -1010,11 +1012,11 @@ else
 			<label class="label-sm">Ingredient</label>
 		</div>
 		
-		<div class="col-xs-3 col-sm-2 col-md-2">
+		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Amount</label>
 		</div>
 		
-		<div class="col-xs-3 col-sm-2 col-md-2">
+		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Unit</label>
 		</div>
 		
@@ -1042,11 +1044,11 @@ else
 		echo '</select>';
 		echo '</div>';
 		
-		echo '<div class="col-xs-3 col-sm-2 col-md-2">';
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
 		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="misc' . $i . '_amount" onchange="miscs_messages(' .$i. '); set_flag(' . $ingredient . ', ' . $i . ')" value="'; echo $miscs[$i]['amount']; echo '"/> ';
 		echo '</div>';
 
-		echo '<div class="col-xs-3 col-sm-2 col-md-2">';
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
 		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_unit" onchange="miscs_messages(' .$i. '); set_flag(' . $ingredient . ', ' . $i . ')" value="'; echo $miscs[$i]['unit']; echo '"/> ';
 		echo '</div>';
 
