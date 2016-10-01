@@ -46,14 +46,19 @@ body {
 .label-sm {
 	font-size:90%;
 }
-.margin-bottom {
-	margin-bottom:5px;
+.margin-bottom-1em {
+	margin-bottom:1em;
 }
+
+.margin-bottom-half_em {
+	margin-bottom:0.5em;
+}
+
 fieldset.fieldset {
-    border: 2px solid #ccc !important;
+/*    border: 2px solid #ccc !important;
     border-radius: 8px;
-    padding: 0 0.5em 0.5em 0.5em !important;
-    margin: 0 0 1.5em 1.0em !important;
+    padding: 0 0.5em 0.5em 0.5em !important; */
+    margin: 1.0em 1.0em 1.5em 0 !important;
 }
 legend.fieldset {
         font-size: 1.0em !important;
@@ -102,58 +107,61 @@ input[type=number]::-webkit-outer-spin-button {
 
 <body>
 	
+<div class="container-fluid">
 <nav class="navbar navbar-inverse">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="index.php"><?php echo $title; ?></a>
-		</div><!-- navbar-header -->
-		<div id="navbar" class="navbar-collapse collapse">
-			<ul class="nav navbar-nav">
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Styles<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="styles_list.php">List</a></li>
-						<li><a href="style_new.php">New</a></li>
-					</ul></li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Ingredients<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="styles_list.php">List</a></li>
-						<li><a href="styles_new.php">New</a></li>
-					</ul></li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Recipes<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="recipes_list.php">List</a></li>
-						<li><a href="recipe_new.php">New</a></li>
-					</ul></li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Brews<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="brews_list.php">List</a></li>
-						<li><a href="brew_new.php">New</a></li>
-					</ul></li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Preferences<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="preferences_edit">Edit</a></li>
-					</ul></li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Database<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="all_tables_create.php">Create all tables</a></li>
-						<li><a href="all_tables_drop.php">Drop all tables</a></li>
-						<li><a href="all_tables_xml_load.php">Load table data</a></li>
-						<li><a href="all_tables_truncate.php">Delete table data</a></li>
-						<li><a href="brewdb_backup.php">Backup database</a></li>
-					</ul></li>
-			</ul>
-		</div><!-- navbar -->
-	</div><!-- container -->
+
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="index.php"><?php echo $title; ?></a>
+	</div><!-- navbar-header -->
+	
+	<div id="navbar" class="navbar-collapse collapse">
+		<ul class="nav navbar-nav">
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Styles<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="styles_list.php">List</a></li>
+					<li><a href="style_new.php">New</a></li>
+				</ul></li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Ingredients<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="styles_list.php">List</a></li>
+					<li><a href="styles_new.php">New</a></li>
+				</ul></li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Recipes<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="recipes_list.php">List</a></li>
+					<li><a href="recipe_new.php">New</a></li>
+				</ul></li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Brews<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="brews_list.php">List</a></li>
+					<li><a href="brew_new.php">New</a></li>
+				</ul></li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Preferences<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="preferences_edit">Edit</a></li>
+				</ul></li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Database<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="all_tables_create.php">Create all tables</a></li>
+					<li><a href="all_tables_drop.php">Drop all tables</a></li>
+					<li><a href="all_tables_xml_load.php">Load table data</a></li>
+					<li><a href="all_tables_truncate.php">Delete table data</a></li>
+					<li><a href="brewdb_backup.php">Backup database</a></li>
+				</ul></li>
+		</ul>
+	</div>
+	
 </nav>
+</div>
 	

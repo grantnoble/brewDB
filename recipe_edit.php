@@ -7,6 +7,7 @@ Edit a recipe in the database
 
 $page_title = 'Edit Recipe';
 $error = "";
+$total_amount = 0;
 include ('includes/header.html');
 header('Content-Type: text/html; charset="utf-8"', true);
 
@@ -71,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$details['notes'] = mysqli_real_escape_string($connection, test_input($_POST['notes']));
 
 	// retrieve the recipe fermentables
-	for ($i=0; $i <=14; $i++)
+	for ($i=0; $i<=14; $i++)
 	{
 		$fermentables[$i]['id'] = mysqli_real_escape_string($connection, test_input($_POST['fermentable' . $i . '_id']));
 		$fermentables[$i]['name'] = mysqli_real_escape_string($connection, test_input($_POST['fermentable' . $i . '_name']));
@@ -83,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 
 	// retrieve the receipe hops
-	for ($i=0; $i <=14; $i++)
+	for ($i=0; $i<=14; $i++)
 	{
 		$hops[$i]['id'] = mysqli_real_escape_string($connection, test_input($_POST['hop' . $i . '_id']));
 		$hops[$i]['name'] = mysqli_real_escape_string($connection, test_input($_POST['hop' . $i . '_name']));
@@ -97,14 +98,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 
 	// retrieve the recipe yeasts
-	$yeasts[0]['id'] = mysqli_real_escape_string($connection, test_input($_POST['yeast0_id']));
-	$yeasts[0]['fullname'] = mysqli_real_escape_string($connection, test_input($_POST['yeast0_fullname']));
-	$yeasts[0]['product_id'] = mysqli_real_escape_string($connection, test_input($_POST['yeast0_product_id']));
-	$yeasts[0]['record_id'] = mysqli_real_escape_string($connection, test_input($_POST['yeast0_record_id']));
-	$yeasts[0]['flag'] = mysqli_real_escape_string($connection, test_input($_POST['yeast0_flag']));
+	for ($i=0; $i<=0; $i++)
+	{
+		$yeasts[$i]['id'] = mysqli_real_escape_string($connection, test_input($_POST['yeast' . $i . '_id']));
+		$yeasts[$i]['fullname'] = mysqli_real_escape_string($connection, test_input($_POST['yeast' . $i . '_fullname']));
+		$yeasts[$i]['product_id'] = mysqli_real_escape_string($connection, test_input($_POST['yeast' . $i . '_product_id']));
+		$yeasts[$i]['record_id'] = mysqli_real_escape_string($connection, test_input($_POST['yeast' . $i . '_record_id']));
+		$yeasts[$i]['flag'] = mysqli_real_escape_string($connection, test_input($_POST['yeast' . $i . '_flag']));
+	}
 
 	// retrieve the recipe misc ingredients
-	for ($i=0; $i <=4; $i++)
+	for ($i=0; $i <=14; $i++)
 	{
 		$miscs[$i]['id'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_id']));
 		$miscs[$i]['name'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_name']));
@@ -122,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
 	// for each fermentable, do the update process
-	for ($i=0; $i <=14; $i++)
+	for ($i=0; $i<=14; $i++)
 	{
 		// if the update flag is set, a DELETE, UPDATE, or INSERT is required, else do nothing.
 		if ($fermentables[$i]['flag'])
@@ -147,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 
 	// for each hop, do the update process
-	for ($i=0; $i <=14; $i++)
+	for ($i=0; $i<=14; $i++)
 	{
 		// if the update flag is set, a DELETE, UPDATE, or INSERT is required, else do nothing.
 		if ($hops[$i]['flag'])
@@ -165,15 +169,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			// else if !record_id and name, INSERT
 			elseif ((!$hops[$i]['record_id']) && $hops[$i]['name'])
 			{
-				$query = "INSERT INTO recipes_hops (recipe_hop_recipe_id, recipe_hop_hop_id, recipe_hop_amount, recipe_hop_use, recipe_hop_time, recipe_hop_form) VALUES ('" . $details['id'] . "','" . $hops[$i]['id'] . "'," . $hops[$i]['amount'] . ",'" . $hops[$i]['use'] . "'," . $hops[$i]['time'] . ",'" . $hops[$i]['form'] . "')";
+				$query = "INSERT INTO recipes_hops (recipe_hop_recipe_id, recipe_hop_hop_id, recipe_hop_amount, recipe_hop_alpha, recipe_hop_use, recipe_hop_time, recipe_hop_form) VALUES ('" . $details['id'] . "','" . $hops[$i]['id'] . "'," . $hops[$i]['amount'] . "," . $hops[$i]['alpha'] . ",'" . $hops[$i]['use'] . "'," . $hops[$i]['time'] . ",'" . $hops[$i]['form'] . "')";
 			}
 			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		}
 	}
 
-
+	
 	// for each yeast, do the update process
-	for ($i=0; $i <=0; $i++)
+	for ($i=0; $i<=0; $i++)
 	{
 		// if the update flag is set, a DELETE, UPDATE, or INSERT is required, else do nothing.
 		if ($yeasts[$i]['flag'])
@@ -198,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 
 	// for each misc, do the update process
-	for ($i=0; $i <=4; $i++)
+	for ($i=0; $i<=14; $i++)
 	{
 		// if the update flag is set, a DELETE, UPDATE, or INSERT is required, else do nothing.
 		if ($miscs[$i]['flag'])
@@ -223,9 +227,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 
 	// After saving to the database, redirect back to the new recipe page
-    header("Location: recipes_list.php");
-
-	// some required fields are empty so display the error message
+	echo '<script type="text/javascript">
+	window.location = "recipes_list.php"
+	</script>';
+	
+// some required fields are empty so display the error message
 	if (false)
 	{
 		end:
@@ -282,6 +288,17 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
 	}
 
 	// get the recipe fermentable details
+	// add up the total amount of fermentables to be able to calculate percentages
+    $query = "SELECT recipe_fermentable_amount FROM recipes_fermentables WHERE recipe_fermentable_recipe_id='" . $recipe_id . "'";
+	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+	for ($i=0; $i<=14; $i++)
+	{
+		if($row = mysqli_fetch_array( $result ))
+		{
+			$total_amount += $row['recipe_fermentable_amount'];
+		}
+	}
+	
 	// if less than 15 fermentables, set the remaining values to NULL
     $query = "SELECT * FROM recipes_fermentables WHERE recipe_fermentable_recipe_id='" . $recipe_id . "' ORDER BY recipe_fermentable_amount DESC";
 	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
@@ -292,6 +309,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
 			$fermentables[$i]['record_id'] = $row['recipe_fermentable_id'];
 			$fermentables[$i]['id'] = $row['recipe_fermentable_fermentable_id'];
 			$fermentables[$i]['amount'] = $row['recipe_fermentable_amount'];
+			$fermentables[$i]['percent'] = round(($row['recipe_fermentable_amount'] / $total_amount * 100), 2);
 			$fermentables[$i]['use'] = $row['recipe_fermentable_use'];
 
 			$query = "SELECT * FROM fermentables WHERE fermentable_id='" . $fermentables[$i]['id'] . "'";
@@ -301,17 +319,20 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
 				$fermentables[$i]['name'] = $row2['fermentable_name'];
 				$fermentables[$i]['yield'] = $row2['fermentable_yield'];
 				$fermentables[$i]['color'] = $row2['fermentable_color'];
+				$fermentables[$i]['type'] = $row2['fermentable_type'];
 			}
 		}
 		else
 		{
 			$fermentables[$i]['record_id'] = NULL;
 			$fermentables[$i]['id'] = NULL;
-			$fermentables[$i]['amount'] = NULL;
-			$fermentables[$i]['use'] = NULL;
 			$fermentables[$i]['name'] = NULL;
+			$fermentables[$i]['amount'] = NULL;
+			$fermentables[$i]['percent'] = NULL;
 			$fermentables[$i]['yield'] = NULL;
 			$fermentables[$i]['color'] = NULL;
+			$fermentables[$i]['type'] = NULL;
+			$fermentables[$i]['use'] = NULL;
 		}
 		// for each of the 15 possible fermentables, set an update flag to 0
 		$fermentables[$i]['flag'] = 0;
@@ -391,10 +412,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
 	}
 
 	// get the recipe misc details
-	// if less than 5 miscs, set the remaining values to NULL
+	// if less than 15 miscs, set the remaining values to NULL
     $query = "SELECT * FROM recipes_miscs WHERE recipe_misc_recipe_id='" . $recipe_id . "'";
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
-	for ($i=0; $i<=4; $i++)
+	for ($i=0; $i<=14; $i++)
 	{
 		if($row = mysqli_fetch_array( $result ))
 		{
@@ -420,7 +441,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
 			$miscs[$i]['name'] = NULL;
 			$miscs[$i]['type'] = NULL;
 		}
-		// for each of the 4 possible miscs, set an update flag to 0
+		// for each of the 15 possible miscs, set an update flag to 0
 		$miscs[$i]['flag'] = 0;
 	}
 }
@@ -456,6 +477,7 @@ else
 <script src="js_files/calc_og.js"></script>
 <script src="js_files/calc_color.js"></script>
 <script src="js_files/calc_ibu.js"></script>
+<script src="js_files/calc_percent.js"></script>
 <script src="js_files/calc_og_color_ibu.js"></script>
 <script src="js_files/calc_batch_size.js"></script>
 <script src="js_files/calc_boil_size.js"></script>
@@ -474,10 +496,13 @@ else
 <input type="hidden" name="id" value="<?php echo $details['id']; ?>" />
 
 <div class="row">
-<fieldset class="fieldset col-xs-11 col-sm-6 col-md-7">
-<legend class="fieldset">Recipe Details</legend>
 
-	<div class="form-group margin-bottom">
+<fieldset class="col-xs-12 col-sm-6 col-md-8">
+
+<div class="well">
+<legend>Recipe Details</legend>
+
+	<div class="row margin-bottom-1em">
 		
 		<div class="col-xs-4 col-md-4">
 			<label for="name" class="label-sm">Recipe Name</label>
@@ -511,11 +536,11 @@ else
 		
 	</div>
 
-	<div class="form-group margin-bottom">
+	<div class="row margin-bottom-1em">
 		
 		<div class="col-xs-5 col-sm-4 col-md-3">
 			<label for="date" class="label-sm">Date (yyyy-mm-dd)</label>
-			<input type="date" class="form-control input-sm" id="name" name="date" value="<?php echo $details['date']; ?>"/>
+			<input type="date" class="form-control input-sm" id="date" name="date" value="<?php echo $details['date']; ?>"/>
 		</div>
 		
 		<div class="col-xs-4 col-sm-4 col-md-3">
@@ -542,7 +567,7 @@ else
 		
 	</div>
 	
-	<div class="form-group margin-bottom">
+	<div class="row">
 		
 		<div class="col-xs-12 col-md-12">
 			<label for="notes" class="label-sm">Recipe Notes</label>
@@ -550,13 +575,16 @@ else
 		</div>
 		
 	</div>
+</div>
 	
 </fieldset>
 
-<fieldset class="fieldset col-xs-11 col-sm-5 col-md-4">
-<legend class="fieldset">Style Characteristics</legend>
+<fieldset class="col-xs-12 col-sm-5 col-md-4">
+
+<div class="well">
+<legend>Style Characteristics</legend>
  
-	<div class="form-group margin-bottom">
+	<div class="row">
     
 		<div class="col-xs-3 col-md-3">
 			<label for="name" class="label-sm">&nbsp;</label>
@@ -576,7 +604,7 @@ else
 		
 	</div>
  
-	<div class="form-group margin-bottom">
+	<div class="row">
 	
 		<div class="col-xs-3 col-md-3 col-lg-3">
 			<label for="name" class="label-sm">OG</label>
@@ -587,7 +615,7 @@ else
 		</div>
 		
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="est_og" name="est_og" readonly="yes" value="<?php echo $style['est_og']; ?>" />
+			<input type="text" class="form-control input-sm" id="est_og" name="est_og" readonly="yes" value="<?php echo $details['est_og']; ?>" />
 		</div>
 		
 		<div class="col-xs-3 col-md-3">
@@ -596,7 +624,7 @@ else
 		
 	</div>
  
-	<div class="form-group margin-bottom">
+	<div class="row">
     
 		<div class="col-xs-3 col-md-3 col-lg-3">
 			<label for="name" class="label-sm">FG</label>
@@ -607,7 +635,7 @@ else
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="est_fg" name="est_fg" readonly="yes" value="<?php echo $style['est_fg']; ?>" />
+			<input type="text" class="form-control input-sm" id="est_fg" name="est_fg" readonly="yes" value="<?php echo $details['est_fg']; ?>" />
 		</div>
         
 		<div class="col-xs-3 col-md-3">
@@ -616,7 +644,7 @@ else
         
 	</div>
  
-	<div class="form-group margin-bottom">
+	<div class="row">
 	
 		<div class="col-xs-3 col-md-3 col-lg-3">
 			<label for="name" class="label-sm">ABV %</label>
@@ -627,7 +655,7 @@ else
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="est_abv" name="est_abv" readonly="yes" value="<?php echo $style['est_abv']; ?>" />
+			<input type="text" class="form-control input-sm" id="est_abv" name="est_abv" readonly="yes" value="<?php echo $details['est_abv']; ?>" />
 		</div>
         
 		<div class="col-xs-3 col-md-3">
@@ -636,7 +664,7 @@ else
         
 	</div>
  
-	<div class="form-group margin-bottom">
+	<div class="row">
     
 		<div class="col-xs-3 col-md-3 col-lg-3">
 			<label for="name" class="label-sm">IBU</label>
@@ -647,7 +675,7 @@ else
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="est_ibu" name="est_ibu" readonly="yes" value="<?php echo $style['est_ibu']; ?>" />
+			<input type="text" class="form-control input-sm" id="est_ibu" name="est_ibu" readonly="yes" value="<?php echo $details['est_ibu']; ?>" />
 		</div>
         
 		<div class="col-xs-3 col-md-3">
@@ -656,7 +684,7 @@ else
         
 	</div>
  
-	<div class="form-group margin-bottom">
+	<div class="row">
     
 		<div class="col-xs-3 col-md-3 col-lg-3">
 			<label for="name" class="label-sm">Color (L)</label>
@@ -667,7 +695,7 @@ else
 		</div>
         
 		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="est_color" name="est_color" readonly="yes" value="<?php echo $style['est_color']; ?>" />
+			<input type="text" class="form-control input-sm" id="est_color" name="est_color" readonly="yes" value="<?php echo $details['est_color']; ?>" />
 		</div>
         
 		<div class="col-xs-3 col-md-3">
@@ -675,30 +703,48 @@ else
 		</div>
         
 	</div>
+	
+</div>
 
 </fieldset>
 </div>
 
-<div class="row">
-<fieldset class="fieldset col-xs-11 col-sm-11 col-md-11 five-ingredients">
-<legend class="fieldset">Fermentables</legend>
+<ul class="nav nav-tabs">
+	<li class="active"><a data-toggle="tab" href="#fermentables">Fermentables</a></li>
+	<li><a data-toggle="tab" href="#hops">Hops</a></li>
+	<li><a data-toggle="tab" href="#yeast">Yeast</a></li>
+	<li><a data-toggle="tab" href="#misc">Miscellaneous</a></li>
+</ul>
 
-	<div class="form-group margin-bottom">
+<div class="tab-content">
+
+<div class="row tab-pane fade in active" id="fermentables">
+<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
+
+	<div class="row">
 	
-		<div class="col-xs-5 col-sm-4 col-md-4">
+		<div class="col-xs-6 col-sm-2 col-md-3">
 			<label class="label-sm">Fermentable</label>
 		</div>
 		
-		<div class="col-xs-3 col-sm-2 col-md-2">
-			<label class="label-sm">Amount (kg)</label>
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Amount&nbsp;(kg)</label>
 		</div>
 		
-		<div class="hidden-xs col-sm-2 col-md-2">
+		<div class="hidden-xs col-sm-2 col-md-1">
+			<label class="label-sm">Percentage</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-1">
 			<label class="label-sm">Yield (%)</label>
 		</div>
 		
-		<div class="hidden-xs col-sm-2 col-md-2">
+		<div class="hidden-xs col-sm-2 col-md-1">
 			<label class="label-sm">Color (L)</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Type</label>
 		</div>
 		
 		<div class="col-xs-3 col-sm-2 col-md-2">
@@ -711,9 +757,11 @@ else
 	$ingredient = "'fermentable'";
 	for ($i=0; $i<=14; $i++)
 	{
-		echo '<div class="form-group margin-bottom">';
+	?>
+		<div class="row margin-bottom-half_em">
 		
-		echo '<div class="col-xs-5 col-sm-4 col-md-4">';
+		<div class="col-xs-6 col-sm-2 col-md-3">
+		<?php
 		echo '<select class="form-control input-sm" name="fermentable' . $i . '_name" onchange="getfermentableinfo(this.value,' .$i. '); set_flag(' . $ingredient . ', ' . $i . ');">';
 		echo '<option>'; echo $fermentables[$i]['name']; echo '</option>';
 		$query = "SELECT fermentable_name FROM fermentables ORDER BY fermentable_name";
@@ -722,50 +770,75 @@ else
 		{
 			echo '<option>' . $row['fermentable_name'] . '</option>';
 		}
-		echo '</select>';
-		echo '</div>';
+		?>
+		</select>
+		</div>
 			
-		echo '<div class="col-xs-3 col-sm-2 col-md-2">';
-		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="fermentable' . $i . '_amount" onchange="fermentables_messages(' .$i. '); calc_og_color_ibu(); set_flag(' . $ingredient . ', ' . $i . ');" value="'; echo $fermentables[$i]['amount']; echo '"/>';
-		echo '</div>';
+		<div class="col-xs-3 col-sm-2 col-md-1">
+		<?php
+		echo '<input type="number" class="form-control input-sm" min="0" step="0.001" name="fermentable' . $i . '_amount" onchange="fermentables_messages(' .$i. '); calc_og_color_ibu(); set_flag(' . $ingredient . ', ' . $i . ');" value="'; echo $fermentables[$i]['amount']; echo '"/>';
+		?>
+		</div>
 			
-		echo '<div class="hidden-xs col-sm-2 col-md-2">';
-		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_yield" readonly="yes" onchange="fermentables_messages(' .$i. '); calc_og_color_ibu(); set_flag(' . $ingredient . ', ' . $i . ');" value="'; echo $fermentables[$i]['yield']; echo '"/>';
-		echo '</div>';
+		<div class="hidden-xs col-sm-2 col-md-1">
+		<?php
+		echo '<input type="number" class="form-control input-sm" name="fermentable' . $i . '_percent" readonly="yes" value="'; echo $fermentables[$i]['percent']; echo '"/>';
+		?>
+		</div>
 			
-		echo '<div class="hidden-xs col-sm-2 col-md-2">';
-		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_color" readonly="yes" onchange="fermentables_messages(' .$i. '); calc_color(); set_flag(' . $ingredient . ', ' . $i . ');" value="'; echo $fermentables[$i]['color']; echo '"/>';
-		echo '</div>';
+		<div class="hidden-xs col-sm-2 col-md-1">
+		<?php
+		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_yield" readonly="yes" value="'; echo $fermentables[$i]['yield']; echo '"/>';
+		?>
+		</div>
 			
-		echo '<div class="col-xs-4 col-sm-2 col-md-2">';
+		<div class="hidden-xs col-sm-2 col-md-1">
+		<?php
+		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_color" readonly="yes" value="'; echo $fermentables[$i]['color']; echo '"/>';
+		?>
+		</div>
+			
+		<div class="col-xs-3 col-sm-2 col-md-1">
+		<?php
+		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_type" readonly="yes" value="'; echo $fermentables[$i]['type']; echo '"/>';
+		?>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-2">
+		<?php
 		echo '<select class="form-control input-sm" name="fermentable' . $i . '_use" onchange="set_flag(' . $ingredient . ', ' . $i . ')">';
 		echo '<option>'; echo $fermentables[$i]['use']; echo '</option>';
-		echo '<option>Mashed</option>';
-		echo '<option>Steeped</option>';
-		echo '<option>Extract</option>';
-		echo '<option>Sugar</option>';
-		echo '<option>Other</option>';
-		echo '</select>';
-		echo '</div>';
+		?>
+		<option>Mashed</option>
+		<option>Steeped</option>
+		<option>Extract</option>
+		<option>Sugar</option>
+		<option>Other</option>
+		</select>
+		</div>
 		
+		<?php
 		// the recipes_fermentables record id
 		echo '<input type="hidden" name="fermentable' . $i . '_record_id" value="'; echo $fermentables[$i]['record_id']; echo '"/>';
 		// the fermentable id
 		echo '<input type="hidden" name="fermentable' . $i . '_id" value="'; echo $fermentables[$i]['id']; echo '"/>';
 		// the update flag
 		echo '<input type="hidden" name="fermentable' . $i . '_flag" value="'; echo $fermentables[$i]['flag']; echo '"/>';
+		?>
 		
-		echo '</div>';
+		</div>
+		
+	<?php
 	}
 	?>
+	
 </fieldset>
 </div>
 
-<div class="row">
-<fieldset class="fieldset col-xs-11 col-md-11 five-ingredients">
-<legend class="fieldset">Hops</legend>
+<div class="row tab-pane fade" id="hops">
+<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
 
-	<div class="form-group margin-bottom">
+	<div class="row">
 	
 		<div class="col-xs-6 col-sm-2 col-md-2">
 			<label class="label-sm">Hop</label>
@@ -797,7 +870,7 @@ else
 	$ingredient = "'hop'";
 	for ($i=0; $i<=14; $i++)
 	{
-		echo '<div class="form-group margin-bottom">';
+		echo '<div class="row margin-bottom-half_em">';
 		echo '<div class="col-xs-6 col-sm-2 col-md-2">';
 		echo '<select class="form-control input-sm" name="hop' . $i . '_name" onchange="gethopinfo(this.value,' .$i. '); set_flag(' . $ingredient . ', ' . $i . ');">';
 		echo '<option>'; echo $hops[$i]['name']; echo '</option>';
@@ -855,71 +928,86 @@ else
 </fieldset>
 </div>
 
-<div class="row">
-<fieldset class="fieldset col-xs-11 col-sm-11 col-md-5">
-<legend class="fieldset">Yeast</legend>
+<div class="row tab-pane fade" id="yeast">
+<fieldset class="fieldset col-xs-12 col-md-12">
 
-	<div class="form-group margin-bottom">
+	<div class="row">
 	
-		<div class="col-xs-12 col-sm-12 col-md-12">
+		<div class="col-xs-6 col-sm-3 col-md-3">
 			<label class="label-sm">Yeast</label>
-			<select class="form-control input-sm" name="yeast0_fullname" onchange="getyeastinfo(this.value); set_flag(' . $ingredient . ', ' . $i . ');">
-				<option><?php echo $yeasts[$i]['fullname']; ?></option>'
-				<?php
-				$query = "SELECT yeast_fullname FROM yeasts ORDER BY yeast_fullname";
-				$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
-				while ($row = mysqli_fetch_array ( $result ))
-				{
-					echo '<option>' . $row['yeast_fullname'] . '</option>';
-				}
-				?>
-			</select>
 		</div>
 		
-	</div>
-	
-	<div class="form-group margin-bottom">
-		
-		<div class="col-xs-3 col-sm-3 col-md-3">
+		<div class="col-xs-3 col-sm-3 col-md-2">
 			<label class="label-sm">Type</label>
-			<input type="text" class="form-control input-sm" id="yeast0_type" name="yeast0_type" readonly="yes" value="<?php echo $yeasts[0]['type']; ?>"/>
 		</div>
 		
-		<div class="col-xs-3 col-sm-3 col-md-3">
+		<div class="col-xs-3 col-sm-3 col-md-2">
 			<label class="label-sm">Form</label>
-			<input type="text" class="form-control input-sm" id="yeast0_form" name="yeast0_form" readonly="yes" value="<?php echo $yeasts[0]['form']; ?>"/>
 		</div>
 		
-		<div class="col-xs-3 col-sm-3 col-md-3">
-			<label class="label-sm">Atten. (%)</label>
-			<input type="text" class="form-control input-sm" id="yeast0_attenuation" name="yeast0_attenuation" readonly="yes" value="<?php echo $yeasts[0]['attenuation']; ?>"/>
+		<div class="col-xs-3 col-sm-3 col-md-2">
+			<label class="label-sm">Attenuation (%)</label>
 		</div>
 		
-		<div class="col-xs-3 col-sm-3 col-md-3">
-			<label class="label-sm">Floc.</label>
-			<input type="text" class="form-control input-sm" id="yeast0_flocculation" name="yeast0_flocculation" readonly="yes" value="<?php echo $yeasts[0]['flocculation']; ?>"/>
+		<div class="col-xs-3 col-sm-3 col-md-2">
+			<label class="label-sm">Flocculation</label>
 		</div>
 		
 	</div>
 	
+	<?php
+	$ingredient = "'yeast'";
+	for ($i=0; $i<=0; $i++)
+	{
+		echo '<div class="row margin-bottom-half_em">';
+		echo '<div class="col-xs-6 col-sm-3 col-md-3">';
+		echo '<select class="form-control input-sm" name="yeast' . $i . '_fullname" onchange="getyeastinfo(this.value,' .$i. '); set_flag(' . $ingredient . ', ' . $i . ');">';
+		echo '<option>'; echo $yeasts[$i]['fullname']; echo '</option>';
+		$query = "SELECT yeast_fullname FROM yeasts ORDER BY yeast_fullname";
+		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+		while ($row = mysqli_fetch_array ( $result ))
+		{
+			echo '<option>' . $row['yeast_fullname'] . '</option>';
+		}
+		echo '</select>';
+		echo '</div>';
 		
-	<!-- the recipes_yeasts record id -->
-	<input type="hidden" name="yeast0_record_id" value="<?php echo $yeasts[0]['record_id']; ?>"/> 
-	<!-- the yeast id -->
-	<input type="hidden" name="yeast0_id" value="<?php echo $yeasts[0]['id']; ?>"/> 
-	<!-- the update flag -->
-	<input type="hidden" name="yeast0_flag" value="<?php echo $yeasts[0]['flag']; ?>"/> 
+		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
+		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_type" readonly="yes" value="'; echo $yeasts[$i]['type']; echo '"/>';
+		echo '</div>';
 		
-	
+		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
+		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_form" readonly="yes" value="'; echo $yeasts[$i]['form']; echo '"/>';
+		echo '</div>';
+		
+		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
+		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_attenuation" readonly="yes" value="'; echo $yeasts[$i]['attenuation']; echo '"/>';
+		echo '</div>';
+		
+		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
+		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_flocculation" readonly="yes" value="'; echo $yeasts[$i]['flocculation']; echo '"/>';
+		echo '</div>';
+		
+		// the recipes_yeasts record id
+		echo '<input type="hidden" name="yeast' . $i . '_record_id" value="'; echo $yeasts[$i]['record_id']; echo '"/>';
+		// the yeast id
+		echo '<input type="hidden" name="yeast' . $i . '_id" value="'; echo $yeasts[$i]['id']; echo '"/>';
+		// the update flag
+		echo '<input type="hidden" name="yeast' . $i . '_flag" value="'; echo $yeasts[$i]['flag']; echo '"/>';
+		
+		echo '</div>';
+	}
+	?>
 </fieldset>
+</div>
 
-<fieldset class="fieldset col-xs-11 col-sm-11 col-md-6">
-<legend class="fieldset">Misc. Ingredients</legend>
+<div class="row tab-pane fade" id="misc">
+<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
 
-	<div class="form-group margin-bottom">
+	<div class="row">
 	
-		<div class="col-xs-6 col-sm-6 col-md-5">
-			<label class="label-sm">Name</label>
+		<div class="col-xs-6 col-sm-2 col-md-3">
+			<label class="label-sm">Ingredient</label>
 		</div>
 		
 		<div class="col-xs-3 col-sm-2 col-md-2">
@@ -930,7 +1018,7 @@ else
 			<label class="label-sm">Unit</label>
 		</div>
 		
-		<div class="hidden-xs col-sm-2 col-md-3">
+		<div class="hidden-xs col-sm-2 col-md-2">
 			<label class="label-sm">Type</label>
 		</div>
 		
@@ -938,11 +1026,11 @@ else
 	
 	<?php
 	$ingredient = "'misc'";
-	for ($i=0; $i<=4; $i++)
+	for ($i=0; $i<=14; $i++)
 	{
-		echo '<div class="form-group margin-bottom">';
+		echo '<div class="row margin-bottom-half_em">';
 		
-		echo '<div class="col-xs-6 col-sm-6 col-md-5">';
+		echo '<div class="col-xs-6 col-sm-2 col-md-3">';
 		echo '<select class="form-control input-sm" name="misc' . $i . '_name" onchange="getmiscinfo(this.value,' .$i. '); set_flag(' . $ingredient . ', ' . $i . ');">';
 		echo '<option>'; echo $miscs[$i]['name']; echo '</option>';
         $query = "SELECT misc_name FROM miscs ORDER BY misc_name";
@@ -962,7 +1050,7 @@ else
 		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_unit" onchange="miscs_messages(' .$i. '); set_flag(' . $ingredient . ', ' . $i . ')" value="'; echo $miscs[$i]['unit']; echo '"/> ';
 		echo '</div>';
 
-		echo '<div class="hidden-xs col-sm-2 col-md-3">';
+		echo '<div class="hidden-xs col-sm-2 col-md-2">';
 		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_type" readonly="yes" value="'; echo $miscs[$i]['type']; echo '"/> ';
 		echo '</div>';
 		
@@ -980,11 +1068,13 @@ else
 </fieldset>
 </div>
 
+</div>
+
 <button type="submit" class="btn btn-default">Save</button>
 
-
-
 </form>
+
+</div>
 
 
 <?php

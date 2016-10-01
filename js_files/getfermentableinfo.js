@@ -29,6 +29,7 @@ xmlhttp.onreadystatechange=function()
 		}
 		document.recipeform["fermentable"+num+"_yield"].value = y;
 		document.recipeform["fermentable"+num+"_color"].value = c;
+		document.recipeform["fermentable"+num+"_type"].value = t;
 		
 		// if type is "Grain", set use to "Mashed", otherwise "Extract", "Sugar", or "Other"
 		if (t=="Grain")

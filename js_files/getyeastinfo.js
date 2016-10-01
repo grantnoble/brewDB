@@ -1,4 +1,4 @@
-function getyeastinfo(string)
+function getyeastinfo(string,num)
 {
 if (window.XMLHttpRequest)
 {
@@ -15,11 +15,11 @@ xmlhttp.onreadystatechange=function()
 {
 	if (xmlhttp.readyState==4 && xmlhttp.status==200)
 	{
-		document.recipeform.yeast0_id.value=xmlhttp.responseXML.getElementsByTagName("yeast_id")[0].childNodes[0].nodeValue;
-		document.recipeform.yeast0_type.value=xmlhttp.responseXML.getElementsByTagName("yeast_type")[0].childNodes[0].nodeValue;
-		document.recipeform.yeast0_form.value=xmlhttp.responseXML.getElementsByTagName("yeast_form")[0].childNodes[0].nodeValue;
-		document.recipeform.yeast0_attenuation.value=xmlhttp.responseXML.getElementsByTagName("yeast_attenuation")[0].childNodes[0].nodeValue;
-		document.recipeform.yeast0_flocculation.value=xmlhttp.responseXML.getElementsByTagName("yeast_flocculation")[0].childNodes[0].nodeValue;
+		document.recipeform["yeast"+num+"_id"].value=xmlhttp.responseXML.getElementsByTagName("yeast_id")[0].childNodes[0].nodeValue;
+		document.recipeform["yeast"+num+"_type"].value=xmlhttp.responseXML.getElementsByTagName("yeast_type")[0].childNodes[0].nodeValue;
+		document.recipeform["yeast"+num+"_form"].value=xmlhttp.responseXML.getElementsByTagName("yeast_form")[0].childNodes[0].nodeValue;
+		document.recipeform["yeast"+num+"_attenuation"].value=0;
+		document.recipeform["yeast"+num+"_flocculation"].value=xmlhttp.responseXML.getElementsByTagName("yeast_flocculation")[0].childNodes[0].nodeValue;
 		
 		// update the recipe og and fg in the style characteristics table
 		calc_og();
