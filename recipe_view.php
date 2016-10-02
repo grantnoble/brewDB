@@ -1,241 +1,625 @@
 <?php
 
 /*
-recipes_view.php
+recipe_view.php
 View a recipe in the database
 */
 
-$page_title = 'View Recipes';
+$page_title = 'View Recipe';
+$error = "";
+$total_amount = 0;
 include ('includes/header.html');
 header('Content-Type: text/html; charset="utf-8"', true);
 
-// connect to the database
-include('includes/database_connect.php');
-
+// check that the 'id' variable is set in URL and it is valid
+if (isset($_GET['id']) && is_numeric($_GET['id']))
+{
 // get the recipe details
 include('includes/get_recipe_details.php');
+}
+// else if the id isn't set, or isn't valid, redirect back to list recipes page
+else
+{
+	echo '<script type="text/javascript">
+	window.location = "recipes_list.php"
+	</script>';
+}
+
+// end of PHP section, now create the HTML form
 ?>
 
+<div class="container">
+	
 <h2>View Recipe</h2>
 
-<form role="form" name="recipeform" >
+<form role="form" class="form-horizontal" name="recipeform" action="recipe_view.php" method="post">
+
+<input type="hidden" name="id" value="<?php echo $details['id']; ?>" />
 
 <div class="row">
-<div class="seven_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Details</legend>
+
+<fieldset class="col-xs-12 col-sm-6 col-md-8">
+
+<div class="well">
+<legend>Recipe Details</legend>
+
+	<div class="row margin-bottom-1em">
+		
+		<div class="col-xs-4 col-md-4">
+			<label for="name" class="label-sm">Recipe Name</label>
+			<input type="text" class="form-control input-sm" id="name" name="name" readonly="yes" value="<?php echo $details['name']; ?>" />
+		</div>
+		
+		<div class="col-xs-4 col-md-5">
+			<label for="style" class="label-sm">Style</label>
+			<input type="text" class="form-control input-sm" id="style" name="style" readonly="yes" value="<?php echo $style['name']; ?>" />
+		</div>
+		
+		<div class="col-xs-4 col-md-3">
+			<label for="type" class="label-sm">Type</label>
+			<input type="text" class="form-control input-sm" id="type" name="type" readonly="yes" value="<?php echo $details['type']; ?>" />
+		</div>
+		
+	</div>
+
+	<div class="row margin-bottom-1em">
+	
+		<div class="col-xs-4 col-sm-4 col-md-3">
+			<label for="boil_size" class="label-sm">Boil Size (L)</label>
+			<input type="text" class="form-control input-sm" id="boil_size" name="boil_size" readonly="yes" value="<?php echo $details['boil_size']; ?>"/>
+		</div>
+		
+		<div class="col-xs-4 col-sm-4 col-md-3">
+			<label for="boil_time" class="label-sm">Boil Time (min)</label>
+			<input type="text" class="form-control input-sm" id="boil_time" name="boil_time" readonly="yes" value="<?php echo $details['boil_time']; ?>"/>
+		</div>
+		
+		<div class="col-xs-4 col-sm-4 col-md-3">
+			<label for="batch_size" class="label-sm">Batch Size (L)</label>
+			<input type="text" class="form-control input-sm" id="batch_size" name="batch_size" readonly="yes" value="<?php echo $details['batch_size']; ?>"/>
+		</div>
+		
+		<div class="col-xs-4 col-sm-4 col-md-3">
+			<label for="mash_efficiency" class="label-sm">Mash Efficiency (%)</label>
+			<input type="text" class="form-control input-sm" id="mash_efficiency" name="mash_efficiency" readonly="yes" value="<?php echo $details['mash_efficiency']; ?>"/>
+		</div>
+		
+	</div>
+	
+	<div class="row margin-bottom-1em">
+		
+		<div class="col-xs-5 col-sm-4 col-md-3">
+			<label for="date" class="label-sm">Date (yyyy-mm-dd)</label>
+			<input type="date" class="form-control input-sm" id="date" name="date" readonly="yes" value="<?php echo $details['date']; ?>"/>
+		</div>
+		
+		<div class="hidden-xs col-sm-4 col-md-6">
+			<label for="designer" class="label-sm">Designer</label>
+			<input type="text" class="form-control input-sm" id="designer" name="designer" readonly="yes" value="<?php echo $details['designer']; ?>"/>
+		</div>
+		
+	</div>
+	
+	<div class="row">
+		
+		<div class="col-xs-12 col-md-12">
+			<label for="notes" class="label-sm">Recipe Notes</label>
+			<textarea class="form-control input-sm" rows=2 cols=100 id="notes" name="notes" readonly="yes" ><?php echo $details['notes']; ?></textarea>
+		</div>
+		
+	</div>
+</div>
+	
+</fieldset>
+
+<fieldset class="col-xs-12 col-sm-5 col-md-4">
+
+<div class="well">
+<legend>Style Characteristics</legend>
+ 
+	<div class="row">
     
-	<label>Name: </label>
-	<input type="text" name="name" readonly="yes" size=25 value="<?php echo $details['name']; ?>" /> 
+		<div class="col-xs-3 col-md-3">
+			<label for="name" class="label-sm">&nbsp;</label>
+		</div>
+		
+		<div class="col-xs-3 col-md-3">
+			<label for="name" class="label-sm">Low</label>
+		</div>
+		
+		<div class="col-xs-3 col-md-3">
+			<label for="name" class="label-sm">Est.</label>
+		</div>
+		
+		<div class="col-xs-3 col-md-3">
+			<label for="name" class="label-sm">High</label>
+		</div>
+		
+	</div>
+ 
+	<div class="row">
 	
-	<label>Style: </label>
-	<input type="text" name="style" readonly="yes" size=25 value="<?php echo $style['name']; ?>" />
+		<div class="col-xs-3 col-md-3 col-lg-3">
+			<label for="name" class="label-sm">OG</label>
+		</div>
+		
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_og_min" name="style_og_min" readonly="yes" value="<?php echo $style['og_min']; ?>" />
+		</div>
+		
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="est_og" name="est_og" readonly="yes" value="<?php echo $details['est_og']; ?>" />
+		</div>
+		
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_og_max" name="style_og_max" readonly="yes" value="<?php echo $style['og_max']; ?>" />
+		</div>
+		
+	</div>
+ 
+	<div class="row">
+    
+		<div class="col-xs-3 col-md-3 col-lg-3">
+			<label for="name" class="label-sm">FG</label>
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_fg_min" name="style_fg_min" readonly="yes" value="<?php echo $style['fg_min']; ?>" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="est_fg" name="est_fg" readonly="yes" value="<?php echo $details['est_fg']; ?>" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_fg_max" name="style_fg_max" readonly="yes" value="<?php echo $style['fg_max']; ?>" />
+		</div>
+        
+	</div>
+ 
+	<div class="row">
 	
-	<label>Type: </label>
-	<input type="text" name="type" readonly="yes" size=15 value="<?php echo $details['type']; ?>" />
+		<div class="col-xs-3 col-md-3 col-lg-3">
+			<label for="name" class="label-sm">ABV %</label>
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_abv_min" name="style_abv_min" readonly="yes" value="<?php echo $style['abv_min']; ?>" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="est_abv" name="est_abv" readonly="yes" value="<?php echo $details['est_abv']; ?>" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_abv_max" name="style_abv_max" readonly="yes" value="<?php echo $style['abv_max']; ?>" />
+		</div>
+        
+	</div>
+ 
+	<div class="row">
+    
+		<div class="col-xs-3 col-md-3 col-lg-3">
+			<label for="name" class="label-sm">IBU</label>
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_ibu_min" name="style_ibu_min" readonly="yes" value="<?php echo $style['ibu_min']; ?>" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="est_ibu" name="est_ibu" readonly="yes" value="<?php echo $details['est_ibu']; ?>" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_ibu_max" name="style_ibu_max" readonly="yes" value="<?php echo $style['ibu_max']; ?>" />
+		</div>
+        
+	</div>
+ 
+	<div class="row">
+    
+		<div class="col-xs-3 col-md-3 col-lg-3">
+			<label for="name" class="label-sm">Color (L)</label>
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_color_min" name="style_color_min" readonly="yes" value="<?php echo $style['color_min']; ?>" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="est_color" name="est_color" readonly="yes" value="<?php echo $details['est_color']; ?>" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_color_max" name="style_color_max" readonly="yes" value="<?php echo $style['color_max']; ?>" />
+		</div>
+        
+	</div>
 	
-	<p></p>
-	
-	<label>Date (yyyy-mm-dd): </label>
-	<input type="date" name="date" readonly="yes" size=8 value="<?php echo $details['date']; ?>"/>
-	
-	<label>Batch Size (L): </label>
-	<input type="text" name="batch_size" readonly="yes" size=6 value="<?php echo $details['batch_size']; ?>" />
-	
-	<label>Designer: </label>
-	<input type="text" name="designer" readonly="yes" size=20 value="<?php echo $details['designer']; ?>" />
-
-	<p></p>
-
-	<label>Recipe Notes:<br> </label>
-	<textarea rows=2 cols=100 name="notes" readonly="yes" ><?php echo $details['notes']; ?></textarea>
+</div>
 
 </fieldset>
-</div><!-- float_left -->
-</div><!-- seven_cols -->
+</div>
 
-<div class="five_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Style Characteristics</legend>
-    <table class="list_table">
-        <tr><td>&nbsp;</td><td>Low</td><td>Est.</td><td>High</td></tr>
-        <tr>
-            <td>OG</td>
-            <td><input type="text" name="style_og_min" size=6 readonly="yes" value="<?php echo $style['og_min']; ?>" /></td>
-            <td><input type="text" name="recipe_est_og" size=6 readonly="yes" value="<?php echo number_format($details['est_og'],3); ?>" /></td>
-            <td><input type="text" name="style_og_max" size=6 readonly="yes" value="<?php echo $style['og_max']; ?>" /></td>
-        </tr>
-        <tr>
-            <td>FG</td>
-            <td><input type="text" name="style_fg_min" size=6 readonly="yes" value="<?php echo $style['fg_min']; ?>" /></td>
-            <td><input type="text" name="recipe_est_fg" size=6 readonly="yes" value="<?php echo number_format($details['est_fg'],3); ?>" /></td>
-            <td><input type="text" name="style_fg_max" size=6 readonly="yes" value="<?php echo $style['fg_max']; ?>" /></td>
-        </tr>
-        <tr>
-            <td>ABV %&nbsp;</td>
-            <td><input type="text" name="style_abv_min" size=6 readonly="yes" value="<?php echo $style['abv_min']; ?>" /></td>
-            <td><input type="text" name="recipe_est_abv" size=6 readonly="yes" value="<?php echo $details['est_abv']; ?>" /></td>
-            <td><input type="text" name="style_abv_max" size=6 readonly="yes" value="<?php echo $style['abv_max']; ?>" /></td>
-        </tr>
-        <tr>
-            <td>IBU</td>
-            <td><input type="text" name="style_ibu_min" size=6 readonly="yes" value="<?php echo $style['ibu_min']; ?>" /></td>
-            <td><input type="text" name="recipe_est_ibu" size=6 readonly="yes" value="<?php echo $details['est_ibu']; ?>" /></td>
-            <td><input type="text" name="style_ibu_max" size=6 readonly="yes" value="<?php echo $style['ibu_max']; ?>" /></td>
-        </tr>
-        <tr>
-            <td>Color</td>
-            <td><input type="text" name="style_color_min" size=6 readonly="yes" value="<?php echo $style['color_min']; ?>" /></td>
-            <td><input type="text" name="recipe_est_color" size=6 readonly="yes" value="<?php echo $details['est_color']; ?>" /></td>
-            <td><input type="text" name="style_color_max" size=6 readonly="yes" value="<?php echo $style['color_max']; ?>" /></td>
-        </tr>
-    </table>
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
+<ul class="nav nav-tabs">
+	<li class="active"><a data-toggle="tab" href="#fermentables">Fermentables</a></li>
+	<li><a data-toggle="tab" href="#hops">Hops</a></li>
+	<li><a data-toggle="tab" href="#yeast">Yeast</a></li>
+	<li><a data-toggle="tab" href="#misc">Miscellaneous</a></li>
+</ul>
 
-<div class="row">
-<div class="five_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Fermentables</legend>
-    <?php
-    if ($f>4)
-    {
-		echo '<div class="five_ingredients_view">';
-	}
-	else
-	{
-		echo '<div>';
-	}
-	?>
-    <table>
-    <tr><td>Fermentable</td><td>Amount&nbsp;(kg)</td><td>Yield&nbsp;(%)</td><td>Colour&nbsp;(L)</td><td>Use</td></tr>
-    <?php
-	for ($i=0; $i<=$f; $i++)
-    {
-        echo '<tr>';
-        echo '<td><input type="text" name="fermentable' . $i . '_name" readonly="yes" size=20 value="' . $fermentables[$i]['name'] . '"/></td>';
-        echo '<td><input type="text" name="fermentable' . $i . '_amount" readonly="yes" size=8 value="'. $fermentables[$i]['amount'] . '"/> </td>';
-        echo '<td><input type="text" name="fermentable' . $i . '_yield" readonly="yes" size=8 value="'. $fermentables[$i]['yield'] . '"/> </td>';
-        echo '<td><input type="text" name="fermentable' . $i . '_color" readonly="yes" size=8 value="'. $fermentables[$i]['color'] . '"/> </td>';
-        echo '<td><input type="text" name="fermentable' . $i . '_use" readonly="yes" size=8 value="'. $fermentables[$i]['use'] . '"/> </td>';
-        echo '</tr>';
-    }
-	?>
-    </table>
-    </div>
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
+<div class="tab-content">
 
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Hops</legend>
+<div class="row tab-pane fade in active" id="fermentables">
+<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
+
+	<div class="row">
+	
+		<div class="col-xs-6 col-sm-2 col-md-3">
+			<label class="label-sm">Fermentable</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Amount&nbsp;(kg)</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-1">
+			<label class="label-sm">Percentage</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-1">
+			<label class="label-sm">Yield (%)</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-1">
+			<label class="label-sm">Color (L)</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Type</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-2">
+			<label class="label-sm">Use</label>
+		</div>
+		
+	</div>
+	
 	<?php
-    if ($h>4)
-    {
-		echo '<div class="five_ingredients_view">';
-	}
-	else
+	$ingredient = "'fermentable'";
+	for ($i=0; $i<=14; $i++)
 	{
-		echo '<div>';
-	}
+		if ($fermentables[$i]['name'])
+		{
 	?>
-    <table>
-    <tr><td>Hop</td><td>Amount&nbsp;(g)</td><td>Alpha&nbsp;(%)</td><td>Time&nbsp;(min)</td><td>Form</td><td>Use</td></tr>
-    <?php
-	for ($i=0; $i<=$h; $i++)
-    {
-        echo '<tr>';
-        echo '<td><input type="text" name="hop' . $i . '_name" readonly="yes" size=15 value="' . $hops[$i]['name'] . '"/></td>';
-        echo '<td><input type="text" name="hop' . $i . '_amount" readonly="yes" size=8 value="'. $hops[$i]['amount'] . '"/> </td>';
-        echo '<td><input type="text" name="hop' . $i . '_alpha" readonly="yes" size=8 value="'. $hops[$i]['alpha'] . '"/> </td>';
-        echo '<td><input type="text" name="hop' . $i . '_time" readonly="yes" size=8 value="'. $hops[$i]['time'] . '"/> </td>';
-        echo '<td><input type="text" name="hop' . $i . '_form" readonly="yes" size=8 value="'. $hops[$i]['form'] . '"/> </td>';
-        echo '<td><input type="text" name="hop' . $i . '_use" readonly="yes" size=8 value="'. $hops[$i]['use'] . '"/> </td>';
-        echo '</tr>';
-    }
-	?>
-    </table>
-    </div>
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
-
-<div class="row">
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Yeast</legend>
-    <table>
-    <tr><td>Name</td><td>Product&nbsp;ID</td><td>Type</td><td>Form</td><td>Atten.&nbsp;(%)</td><td>Floc.</td></tr>
-    <?php
-	for ($i=0; $i<=$y; $i++)
-    {
-        echo '<tr>';
-        echo '<td><input type="text" name="yeast' . $i . '_name" readonly="yes" size=30 value="' . $yeasts[$i]['name'] . '"/></td>';
-        echo '<td><input type="text" name="yeast' . $i . '_product_id" readonly="yes" size=6 value="'. $yeasts[$i]['product_id'] . '"/> </td>';
-        echo '<td><input type="text" name="yeast' . $i . '_type" readonly="yes" size=6 value="'. $yeasts[$i]['type'] . '"/> </td>';
-        echo '<td><input type="text" name="yeast' . $i . '_form" readonly="yes" size=6 value="'. $yeasts[$i]['form'] . '"/> </td>';
-        echo '<td><input type="text" name="yeast' . $i . '_attenuation" readonly="yes" size=6 value="'. $yeasts[$i]['attenuation'] . '"/> </td>';
-        echo '<td><input type="text" name="yeast' . $i . '_flocculation" readonly="yes" size=6 value="'. $yeasts[$i]['flocculation'] . '"/> </td>';
-        echo '</tr>';
-    }
-	?>
-    </table>
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-
-<div class="6-cols">
-<div class="float_left">
-<fieldset>
-    <legend>Misc. Ingredients</legend>
+		<div class="row margin-bottom-half_em">
+		
+			<div class="col-xs-6 col-sm-2 col-md-3">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_name" readonly="yes" value="' . $fermentables[$i]['name'] . '"/>';
+			?>
+			</div>
+			
+			<div class="col-xs-3 col-sm-2 col-md-1">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_amount" readonly="yes" value="' . $fermentables[$i]['amount'] . '"/>';
+			?>
+			</div>
+			
+			<div class="hidden-xs col-sm-2 col-md-1">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_percent" readonly="yes" value="' . $fermentables[$i]['percent'] . '"/>';
+			?>
+			</div>
+			
+			<div class="hidden-xs col-sm-2 col-md-1">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_yield" readonly="yes" value="' . $fermentables[$i]['yield'] . '"/>';
+			?>
+			</div>
+			
+			<div class="hidden-xs col-sm-2 col-md-1">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_color" readonly="yes" value="' . $fermentables[$i]['color'] . '"/>';
+			?>
+			</div>
+			
+			<div class="col-xs-3 col-sm-2 col-md-1">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_type" readonly="yes" value="'. $fermentables[$i]['type'] . '"/>';
+			?>
+			</div>
+		
+			<div class="col-xs-3 col-sm-2 col-md-2">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_use" readonly="yes" value="'. $fermentables[$i]['use'] . '"/>';
+			?>
+			</div>
+		
+			<?php
+			// the recipes_fermentables record id
+			echo '<input type="hidden" name="fermentable' . $i . '_record_id" value="'; echo $fermentables[$i]['record_id']; echo '"/>';
+			// the fermentable id
+			echo '<input type="hidden" name="fermentable' . $i . '_id" value="'; echo $fermentables[$i]['id']; echo '"/>';
+			?>
+		
+		</div>
+		
 	<?php
-    if ($m>2)
-    {
-		echo '<div class="three_ingredients_view">';
-	}
-	else
-	{
-		echo '<div>';
+		}
 	}
 	?>
-    <table>
-    <tr><td>Name</td><td>Amount</td><td>Unit</td><td>Type</td></tr>
-    <?php
-	for ($i=0; $i<=$m; $i++)
-    {
-        echo '<tr>';
-        echo '<td><input type="text" name="misc' . $i . '_name" readonly="yes" size=20 value="' . $miscs[$i]['name'] . '"/></td>';
-        echo '<td><input type="text" name="misc' . $i . '_amount" readonly="yes" size=8 value="'. $miscs[$i]['amount'] . '"/> </td>';
-        echo '<td><input type="text" name="misc' . $i . '_unit" readonly="yes" size=8 value="'. $miscs[$i]['unit'] . '"/> </td>';
-        echo '<td><input type="text" name="misc' . $i . '_type" readonly="yes" size=8 value="'. $miscs[$i]['type'] . '"/> </td>';
-        echo '</tr>';
-    }
-	?>
-    </table>
-    </div>
+	
 </fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
+</div>
+
+<div class="row tab-pane fade" id="hops">
+<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
+
+	<div class="row">
+	
+		<div class="col-xs-6 col-sm-2 col-md-3">
+			<label class="label-sm">Hop</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Amount&nbsp;(g)</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-1">
+			<label class="label-sm">Alpha (%)</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Time (min)</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-2">
+			<label class="label-sm">Form</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-2">
+			<label class="label-sm">Use</label>
+		</div>
+		
+	</div>
+	
+	<?php
+	$ingredient = "'hop'";
+	for ($i=0; $i<=14; $i++)
+	{
+		if ($hops[$i]['name'])
+		{
+	?>
+		<div class="row margin-bottom-half_em">
+		
+			<div class="col-xs-6 col-sm-2 col-md-3">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="hop' . $i . '_name" readonly="yes" value="' . $hops[$i]['name'] . '"/>';
+			?>
+			</div>
+		
+			<div class="col-xs-3 col-sm-2 col-md-1">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="hop' . $i . '_amount" readonly="yes" value="' . $hops[$i]['amount'] . '"/>';
+			?>
+			</div>
+
+			<div class="hidden-xs col-sm-2 col-md-1">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="hop' . $i . '_alpha" readonly="yes" value="' . $hops[$i]['alpha'] . '"/>';
+			?>
+			</div>
+
+			<div class="col-xs-3 col-sm-2 col-md-1">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="hop' . $i . '_time" readonly="yes" value="' . $hops[$i]['time'] . '"/>';
+			?>
+			</div>
+
+			<div class="hidden-xs col-sm-2 col-md-2">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="hop' . $i . '_form" readonly="yes" value="' . $hops[$i]['form'] . '"/>';
+			?>
+			</div>
+
+			<div class="hidden-xs col-sm-2 col-md-2">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="hop' . $i . '_use" readonly="yes" value="' . $hops[$i]['use'] . '"/>';
+			?>
+			</div>
+		
+			<?php
+			// the recipes_hops record id
+			echo '<input type="hidden" name="hop' . $i . '_record_id" value="'; echo $hops[$i]['record_id']; echo '"/>';
+			// the hops id
+			echo '<input type="hidden" name="hop' . $i . '_id" value="'; echo $hops[$i]['id']; echo '"/>';
+			?>
+		
+		</div>
+		
+	<?php
+		}
+	}
+	?>
+	
+</fieldset>
+</div>
+
+<div class="row tab-pane fade" id="yeast">
+<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
+
+	<div class="row">
+	
+		<div class="col-xs-6 col-sm-3 col-md-3">
+			<label class="label-sm">Yeast</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-3 col-md-2">
+			<label class="label-sm">Type</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-3 col-md-2">
+			<label class="label-sm">Form</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-3 col-md-2">
+			<label class="label-sm">Attenuation (%)</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-3 col-md-2">
+			<label class="label-sm">Flocculation</label>
+		</div>
+		
+	</div>
+	
+	<?php
+	$ingredient = "'yeast'";
+	for ($i=0; $i<=0; $i++)
+	{
+		if ($yeasts[$i]['fullname'])
+		{
+	?>
+	
+		<div class="row margin-bottom-half_em">
+		
+			<div class="col-xs-6 col-sm-3 col-md-3">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_fullname" readonly="yes" value="' . $yeasts[$i]['fullname'] . '"/>';
+			?>
+			</div>
+		
+			<div class="col-xs-3 col-sm-3 col-md-2">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_type" readonly="yes" value="' . $yeasts[$i]['type'] . '"/>';
+			?>
+			</div>
+		
+			<div class="col-xs-3 col-sm-3 col-md-2">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_form" readonly="yes" value="' . $yeasts[$i]['form'] . '"/>';
+			?>
+			</div>
+		
+			<div class="col-xs-3 col-sm-3 col-md-2">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_attenuation" readonly="yes" value="' . $yeasts[$i]['attenuation'] . '"/>';
+			?>
+			</div>
+		
+			<div class="col-xs-3 col-sm-3 col-md-2">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_flocculation" readonly="yes" value="' . $yeasts[$i]['flocculation'] . '"/>';
+			?>
+			</div>
+		
+			<?php
+			// the recipes_yeasts record id
+			echo '<input type="hidden" name="yeast' . $i . '_record_id" value="'; echo $yeasts[$i]['record_id']; echo '"/>';
+			// the yeast id
+			echo '<input type="hidden" name="yeast' . $i . '_id" value="'; echo $yeasts[$i]['id']; echo '"/>';
+			?>
+		
+		</div>
+		
+	<?php
+		}
+	}
+	?>
+	
+</fieldset>
+</div>
+
+<div class="row tab-pane fade" id="misc">
+<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
+
+	<div class="row">
+	
+		<div class="col-xs-6 col-sm-2 col-md-3">
+			<label class="label-sm">Ingredient</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Amount</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Unit</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-2">
+			<label class="label-sm">Type</label>
+		</div>
+		
+	</div>
+	
+	<?php
+	$ingredient = "'misc'";
+	for ($i=0; $i<=14; $i++)
+	{
+		if ($miscs[$i]['name'])
+		{
+	?>
+	
+		<div class="row margin-bottom-half_em">
+		
+			<div class="col-xs-6 col-sm-2 col-md-3">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_name" readonly="yes" value="' . $miscs[$i]['name'] . '"/>';
+			?>
+			</div>
+		
+			<div class="col-xs-3 col-sm-2 col-md-1">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_amount" readonly="yes" value="' . $miscs[$i]['amount'] . '"/> ';
+			?>
+			</div>
+
+			<div class="col-xs-3 col-sm-2 col-md-1">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_unit" readonly="yes" value="' . $miscs[$i]['unit'] . '"/> ';
+			?>
+			</div>
+
+			<div class="hidden-xs col-sm-2 col-md-2">
+			<?php
+			echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_type" readonly="yes" value="' . $miscs[$i]['type'] . '"/> ';
+			?>
+			</div>
+		
+			<?php
+			// the recipes_miscs record id
+			echo '<input type="hidden" name="misc' . $i . '_record_id" value="'; echo $miscs[$i]['record_id']; echo '"/> ';
+			// the miscs id
+			echo '<input type="hidden" name="misc' . $i . '_id" value="'; echo $miscs[$i]['id']; echo '"/> ';
+			?>
+		
+		</div>
+		
+	<?php
+		}
+	}
+	?>
+	
+</fieldset>
+</div>
+
+</div>
 
 </form>
+
+</div>
 
 <!-- new form to submit only the recipe id using get not post-->
-<form name="recipeformedit" action="recipe_edit.php" method="get">
-	<div class="row">
+<div class="container">
+
+<form role="form" class="form-horizontal" name="recipeformedit" action="recipe_edit.php" method="get">
 	<input type="hidden" name="id" value="<?php echo $details['id']; ?>" />
-	<input class="button" type="submit" value="Edit" />
-	</div><!-- row -->
+	<input class="btn btn-default" type="submit" value="Edit" />
 </form>
+
+</div>
 
 <?php
 include ('includes/footer.html');
