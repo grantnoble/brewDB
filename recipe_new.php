@@ -189,6 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <script src="js_files/calc_og.js"></script>
 <script src="js_files/calc_color.js"></script>
 <script src="js_files/calc_ibu.js"></script>
+<script src="js_files/calc_percent.js"></script>
 <script src="js_files/calc_og_color_ibu.js"></script>
 <script src="js_files/calc_batch_size.js"></script>
 <script src="js_files/calc_boil_size.js"></script>
@@ -503,7 +504,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 		<div class="col-xs-3 col-sm-2 col-md-1">
 		<?php
-		echo '<input type="number" class="form-control input-sm" min="0" step="0.001" name="fermentable' . $i . '_amount" onchange="fermentables_messages(' .$i. '); calc_og_color_ibu();" />';
+		echo '<input type="number" class="form-control input-sm" min="0" step="0.001" name="fermentable' . $i . '_amount" readonly="yes" onchange="fermentables_messages(' .$i. '); calc_og_color_ibu(); set_flag(' . $ingredient . ', ' . $i . ');"' . '"/>';
 		?>
 		</div>
 			
