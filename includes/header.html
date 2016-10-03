@@ -101,6 +101,15 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
 </style>
 	
 </head>
@@ -126,30 +135,67 @@ input[type=number]::-webkit-outer-spin-button {
 				<ul class="dropdown-menu">
 					<li><a href="styles_list.php">List</a></li>
 					<li><a href="style_new.php">New</a></li>
-				</ul></li>
+				</ul>
+			</li>
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Ingredients<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="styles_list.php">List</a></li>
-					<li><a href="styles_new.php">New</a></li>
-				</ul></li>
+					<li class="dropdown-submenu">
+						<a class="test" tabindex="-1" href="#">Fermentables<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a tabindex="-1" href="fermentables_list.php">List</a></li>
+							<li><a tabindex="-1" href="fermentable_new.php">New</a></li>
+							<!-- <li class="dropdown-submenu">
+								<a class="test" href="#">Another dropdown <span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="#">3rd level dropdown</a></li>
+									<li><a href="#">3rd level dropdown</a></li>
+								</ul>
+							</li> -->
+						</ul>
+					</li>
+					<li class="dropdown-submenu">
+						<a class="test" tabindex="-1" href="#">Hops<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a tabindex="-1" href="hops_list.php">List</a></li>
+							<li><a tabindex="-1" href="hop_new.php">New</a></li>
+						</ul>
+					</li>
+					<li class="dropdown-submenu">
+						<a class="test" tabindex="-1" href="#">Yeast<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a tabindex="-1" href="yeasts_list.php">List</a></li>
+							<li><a tabindex="-1" href="yeast_new.php">New</a></li>
+						</ul>
+					</li>
+					<li class="dropdown-submenu">
+						<a class="test" tabindex="-1" href="#">Miscellaneous<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a tabindex="-1" href="miscs_list.php">List</a></li>
+							<li><a tabindex="-1" href="misc_new.php">New</a></li>
+						</ul>
+				</ul>
+			</li>
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Recipes<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="recipes_list.php">List</a></li>
 					<li><a href="recipe_new.php">New</a></li>
-				</ul></li>
+				</ul>
+			</li>
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Brews<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="brews_list.php">List</a></li>
 					<li><a href="brew_new.php">New</a></li>
-				</ul></li>
+				</ul>
+			</li>
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Preferences<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="preferences_edit">Edit</a></li>
-				</ul></li>
+				</ul>
+			</li>
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Database<span class="caret"></span></a>
 				<ul class="dropdown-menu">
@@ -158,10 +204,20 @@ input[type=number]::-webkit-outer-spin-button {
 					<li><a href="all_tables_xml_load.php">Load table data</a></li>
 					<li><a href="all_tables_truncate.php">Delete table data</a></li>
 					<li><a href="brewdb_backup.php">Backup database</a></li>
-				</ul></li>
+				</ul>
+			</li>
 		</ul>
 	</div>
 	
 </nav>
 </div>
-	
+
+<script>
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+</script>	
