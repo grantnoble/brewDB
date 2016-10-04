@@ -36,7 +36,6 @@ else
 $recipes = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
 // display data in table
-
 echo '<div class="container">';
 echo '<h2>List Recipes</h2>';
 echo '<div class="table-responsive">';
