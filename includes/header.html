@@ -22,12 +22,14 @@ while ($row = mysqli_fetch_array ( $result ))
 }
 ?>
 
-	<title><?php echo $tab_title; ?></title>	
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<title><?php echo $tab_title; ?></title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 	
-	<style>
+<style>
 html {
 	position: relative;
 	min-height: 100%;
@@ -110,6 +112,8 @@ input[type=number]::-webkit-outer-spin-button {
     left: 100%;
     margin-top: -1px;
 }
+
+.datepicker { font-size: 12px; }
 </style>
 	
 </head>

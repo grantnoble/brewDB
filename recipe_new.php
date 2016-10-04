@@ -166,36 +166,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 // end of PHP section, now create the HTML form
 ?>
 
-<!--scripts to validate the entire form if browser not HTML5 compatible-->
-<script src="js_files/validate_form.js"></script>
-<script src="js_files/validate_details.js"></script>
-<script src="js_files/validate_fermentables.js"></script>
-<script src="js_files/validate_hops.js"></script>
-<script src="js_files/validate_miscs.js"></script>
-
-<!--scripts to retrieve info from the styles, fermentables, hops, yeasts, and miscs tables-->
-<script src="js_files/getstyleinfo.js"></script>
-<script src="js_files/getfermentableinfo.js"></script>
-<script src="js_files/gethopinfo.js"></script>
-<script src="js_files/getyeastinfo.js"></script>
-<script src="js_files/getmiscinfo.js"></script>
-
-<!--scripts to set custom messages for invalid fields in fermentables, hops, and miscs sections-->
-<script src="js_files/fermentables_messages.js"></script>
-<script src="js_files/hops_messages.js"></script>
-<script src="js_files/miscs_messages.js"></script>
-
-<!--scripts to calculate og, color, ibu, batch and boil sizes-->
-<script src="js_files/calc_og.js"></script>
-<script src="js_files/calc_color.js"></script>
-<script src="js_files/calc_ibu.js"></script>
-<script src="js_files/calc_percent.js"></script>
-<script src="js_files/calc_og_color_ibu.js"></script>
-<script src="js_files/calc_batch_size.js"></script>
-<script src="js_files/calc_boil_size.js"></script>
-
-<script src="js_files/validator.min.js"></script>
-
 <div class="container">
 	
 <h2>New Recipe</h2>
