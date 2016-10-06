@@ -35,6 +35,7 @@ else
 {
 	$query = "SELECT * FROM fermentables ORDER BY fermentable_name";
 }
+
 // get results from database
 $fermentables = mysqli_query($connection, $query) or die(mysqli_error($connection));  
                 
@@ -68,7 +69,7 @@ while($row = mysqli_fetch_array( $fermentables ))
     } 
 
 // close table
-echo "</table>";
+echo '</table>';
 echo '</div>';
 echo '</div>';
 
