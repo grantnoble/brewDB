@@ -30,8 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     
     // After saving to the database, redirect back to the list fermentables page 
-    header("Location: fermentables_list.php");
-    
+	echo '<script type="text/javascript">
+	window.location = "fermentables_list.php"
+	</script>';
+  
 }
 
 // check if the 'id' variable is set in URL, and check that it is valid
@@ -42,10 +44,12 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection)); 
  
 }
-// if id isn't set, or isn't valid, redirect back to view page
+// if id isn't set, or isn't valid, redirect back to list page
 else
 {
-    header("Location: fermentables_list.php");
+	echo '<script type="text/javascript">
+	window.location = "fermentables_list.php"
+	</script>';
 }
 
 while($row = mysqli_fetch_array( $result ))
@@ -63,82 +67,110 @@ while($row = mysqli_fetch_array( $result ))
     $notes = $row['fermentable_notes'];
 }
 
+// end of PHP section, now create the HTML form
 ?>
 
-<h2>Edit Fermentable</h2>
+<div class="container">
 
-<form name="fermentableform" action="fermentable_edit.php" method="post">
-    
-<div class="row">
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Fermentable</legend>
+	<h2>Edit Fermentable</h2>
 
-    <label>Name *: </label>
-    <input type="text" name="name" size=15 required oninvalid="this.setCustomValidity('Fermenatable name is required.')" onchange="this.setCustomValidity('')" value="<?php if (isset($_POST['name'])) {echo $_POST['name'];} else {echo $name;} ?>" />
+	<form role="form" class="form-horizontal" name="fermentableform" action="fermentable_edit.php" method="post">
     
-    <label>Type: </label>
-    <select name="type">
-        <option><?php if (isset($_POST['type'])) {echo $_POST['type'];} else {echo $type;} ?></option>
-        <option>Grain</option>
-        <option>Extract</option>
-        <option>Dry Extract</option>
-        <option>Sugar</option>
-        </select>
-        
-    <label>Yield (%): </label>
-    <input type="number" name="yield" size=6 style="width: 6em" oninvalid="this.setCustomValidity('Yield is not numeric.')" onchange="this.setCustomValidity('')" value="<?php if (isset($_POST['yield'])) {echo $_POST['yield'];} else {echo $yield;} ?>" />
-    
-    <label>Color (L): </label>
-    <input type="number" name="color" size=6 style="width: 6em" oninvalid="this.setCustomValidity('Color is not numeric.')" onchange="this.setCustomValidity('')" value="<?php if (isset($_POST['color'])) {echo $_POST['color'];} else {echo $color;} ?>" />
-    
-    <p></p>
-    
-    <label>Add after boil: </label>
-    <select name="add_after_boil">
-        <option><?php if (isset($_POST['add_after_boil'])) {if ($_POST['add_after_boil']) {echo 'True';} else {echo 'False';}} else {if ($add_after_boil) {echo 'True';} else {echo 'False';}} ?></option>
-        <option>True</option>
-        <option>False</option>
-    </select>
-        
-    <label>Max in Batch (%): </label>
-    <input type="number" name="max_in_batch" size=6 style="width: 6em" oninvalid="this.setCustomValidity('Color is not numeric.')" onchange="this.setCustomValidity('')" value="<?php if (isset($_POST['max_in_batch'])) {echo $_POST['max_in_batch'];} else {echo $max_in_batch;} ?>" />
-    
-    <label>Recommend Mash: </label>
-    <select name="recommend_mash">
-        <option><?php if (isset($_POST['recommend_mash'])) {if ($_POST['recommend_mash']) {echo 'True';} else {echo 'False';}} else {if ($recommend_mash) {echo 'True';} else {echo 'False';}} ?></option>
-        <option>True</option>
-        <option>False</option>
-    </select>
-        
-    <p></p>
-    
-    <label>Origin: </label>
-    <input type="text" name="origin" size=10 value="<?php if (isset($_POST['origin'])) {echo $_POST['origin'];} else {echo $origin;} ?>" />
-    
-    <label>Supplier: </label>
-    <input type="text" name="supplier" size=15 value="<?php if (isset($_POST['supplier'])) {echo $_POST['supplier'];} else {echo $supplier;} ?>" />
-    
-    <p></p>
-    
-    <label>Notes: </label>
-    <textarea rows=3 cols=130 name="notes"><?php if (isset($_POST['notes'])) {echo $_POST['notes'];} else {echo $notes;} ?></textarea>
-    
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
+	<input type="hidden" name="id" value="<?php echo $id; ?>" />
 
-<input type="hidden" name="id" value="<?php echo $id; ?>"/>
+	<div class="row">
 
-<div class="row">
-<div class="float_left">
-<input type="submit" value="Update Fermentable" />
-</div><!-- float_left -->
-</div><!-- row -->
+		<fieldset class="col-xs-12 col-md-12">
 
-</form>
+		<div class="well">
+
+			<div class="row margin-bottom-1em">
+
+				<div class="col-xs-3 col-md-3">
+					<label for="name" class="label-sm">Name</label>
+					<input type="text" class="form-control input-sm" name="name" id="name" required value="<?php if (isset($_POST['name'])) {echo $_POST['name'];} else {echo $name;} ?>" />
+				</div>
+		
+				<div class="col-xs-3 col-md-2">
+					<label for="type" class="label-sm">Type</label>
+					<select name="type" id="type" class="form-control input-sm">
+						<option><?php if (isset($_POST['type'])) {echo $_POST['type'];} else {echo $type;} ?></option>
+						<option>Grain</option>
+						<option>Extract</option>
+						<option>Dry Extract</option>
+						<option>Sugar</option>
+					</select>
+				</div>
+		
+				<div class="col-xs-2 col-md-2">
+					<label for="yield" class="label-sm">Yield (%)</label>
+					<input type="number" class="form-control input-sm" name="yield" id="yield" value="<?php if (isset($_POST['yield'])) {echo $_POST['yield'];} else {echo $yield;} ?>" />
+				</div>
+		
+				<div class="col-xs-2 col-md-2">
+					<label for="color" class="label-sm">Color (L)</label>
+					<input type="number" class="form-control input-sm" name="color" id="color" value="<?php if (isset($_POST['color'])) {echo $_POST['color'];} else {echo $color;} ?>" />
+				</div>
+		
+			</div>
+			
+			<div class="row margin-bottom-1em">
+			
+				<div class="hidden-xs col-md-2">
+					<label for="add_after_boil" class="label-sm">Add after boil?</label>
+					<select name="add_after_boil" id="add_after_boil" class="form-control input-sm">
+						<option><?php if (isset($_POST['add_after_boil'])) {echo $_POST['add_after_boil'];} else {echo $add_after_boil;} ?></option>
+						<option>True</option>
+						<option>False</option>
+					</select>
+				</div>
+		
+				<div class="col-xs-3 col-md-2">
+					<label for="max_in_batch" class="label-sm">Max in Batch (%)</label>
+					<input type="max_in_batch" class="form-control input-sm" name="max_in_batch" id="max_in_batch" value="<?php if (isset($_POST['max_in_batch'])) {echo $_POST['max_in_batch'];} else {echo $max_in_batch;} ?>" />
+				</div>
+		
+				<div class="col-xs-3 col-md-2">
+					<label for="recommend_mash" class="label-sm">Mash?</label>
+					<select name="recommend_mash" id="recommend_mash" class="form-control input-sm">
+						<option><?php if (isset($_POST['recommend_mash'])) {echo $_POST['recommend_mash'];} else {echo $recommend_mash;} ?></option>
+						<option>True</option>
+						<option>False</option>
+					</select>
+				</div>
+				
+				<div class="col-xs-3 col-md-3">
+					<label for="origin" class="label-sm">Origin</label>
+					<input type="text" class="form-control input-sm" name="origin" id="origin" value="<?php if (isset($_POST['origin'])) {echo $_POST['origin'];} else {echo $origin;} ?>" />
+				</div>
+		
+				<div class="col-xs-3 col-md-3">
+					<label for="supplier" class="label-sm">Supplier</label>
+					<input type="text" class="form-control input-sm" name="supplier" id="supplier" value="<?php if (isset($_POST['supplier'])) {echo $_POST['supplier'];} else {echo $supplier;} ?>" />
+				</div>
+		
+			</div>
+			
+			<div class="row">
+		
+				<div class="col-xs-12 col-md-12">
+					<label for="notes" class="label-sm">Notes</label>
+					<textarea class="form-control input-sm" rows=3 cols=100 name="notes" id="notes"><?php if (isset($_POST['notes'])) {echo $_POST['notes'];} else {echo $notes;} ?></textarea>
+				</div>
+		
+			</div>
+
+		</div>
+    
+		</fieldset>
+		
+	</div>
+
+	<button type="submit" class="btn btn-default">Save</button>
+
+	</form>
+
+</div>
 
 <?php 
 include ('includes/footer.html');

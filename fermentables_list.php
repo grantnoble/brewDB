@@ -29,7 +29,7 @@ elseif ($sortby=='fermentable_origin')
 }
 elseif ($sortby=='fermentable_type')
 {
-	$query = "SELECT * FROM fermentables ORDER BY fermentable_type, fermentable_name";
+	$query = "SELECT * FROM fermentables ORDER BY CAST(fermentable_type AS CHAR), fermentable_name";
 }
 else
 {

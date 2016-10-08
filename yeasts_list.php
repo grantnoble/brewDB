@@ -21,11 +21,11 @@ if (isset($_GET['id']) && ($_GET['id']=='yeast_fullname' || $_GET['id']=='yeast_
 // set the query statement, either by fullname, type, form, attenuation, or flocculation
 if ($sortby=='yeast_type')
 {
-	$query = "SELECT * FROM yeasts ORDER BY yeast_type, yeast_fullname";
+	$query = "SELECT * FROM yeasts ORDER BY CAST(yeast_type AS CHAR), yeast_fullname";
 }
 elseif ($sortby=='yeast_form')
 {
-	$query = "SELECT * FROM yeasts ORDER BY yeast_form, yeast_fullname";
+	$query = "SELECT * FROM yeasts ORDER BY CAST(yeast_form AS CHAR), yeast_fullname";
 }
 elseif ($sortby=='yeast_attenuation')
 {
@@ -33,7 +33,7 @@ elseif ($sortby=='yeast_attenuation')
 }
 elseif ($sortby=='yeast_flocculation')
 {
-	$query = "SELECT * FROM yeasts ORDER BY yeast_flocculation, yeast_fullname";
+	$query = "SELECT * FROM yeasts ORDER BY CAST(yeast_flocculation AS CHAR), yeast_fullname";
 }
 else
 {
