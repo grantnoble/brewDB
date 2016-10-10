@@ -51,20 +51,20 @@ echo '<table class="table table-hover table-condensed">';
 echo '<tr class="info"> <th><a href="yeasts_list.php?id=yeast_fullname">Name</a></th> <th><a href="yeasts_list.php?id=yeast_type">Type</a></th> <th><a href="yeasts_list.php?id=yeast_form">Form</a></th> <th><a href="yeasts_list.php?id=yeast_attenuation">Attenuation</a></th> <th><a href="yeasts_list.php?id=yeast_flocculation">Flocculation</a></th> </tr>';
 
 // loop through results of database query, displaying them in the table
-while($yeastrow = mysqli_fetch_array( $yeasts ))
+while($row = mysqli_fetch_array( $yeasts ))
 {
     // echo out the contents of each row into a table
     echo '<tr>';
-    echo '<td><div class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">' . $yeastrow['yeast_fullname'] . '</a>';
+    echo '<td><div class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">' . $row['yeast_fullname'] . '</a>';
 	echo '<ul class="dropdown-menu">';
 	echo '<li><a href="yeast_view.php?id=' . $row['yeast_id'] . '" role="button">View</a></li>';
 	echo '<li><a href="yeast_edit.php?id=' . $row['yeast_id'] . '" role="button">Edit</a></li>';
 	echo '<li><a href="yeast_delete.php?id=' . $row['yeast_id'] . '" role="button">Delete</a></li>';
     echo '</ul></div></td>';
-    echo '<td>' . $yeastrow['yeast_type'] . '</td>';
-    echo '<td>' . $yeastrow['yeast_form'] . '</td>';
-    echo '<td>' . $yeastrow['yeast_attenuation'] . '</td>';
-    echo '<td>' . $yeastrow['yeast_flocculation'] . '</td>';
+    echo '<td>' . $row['yeast_type'] . '</td>';
+    echo '<td>' . $row['yeast_form'] . '</td>';
+    echo '<td>' . $row['yeast_attenuation'] . '</td>';
+    echo '<td>' . $row['yeast_flocculation'] . '</td>';
     echo '</tr>'; 
     } 
 

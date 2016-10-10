@@ -26,53 +26,70 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     
     // After saving to the database, redirect back to the list hops page 
-    header("Location: hops_list.php");
+	echo '<script type="text/javascript">
+	window.location = "hops_list.php"
+	</script>';
     
 }
 
 ?>
 
-<h2>New Hop</h2>
+<div class="container">
 
-<form name="hopform" action="hop_new.php" method="post">
-    
-<div class="row">
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Hop</legend>
+	<h2>New Hop</h2>
 
-    <label>Name *: </label>
-    <input type="text" name="name" size=15 required oninvalid="this.setCustomValidity('Hop name is required.')" onchange="this.setCustomValidity('')" /> 
+	<form role="form" class="form-horizontal" name="hopform" action="hop_new.php" method="post">
     
-    <label>Alpha (%): </label>
-    <input type="number" name="alpha" size=6 style="width: 6em" oninvalid="this.setCustomValidity('Alpha Acid is not numeric.')" onchange="this.setCustomValidity('')" />
-    
-    <label>Origin: </label>
-    <input type="text" name="origin" size=10 />
-    
-    <p></p>
-    
-    <label>Subsitutes: </label>
-    <input type="text" name="substitutes" size=50 />
-    
-    <p></p>
-    
-    <label>Notes: </label>
-    <textarea rows=3 cols=130 name="notes"></textarea>
+	<div class="row">
+	
+		<fieldset class="col-xs-12 col-md-12">
+		
+		<div class="well">
+		
+			<div class="row margin-bottom-1em">
 
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
+				<div class="col-xs-3 col-md-3">
+					<label for="name" class="label-sm">Name</label>
+					<input type="text" class="form-control input-sm" name="name" id="name" required />
+				</div>
+		
+				<div class="col-xs-2 col-md-2">
+					<label for="alpha" class="label-sm">Alpha (%)</label>
+					<input type="number" class="form-control input-sm" name="alpha" id="alpha" />
+				</div>
+		
+				<div class="col-xs-3 col-md-3">
+					<label for="origin" class="label-sm">Origin</label>
+					<input type="text" class="form-control input-sm" name="origin" id="origin" />
+				</div>
+		
+				<div class="col-xs-3 col-md-3">
+					<label for="substitutes" class="label-sm">Substitutes</label>
+					<input type="text" class="form-control input-sm" name="substitutes" id="substitutes" />
+				</div>
+		
+			</div>
+			
+			<div class="row">
+		
+				<div class="col-xs-12 col-md-12">
+					<label for="notes" class="label-sm">Notes</label>
+					<textarea class="form-control input-sm" rows=3 cols=100 name="notes" id="notes"></textarea>
+				</div>
+		
+			</div>
 
-<div class="row">
-<div class="float_left">
-<input type="submit" value="Add Hop">
-</div><!-- float_left -->
-</div><!-- row -->
+		</div>
+    
+		</fieldset>
+		
+	</div>
 
-</form>
+	<button type="submit" class="btn btn-default">Save</button>
+
+	</form>
+	
+</div>
 
 <?php 
 include ('includes/footer.html');

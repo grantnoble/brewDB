@@ -20,7 +20,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
 // if id isn't set, or isn't valid, redirect back to view page
 else
 {
-    header("Location: yeasts_list.php");
+	echo '<script type="text/javascript">
+	window.location = "yeasts_list.php"
+	</script>';
 }
 
 while($row = mysqli_fetch_array( $result ))
@@ -43,73 +45,111 @@ while($row = mysqli_fetch_array( $result ))
 
 ?>
 
-<h2>View Yeast</h2>
+<div class="container">
 
-<form name="yeastform" action="yeast_view.php" method="post">
-    
-<div class="row">
-<div class="nine_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Yeast</legend>
+	<h2>Edit Yeast</h2>
 
-    <label>Laboratory: </label>
-    <input type="text" name="laboratory" size=15 readonly="yes" value="<?php echo $laboratory; ?>" />
+	<form role="form" class="form-horizontal" name="yeastform" action="yeast_edit.php" method="post">
     
-    <label>Product ID: </label>
-    <input type="text" name="product_id" size=15 readonly="yes" value="<?php echo $product_id; ?>" />
-    
-    <label>Name: </label>
-    <input type="text" name="name" size=15 readonly="yes" value="<?php echo $name; ?>" />
-    
-    <label>Type: </label>
-    <input type="text" name="type" size=15 readonly="yes" value="<?php echo $type; ?>" />
-    
-    <label>Form: </label>
-    <input type="text" name="form" size=15 readonly="yes" value="<?php echo $form; ?>" />
-    
-    <p></p>
-    
-    <label>Min Temp (&deg;C): </label>
-    <input type="text" name="min_temperature" size=6 readonly="yes" value="<?php echo $min_temperature; ?>" />
-    
-    <label>Max Temp (&deg;C): </label>
-    <input type="text" name="max_temperature" size=6 readonly="yes" value="<?php echo $max_temperature; ?>" />
-    
-    <label>Flocculation: </label>
-    <input type="text" name="flocculation" size=15 readonly="yes" value="<?php echo $flocculation; ?>" />
-    
-    <label>Attenuation (%): </label>
-    <input type="text" name="attenuation" size=6 readonly="yes" value="<?php echo $attenuation; ?>" />
-    
-    <p></p>
-    
-    <label>Best For: </label>
-    <input type="text" name="best_for" size=30 readonly="yes" value="<?php echo $best_for; ?>" />
-    
-    <label>Max Reuse: </label>
-    <input type="text" name="max_reuse" size=6 readonly="yes" value="<?php echo $max_reuse; ?>" />
-    
-    <p></p>
-    
-    <label>Notes: </label>
-    <textarea rows=3 cols=130 name="notes" readonly="yes"><?php echo $notes; ?></textarea>
-</fieldset>
-</div><!-- float_left -->
-</div><!-- nine_cols -->
-</div><!-- row -->
-
-</form>
-
-<!-- new form to submit only the yeast id using get not post-->
-<form name="yeastformedit" action="yeast_edit.php" method="get">
-<div class="row">
-<div class="float_left">
 	<input type="hidden" name="id" value="<?php echo $id; ?>" />
-	<input type="submit" value="Edit Yeast" />
-</div><!-- float_left -->
-</div><!-- row -->
+	
+	<div class="row">
+	
+		<fieldset class="col-xs-12 col-md-12">
+
+		<div class="well">
+		
+			<div class="row margin-bottom-1em">
+
+				<div class="col-xs-3 col-md-2">
+					<label for="laboratory" class="label-sm">Laboratory</label>
+					<input type="text" class="form-control input-sm" name="laboratory" id="laboratory" readonly="yes" value="<?php echo $laboratory; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="product_id" class="label-sm">Product ID</label>
+					<input type="text" class="form-control input-sm" name="product_id" id="product_id" readonly="yes" value="<?php echo $product_id; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-3">
+					<label for="name" class="label-sm">Name</label>
+					<input type="text" class="form-control input-sm" name="name" id="name" readonly="yes" value="<?php echo $name; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="type" class="label-sm">Type</label>
+					<input type="text" class="form-control input-sm" name="type" id="type" readonly="yes" value="<?php echo $type; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="form" class="label-sm">Form</label>
+					<input type="text" class="form-control input-sm" name="form" id="form" readonly="yes" value="<?php echo $form; ?>" />
+				</div>
+				
+			</div>
+    
+			<div class="row margin-bottom-1em">
+
+				<div class="col-xs-3 col-md-2">
+					<label for="min_temperature" class="label-sm">Min&nbsp;Temp&nbsp;(&deg;C)</label>
+					<input type="number" class="form-control input-sm" name="min_temperature" id="min_temperature" readonly="yes" value="<?php echo $min_temperature; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="max_temperature" class="label-sm">Max&nbsp;Temp&nbsp;(&deg;C)</label>
+					<input type="number" class="form-control input-sm" name="max_temperature" id="max_temperature" readonly="yes" value="<?php echo $max_temperature; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="attenuation" class="label-sm">Attenuation&nbsp;(%)</label>
+					<input type="number" class="form-control input-sm" name="attenuation" id="attenuation" readonly="yes" value="<?php echo $attenuation; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="flocculation" class="label-sm">Flocculation</label>
+					<input type="text" class="form-control input-sm" name="flocculation" id="flocculation" readonly="yes" value="<?php echo $flocculation; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-3">
+					<label for="best_for" class="label-sm">Best For</label>
+					<input type="text" class="form-control input-sm" name="best_for" id="best_for" readonly="yes" value="<?php echo $best_for; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-1">
+					<label for="max_reuse" class="label-sm">Max&nbsp;Reuse</label>
+					<input type="number" class="form-control input-sm" name="max_reuse" id="max_reuse" readonly="yes" value="<?php echo $max_reuse; ?>" />
+				</div>
+    
+			</div>
+    
+			<div class="row">
+		
+				<div class="col-xs-12 col-md-12">
+					<label for="notes" class="label-sm">Notes</label>
+					<textarea rows=3 cols=130 class="form-control input-sm" name="notes" id="notes" readonly="yes"><?php echo $notes; ?></textarea>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		</fieldset>
+		
+	</div>
+
+	</form>
+	
+</div>
+
+<!-- new form to submit only the fermentable id using get not post-->
+<div class="container">
+
+<form role="form" class="form-horizontal" name="yeastformedit" action="yeast_edit.php" method="get">
+	<input type="hidden" name="id" value="<?php echo $id; ?>" />
+	<input class="btn btn-default" type="submit" value="Edit" />
 </form>
+
+</div>
 
 <?php 
 include ('includes/footer.html');

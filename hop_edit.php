@@ -6,7 +6,6 @@ Edit a hop in the database
 */
 
 $page_title = 'Edit Hop';
-$error = "";
 include ('includes/header.html');
 header('Content-Type: text/html; charset="utf-8"', true);
 
@@ -24,8 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $query = "UPDATE hops SET hop_name='" . $hop['name'] . "', hop_alpha='" . $hop['alpha'] . "', hop_origin='" . $hop['origin'] . "', hop_substitutes='" . $hop['substitutes'] . "', hop_notes='" . $hop['notes'] . "' WHERE hop_id='" . $hop['id'] . "'";
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     
-    // After saving to the database, redirect back to the list hops page 
-    header("Location: hops_list.php");
+    // After saving to the database, redirect back to the list fermentables page 
+	echo '<script type="text/javascript">
+	window.location = "hops_list.php"
+	</script>';
     
 }
 
@@ -40,7 +41,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
 // if id isn't set, or isn't valid, redirect back to view page
 else
 {
-    header("Location: hops_list.php");
+	echo '<script type="text/javascript">
+	window.location = "hops_list.php"
+	</script>';
 }
 
 while($row = mysqli_fetch_array( $result ))
@@ -53,51 +56,67 @@ while($row = mysqli_fetch_array( $result ))
     $notes = $row['hop_notes'];
 }
 
+// end of PHP section, now create the HTML form
 ?>
 
-<h2>Edit Hop</h2>
+<div class="container">
 
-<form name="hopform" action="hop_edit.php" method="post">
-    
-<div class="row">
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Hop</legend>
+	<h2>Edit Hop</h2>
 
-    <label>Name *: </label>
-    <input type="text" name="name" size=15 required oninvalid="this.setCustomValidity('Hop name is required.')" onchange="this.setCustomValidity('')" value="<?php if (isset($_POST['name'])) {echo $_POST['name'];} else {echo $name;} ?>" />
+	<form role="form" class="form-horizontal" name="hopform" action="hop_edit.php" method="post">
     
-    <label>Alpha (%): </label>
-    <input type="number" name="alpha" size=6 style="width: 6em" oninvalid="this.setCustomValidity('Alpha Acid is not numeric.')" onchange="this.setCustomValidity('')" value="<?php if (isset($_POST['alpha'])) {echo $_POST['alpha'];} else {echo $alpha;} ?>" />
-    
-    <label>Origin: </label>
-    <input type="text" name="origin" size=10 value="<?php if (isset($_POST['origin'])) {echo $_POST['origin'];} else {echo $origin;} ?>" />
-    
-    <p></p>
-    
-    <label>Subsitutes: </label>
-    <input type="text" name="substitutes" size=50 value="<?php if (isset($_POST['substitutes'])) {echo $_POST['substitutes'];} else {echo $substitutes;} ?>" />
-    
-    <p></p>
-    
-    <label>Notes: </label>
-    <textarea rows=3 cols=130 name="notes"><?php if (isset($_POST['notes'])) {echo $_POST['notes'];} else {echo $notes;} ?></textarea>
-    
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
+	<input type="hidden" name="id" value="<?php echo $id; ?>" />
+	
+	<div class="row">
+	
+		<fieldset class="col-xs-12 col-md-12">
+		
+		<div class="well">
+		
+			<div class="row margin-bottom-1em">
 
-<input type="hidden" name="id" value="<?php echo $id; ?>"/>
+				<div class="col-xs-3 col-md-3">
+					<label for="name" class="label-sm">Name</label>
+					<input type="text" class="form-control input-sm" name="name" id="name" required value="<?php if (isset($_POST['name'])) {echo $_POST['name'];} else {echo $name;} ?>" />
+				</div>
+		
+				<div class="col-xs-2 col-md-2">
+					<label for="alpha" class="label-sm">Alpha (%)</label>
+					<input type="number" class="form-control input-sm" name="alpha" id="alpha" value="<?php if (isset($_POST['alpha'])) {echo $_POST['alpha'];} else {echo $alpha;} ?>" />
+				</div>
+		
+				<div class="col-xs-3 col-md-3">
+					<label for="origin" class="label-sm">Origin</label>
+					<input type="text" class="form-control input-sm" name="origin" id="origin" value="<?php if (isset($_POST['origin'])) {echo $_POST['origin'];} else {echo $origin;} ?>" />
+				</div>
+		
+				<div class="col-xs-3 col-md-3">
+					<label for="substitutes" class="label-sm">Substitutes</label>
+					<input type="text" class="form-control input-sm" name="substitutes" id="substitutes" value="<?php if (isset($_POST['substitutes'])) {echo $_POST['substitutes'];} else {echo $substitutes;} ?>" />
+				</div>
+		
+			</div>
+			
+			<div class="row">
+		
+				<div class="col-xs-12 col-md-12">
+					<label for="notes" class="label-sm">Notes</label>
+					<textarea class="form-control input-sm" rows=3 cols=100 name="notes" id="notes"><?php if (isset($_POST['notes'])) {echo $_POST['notes'];} else {echo $notes;} ?></textarea>
+				</div>
+		
+			</div>
 
-<div class="row">
-<div class="float_left">
-<input type="submit" value="Update Hop" />
-</div><!-- float_left -->
-</div><!-- row -->
+		</div>
+    
+		</fieldset>
+		
+	</div>
 
-</form>
+	<button type="submit" class="btn btn-default">Save</button>
+
+	</form>
+	
+</div>
 
 <?php 
 include ('includes/footer.html');

@@ -20,7 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
     
     // After deleting or not, redirect back to the hops_list page 
-    header("Location: hops_list.php");
+	echo '<script type="text/javascript">
+	window.location = "hops_list.php"
+	</script>';
     
 }
 
@@ -35,7 +37,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
 // if id isn't set, or isn't valid, redirect back to list page
 else
 {
-    header("Location: hops_list.php");
+	echo '<script type="text/javascript">
+	window.location = "hops_list.php"
+	</script>';
 }
 
 while($row = mysqli_fetch_array( $result ))
@@ -50,53 +54,69 @@ while($row = mysqli_fetch_array( $result ))
 
 ?>
 
-<h2>Delete Hop</h2>
+<div class="container">
 
-<form name="hopform" action="hop_delete.php" method="post">
-    
-<div class="row">
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Hop</legend>
+	<h2>Delete Hop</h2>
 
-    <label>Name: </label>
-    <input type="text" name="name" size=15 readonly="yes" value="<?php echo $name; ?>" />
+	<form role="form" class="form-horizontal" name="hopform" action="hop_delete.php" method="post">
     
-    <label>Alpha (%): </label>
-    <input type="text" name="alpha" size=6 readonly="yes" value="<?php echo $alpha; ?>" />
-    
-    <label>Origin: </label>
-    <input type="text" name="origin" size=10 readonly="yes" value="<?php echo $origin; ?>" />
-    
-    <p></p>
-    
-    <label>Subsitutes: </label>
-    <input type="text" name="substitutes" size=50 readonly="yes" value="<?php echo $substitutes; ?>" />
-    
-    <p></p>
-    
-    <label>Notes: </label>
-    <textarea rows=3 cols=130 name="notes" readonly="yes"><?php echo $notes; ?></textarea>
-    
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
+	<div class="row">
+	
+		<fieldset class="col-xs-12 col-md-12">
+		
+		<div class="well">
+		
+			<div class="row margin-bottom-1em">
 
-<input type="hidden" name="id" value="<?php echo $id; ?>" />
+				<div class="col-xs-3 col-md-3">
+					<label for="name" class="label-sm">Name</label>
+					<input type="text" class="form-control input-sm" name="name" id="name" readonly="yes" value="<?php echo $name; ?>" />
+				</div>
+		
+				<div class="col-xs-2 col-md-2">
+					<label for="alpha" class="label-sm">Alpha (%)</label>
+					<input type="number" class="form-control input-sm" name="alpha" id="alpha" readonly="yes" value="<?php echo $alpha; ?>" />
+				</div>
+		
+				<div class="col-xs-3 col-md-3">
+					<label for="origin" class="label-sm">Origin</label>
+					<input type="text" class="form-control input-sm" name="origin" id="origin" readonly="yes" value="<?php echo $origin; ?>" />
+				</div>
+		
+				<div class="col-xs-3 col-md-3">
+					<label for="substitutes" class="label-sm">Substitutes</label>
+					<input type="text" class="form-control input-sm" name="substitutes" id="substitutes" readonly="yes" value="<?php echo $substitutes; ?>" />
+				</div>
+		
+			</div>
+			
+			<div class="row">
+		
+				<div class="col-xs-12 col-md-12">
+					<label for="notes" class="label-sm">Notes</label>
+					<textarea class="form-control input-sm" rows=3 cols=100 name="notes" id="notes" readonly="yes"><?php echo $notes; ?></textarea>
+				</div>
+		
+			</div>
 
-<div class="row">
-<div class="float_left">
-<p>Are you sure you want to delete this record?</p>
-<input type="radio" name="sure" value="Yes" /> Yes
-<input type="radio" name="sure" value="No" /> No
+		</div>
+    
+		</fieldset>
+		
+	</div>
 
-<p><input type="submit" name="delete" value="Delete"></p>
-</div><!-- float_left -->
-</div><!-- row -->
+	<input type="hidden" name="id" id="id" value="<?php echo $id; ?>" />
+	<p>Are you sure you want to delete this record?</p>
+	<label class="checkbox-inline">
+		<input type="checkbox" name="sure" id="sure" value="Yes">Yes
+	</label>
+	<label class="checkbox-inline">
+		<input class="btn btn-default" type="submit" value="Delete">
+	</label>
 
-</form>
+	</form>
+	
+</div>
 
 <?php 
 include ('includes/footer.html');

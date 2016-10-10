@@ -26,68 +26,88 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     
     // After saving to the database, redirect back to the list miscs page 
-    header("Location: miscs_list.php");
+	echo '<script type="text/javascript">
+	window.location = "miscs_list.php"
+	</script>';
     
 }
 
 ?>
 
-<h2>New Misc</h2>
+<div class="container">
 
-<form name="miscform" action="misc_new.php" method="post">
-    
-<div class="row">
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Misc</legend>
+	<h2>New Miscellaneous</h2>
 
-    <label>Name *: </label>
-    <input type="text" name="name" size=15 required oninvalid="this.setCustomValidity('Misc name is required.')" onchange="this.setCustomValidity('')" /> 
+	<form role="form" class="form-horizontal" name="miscform" action="misc_new.php" method="post">
     
-    <label>Type: </label>
-    <select name="type">
-        <option></option>
-        <option>Spice</option>
-        <option>Fining</option>
-        <option>Water Agent</option>
-        <option>Herb</option>
-        <option>Flavor</option>
-        <option>Other</option>
-        </select>
-    
-    <label>Use: </label>
-    <select name="use">
-        <option></option>
-        <option>Mash</option>
-        <option>Boil</option>
-        <option>Primary</option>
-        <option>Secondary</option>
-        <option>Bottling</option>
-        </select>
-    
-    <p></p>
-    
-    <label>Use For: </label>
-    <input type="text" name="use_for" size=50 />
-    
-    <p></p>
-    
-    <label>Notes: </label>
-    <textarea rows=3 cols=130 name="notes"></textarea>
+	<input type="hidden" name="id" value="<?php echo $id; ?>" />
 
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
+	<div class="row">
 
-<div class="row">
-<div class="float_left">
-<input type="submit" value="Add Misc">
-</div><!-- float_left -->
-</div><!-- row -->
+		<fieldset class="col-xs-12 col-md-12">
 
-</form>
+		<div class="well">
+		
+			<div class="row margin-bottom-1em">
+
+				<div class="col-xs-3 col-md-2">
+					<label for="name" class="label-sm">Name</label>
+					<input type="text" class="form-control input-sm" name="name" id="name" required />
+				</div>
+				
+				<div class="col-xs-3 col-md-2">
+					<label for="type" class="label-sm">Type</label>
+					<select name="type" id="type" class="form-control input-sm">
+						<option></option>
+						<option>Spice</option>
+						<option>Fining</option>
+						<option>Water Agent</option>
+						<option>Herb</option>
+						<option>Flavor</option>
+						<option>Other</option>
+					</select>
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="use" class="label-sm">Use</label>
+					<select name="use" id="use" class="form-control input-sm">
+						<option></option>
+						<option>Mash</option>
+						<option>Boil</option>
+						<option>Primary</option>
+						<option>Secondary</option>
+						<option>Bottling</option>
+					</select>
+				</div>
+    
+    
+				<div class="col-xs-3 col-md-4">
+					<label for="use_for" class="label-sm">Use For</label>
+					<input type="text" class="form-control input-sm" name="use_for" id="use_for" />
+				</div>
+				
+			</div>
+    
+			<div class="row">
+		
+				<div class="col-xs-12 col-md-12">
+					<label for="notes" class="label-sm">Notes</label>
+					<textarea rows=3 cols=130 class="form-control input-sm" name="notes" id="notes"></textarea>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		</fieldset>
+    
+	</div>
+	
+	<button type="submit" class="btn btn-default">Save</button>
+
+	</form>
+	
+</div>
 
 <?php 
 include ('includes/footer.html');

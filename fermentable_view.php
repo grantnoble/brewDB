@@ -45,7 +45,7 @@ while($row = mysqli_fetch_array( $result ))
 
 <div class="container">
 
-	<h2>Edit Fermentable</h2>
+	<h2>View Fermentable</h2>
 
 	<form role="form" class="form-horizontal" name="fermentableform" action="fermentable_edit.php" method="post">
     
@@ -69,12 +69,12 @@ while($row = mysqli_fetch_array( $result ))
 		
 				<div class="col-xs-2 col-md-2">
 					<label for="yield" class="label-sm">Yield (%)</label>
-					<input type="number" class="form-control input-sm" name="yield" id="yield" readonly="yes" value="<?php if (isset($_POST['yield'])) {echo $_POST['yield'];} else {echo $yield;} ?>" />
+					<input type="number" class="form-control input-sm" name="yield" id="yield" readonly="yes" value="<?php echo $yield; ?>" />
 				</div>
 		
 				<div class="col-xs-2 col-md-2">
 					<label for="color" class="label-sm">Color (L)</label>
-					<input type="number" class="form-control input-sm" name="color" id="color" readonly="yes" value="<?php if (isset($_POST['color'])) {echo $_POST['color'];} else {echo $color;} ?>" />
+					<input type="number" class="form-control input-sm" name="color" id="color" readonly="yes" value="<?php echo $color; ?>" />
 				</div>
 		
 			</div>

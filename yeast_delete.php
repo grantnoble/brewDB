@@ -20,7 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
     
     // After deleting or not, redirect back to the yeasts_list page 
-    header("Location: yeasts_list.php");
+	echo '<script type="text/javascript">
+	window.location = "yeasts_list.php"
+	</script>';
     
 }
 
@@ -35,7 +37,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
 // if id isn't set, or isn't valid, redirect back to list page
 else
 {
-    header("Location: yeasts_list.php");
+	echo '<script type="text/javascript">
+	window.location = "yeasts_list.php"
+	</script>';
 }
 
 while($row = mysqli_fetch_array( $result ))
@@ -59,75 +63,108 @@ end:
 
 ?>
 
-<h2>Delete Yeast</h2>
+<div class="container">
 
-<form name="yeastform" action="yeast_delete.php" method="post">
-    
-<div class="row">
-<div class="nine_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Yeast</legend>
+	<h2>Delete Yeast</h2>
 
-    <label>Laboratory: </label>
-    <input type="text" name="laboratory" size=15 readonly="yes" value="<?php echo $laboratory; ?>" />
+	<form role="form" class="form-horizontal" name="yeastform" action="yeast_delete.php" method="post">
     
-    <label>Product ID: </label>
-    <input type="text" name="product_id" size=15 readonly="yes" value="<?php echo $product_id; ?>" />
-    
-    <label>Name *: </label>
-    <input type="text" name="name" size=15 readonly="yes" value="<?php echo $name; ?>" />
-    
-    <label>Type: </label>
-    <input type="text" name="type" size=6 readonly="yes" value="<?php echo $type; ?>" />
-    
-    <label>Form: </label>
-    <input type="text" name="form" size=10 readonly="yes" value="<?php echo $form; ?>" />
-    
-    <p></p>
-    
-    <label>Min Temp (&deg;C): </label>
-    <input type="text" name="min_temperature" readonly="yes" size=6 value="<?php echo $min_temperature; ?>" />
-    
-    <label>Max Temp (&deg;C): </label>
-    <input type="text" name="max_temperature" readonly="yes" size=6 value="<?php echo $max_temperature; ?>" />
-    
-    <label>Flocculation: </label>
-    <input type="text" name="flocculation" readonly="yes" size=15 value="<?php echo $flocculation; ?>" />
-    
-    <label>Attenuation (%): </label>
-    <input type="text" name="attenuation" readonly="yes" size=6 value="<?php echo $attenuation; ?>" />
-    
-    <p></p>
-    
-    <label>Best For: </label>
-    <input type="text" name="best_for" readonly="yes" size=30 value="<?php echo $best_for; ?>" />
-    
-    <label>Max Reuse: </label>
-    <input type="text" name="max_reuse" readonly="yes" size=6 value="<?php echo $max_reuse; ?>" />
-    
-    <p></p>
-    
-    <label>Notes: </label>
-    <textarea rows=3 cols=130 name="notes" readonly="yes" ><?php echo $notes; ?></textarea>
-</fieldset>
-</div><!-- float_left -->
-</div><!-- nine_cols -->
-</div><!-- row -->
+	<div class="row">
 
-<input type="hidden" name="id" value="<?php echo $id; ?>" />
+		<fieldset class="col-xs-12 col-md-12">
 
-<div class="row">
-<div class="float_left">
-<p>Are you sure you want to delete this record?</p>
-<input type="radio" name="sure" value="Yes" /> Yes
-<input type="radio" name="sure" value="No" /> No
+		<div class="well">
+		
+			<div class="row margin-bottom-1em">
 
-<p><input type="submit" name="delete" value="Delete"></p>
-</div><!-- float_left -->
-</div><!-- row -->
+				<div class="col-xs-3 col-md-2">
+					<label for="laboratory" class="label-sm">Laboratory</label>
+					<input type="text" class="form-control input-sm" name="laboratory" id="laboratory" readonly="yes" value="<?php echo $laboratory; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="product_id" class="label-sm">Product ID</label>
+					<input type="text" class="form-control input-sm" name="product_id" id="product_id" readonly="yes" value="<?php echo $product_id; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-3">
+					<label for="name" class="label-sm">Name</label>
+					<input type="text" class="form-control input-sm" name="name" id="name" readonly="yes" value="<?php echo $name; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="type" class="label-sm">Type</label>
+					<input type="text" class="form-control input-sm" name="type" id="type" readonly="yes" value="<?php echo $type; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="form" class="label-sm">Form</label>
+					<input type="text" class="form-control input-sm" name="form" id="form" readonly="yes" value="<?php echo $form; ?>" />
+				</div>
+				
+			</div>
+    
+			<div class="row margin-bottom-1em">
 
-</form>
+				<div class="col-xs-3 col-md-2">
+					<label for="min_temperature" class="label-sm">Min&nbsp;Temp&nbsp;(&deg;C)</label>
+					<input type="number" class="form-control input-sm" name="min_temperature" id="min_temperature" readonly="yes" value="<?php echo $min_temperature; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="max_temperature" class="label-sm">Max&nbsp;Temp&nbsp;(&deg;C)</label>
+					<input type="number" class="form-control input-sm" name="max_temperature" id="max_temperature" readonly="yes" value="<?php echo $max_temperature; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="attenuation" class="label-sm">Attenuation&nbsp;(%)</label>
+					<input type="number" class="form-control input-sm" name="attenuation" id="attenuation" readonly="yes" value="<?php echo $attenuation; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="flocculation" class="label-sm">Flocculation</label>
+					<input type="text" class="form-control input-sm" name="flocculation" id="flocculation" readonly="yes" value="<?php echo $flocculation; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-3">
+					<label for="best_for" class="label-sm">Best For</label>
+					<input type="text" class="form-control input-sm" name="best_for" id="best_for" readonly="yes" value="<?php echo $best_for; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-1">
+					<label for="max_reuse" class="label-sm">Max&nbsp;Reuse</label>
+					<input type="number" class="form-control input-sm" name="max_reuse" id="max_reuse" readonly="yes" value="<?php echo $max_reuse; ?>" />
+				</div>
+    
+			</div>
+    
+			<div class="row">
+		
+				<div class="col-xs-12 col-md-12">
+					<label for="notes" class="label-sm">Notes</label>
+					<textarea rows=3 cols=130 class="form-control input-sm" name="notes" id="notes" readonly="yes"><?php echo $notes; ?></textarea>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		</fieldset>
+		
+	</div>
+	
+	<input type="hidden" name="id" id="id" value="<?php echo $id; ?>" />
+	<p>Are you sure you want to delete this record?</p>
+	<label class="checkbox-inline">
+		<input type="checkbox" name="sure" id="sure" value="Yes">Yes
+	</label>
+	<label class="checkbox-inline">
+		<input class="btn btn-default" type="submit" value="Delete">
+	</label>
+
+	</form>
+
+</div>
 
 <?php 
 include ('includes/footer.html');

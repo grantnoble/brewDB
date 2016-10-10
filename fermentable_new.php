@@ -31,86 +31,113 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     
     // After saving to the database, fermentable_new.php
-    header("Location: fermentable_new.php");
+	echo '<script type="text/javascript">
+	window.location = "fermentables_list.php"
+	</script>';
     
 }
 
-$name = $type = $yield = $color = $add_after_boil = $max_in_batch = $recommend_mash = $origin = $supplier = $notes = $error = "";
-
 ?>
 
-<h2>New Fermentable</h2>
+<div class="container">
 
-<form name="fermentableform" action="fermentable_new.php" method="post">
-    
-<div class="row">
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Fermentable</legend>
-    
-    <label>Name *:</label>
-    <input type="text" name="name" size=15 required oninvalid="this.setCustomValidity('Fermenatable name is required.')" onchange="this.setCustomValidity('')" /> 
-    
-    <label>Type: </label>
-    <select name="type">
-        <option></option>
-        <option>Grain</option>
-        <option>Extract</option>
-        <option>Dry Extract</option>
-        <option>Sugar</option>
-    </select>
-    
-    <label>Yield (%): </label>
-    <input type="number" name="yield" size=6 style="width: 6em" oninvalid="this.setCustomValidity('Yield is not numeric.')" onchange="this.setCustomValidity('')" />
-    
-    <label>Color (L): </label>
-    <input type="number" name="color" size=6 style="width: 6em" oninvalid="this.setCustomValidity('Color is not numeric.')" onchange="this.setCustomValidity('')" />
-    
-    <p></p>
-    
-    <label>Add after boil: </label>
-    <select name="add_after_boil">
-        <option></option>
-        <option>True</option>
-        <option>False</option>
-    </select>
-    
-    <label>Max in Batch (%): </label>
-    <input type="number" name="max_in_batch" size=6 style="width: 6em" oninvalid="this.setCustomValidity('Max in batch is not numeric.')" onchange="this.setCustomValidity('')" />
-    
-    <label>Recommend Mash: </label>
-    <select name="recommend_mash">
-        <option></option>
-        <option>True</option>
-        <option>False</option>
-    </select>
-    
-    <p></p>
-    
-    <label>Origin: </label>
-    <input type="text" name="origin" size=10 />
-    
-    <label>Supplier: </label>
-    <input type="text" name="supplier" size=15 />
-    
-    <p></p>
-    
-    <label>Notes: </label>
-    <textarea rows=3 cols=130 name="notes"></textarea>
-    
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
+	<h2>New Fermentable</h2>
 
-<div class="row">
-<div class="float_left">
-<input type="submit" value="Add Fermentable">
-</div><!-- float_left -->
-</div><!-- row -->
+	<form role="form" class="form-horizontal" name="fermentableform" action="fermentable_new.php" method="post">
+    
+	<div class="row">
 
-</form>
+		<fieldset class="col-xs-12 col-md-12">
+
+		<div class="well">
+
+			<div class="row margin-bottom-1em">
+
+				<div class="col-xs-3 col-md-3">
+					<label for="name" class="label-sm">Name</label>
+					<input type="text" class="form-control input-sm" name="name" id="name" required  />
+				</div>
+		
+				<div class="col-xs-3 col-md-2">
+					<label for="type" class="label-sm">Type</label>
+					<select name="type" id="type" class="form-control input-sm">
+						<option></option>
+						<option>Grain</option>
+						<option>Extract</option>
+						<option>Dry Extract</option>
+						<option>Sugar</option>
+					</select>
+				</div>
+		
+				<div class="col-xs-2 col-md-2">
+					<label for="yield" class="label-sm">Yield (%)</label>
+					<input type="number" class="form-control input-sm" name="yield" id="yield" />
+				</div>
+		
+				<div class="col-xs-2 col-md-2">
+					<label for="color" class="label-sm">Color (L)</label>
+					<input type="number" class="form-control input-sm" name="color" id="color" />
+				</div>
+		
+			</div>
+			
+			<div class="row margin-bottom-1em">
+			
+				<div class="hidden-xs col-md-2">
+					<label for="add_after_boil" class="label-sm">Add after boil?</label>
+					<select name="add_after_boil" id="add_after_boil" class="form-control input-sm">
+						<option></option>
+						<option>True</option>
+						<option>False</option>
+					</select>
+				</div>
+		
+				<div class="col-xs-3 col-md-2">
+					<label for="max_in_batch" class="label-sm">Max in Batch (%)</label>
+					<input type="max_in_batch" class="form-control input-sm" name="max_in_batch" id="max_in_batch" />
+				</div>
+		
+				<div class="col-xs-3 col-md-2">
+					<label for="recommend_mash" class="label-sm">Mash?</label>
+					<select name="recommend_mash" id="recommend_mash" class="form-control input-sm">
+						<option></option>
+						<option>True</option>
+						<option>False</option>
+					</select>
+				</div>
+				
+				<div class="col-xs-3 col-md-3">
+					<label for="origin" class="label-sm">Origin</label>
+					<input type="text" class="form-control input-sm" name="origin" id="origin" />
+				</div>
+		
+				<div class="col-xs-3 col-md-3">
+					<label for="supplier" class="label-sm">Supplier</label>
+					<input type="text" class="form-control input-sm" name="supplier" id="supplier" />
+				</div>
+		
+			</div>
+			
+			<div class="row">
+		
+				<div class="col-xs-12 col-md-12">
+					<label for="notes" class="label-sm">Notes</label>
+					<textarea class="form-control input-sm" rows=3 cols=100 name="notes" id="notes"></textarea>
+				</div>
+		
+			</div>
+
+		</div>
+    
+		</fieldset>
+		
+	</div>
+
+	<button type="submit" class="btn btn-default">Save</button>
+
+	</form>
+
+</div>
 
 <?php 
 include ('includes/footer.html');

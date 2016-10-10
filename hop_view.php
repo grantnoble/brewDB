@@ -35,51 +35,70 @@ while($row = mysqli_fetch_array( $result ))
 
 ?>
 
-<h2>View Hop</h2>
+<div class="container">
 
-<form name="hopform" action="hop_view.php" method="post">
-    
-<div class="row">
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Hop</legend>
-    
-    <label>Name: </label>
-    <input type="text" name="name" size=15 readonly="yes" value="<?php echo $name; ?>" />
-    
-    <label>Alpha: </label>
-    <input type="text" name="type" size=6 readonly="yes" value="<?php echo $alpha; ?>" />
-    
-    <label>Origin: </label>
-    <input type="text" name="yield" size=10 readonly="yes" value="<?php echo $origin; ?>" />
-    
-    <p></p>
-    
-    <label>Substitutes: </label>
-    <input type="text" name="color" size=50 readonly="yes" value="<?php echo $substitutes; ?>" />
-    
-    <p></p>
-    
-    <label>Notes: </label>
-    <textarea rows=3 cols=130 name="notes" readonly="yes"><?php echo $notes; ?></textarea>
-    
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
+	<h2>View Hop</h2>
 
-</form>
+	<form role="form" class="form-horizontal" name="hopform" action="hop_edit.php" method="post">
+    
+	<div class="row">
+	
+		<fieldset class="col-xs-12 col-md-12">
+		
+		<div class="well">
+		
+			<div class="row margin-bottom-1em">
 
-<!-- new form to submit only the hop id using get not post-->
-<form name="hopformedit" action="hop_edit.php" method="get">
-<div class="row">
-<div class="float_left">
+				<div class="col-xs-3 col-md-3">
+					<label for="name" class="label-sm">Name</label>
+					<input type="text" class="form-control input-sm" name="name" id="name" readonly="yes" value="<?php echo $name; ?>" />
+				</div>
+		
+				<div class="col-xs-2 col-md-2">
+					<label for="alpha" class="label-sm">Alpha (%)</label>
+					<input type="number" class="form-control input-sm" name="alpha" id="alpha" readonly="yes" value="<?php echo $alpha; ?>" />
+				</div>
+		
+				<div class="col-xs-3 col-md-3">
+					<label for="origin" class="label-sm">Origin</label>
+					<input type="text" class="form-control input-sm" name="origin" id="origin" readonly="yes" value="<?php echo $origin; ?>" />
+				</div>
+		
+				<div class="col-xs-3 col-md-3">
+					<label for="substitutes" class="label-sm">Substitutes</label>
+					<input type="text" class="form-control input-sm" name="substitutes" id="substitutes" readonly="yes" value="<?php echo $substitutes; ?>" />
+				</div>
+		
+			</div>
+			
+			<div class="row">
+		
+				<div class="col-xs-12 col-md-12">
+					<label for="notes" class="label-sm">Notes</label>
+					<textarea class="form-control input-sm" rows=3 cols=100 name="notes" id="notes" readonly="yes"><?php echo $notes; ?></textarea>
+				</div>
+		
+			</div>
+
+		</div>
+    
+		</fieldset>
+		
+	</div>
+
+	</form>
+	
+</div>
+
+<!-- new form to submit only the fermentable id using get not post-->
+<div class="container">
+
+<form role="form" class="form-horizontal" name="hopformedit" action="hop_edit.php" method="get">
 	<input type="hidden" name="id" value="<?php echo $id; ?>" />
-	<input type="submit" value="Edit Hop" />
-</div><!-- float_left -->
-</div><!-- row -->
+	<input class="btn btn-default" type="submit" value="Edit" />
 </form>
+
+</div>
 
 <?php 
 include ('includes/footer.html');

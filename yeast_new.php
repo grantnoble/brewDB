@@ -33,77 +33,130 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     
     // After saving to the database, redirect back to the list hops page 
-    header("Location: yeasts_list.php");
+	echo '<script type="text/javascript">
+	window.location = "yeasts_list.php"
+	</script>';
     
 }
 
 ?>
 
-<h2>Edit Yeast</h2>
+<div class="container">
 
-<form name="yeastform" action="yeast_new.php" method="post">
-    
-<div class="row">
-<div class="nine_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Yeast</legend>
+	<h2>New Yeast</h2>
 
-    <label>Laboratory: </label>
-    <input type="text" name="laboratory" size=15 />
+	<form role="form" class="form-horizontal" name="yeastform" action="yeast_new.php" method="post">
     
-    <label>Product ID: </label>
-    <input type="text" name="product_id" size=15 />
-    
-    <label>Name *: </label>
-    <input type="text" name="name" size=15 required oninvalid="this.setCustomValidity('Yeast name is required.')" onchange="this.setCustomValidity('')" />
-    
-    <label>Type: </label>
-    <input type="text" name="type" size=6 />
-    
-    <label>Form: </label>
-    <input type="text" name="form" size=10 />
-    
-    <p></p>
-    
-    <label>Min Temp (&deg;C): </label>
-    <input type="number" name="min_temperature" size=6 style="width: 6em" oninvalid="this.setCustomValidity('Temperature is not numeric.')" onchange="this.setCustomValidity('')" />
-    
-    <label>Max Temp (&deg;C): </label>
-    <input type="number" name="max_temperature" size=6 style="width: 6em" oninvalid="this.setCustomValidity('Temperature is not numeric.')" onchange="this.setCustomValidity('')" />
-    
-    <label>Flocculation: </label>
-    <input type="text" name="flocculation" size=15 value="<?php if (isset($_POST['flocculation'])) {echo $_POST['flocculation'];} else {echo $flocculation;} ?>" />
-    
-    <label>Attenuation (%): </label>
-    <input type="number" name="attenuation" size=6 style="width: 6em" oninvalid="this.setCustomValidity('Attenuation is not numeric.')" onchange="this.setCustomValidity('')" />
-    
-    <p></p>
-    
-    <label>Best For: </label>
-    <input type="text" name="best_for" size=30 />
-    
-    <label>Max Reuse: </label>
-    <input type="number" name="max_reuse" size=6 style="width: 6em" oninvalid="this.setCustomValidity('Max reuse is not numeric.')" onchange="this.setCustomValidity('')" />
-    
-    <p></p>
-    
-    <label>Notes: </label>
-    <textarea rows=3 cols=130 name="notes" ></textarea>
-</fieldset>
-</div><!-- float_left -->
-</div><!-- nine_cols -->
-</div><!-- row -->
+	<input type="hidden" name="id" value="<?php echo $id; ?>" />
+	
+	<div class="row">
+	
+		<fieldset class="col-xs-12 col-md-12">
 
-<input type="hidden" name="id" value="<?php echo $id; ?>"/>
+		<div class="well">
+		
+			<div class="row margin-bottom-1em">
 
-<div class="row">
-<div class="float_left">
-<input type="submit" value="Add Yeast" />
-</div><!-- float_left -->
-</div><!-- row -->
+				<div class="col-xs-3 col-md-2">
+					<label for="laboratory" class="label-sm">Laboratory</label>
+					<input type="text" class="form-control input-sm" name="laboratory" id="laboratory" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="product_id" class="label-sm">Product ID</label>
+					<input type="text" class="form-control input-sm" name="product_id" id="product_id" />
+				</div>
+    
+				<div class="col-xs-3 col-md-3">
+					<label for="name" class="label-sm">Name</label>
+					<input type="text" class="form-control input-sm" name="name" id="name" required />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="type" class="label-sm">Type</label>
+					<select name="type" id="type" class="form-control input-sm">
+						<option></option>
+						<option>Ale</option>
+						<option>Lager</option>
+						<option>Wheat</option>
+						<option>Wine</option>
+						<option>Champagne</option>
+					</select>
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="form" class="label-sm">Form</label>
+					<select name="form" id="form" class="form-control input-sm">
+						<option></option>
+						<option>Liquid</option>
+						<option>Dry</option>
+						<option>Slant</option>
+						<option>Culture</option>
+					</select>
+				</div>
+				
+			</div>
+    
+			<div class="row margin-bottom-1em">
 
-</form>
+				<div class="col-xs-3 col-md-2">
+					<label for="min_temperature" class="label-sm">Min&nbsp;Temp&nbsp;(&deg;C)</label>
+					<input type="number" class="form-control input-sm" name="min_temperature" id="min_temperature" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="max_temperature" class="label-sm">Max&nbsp;Temp&nbsp;(&deg;C)</label>
+					<input type="number" class="form-control input-sm" name="max_temperature" id="max_temperature" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="attenuation" class="label-sm">Attenuation&nbsp;(%)</label>
+					<input type="number" class="form-control input-sm" name="attenuation" id="attenuation" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="flocculation" class="label-sm">Flocculation</label>
+					<select name="flocculation" id="flocculation" class="form-control input-sm">
+						<option></option>
+						<option>Low</option>
+						<option>Medium</option>
+						<option>High</option>
+						<option>Very High</option>
+					</select>
+				</div>
+    
+				<div class="col-xs-3 col-md-3">
+					<label for="best_for" class="label-sm">Best For</label>
+					<input type="text" class="form-control input-sm" name="best_for" id="best_for" />
+				</div>
+    
+				<div class="col-xs-3 col-md-1">
+					<label for="max_reuse" class="label-sm">Max&nbsp;Reuse</label>
+					<input type="number" class="form-control input-sm" name="max_reuse" id="max_reuse" />
+				</div>
+    
+			</div>
+    
+			<div class="row">
+		
+				<div class="col-xs-12 col-md-12">
+					<label for="notes" class="label-sm">Notes</label>
+					<textarea rows=3 cols=130 class="form-control input-sm" name="notes" id="notes"></textarea>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		</fieldset>
+		
+	</div>
+
+	<button type="submit" class="btn btn-default">Save</button>
+
+	</form>
+	
+</div>
 
 <?php 
 include ('includes/footer.html');

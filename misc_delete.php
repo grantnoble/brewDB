@@ -20,7 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
     
     // After deleting or not, redirect back to the miscs_list page 
-    header("Location: miscs_list.php");
+	echo '<script type="text/javascript">
+	window.location = "miscs_list.php"
+	</script>';
     
 }
 
@@ -35,7 +37,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
 // if id isn't set, or isn't valid, redirect back to list page
 else
 {
-    header("Location: miscs_list.php");
+	echo '<script type="text/javascript">
+	window.location = "miscs_list.php"
+	</script>';
 }
 
 while($row = mysqli_fetch_array( $result ))
@@ -50,53 +54,70 @@ while($row = mysqli_fetch_array( $result ))
 
 ?>
 
-<h2>Delete Misc</h2>
+<div class="container">
 
-<form name="miscform" action="misc_delete.php" method="post">
-    
-<div class="row">
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Misc</legend>
+	<h2>Delete Miscellaneous</h2>
 
-    <label>Name: </label>
-    <input type="text" name="name" size=15 readonly="yes" value="<?php echo $name; ?>" />
+	<form role="form" class="form-horizontal" name="miscform" action="misc_delete.php" method="post">
     
-    <label>Type: </label>
-    <input type="text" name="alpha" size=15 readonly="yes" value="<?php echo $type; ?>" />
-    
-    <label>Use: </label>
-    <input type="text" name="origin" size=15 readonly="yes" value="<?php echo $use; ?>" />
-    
-    <p></p>
-    
-    <label>Use For: </label>
-    <input type="text" name="substitutes" size=50 readonly="yes" value="<?php echo $use_for; ?>" />
-    
-    <p></p>
-    
-    <label>Notes: </label>
-    <textarea rows=3 cols=130 name="notes" readonly="yes"><?php echo $notes; ?></textarea>
-    
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
+	<div class="row">
 
-<input type="hidden" name="id" value="<?php echo $id; ?>" />
+		<fieldset class="col-xs-12 col-md-12">
 
-<div class="row">
-<div class="float_left">
-<p>Are you sure you want to delete this record?</p>
-<input type="radio" name="sure" value="Yes" /> Yes
-<input type="radio" name="sure" value="No" /> No
+		<div class="well">
+		
+			<div class="row margin-bottom-1em">
 
-<p><input type="submit" name="delete" value="Delete"></p>
-</div><!-- float_left -->
-</div><!-- row -->
+				<div class="col-xs-3 col-md-2">
+					<label for="name" class="label-sm">Name</label>
+					<input type="text" class="form-control input-sm" name="name" id="name" readonly="yes" value="<?php if (isset($_POST['name'])) {echo $_POST['name'];} else {echo $name;} ?>" />
+				</div>
+				
+				<div class="col-xs-3 col-md-2">
+					<label for="type" class="label-sm">Type</label>
+					<input type="text" class="form-control input-sm" name="type" id="type" readonly="yes" value="<?php if (isset($_POST['type'])) {echo $_POST['type'];} else {echo $type;} ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="use" class="label-sm">Use</label>
+					<input type="text" class="form-control input-sm" name="use" id="use" readonly="yes" value="<?php if (isset($_POST['use'])) {echo $_POST['use'];} else {echo $use;} ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-4">
+					<label for="use_for" class="label-sm">Use For</label>
+					<input type="text" class="form-control input-sm" name="use_for" id="use_for" readonly="yes" value="<?php if (isset($_POST['use_for'])) {echo $_POST['use_for'];} else {echo $use_for;} ?>" />
+				</div>
+				
+			</div>
+    
+    
+			<div class="row">
+		
+				<div class="col-xs-12 col-md-12">
+					<label for="notes" class="label-sm">Notes</label>
+					<textarea rows=3 cols=130 class="form-control input-sm" name="notes" id="notes" readonly="yes"><?php if (isset($_POST['notes'])) {echo $_POST['notes'];} else {echo $notes;} ?></textarea>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		</fieldset>
+    
+	</div>
+	
+	<input type="hidden" name="id" id="id" value="<?php echo $id; ?>" />
+	<p>Are you sure you want to delete this record?</p>
+	<label class="checkbox-inline">
+		<input type="checkbox" name="sure" id="sure" value="Yes">Yes
+	</label>
+	<label class="checkbox-inline">
+		<input class="btn btn-default" type="submit" value="Delete">
+	</label>
 
-</form>
+	</form>
+	
+</div>
 
 <?php 
 include ('includes/footer.html');

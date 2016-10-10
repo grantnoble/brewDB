@@ -5,7 +5,8 @@ misc_view.php
 View a misc in the database
 */
 
-$page_title = 'View Miscs';
+$page_title = 'View Misc';
+$error = "";
 include ('includes/header.html');
 header('Content-Type: text/html; charset="utf-8"', true);
 
@@ -17,10 +18,12 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection)); 
  
 }
-// if id isn't set, or isn't valid, redirect back to view page
+// if id isn't set, or isn't valid, redirect back to the list miscs page
 else
 {
-    header("Location: miscs_list.php");
+	echo '<script type="text/javascript">
+	window.location = "miscs_list.php"
+	</script>';
 }
 
 while($row = mysqli_fetch_array( $result ))
@@ -35,51 +38,74 @@ while($row = mysqli_fetch_array( $result ))
 
 ?>
 
-<h2>View misc</h2>
+<div class="container">
 
-<form name="miscform" action="misc_view.php" method="post">
-    
-<div class="row">
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Misc</legend>
-    
-    <label>Name: </label>
-    <input type="text" name="name" size=15 readonly="yes" value="<?php echo $name; ?>" />
-    
-    <label>Type: </label>
-    <input type="text" name="type" size=15 readonly="yes" value="<?php echo $type; ?>" />
-    
-    <label>Use: </label>
-    <input type="text" name="yield" size=15 readonly="yes" value="<?php echo $use; ?>" />
-    
-    <p></p>
-    
-    <label>Use For: </label>
-    <input type="text" name="color" size=50 readonly="yes" value="<?php echo $use_for; ?>" />
-    
-    <p></p>
-    
-    <label>Notes: </label>
-    <textarea rows=3 cols=130 name="notes" readonly="yes"><?php echo $notes; ?></textarea>
-    
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
+	<h2>View Miscellaneous</h2>
 
-</form>
-
-<!-- new form to submit only the misc id using get not post-->
-<form name="miscformedit" action="misc_edit.php" method="get">
-<div class="row">
-<div class="float_left">
+	<form role="form" class="form-horizontal" name="miscform" action="misc_edit.php" method="post">
+    
 	<input type="hidden" name="id" value="<?php echo $id; ?>" />
-	<input type="submit" value="Edit Misc" />
-</div><!-- float_left -->
-</div><!-- row -->
+
+	<div class="row">
+
+		<fieldset class="col-xs-12 col-md-12">
+
+		<div class="well">
+		
+			<div class="row margin-bottom-1em">
+
+				<div class="col-xs-3 col-md-2">
+					<label for="name" class="label-sm">Name</label>
+					<input type="text" class="form-control input-sm" name="name" id="name" readonly="yes" value="<?php echo $name; ?>" />
+				</div>
+				
+				<div class="col-xs-3 col-md-2">
+					<label for="type" class="label-sm">Type</label>
+					<input type="text" class="form-control input-sm" name="type" id="type" readonly="yes" value="<?php echo $type; ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="use" class="label-sm">Use</label>
+					<input type="text" class="form-control input-sm" name="use" id="use" readonly="yes" value="<?php echo $use; ?>" />
+				</div>
+    
+    
+				<div class="col-xs-3 col-md-4">
+					<label for="use_for" class="label-sm">Use For</label>
+					<input type="text" class="form-control input-sm" name="use_for" id="use_for" readonly="yes" value="<?php echo $use_for; ?>" />
+				</div>
+				
+			</div>
+    
+    
+			<div class="row">
+		
+				<div class="col-xs-12 col-md-12">
+					<label for="notes" class="label-sm">Notes</label>
+					<textarea rows=3 cols=130 class="form-control input-sm" name="notes" id="notes" readonly="yes"><?php echo $notes; ?></textarea>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		</fieldset>
+    
+	</div>
+	
+	</form>
+	
+</div>
+
+<!-- new form to submit only the fermentable id using get not post-->
+<div class="container">
+
+<form role="form" class="form-horizontal" name="miscformedit" action="misc_edit.php" method="get">
+	<input type="hidden" name="id" value="<?php echo $id; ?>" />
+	<input class="btn btn-default" type="submit" value="Edit" />
 </form>
+
+</div>
 
 <?php 
 include ('includes/footer.html');

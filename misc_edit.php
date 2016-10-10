@@ -25,7 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     
     // After saving to the database, redirect back to the list miscs page 
-    header("Location: miscs_list.php");
+	echo '<script type="text/javascript">
+	window.location = "miscs_list.php"
+	</script>';
     
 }
 
@@ -37,10 +39,12 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection)); 
  
 }
-// if id isn't set, or isn't valid, redirect back to view page
+// if id isn't set, or isn't valid, redirect back to the list miscs page
 else
 {
-    header("Location: miscs_list.php");
+	echo '<script type="text/javascript">
+	window.location = "miscs_list.php"
+	</script>';
 }
 
 while($row = mysqli_fetch_array( $result ))
@@ -55,64 +59,80 @@ while($row = mysqli_fetch_array( $result ))
 
 ?>
 
-<h2>Edit Misc</h2>
+<div class="container">
 
-<form name="miscform" action="misc_edit.php" method="post">
-    
-<div class="row">
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Misc</legend>
+	<h2>Edit Miscellaneous</h2>
 
-    <label>Name *: </label>
-    <input type="text" name="name" size=15 required oninvalid="this.setCustomValidity('Misc name is required.')" onchange="this.setCustomValidity('')" value="<?php if (isset($_POST['name'])) {echo $_POST['name'];} else {echo $name;} ?>" />
+	<form role="form" class="form-horizontal" name="miscform" action="misc_edit.php" method="post">
     
-    <label>Type: </label>
-    <select name="type">
-        <option><?php if (isset($_POST['type'])) {echo $_POST['type'];} else {echo $type;} ?></option>
-        <option>Spice</option>
-        <option>Fining</option>
-        <option>Water Agent</option>
-        <option>Herb</option>
-        <option>Flavor</option>
-        <option>Other</option>
-        </select>
-    
-    <label>Use: </label>
-    <select name="use">
-        <option><?php if (isset($_POST['use'])) {echo $_POST['use'];} else {echo $use;} ?></option>
-        <option>Mash</option>
-        <option>Boil</option>
-        <option>Primary</option>
-        <option>Secondary</option>
-        <option>Bottling</option>
-        </select>
-    
-    <p></p>
-    
-    <label>Use For: </label>
-    <input type="text" name="use_for" size=50 value="<?php if (isset($_POST['use_for'])) {echo $_POST['use_for'];} else {echo $use_for;} ?>" />
-    
-    <p></p>
-    
-    <label>Notes: </label>
-    <textarea rows=3 cols=130 name="notes"><?php if (isset($_POST['notes'])) {echo $_POST['notes'];} else {echo $notes;} ?></textarea>
-    
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
+	<input type="hidden" name="id" value="<?php echo $id; ?>" />
 
-<input type="hidden" name="id" value="<?php echo $id; ?>"/>
+	<div class="row">
 
-<div class="row">
-<div class="float_left">
-<input type="submit" value="Update Misc" />
-</div><!-- float_left -->
-</div><!-- row -->
+		<fieldset class="col-xs-12 col-md-12">
 
-</form>
+		<div class="well">
+		
+			<div class="row margin-bottom-1em">
+
+				<div class="col-xs-3 col-md-2">
+					<label for="name" class="label-sm">Name</label>
+					<input type="text" class="form-control input-sm" name="name" id="name" required value="<?php if (isset($_POST['name'])) {echo $_POST['name'];} else {echo $name;} ?>" />
+				</div>
+				
+				<div class="col-xs-3 col-md-2">
+					<label for="type" class="label-sm">Type</label>
+					<select name="type" id="type" class="form-control input-sm">
+						<option><?php if (isset($_POST['type'])) {echo $_POST['type'];} else {echo $type;} ?></option>
+						<option>Spice</option>
+						<option>Fining</option>
+						<option>Water Agent</option>
+						<option>Herb</option>
+						<option>Flavor</option>
+						<option>Other</option>
+					</select>
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="use" class="label-sm">Use</label>
+					<select name="use" id="use" class="form-control input-sm">
+						<option><?php if (isset($_POST['use'])) {echo $_POST['use'];} else {echo $use;} ?></option>
+						<option>Mash</option>
+						<option>Boil</option>
+						<option>Primary</option>
+						<option>Secondary</option>
+						<option>Bottling</option>
+					</select>
+				</div>
+    
+    
+				<div class="col-xs-3 col-md-4">
+					<label for="use_for" class="label-sm">Use For</label>
+					<input type="text" class="form-control input-sm" name="use_for" id="use_for" value="<?php if (isset($_POST['use_for'])) {echo $_POST['use_for'];} else {echo $use_for;} ?>" />
+				</div>
+				
+			</div>
+    
+			<div class="row">
+		
+				<div class="col-xs-12 col-md-12">
+					<label for="notes" class="label-sm">Notes</label>
+					<textarea rows=3 cols=130 class="form-control input-sm" name="notes" id="notes"><?php if (isset($_POST['notes'])) {echo $_POST['notes'];} else {echo $notes;} ?></textarea>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		</fieldset>
+    
+	</div>
+	
+	<button type="submit" class="btn btn-default">Save</button>
+
+	</form>
+	
+</div>
 
 <?php 
 include ('includes/footer.html');
