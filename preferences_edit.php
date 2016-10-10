@@ -6,7 +6,6 @@ Edit brewdb preferences
 */
 
 $page_title = 'Edit Preferences';
-$error = "";
 include ('includes/header.html');
 header('Content-Type: text/html; charset="utf-8"', true);
 
@@ -29,7 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     
     // After saving to the database, redirect back to the home page 
-    header("Location: index.php");
+	echo '<script type="text/javascript">
+	window.location = "index.php"
+	</script>';
     
 }
 
@@ -38,7 +39,7 @@ $query = "SELECT * FROM preferences ORDER BY preference_id DESC LIMIT 1";
 $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 while ($row = mysqli_fetch_array ( $result ))
 {
-	$preference_id = $row['preference_id'];
+	$id = $row['preference_id'];
 	$page_title = $row['preference_page_title'];
 	$title = $row['preference_title'];
 	$sub_title = $row['preference_sub_title'];
@@ -50,63 +51,89 @@ while ($row = mysqli_fetch_array ( $result ))
 	$loss = $row['preference_loss'];
 }
 
-end:
-
+//end of PHP section, now create the HTML form
 ?>
 
-<h2>Edit Preferences</h2>
+<div class="container">
 
-<form name="preferencesform" action="preferences_edit.php" method="post">
-    
-<div class="row">
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Preferences</legend>
-    
-     <label>Page Title</label><br>
-    <input type="text" name="page_title" size=100 value="<?php echo $page_title; ?>" />
-    
-    <label>Title</label><br>
-    <input type="text" name="title" size=100 value="<?php echo $title; ?>" />
-    
-    <label>Sub Title</label><br>
-    <input type="text" name="sub_title" size=100 value="<?php echo $sub_title; ?>" />
-    
-    <p></p>
-    
-   <label>Boil Size (L)*: </label>
-    <input type="number" name="boil_size" size=6 style="width: 6em" required oninvalid="this.setCustomValidity('Boil size is required or is not numeric.')" onchange="this.setCustomValidity('')" value="<?php echo $boil_size; ?>" />
-    
-    <label>Boil Time (mins)*: </label>
-    <input type="number" name="boil_time" size=6 style="width: 6em" required oninvalid="this.setCustomValidity('Boil time is required or is not numeric.')" onchange="this.setCustomValidity('')" value="<?php echo $boil_time; ?>" />
-    
-    <label>Evaporation Rate (L/hr)*: </label>
-    <input type="number" name="evaporation_rate" size=6 style="width: 6em" required oninvalid="this.setCustomValidity('Evaporation rate is required or is not numeric.')" onchange="this.setCustomValidity('')" value="<?php echo $evaporation_rate; ?>" />
-    
-    <p></p>
-    
-    <label>Batch Size (L)*: </label>
-    <input type="number" name="batch_size" size=6 style="width: 6em" required oninvalid="this.setCustomValidity('Batch size is required or is not numeric.')" onchange="this.setCustomValidity('')" value="<?php echo $batch_size; ?>" />
-    
-    <label>Mash Efficiency (%)*: </label>
-    <input type="number" name="mash_efficiency" size=6 style="width: 6em" required oninvalid="this.setCustomValidity('Mash efficiency is required or is not numeric.')" onchange="this.setCustomValidity('')" value="<?php echo $mash_efficiency; ?>" />
-    
-    <label>Loss (L)*: </label>
-    <input type="number" name="loss" size=6 style="width: 6em" required oninvalid="this.setCustomValidity('Loss is required or is not numeric.')" onchange="this.setCustomValidity('')" value="<?php echo $loss; ?>" />
-    
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
+	<h2>Edit Preferences</h2>
 
-<input type="hidden" name="preference_id" value="<?php echo $preference_id; ?>"/>
+	<form role="form" class="form-horizontal" name="preferencesform" action="preferences_edit.php" method="post">
+    
+	<input type="hidden" name="preference_id" value="<?php echo $id; ?>" />
+	
+	<div class="row">
 
-<div class="row">
-<input class="button" type="submit" value="Save" />
-</div><!-- row -->
+		<fieldset class="col-xs-12 col-md-12">
+    
+		<div class="well">
+		
+			<div class="row margin-bottom-1em">
 
-</form>
+				<div class="col-xs-3 col-md-4">
+					<label for="page_title" class="label-sm">Page Title</label>
+					<input type="text" class="form-control input-sm" name="page_title" value="<?php if (isset($_POST['page_title'])) {echo $_POST['page_title'];} else {echo $page_title;} ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-4">
+					<label for="title" class="label-sm">Title</label>
+					<input type="text" class="form-control input-sm" name="title" value="<?php if (isset($_POST['title'])) {echo $_POST['title'];} else {echo $title;} ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-4">
+					<label for="sub_title" class="label-sm">Sub Title</label>
+					<input type="text" class="form-control input-sm" name="sub_title" value="<?php if (isset($_POST['sub_title'])) {echo $_POST['sub_title'];} else {echo $sub_title;} ?>" />
+				</div>
+				
+			</div>
+
+    
+			<div class="row">
+
+				<div class="col-xs-3 col-md-2">
+					<label for="boil_size" class="label-sm">Boil Size (L)</label>
+					<input type="number" class="form-control input-sm" name="boil_size" required value="<?php if (isset($_POST['boil_size'])) {echo $_POST['boil_size'];} else {echo $boil_size;} ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="boil_time" class="label-sm">Boil Time (mins)</label>
+					<input type="number" class="form-control input-sm" name="boil_time" required value="<?php if (isset($_POST['boil_time'])) {echo $_POST['boil_time'];} else {echo $boil_time;} ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="evaporation_rate" class="label-sm">Evap Rate (L/hr)</label>
+					<input type="number" class="form-control input-sm" name="evaporation_rate" required value="<?php if (isset($_POST['evaporation_rate'])) {echo $_POST['evaporation_rate'];} else {echo $evaporation_rate;} ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="batch_size" class="label-sm">Batch Size (L)</label>
+					<input type="number" class="form-control input-sm" name="batch_size" required value="<?php if (isset($_POST['batch_size'])) {echo $_POST['batch_size'];} else {echo $batch_size;} ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="mash_efficiency" class="label-sm">Mash Eff (%)</label>
+					<input type="number" class="form-control input-sm" name="mash_efficiency" required value="<?php if (isset($_POST['mash_efficiency'])) {echo $_POST['mash_efficiency'];} else {echo $mash_efficiency;} ?>" />
+				</div>
+    
+				<div class="col-xs-3 col-md-2">
+					<label for="loss" class="label-sm">Loss (L)</label>
+					<input type="number" class="form-control input-sm" name="loss" required value="<?php if (isset($_POST['loss'])) {echo $_POST['loss'];} else {echo $loss;} ?>" />
+				</div>
+				
+			</div>
+			
+		</div>
+    
+		</fieldset>
+		
+	</div>
+
+	<button type="submit" class="btn btn-default">Save</button>
+
+	</form>
+	
+	
+</div>
 
 <?php 
 include ('includes/footer.html');
