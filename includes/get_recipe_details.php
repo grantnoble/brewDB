@@ -11,8 +11,6 @@
 		$details['name'] = $row['recipe_name'];
 		$details['type'] = $row['recipe_type'];
 		$details['style_id'] = $row['recipe_style_id'];
-		$details['boil_size'] = $row['recipe_boil_size'];
-		$details['boil_time'] = $row['recipe_boil_time'];
 		$details['batch_size'] = $row['recipe_batch_size'];
 		$details['mash_efficiency'] = $row['recipe_mash_efficiency'];
 		$details['ibu_method'] = $row['recipe_ibu_method'];

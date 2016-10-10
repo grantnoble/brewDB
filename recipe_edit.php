@@ -30,8 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 	// retrieve the basic recipe details
 	$details['type'] = mysqli_real_escape_string($connection, test_input($_POST['type']));
-	$details['boil_size'] = mysqli_real_escape_string($connection, test_input($_POST['boil_size']));
-	$details['boil_time'] = mysqli_real_escape_string($connection, test_input($_POST['boil_time']));
 	$details['batch_size'] = mysqli_real_escape_string($connection, test_input($_POST['batch_size']));
 	$details['mash_efficiency'] = mysqli_real_escape_string($connection, test_input($_POST['mash_efficiency']));
 	$details['est_og'] = mysqli_real_escape_string($connection, test_input($_POST['est_og']));
@@ -124,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	// now update the records in the database
 
 	// update the recipe record
-	$query = "UPDATE recipes SET recipe_name='" . $details['name'] . "', recipe_type='" . $details['type'] . "', recipe_style_id='" . $details['style_id'] . "', recipe_boil_size=" . $details['boil_size'] . ", recipe_boil_time=" . $details['boil_time'] . ", recipe_batch_size=" . $details['batch_size'] . ", recipe_mash_efficiency=" . $details['mash_efficiency'] . ", recipe_designer='" . $details['designer'] . "', recipe_notes='" . $details['notes'] . "', recipe_est_og=" . $details['est_og'] . ", recipe_est_fg=" . $details['est_fg'] . ", recipe_est_color=" . $details['est_color'] . ", recipe_est_ibu=" . $details['est_ibu'] . ", recipe_est_abv=" . $details['est_abv'] . ", recipe_date='" . $details['date'] . "' WHERE recipe_id='" . $details['id'] . "'";
+	$query = "UPDATE recipes SET recipe_name='" . $details['name'] . "', recipe_type='" . $details['type'] . "', recipe_style_id='" . $details['style_id'] . "', recipe_batch_size=" . $details['batch_size'] . ", recipe_mash_efficiency=" . $details['mash_efficiency'] . ", recipe_designer='" . $details['designer'] . "', recipe_notes='" . $details['notes'] . "', recipe_est_og=" . $details['est_og'] . ", recipe_est_fg=" . $details['est_fg'] . ", recipe_est_color=" . $details['est_color'] . ", recipe_est_ibu=" . $details['est_ibu'] . ", recipe_est_abv=" . $details['est_abv'] . ", recipe_date='" . $details['date'] . "' WHERE recipe_id='" . $details['id'] . "'";
 	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
 	// for each fermentable, do the update process
@@ -309,36 +307,22 @@ else
 
 	<div class="row margin-bottom-1em">
 	
-		<div class="col-xs-4 col-sm-4 col-md-3">
-			<label for="boil_size" class="label-sm">Boil Size (L)</label>
-			<input type="number" class="form-control input-sm" min="0" step=".1" id="boil_size" name="boil_size" required onchange="calc_og_color_ibu();" value="<?php echo $details['boil_size']; ?>"/>
-		</div>
-		
-		<div class="col-xs-4 col-sm-4 col-md-3">
-			<label for="boil_time" class="label-sm">Boil Time (min)</label>
-			<input type="number" class="form-control input-sm" min="0" step="1" id="boil_time" name="boil_time" required onchange="calc_og_color_ibu();" value="<?php echo $details['boil_time']; ?>"/>
-		</div>
-		
-		<div class="col-xs-4 col-sm-4 col-md-3">
+		<div class="col-xs-4 col-sm-4 col-md-2">
 			<label for="batch_size" class="label-sm">Batch Size (L)</label>
 			<input type="number" class="form-control input-sm" min="0" step=".1" id="batch_size" name="batch_size" required onchange="calc_og_color_ibu();" value="<?php echo $details['batch_size']; ?>"/>
 		</div>
 		
-		<div class="col-xs-4 col-sm-4 col-md-3">
-			<label for="mash_efficiency" class="label-sm">Mash Efficiency (%)</label>
+		<div class="col-xs-4 col-sm-4 col-md-2">
+			<label for="mash_efficiency" class="label-sm">Mash Eff (%)</label>
 			<input type="number" class="form-control input-sm" min="0" step=".01" id="mash_efficiency" name="mash_efficiency" required onchange="calc_og_color_ibu();" value="<?php echo $details['mash_efficiency']; ?>"/>
 		</div>
-		
-	</div>
-	
-	<div class="row margin-bottom-1em">
 		
 		<div class="col-xs-5 col-sm-4 col-md-3">
 			<label for="date" class="label-sm">Date (yyyy-mm-dd)</label>
 			<input type="date" class="form-control input-sm" id="date" name="date" value="<?php echo $details['date']; ?>"/>
 		</div>
 		
-		<div class="hidden-xs col-sm-4 col-md-6">
+		<div class="hidden-xs col-sm-4 col-md-5">
 			<label for="designer" class="label-sm">Designer</label>
 			<input list="persons" class="form-control input-sm" id="designer" name="designer" value="<?php echo $details['designer']; ?>"/>
 				<datalist id="persons">

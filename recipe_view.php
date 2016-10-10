@@ -64,36 +64,22 @@ else
 
 	<div class="row margin-bottom-1em">
 	
-		<div class="col-xs-4 col-sm-4 col-md-3">
-			<label for="boil_size" class="label-sm">Boil Size (L)</label>
-			<input type="text" class="form-control input-sm" id="boil_size" name="boil_size" readonly="yes" value="<?php echo $details['boil_size']; ?>"/>
-		</div>
-		
-		<div class="col-xs-4 col-sm-4 col-md-3">
-			<label for="boil_time" class="label-sm">Boil Time (min)</label>
-			<input type="text" class="form-control input-sm" id="boil_time" name="boil_time" readonly="yes" value="<?php echo $details['boil_time']; ?>"/>
-		</div>
-		
-		<div class="col-xs-4 col-sm-4 col-md-3">
+		<div class="col-xs-4 col-sm-4 col-md-2">
 			<label for="batch_size" class="label-sm">Batch Size (L)</label>
 			<input type="text" class="form-control input-sm" id="batch_size" name="batch_size" readonly="yes" value="<?php echo $details['batch_size']; ?>"/>
 		</div>
 		
-		<div class="col-xs-4 col-sm-4 col-md-3">
-			<label for="mash_efficiency" class="label-sm">Mash Efficiency (%)</label>
+		<div class="col-xs-4 col-sm-4 col-md-2">
+			<label for="mash_efficiency" class="label-sm">Mash Eff (%)</label>
 			<input type="text" class="form-control input-sm" id="mash_efficiency" name="mash_efficiency" readonly="yes" value="<?php echo $details['mash_efficiency']; ?>"/>
 		</div>
-		
-	</div>
-	
-	<div class="row margin-bottom-1em">
 		
 		<div class="col-xs-5 col-sm-4 col-md-3">
 			<label for="date" class="label-sm">Date (yyyy-mm-dd)</label>
 			<input type="date" class="form-control input-sm" id="date" name="date" readonly="yes" value="<?php echo $details['date']; ?>"/>
 		</div>
 		
-		<div class="hidden-xs col-sm-4 col-md-6">
+		<div class="hidden-xs col-sm-4 col-md-5">
 			<label for="designer" class="label-sm">Designer</label>
 			<input type="text" class="form-control input-sm" id="designer" name="designer" readonly="yes" value="<?php echo $details['designer']; ?>"/>
 		</div>
