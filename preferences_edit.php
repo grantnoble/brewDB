@@ -14,17 +14,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     // retrieve the field values
     $details['preference_id'] = mysqli_real_escape_string($connection, test_input($_POST['preference_id']));
+    $details['page_title'] = mysqli_real_escape_string($connection, test_input($_POST['page_title']));
+    $details['title'] = mysqli_real_escape_string($connection, test_input($_POST['title']));
+    $details['sub_title'] = mysqli_real_escape_string($connection, test_input($_POST['sub_title']));
+    $details['brew_type'] = mysqli_real_escape_string($connection, test_input($_POST['brew_type']));
+    $details['brew_method'] = mysqli_real_escape_string($connection, test_input($_POST['brew_method']));
+    $details['no_chill'] = mysqli_real_escape_string($connection, test_input($_POST['no_chill']));
     $details['boil_size'] = mysqli_real_escape_string($connection, test_input($_POST['boil_size']));
     $details['boil_time'] = mysqli_real_escape_string($connection, test_input($_POST['boil_time']));
     $details['evaporation_rate'] = mysqli_real_escape_string($connection, test_input($_POST['evaporation_rate']));
     $details['batch_size'] = mysqli_real_escape_string($connection, test_input($_POST['batch_size']));
     $details['mash_efficiency'] = mysqli_real_escape_string($connection, test_input($_POST['mash_efficiency']));
     $details['loss'] = mysqli_real_escape_string($connection, test_input($_POST['loss']));
-    $details['page_title'] = mysqli_real_escape_string($connection, test_input($_POST['page_title']));
-    $details['title'] = mysqli_real_escape_string($connection, test_input($_POST['title']));
-    $details['sub_title'] = mysqli_real_escape_string($connection, test_input($_POST['sub_title']));
+    $details['packaging'] = mysqli_real_escape_string($connection, test_input($_POST['packaging']));
     
-    $query = "UPDATE preferences SET preference_page_title='" . $details['page_title'] . "', preference_title='" . $details['title'] . "', preference_sub_title='" . $details['sub_title'] . "', preference_boil_size=" . $details['boil_size'] . ", preference_boil_time=" . $details['boil_time'] . ", preference_evaporation_rate=" . $details['evaporation_rate'] . ", preference_batch_size=" . $details['batch_size'] . ", preference_mash_efficiency=" . $details['mash_efficiency'] . ", preference_loss=" . $details['loss'] . " WHERE preference_id=" . $details['preference_id'] ;
+    $query = "UPDATE preferences SET preference_page_title='" . $details['page_title'] . "', preference_title='" . $details['title'] . "', preference_sub_title='" . $details['sub_title'] . "', preference_brew_type='" . $details['brew_type'] . "', preference_brew_method='" . $details['brew_method'] . "', preference_no_chill='" . $details['no_chill'] . "', preference_boil_size=" . $details['boil_size'] . ", preference_boil_time=" . $details['boil_time'] . ", preference_evaporation_rate=" . $details['evaporation_rate'] . ", preference_batch_size=" . $details['batch_size'] . ", preference_mash_efficiency=" . $details['mash_efficiency'] . ", preference_loss=" . $details['loss'] . ", preference_packaging='" . $details['packaging'] . "' WHERE preference_id=" . $details['preference_id'] ;
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     
     // After saving to the database, redirect back to the home page 
@@ -43,12 +47,16 @@ while ($row = mysqli_fetch_array ( $result ))
 	$page_title = $row['preference_page_title'];
 	$title = $row['preference_title'];
 	$sub_title = $row['preference_sub_title'];
+	$brew_type = $row['preference_brew_type'];
+	$brew_method = $row['preference_brew_method'];
+	$no_chill = $row['preference_no_chill'];
 	$boil_size = $row['preference_boil_size'];
 	$boil_time = $row['preference_boil_time'];
 	$evaporation_rate = $row['preference_evaporation_rate'];
 	$batch_size = $row['preference_batch_size'];
 	$mash_efficiency = $row['preference_mash_efficiency'];
 	$loss = $row['preference_loss'];
+	$packaging = $row['preference_packaging'];
 }
 
 //end of PHP section, now create the HTML form
@@ -72,52 +80,94 @@ while ($row = mysqli_fetch_array ( $result ))
 
 				<div class="col-xs-3 col-md-4">
 					<label for="page_title" class="label-sm">Page Title</label>
-					<input type="text" class="form-control input-sm" name="page_title" value="<?php if (isset($_POST['page_title'])) {echo $_POST['page_title'];} else {echo $page_title;} ?>" />
+					<input type="text" class="form-control input-sm" name="page_title" id="page_title" value="<?php if (isset($_POST['page_title'])) {echo $_POST['page_title'];} else {echo $page_title;} ?>" />
 				</div>
     
 				<div class="col-xs-3 col-md-4">
 					<label for="title" class="label-sm">Title</label>
-					<input type="text" class="form-control input-sm" name="title" value="<?php if (isset($_POST['title'])) {echo $_POST['title'];} else {echo $title;} ?>" />
+					<input type="text" class="form-control input-sm" name="title" id="title" value="<?php if (isset($_POST['title'])) {echo $_POST['title'];} else {echo $title;} ?>" />
 				</div>
     
 				<div class="col-xs-3 col-md-4">
 					<label for="sub_title" class="label-sm">Sub Title</label>
-					<input type="text" class="form-control input-sm" name="sub_title" value="<?php if (isset($_POST['sub_title'])) {echo $_POST['sub_title'];} else {echo $sub_title;} ?>" />
+					<input type="text" class="form-control input-sm" name="sub_title" id="sub_title" value="<?php if (isset($_POST['sub_title'])) {echo $_POST['sub_title'];} else {echo $sub_title;} ?>" />
 				</div>
 				
 			</div>
 
+			<div class="row margin-bottom-1em">
+
+				<div class="col-xs-3 col-md-3">
+					<label for="brew_type" class="label-sm">Brew Type</label>
+					<select name="brew_type" id="brew_type" class="form-control input-sm">
+						<option><?php if (isset($_POST['brew_type'])) {echo $_POST['brew_type'];} else {echo $brew_type;} ?></option>
+						<option>All Grain</option>
+						<option>Extract</option>
+						<option>Partial Mash</option>
+					</select>
+				</div>
     
+				<div class="col-xs-3 col-md-3">
+					<label for="brew_method" class="label-sm">Brew Method</label>
+					<select name="brew_method" id="brew_method" class="form-control input-sm">
+						<option><?php if (isset($_POST['brew_method'])) {echo $_POST['brew_method'];} else {echo $brew_method;} ?></option>
+						<option>BIAB</option>
+						<option>Batch Sparge</option>
+						<option>Fly Sparge</option>
+						<option>No Sparge</option>
+					</select>
+				</div>
+    
+				<div class="col-xs-3 col-md-3">
+					<label for="no_chill" class="label-sm">No Chill?</label>
+					<select name="no_chill" id="no_chill" class="form-control input-sm">
+						<option><?php if (isset($_POST['no_chill'])) {echo $_POST['no_chill'];} else {echo $no_chill;} ?></option>
+						<option>True</option>
+						<option>False</option>
+					</select>
+				</div>
+				
+				<div class="col-xs-3 col-md-3">
+					<label for="packaging" class="label-sm">Packaging</label>
+					<select name="packaging" id="packaging" class="form-control input-sm">
+						<option><?php if (isset($_POST['packaging'])) {echo $_POST['packaging'];} else {echo $packaging;} ?></option>
+						<option>Bottle</option>
+						<option>Keg</option>
+					</select>
+				</div>
+				
+			</div>
+
 			<div class="row">
 
 				<div class="col-xs-3 col-md-2">
 					<label for="boil_size" class="label-sm">Boil Size (L)</label>
-					<input type="number" class="form-control input-sm" name="boil_size" required value="<?php if (isset($_POST['boil_size'])) {echo $_POST['boil_size'];} else {echo $boil_size;} ?>" />
+					<input type="number" class="form-control input-sm" name="boil_size" id="boil_size" required value="<?php if (isset($_POST['boil_size'])) {echo $_POST['boil_size'];} else {echo $boil_size;} ?>" />
 				</div>
     
 				<div class="col-xs-3 col-md-2">
 					<label for="boil_time" class="label-sm">Boil Time (mins)</label>
-					<input type="number" class="form-control input-sm" name="boil_time" required value="<?php if (isset($_POST['boil_time'])) {echo $_POST['boil_time'];} else {echo $boil_time;} ?>" />
+					<input type="number" class="form-control input-sm" name="boil_time" id="boil_time" required value="<?php if (isset($_POST['boil_time'])) {echo $_POST['boil_time'];} else {echo $boil_time;} ?>" />
 				</div>
     
 				<div class="col-xs-3 col-md-2">
 					<label for="evaporation_rate" class="label-sm">Evap Rate (L/hr)</label>
-					<input type="number" class="form-control input-sm" name="evaporation_rate" required value="<?php if (isset($_POST['evaporation_rate'])) {echo $_POST['evaporation_rate'];} else {echo $evaporation_rate;} ?>" />
+					<input type="number" class="form-control input-sm" name="evaporation_rate" id="evaporation_rate" required value="<?php if (isset($_POST['evaporation_rate'])) {echo $_POST['evaporation_rate'];} else {echo $evaporation_rate;} ?>" />
 				</div>
     
 				<div class="col-xs-3 col-md-2">
 					<label for="batch_size" class="label-sm">Batch Size (L)</label>
-					<input type="number" class="form-control input-sm" name="batch_size" required value="<?php if (isset($_POST['batch_size'])) {echo $_POST['batch_size'];} else {echo $batch_size;} ?>" />
+					<input type="number" class="form-control input-sm" name="batch_size" id="batch_size" required value="<?php if (isset($_POST['batch_size'])) {echo $_POST['batch_size'];} else {echo $batch_size;} ?>" />
 				</div>
     
 				<div class="col-xs-3 col-md-2">
 					<label for="mash_efficiency" class="label-sm">Mash Eff (%)</label>
-					<input type="number" class="form-control input-sm" name="mash_efficiency" required value="<?php if (isset($_POST['mash_efficiency'])) {echo $_POST['mash_efficiency'];} else {echo $mash_efficiency;} ?>" />
+					<input type="number" class="form-control input-sm" name="mash_efficiency" id="mash_efficiency" required value="<?php if (isset($_POST['mash_efficiency'])) {echo $_POST['mash_efficiency'];} else {echo $mash_efficiency;} ?>" />
 				</div>
     
 				<div class="col-xs-3 col-md-2">
 					<label for="loss" class="label-sm">Loss (L)</label>
-					<input type="number" class="form-control input-sm" name="loss" required value="<?php if (isset($_POST['loss'])) {echo $_POST['loss'];} else {echo $loss;} ?>" />
+					<input type="number" class="form-control input-sm" name="loss" id="loss" required value="<?php if (isset($_POST['loss'])) {echo $_POST['loss'];} else {echo $loss;} ?>" />
 				</div>
 				
 			</div>

@@ -15,6 +15,7 @@ header('Content-Type: text/html; charset="utf-8"', true);
 // connect to the database
 include('includes/database_connect.php');
 
+// load all query statements into an associative array
 // Fermentables
 $query['fermentables'] = "CREATE TABLE fermentables (
 fermentable_id mediumint unsigned NOT NULL auto_increment,
@@ -34,7 +35,7 @@ INDEX (fermentable_name)
 ) AUTO_INCREMENT=10001 CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // Hops
-$query['hops'] .= "CREATE TABLE hops
+$query['hops'] = "CREATE TABLE hops
 (
 hop_id mediumint unsigned NOT NULL auto_increment,
 hop_name varchar(255) NOT NULL,
@@ -48,7 +49,7 @@ INDEX (hop_name)
 ) AUTO_INCREMENT=20001 CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // Yeasts
-$query['yeasts'] .= "CREATE TABLE yeasts
+$query['yeasts'] = "CREATE TABLE yeasts
 (
 yeast_id mediumint unsigned NOT NULL auto_increment,
 yeast_laboratory varchar(255),
@@ -75,18 +76,18 @@ INDEX (yeast_product_id),
 INDEX (yeast_flocculation)
 ) AUTO_INCREMENT=30001 CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
-$query['yeasts_insert_trigger'] .= "CREATE TRIGGER insert_trigger
+$query['yeasts_insert_trigger'] = "CREATE TRIGGER insert_trigger
 BEFORE INSERT on yeasts
 FOR EACH ROW
 SET NEW.yeast_fullname = CONCAT(NEW.yeast_laboratory, ' ', NEW.yeast_product_id, ' ', NEW.yeast_name);";
 
-$query['yeasts_update_trigger'] .= "CREATE TRIGGER update_trigger
+$query['yeasts_update_trigger'] = "CREATE TRIGGER update_trigger
 BEFORE UPDATE on yeasts
 FOR EACH ROW
 SET NEW.yeast_fullname = CONCAT(NEW.yeast_laboratory, ' ', NEW.yeast_product_id, ' ', NEW.yeast_name);";
 
 // Miscs
-$query['miscs'] .= "CREATE TABLE miscs
+$query['miscs'] = "CREATE TABLE miscs
 (
 misc_id mediumint unsigned NOT NULL auto_increment,
 misc_name varchar(255) NOT NULL,
@@ -101,7 +102,7 @@ INDEX (misc_type)
 ) AUTO_INCREMENT=40001 CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // Styles
-$query['styles'] .= "CREATE TABLE styles
+$query['styles'] = "CREATE TABLE styles
 (
 style_id mediumint unsigned NOT NULL auto_increment,
 style_version tinyint unsigned NOT NULL default 1,
@@ -134,7 +135,7 @@ INDEX (style_type)
 ) AUTO_INCREMENT=50001 CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // Persons
-$query['persons'] .= "CREATE TABLE persons
+$query['persons'] = "CREATE TABLE persons
 (
 person_id mediumint unsigned NOT NULL auto_increment,
 person_first_name varchar(255),
@@ -145,12 +146,15 @@ INDEX (person_first_name)
 ) AUTO_INCREMENT=60001 CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // Preferences
-$query['preferences'] .= "CREATE TABLE preferences
+$query['preferences'] = "CREATE TABLE preferences
 (
 preference_id mediumint unsigned NOT NULL auto_increment,
 preference_page_title varchar(255),
 preference_title varchar(255),
 preference_sub_title varchar(255),
+preference_brew_type enum('Extract', 'Partial Mash', 'All Grain') default 'All Grain',
+preference_brew_method enum('BIAB', 'Batch Sparge', 'Fly Sparge', 'No Sparge') default 'BIAB',
+preference_no_chill enum('True', 'False') default 'True',
 preference_boil_size float,
 preference_boil_time mediumint unsigned,
 preference_evaporation_rate float,
@@ -158,11 +162,12 @@ preference_batch_size float,
 preference_mash_efficiency float,
 preference_ibu_method enum('Rager', 'Tinseth', 'Garetz') NOT NULL default 'Tinseth',
 preference_loss float,
+preference_packaging enum('Bottle', 'Keg') default 'Bottle',
 PRIMARY KEY (preference_id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // Recipes
-$query['recipes'] .= "CREATE TABLE recipes
+$query['recipes'] = "CREATE TABLE recipes
 (
 recipe_id mediumint unsigned NOT NULL auto_increment,
 recipe_name varchar(255) NOT NULL,
@@ -189,7 +194,7 @@ INDEX (recipe_style_id)
 recipe_boil_time mediumint unsigned,*/
 
 // recipes_fermentables
-$query['recipes_fermentables'] .= "CREATE TABLE recipes_fermentables
+$query['recipes_fermentables'] = "CREATE TABLE recipes_fermentables
 (
 recipe_fermentable_id mediumint unsigned NOT NULL auto_increment,
 recipe_fermentable_recipe_id mediumint unsigned NOT NULL,
@@ -202,7 +207,7 @@ INDEX (recipe_fermentable_fermentable_id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // recipes_hops
-$query['recipes_hops'] .= "CREATE TABLE recipes_hops
+$query['recipes_hops'] = "CREATE TABLE recipes_hops
 (
 recipe_hop_id mediumint unsigned NOT NULL auto_increment,
 recipe_hop_recipe_id mediumint unsigned NOT NULL,
@@ -218,7 +223,7 @@ INDEX (recipe_hop_hop_id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // recipes_yeasts
-$query['recipes_yeasts'] .= "CREATE TABLE recipes_yeasts
+$query['recipes_yeasts'] = "CREATE TABLE recipes_yeasts
 (
 recipe_yeast_id mediumint unsigned NOT NULL auto_increment,
 recipe_yeast_recipe_id mediumint unsigned NOT NULL,
@@ -229,7 +234,7 @@ INDEX (recipe_yeast_yeast_id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // recipes_miscs
-$query['recipes_miscs'] .= "CREATE TABLE recipes_miscs
+$query['recipes_miscs'] = "CREATE TABLE recipes_miscs
 (
 recipe_misc_id mediumint unsigned NOT NULL auto_increment,
 recipe_misc_recipe_id mediumint unsigned NOT NULL,
@@ -243,7 +248,7 @@ INDEX (recipe_misc_misc_id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // recipes_persons
-$query['recipes_persons'] .= "CREATE TABLE recipes_persons
+$query['recipes_persons'] = "CREATE TABLE recipes_persons
 (
 recipe_person_id mediumint unsigned NOT NULL auto_increment,
 recipe_person_recipe_id mediumint unsigned NOT NULL,
@@ -255,31 +260,37 @@ INDEX (recipe_person_person_id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // Brews
-$query['brews'] .= "CREATE TABLE brews
+$query['brews'] = "CREATE TABLE brews
 (
 brew_id mediumint unsigned NOT NULL auto_increment,
 brew_name varchar(255) NOT NULL,
 brew_version tinyint unsigned NOT NULL default 1,
 brew_batch_num mediumint unsigned NOT NULL,
+brew_brew_date date,
 brew_recipe_id mediumint unsigned NOT NULL,
 brew_type enum('Extract', 'Partial Mash', 'All Grain') NOT NULL default 'All Grain',
 brew_style_id mediumint unsigned,
+brew_method enum('BIAB', 'Batch Sparge', 'Fly Sparge', 'No Sparge') default 'BIAB',
+brew_mash_volume float,
+brew_sparge_volume float,
+brew_mash_id mediumint unsigned,
 brew_boil_size float,
 brew_boil_time mediumint unsigned,
+brew_ibu_method enum('Rager', 'Tinseth', 'Garetz') NOT NULL default 'Tinseth',
 brew_batch_size float,
-brew_mash_temp mediumint unsigned,
-brew_mash_time mediumint unsigned,
 brew_mash_efficiency float,
-brew_fermentation_temp mediumint unsigned,
+brew_no_chill enum('True', 'False') default 'True',
+brew_fermentation_id mediumint unsigned,
+brew_fermentation_start_date date,
+brew_fermentation_end_date date,
 brew_brewer varchar(255),
 brew_notes varchar(511),
-brew_date date,
 brew_act_og float,
 brew_act_fg float,
 brew_est_color float,
 brew_est_ibu float,
-brew_ibu_method enum('Rager', 'Tinseth', 'Garetz') NOT NULL default 'Tinseth',
 brew_act_abv float,
+brew_packaging enum('Bottle', 'Keg') default 'Bottle',
 PRIMARY KEY (brew_id),
 INDEX (brew_name),
 INDEX (brew_type),
@@ -287,8 +298,34 @@ INDEX (brew_style_id),
 INDEX (brew_batch_num)
 ) AUTO_INCREMENT=200001 CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
-/*// brews_fermentables
-$query .= "CREATE TABLE brews_fermentables
+// Mash schedules
+$query['mashes'] = "CREATE TABLE mashes
+(
+mash_id mediumint unsigned NOT NULL auto_increment,
+mash_brew_id mediumint unsigned NOT NULL,
+mash_step mediumint unsigned NOT NULL,
+mash_temp float,
+mash_time mediumint unsigned,
+PRIMARY KEY (mash_id),
+INDEX (mash_brew_id),
+INDEX (mash_step)
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
+
+// Fermenation schedules
+$query['fermentations'] = "CREATE TABLE fermentations
+(
+fermentation_id mediumint unsigned NOT NULL auto_increment,
+fermentation_brew_id mediumint unsigned NOT NULL,
+fermentation_step mediumint unsigned NOT NULL,
+fermentation_temp float,
+fermentation_time mediumint unsigned,
+PRIMARY KEY (fermentation_id),
+INDEX (fermentation_brew_id),
+INDEX (fermentation_step)
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
+
+// brews_fermentables
+$query['brews_fermentables'] = "CREATE TABLE brews_fermentables
 (
 brew_fermentable_id mediumint unsigned NOT NULL auto_increment,
 brew_fermentable_brew_id mediumint unsigned NOT NULL,
@@ -301,7 +338,7 @@ INDEX (brew_fermentable_fermentable_id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // brews_hops
-$query .= "CREATE TABLE brews_hops
+$query['brews_hops'] = "CREATE TABLE brews_hops
 (
 brew_hop_id mediumint unsigned NOT NULL auto_increment,
 brew_hop_brew_id mediumint unsigned NOT NULL,
@@ -317,7 +354,7 @@ INDEX (brew_hop_hop_id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // brews_yeasts
-$query .= "CREATE TABLE brews_yeasts
+$query['brews_yeasts'] = "CREATE TABLE brews_yeasts
 (
 brew_yeast_id mediumint unsigned NOT NULL auto_increment,
 brew_yeast_brew_id mediumint unsigned NOT NULL,
@@ -328,7 +365,7 @@ INDEX (brew_yeast_yeast_id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // brews_miscs
-$query .= "CREATE TABLE brews_miscs
+$query['brews_miscs'] = "CREATE TABLE brews_miscs
 (
 brew_misc_id mediumint unsigned NOT NULL auto_increment,
 brew_misc_brew_id mediumint unsigned NOT NULL,
@@ -342,7 +379,7 @@ INDEX (brew_misc_misc_id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // brews_persons
-$query .= "CREATE TABLE brews_persons
+$query['brews_persons'] = "CREATE TABLE brews_persons
 (
 brew_person_id mediumint unsigned NOT NULL auto_increment,
 brew_person_brew_id mediumint unsigned NOT NULL,
@@ -351,23 +388,21 @@ brew_person_is_assistant enum('True', 'False'),
 PRIMARY KEY (brew_person_id),
 INDEX (brew_person_brew_id),
 INDEX (brew_person_person_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";*/
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
-/*if (mysqli_multi_query($connection, $query))
+// for each table and query statement in the array, create the table
+foreach($query as $table => $sql)
+{
+	if (mysqli_query($connection, $sql))
 	{
-	echo 'brewdb tables created...' . '<br />';
+		echo $table . ' created.' . '<br />';
 	}
 	else
 	{
-	die(mysqli_error($connection));
-	}*/
-
-foreach($query as $table => $sql)
-{
-$result = mysqli_query($connection, $sql) or die(mysqli_error($connection));
-echo $table . ' created.';
-echo '<br>';
+		die(mysqli_error($connection));
+	}
 }
+
 mysqli_close($connection);
 
 ?>
