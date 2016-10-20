@@ -2,11 +2,10 @@
 
 /*
 brew_new.php
-Create a brew in the database
+Create a brew, either from scratch or from a recipe, in the database
 */
 
 $page_title = 'New Brew';
-$error = array ('name'=>'','style'=>'','type'=>'');
 include ('includes/header.html');
 header('Content-Type: text/html; charset="utf-8"', true);
 
@@ -24,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		$details['style_id'] = $row['style_id'];
 	}
 
-	// retrieve the basic recipe details
+	// retrieve the basic brew details
 	$details['type'] = mysqli_real_escape_string($connection, test_input($_POST['type']));
 	$details['batch_size'] = mysqli_real_escape_string($connection, test_input($_POST['batch_size']));
 	$details['mash_efficiency'] = mysqli_real_escape_string($connection, test_input($_POST['mash_efficiency']));
@@ -67,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$details['designer'] = mysqli_real_escape_string($connection, test_input($_POST['designer']));
 	$details['notes'] = mysqli_real_escape_string($connection, test_input($_POST['notes']));
 
-	// retrieve the recipe fermentables
+	// retrieve the brew fermentables
 	for ($i=0; $i<=14; $i++)
 	{
 		$fermentables[$i]['id'] = mysqli_real_escape_string($connection, test_input($_POST['fermentable' . $i . '_id']));
@@ -76,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		$fermentables[$i]['use'] = mysqli_real_escape_string($connection, test_input($_POST['fermentable' . $i . '_use']));
 	}
 
-	// retrieve the receipe hops
+	// retrieve the brew hops
 	for ($i=0; $i<=14; $i++)
 	{
 		$hops[$i]['id'] = mysqli_real_escape_string($connection, test_input($_POST['hop' . $i . '_id']));
@@ -88,11 +87,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		$hops[$i]['use'] = mysqli_real_escape_string($connection, test_input($_POST['hop' . $i . '_use']));
 	}
 
-	// retrieve the recipe yeasts
+	// retrieve the brew yeasts
 	$yeasts[0]['id'] = mysqli_real_escape_string($connection, test_input($_POST['yeast0_id']));
 	$yeasts[0]['fullname'] = mysqli_real_escape_string($connection, test_input($_POST['yeast0_fullname']));
 
-	// retrieve the recipe misc ingredients
+	// retrieve the brew misc ingredients
 	for ($i=0; $i<=4; $i++)
 	{
 		$miscs[$i]['id'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_id']));
@@ -104,405 +103,752 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 	// now insert the records into the database
 
-	// insert the recipe record
-	$query = "INSERT INTO recipes (recipe_name, recipe_type, recipe_style_id, recipe_batch_size, recipe_mash_efficiency, recipe_designer, recipe_notes, recipe_est_og, recipe_est_fg, recipe_est_color, recipe_est_ibu, recipe_est_abv, recipe_date)
+	// insert the brew record
+	$query = "INSERT INTO brews (brew_name, brew_type, brew_style_id, brew_batch_size, brew_mash_efficiency, brew_designer, brew_notes, brew_est_og, brew_est_fg, brew_est_color, brew_est_ibu, brew_est_abv, brew_date)
 		VALUES ('" . $details['name'] . "','" .  $details['type'] . "'," . $details['style_id'] . "," . $details['batch_size'] . "," .  $details['mash_efficiency'] . ",'" . $details['designer'] . "','" . $details['notes'] . "'," . $details['est_og'] . "," . $details['est_fg'] . "," . $details['est_color'] . "," . $details['est_ibu'] . "," . $details['est_abv'] . ",'" . $details['date'] . "')";
 	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
-	// retrieve the id of the last insert as the recipe_id for the recipes_fermentables, recipes_hops, recipes_yeasts, and recipes_miscs records
-	$recipe_id = mysqli_insert_id($connection);
+	// retrieve the id of the last insert as the brew_id for the brews_fermentables, brews_hops, brews_yeasts, and brews_miscs records
+	$brew_id = mysqli_insert_id($connection);
 
-	// for each fermentable, retrieve the fermentable id and insert the recipe_fermentable records
+	// for each fermentable, retrieve the fermentable id and insert the brew_fermentable records
 	for ($i=0; $i <=14; $i++)
 	{
-		if ($fermentables[$i]['name'])
+		if ($fermentables[$i]['name'] && $fermentables[$i]['amount'] > 0)
 		{
-			$query = "INSERT INTO recipes_fermentables (recipe_fermentable_recipe_id, recipe_fermentable_fermentable_id, recipe_fermentable_amount, recipe_fermentable_use)
-					VALUES (" . $recipe_id . "," . $fermentables[$i]['id'] . "," . $fermentables[$i]['amount'] . ",'" . $fermentables[$i]['use'] . "')";
+			$query = "INSERT INTO brews_fermentables (brew_fermentable_brew_id, brew_fermentable_fermentable_id, brew_fermentable_amount, brew_fermentable_use)
+					VALUES (" . $brew_id . "," . $fermentables[$i]['id'] . "," . $fermentables[$i]['amount'] . ",'" . $fermentables[$i]['use'] . "')";
 			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		}
 	}
 
-	// for each hop, retrieve the hop id and insert the recipe_hop records
+	// for each hop, retrieve the hop id and insert the brew_hop records
 	for ($i=0; $i <=14; $i++)
 	{
-		if ($hops[$i]['name'])
+		if ($hops[$i]['name'] && $hops[$i]['amount'] > 0)
 		{
-			$query = "INSERT INTO recipes_hops (recipe_hop_recipe_id, recipe_hop_hop_id, recipe_hop_amount, recipe_hop_alpha, recipe_hop_use, recipe_hop_time, recipe_hop_form)
-					VALUES (" . $recipe_id . "," . $hops[$i]['id'] . "," . $hops[$i]['amount'] . "," . $hops[$i]['alpha'] . ",'" . $hops[$i]['use'] . "'," . $hops[$i]['time'] . ",'" . $hops[$i]['form'] . "')";
+			$query = "INSERT INTO brews_hops (brew_hop_brew_id, brew_hop_hop_id, brew_hop_amount, brew_hop_alpha, brew_hop_use, brew_hop_time, brew_hop_form)
+					VALUES (" . $brew_id . "," . $hops[$i]['id'] . "," . $hops[$i]['amount'] . "," . $hops[$i]['alpha'] . ",'" . $hops[$i]['use'] . "'," . $hops[$i]['time'] . ",'" . $hops[$i]['form'] . "')";
 			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		}
 	}
 
-	// for each yeast, retrieve the yeast id and insert the recipe_yeast records
+	// for each yeast, retrieve the yeast id and insert the brew_yeast records
 	for ($i=0; $i <=0; $i++)
 	{
 		if ($yeasts[$i]['fullname'])
 		{
-			$query = "INSERT INTO recipes_yeasts (recipe_yeast_recipe_id, recipe_yeast_yeast_id)
-					VALUES (" . $recipe_id . "," . $yeasts[$i]['id'] . ")";
+			$query = "INSERT INTO brews_yeasts (brew_yeast_brew_id, brew_yeast_yeast_id)
+					VALUES (" . $brew_id . "," . $yeasts[$i]['id'] . ")";
 			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		}
 	}
 
-	// for each misc, retrieve the misc id and insert the recipe_misc records
+	// for each misc, retrieve the misc id and insert the brew_misc records
 	for ($i=0; $i <=4; $i++)
 	{
-		if ($miscs[$i]['name'])
+		if ($miscs[$i]['name'] && $miscs[$i]['amount'] > 0)
 		{
-			$query = "INSERT INTO recipes_miscs (recipe_misc_recipe_id, recipe_misc_misc_id, recipe_misc_amount, recipe_misc_unit)
-					VALUES (" . $recipe_id . "," . $miscs[$i]['id'] . "," . $miscs[$i]['amount'] . ",'" . $miscs[$i]['unit'] . "')";
+			$query = "INSERT INTO brews_miscs (brew_misc_brew_id, brew_misc_misc_id, brew_misc_amount, brew_misc_unit)
+					VALUES (" . $brew_id . "," . $miscs[$i]['id'] . "," . $miscs[$i]['amount'] . ",'" . $miscs[$i]['unit'] . "')";
 			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		}
 	}
 
-    // After saving to the database, redirect back to the new recipe page
-    header("Location: recipe_new.php");
+    // After saving to the database, redirect back to the new brew page
+    header("Location: brew_new.php");
 }
 
 // end of PHP section, now create the HTML form
 ?>
 
-<!--scripts to validate the entire form if browser not HTML5 compatible-->
-<script src="js_files/validate_form.js"></script>
-<script src="js_files/validate_details.js"></script>
-<script src="js_files/validate_fermentables.js"></script>
-<script src="js_files/validate_hops.js"></script>
-<script src="js_files/validate_miscs.js"></script>
-
-<!--scripts to retrieve info from the styles, fermentables, hops, yeasts, and miscs tables-->
-<script src="js_files/getstyleinfo.js"></script>
-<script src="js_files/getfermentableinfo.js"></script>
-<script src="js_files/gethopinfo.js"></script>
-<script src="js_files/getyeastinfo.js"></script>
-<script src="js_files/getmiscinfo.js"></script>
-
-<!--scripts to set custom messages for invalid fields in fermentables, hops, and miscs sections-->
-<script src="js_files/fermentables_messages.js"></script>
-<script src="js_files/hops_messages.js"></script>
-<script src="js_files/miscs_messages.js"></script>
-
-<!--scripts to calculate og, color, ibu, batch and boil sizes-->
-<script src="js_files/calc_og.js"></script>
-<script src="js_files/calc_color.js"></script>
-<script src="js_files/calc_ibu.js"></script>
-<script src="js_files/calc_og_color_ibu.js"></script>
-<script src="js_files/calc_batch_size.js"></script>
-<script src="js_files/calc_boil_size.js"></script>
-
+<div class="container">
+	
 <h2>New Brew</h2>
 
-<form role="form" name="brewform" action="brew_new.php" onsubmit="return validate_form()" method="post">
+<form role="form" class="form-horizontal" name="brewform" action="brew_new.php" method="post">
 
 <div class="row">
-<div class="seven_cols">
-<div class="float_left">
-<fieldset>
-	<legend>Brew Details</legend>
+
+<fieldset class="col-xs-12 col-sm-6 col-md-8">
+
+<div class="well">
+<legend>Brew Details</legend>
+
+	<div class="row margin-bottom-1em">
+		
+		<div class="col-xs-4 col-md-4">
+			<label for="name" class="label-sm">Brew Name</label>
+			<input type="text" class="form-control input-sm" id="name" name="name" required />
+		</div>
+		
+		<div class="col-xs-4 col-md-5">
+			<label for="style" class="label-sm">Style</label>
+			<select class="form-control input-sm" id="style" name="style" required onchange="getstyleinfo(this.value);">
+				<option value="" disabled selected>Select a style...</option>
+				<?php
+				$query = "SELECT style_name FROM styles ORDER BY style_name";
+				$result = mysqli_query($connection, $query);
+				while ($row = mysqli_fetch_array ( $result ))
+				{
+					echo '<option>' . $row['style_name'] . '</option>';
+				}
+				?>
+			</select>
+		</div>
+		
+		<div class="col-xs-4 col-md-3">
+			<label for="type" class="label-sm">Type</label>
+			<select class="form-control input-sm" id="type" name="type" required >
+				<option value="" disabled selected>Select a type...</option>
+				<option>All Grain</option>
+				<option>Extract</option>
+				<option>Partial Mash</option>
+			</select>
+		</div>
+		
+	</div>
+
+	<div class="row margin-bottom-1em">
 	
-	<label>Name*: </label>
-	<input type="text" name="name" size=25 required oninvalid="this.setCustomValidity('Recipe name required.')" onchange="this.setCustomValidity('')" /> 
+		<div class="col-xs-4 col-md-4">
+			<label for="base_recipe" class="label-sm">Base Recipe</label>
+			<select class="form-control input-sm" id="base_recipe" name="base_recipe" >
+				<option value="" disabled selected>Select a base recipe...</option>
+				<?php
+				$query = "SELECT recipe_name FROM recipes ORDER BY recipe_date DESC";
+				$result = mysqli_query($connection, $query);
+				while ($row = mysqli_fetch_array ( $result ))
+				{
+					echo '<option>' . $row['recipe_name'] . '</option>';
+				}
+				?>
+			</select>
+		</div>
+		
+	</div>
 	
-	<label>Style*: </label>
-	<select name="style" required oninvalid="this.setCustomValidity('Recipe style required.')" onchange="this.setCustomValidity('');getstyleinfo(this.value);">
-		<option></option>
+	<div class="row margin-bottom-1em">
+		
 		<?php
-		$query = "SELECT style_name FROM styles ORDER BY style_name";
+		$query = "SELECT preference_boil_size, preference_boil_time, preference_evaporation_rate, preference_batch_size, preference_mash_efficiency FROM preferences";
 		$result = mysqli_query($connection, $query);
 		while ($row = mysqli_fetch_array ( $result ))
 		{
-			echo '<option>' . $row['style_name'] . '</option>';
+			echo '<div class="col-xs-4 col-sm-4 col-md-2">';
+				echo '<label for="boil_size" class="label-sm">Boil Size (L)</label>';
+				echo '<input type="number" class="form-control input-sm" min="0" step=".1" id="boil_size" name="boil_size" required onchange="calc_og_color_ibu();" value="' . $row['preference_boil_size'] . '"/>';
+			echo '</div>';
+			echo '<div class="col-xs-4 col-sm-4 col-md-2">';
+				echo '<label for="boil_time" class="label-sm">Boil Time</label>';
+				echo '<input type="number" class="form-control input-sm" min="0" step="1" id="boil_time" name="boil_time" required onchange="calc_og_color_ibu();" value="' . $row['preference_boil_time'] . '"/>';
+			echo '</div>';
+			echo '<div class="col-xs-4 col-sm-4 col-md-2">';
+				echo '<label for="batch_size" class="label-sm">Batch Size (L)</label>';
+				echo '<input type="number" class="form-control input-sm" min="0" step=".1" id="batch_size" name="batch_size" required onchange="calc_og_color_ibu();" value="' . $row['preference_batch_size'] . '"/>';
+			echo '</div>';
+			echo '<div class="col-xs-4 col-sm-4 col-md-2">';
+				echo '<label for="mash_efficiency" class="label-sm">Mash Eff (%)</label>';
+				echo '<input type="number" class="form-control input-sm" min="0" step=".01" id="mash_efficiency" name="mash_efficiency" required onchange="calc_og_color_ibu();" value="' . $row['preference_mash_efficiency'] . '"/>';
+			echo '</div>';
 		}
 		?>
-	</select>
+		
+		<div class="col-xs-5 col-sm-4 col-md-3">
+			<label for="date" class="label-sm">Date (yyyy-mm-dd)</label>
+			<input type="date" class="form-control input-sm" id="date" name="date" value="<?php echo date("Y-m-d"); ?>"/>
+		</div>
+		
+		<div class="hidden-xs col-sm-4 col-md-5">
+			<label for="brewer" class="label-sm">Brewer</label>
+			<input list="persons" class="form-control input-sm" id="brewer" name="brewer" />
+				<datalist id="persons">
+				<?php
+				$query = "SELECT person_first_name, person_last_name FROM persons ORDER BY person_last_name";
+				$result = mysqli_query($connection, $query);
+				while ($row = mysqli_fetch_array ( $result ))
+				{
+					echo '<option value="' . $row['person_first_name'] . ' ' . $row['person_last_name'] .  '">';
+				}
+				?>
+				</datalist>
+		</div>
+		
+	</div>
 	
-	<label>Type*: </label>
-	<select name="type" required oninvalid="this.setCustomValidity('Recipe type required.')" onchange="this.setCustomValidity('')">
-		<option></option>
-		<option>All Grain</option>
-		<option>Extract</option>
-		<option>Partial Mash</option>
-	</select>
+	<div class="row">
+		
+		<div class="col-xs-12 col-md-12">
+			<label for="notes" class="label-sm">Brew Notes</label>
+			<textarea class="form-control input-sm" rows=2 cols=100 id="notes" name="notes"></textarea>
+		</div>
+		
+	</div>
+</div>
 	
-	<p></p>
+</fieldset>
+
+<fieldset class="col-xs-12 col-sm-5 col-md-4">
+
+<div class="well">
+<legend>Style Characteristics</legend>
+ 
+	<div class="row">
+    
+		<div class="col-xs-3 col-md-3">
+			<label for="name" class="label-sm">&nbsp;</label>
+		</div>
+		
+		<div class="col-xs-3 col-md-3">
+			<label for="name" class="label-sm">Low</label>
+		</div>
+		
+		<div class="col-xs-3 col-md-3">
+			<label for="name" class="label-sm">Est.</label>
+		</div>
+		
+		<div class="col-xs-3 col-md-3">
+			<label for="name" class="label-sm">High</label>
+		</div>
+		
+	</div>
+ 
+	<div class="row">
 	
-	<label>Date (yyyy-mm-dd): </label>
-	<input type="date" name="date" size=8 value="<?php $date = date("Y-m-d");echo $date; ?>"/>
+		<div class="col-xs-3 col-md-3 col-lg-3">
+			<label for="name" class="label-sm">OG</label>
+		</div>
+		
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_og_min" name="style_og_min" readonly="yes" />
+		</div>
+		
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="est_og" name="est_og" readonly="yes" />
+		</div>
+		
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_og_max" name="style_og_max" readonly="yes" />
+		</div>
+		
+	</div>
+ 
+	<div class="row">
+    
+		<div class="col-xs-3 col-md-3 col-lg-3">
+			<label for="name" class="label-sm">FG</label>
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_fg_min" name="style_fg_min" readonly="yes" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="est_fg" name="est_fg" readonly="yes" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_fg_max" name="style_fg_max" readonly="yes" />
+		</div>
+        
+	</div>
+ 
+	<div class="row">
+	
+		<div class="col-xs-3 col-md-3 col-lg-3">
+			<label for="name" class="label-sm">ABV %</label>
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_abv_min" name="style_abv_min" readonly="yes" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="est_abv" name="est_abv" readonly="yes" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_abv_max" name="style_abv_max" readonly="yes" />
+		</div>
+        
+	</div>
+ 
+	<div class="row">
+    
+		<div class="col-xs-3 col-md-3 col-lg-3">
+			<label for="name" class="label-sm">IBU</label>
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_ibu_min" name="style_ibu_min" readonly="yes" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="est_ibu" name="est_ibu" readonly="yes" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_ibu_max" name="style_ibu_max" readonly="yes" />
+		</div>
+        
+	</div>
+ 
+	<div class="row">
+    
+		<div class="col-xs-3 col-md-3 col-lg-3">
+			<label for="name" class="label-sm">Color (L)</label>
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_color_min" name="style_color_min" readonly="yes" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="est_color" name="est_color" readonly="yes" />
+		</div>
+        
+		<div class="col-xs-3 col-md-3">
+			<input type="text" class="form-control input-sm" id="style_color_max" name="style_color_max" readonly="yes" />
+		</div>
+        
+	</div>
+	
+</div>
+
+</fieldset>
+</div>
+
+<ul class="nav nav-tabs">
+	<li class="active"><a data-toggle="tab" href="#fermentables">Fermentables</a></li>
+	<li><a data-toggle="tab" href="#hops">Hops</a></li>
+	<li><a data-toggle="tab" href="#yeast">Yeast</a></li>
+	<li><a data-toggle="tab" href="#misc">Miscellaneous</a></li>
+	<li><a data-toggle="tab" href="#mash">Mash Details</a></li>
+	<li><a data-toggle="tab" href="#fermentation">Fermentation Details</a></li>
+	<li><a data-toggle="tab" href="#packaging">Packaging</a></li>
+</ul>
+
+<div class="tab-content">
+
+<div class="row tab-pane fade in active" id="fermentables">
+<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
+
+	<div class="row">
+	
+		<div class="col-xs-6 col-sm-2 col-md-3">
+			<label class="label-sm">Fermentable</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Amount&nbsp;(kg)</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-1">
+			<label class="label-sm">Percentage</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-1">
+			<label class="label-sm">Yield (%)</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-1">
+			<label class="label-sm">Color (L)</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Type</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-2">
+			<label class="label-sm">Use</label>
+		</div>
+		
+	</div>
 	
 	<?php
-	// retrieve batch size and efficiency preferences
-	$query = "SELECT * FROM preferences ORDER BY preference_id DESC LIMIT 1";
-	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
-	while ($row = mysqli_fetch_array ( $result ))
+	$ingredient = "'fermentable'";
+	for ($i=0; $i<=14; $i++)
 	{
-		$boil_size = $row['preference_boil_size'];
-		$boil_time = $row['preference_boil_time'];
-		$evaporation_rate = $row['preference_evaporation_rate'];
-		$mash_efficiency = $row['preference_mash_efficiency'];
-		$loss = $row['preference_loss'];
-		$batch_size = $boil_size - ($evaporation_rate * $boil_time / 60) - $loss;
+	?>
+		<div class="row margin-bottom-half_em">
+		
+		<div class="col-xs-6 col-sm-2 col-md-3">
+		<?php
+		echo '<select class="form-control input-sm" name="fermentable' . $i . '_name" onchange="getfermentableinfo(this.value,' .$i. ');">';
+		echo '<option>'; echo $fermentables[$i]['name']; echo '</option>';
+		$query = "SELECT fermentable_name FROM fermentables ORDER BY fermentable_name";
+		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+		while ($row = mysqli_fetch_array ( $result ))
+		{
+			echo '<option>' . $row['fermentable_name'] . '</option>';
+		}
+		?>
+		</select>
+		</div>
+			
+		<div class="col-xs-3 col-sm-2 col-md-1">
+		<?php
+		echo '<input type="number" class="form-control input-sm" min="0" step="0.001" name="fermentable' . $i . '_amount" onchange="fermentables_messages(' .$i. '); calc_og_color_ibu(); set_flag(' . $ingredient . ', ' . $i . ');"' . '"/>';
+		?>
+		</div>
+			
+		<div class="hidden-xs col-sm-2 col-md-1">
+		<?php
+		echo '<input type="number" class="form-control input-sm" name="fermentable' . $i . '_percent" readonly="yes" />';
+		?>
+		</div>
+			
+		<div class="hidden-xs col-sm-2 col-md-1">
+		<?php
+		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_yield" readonly="yes" />';
+		?>
+		</div>
+			
+		<div class="hidden-xs col-sm-2 col-md-1">
+		<?php
+		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_color" readonly="yes" />';
+		?>
+		</div>
+			
+		<div class="col-xs-3 col-sm-2 col-md-1">
+		<?php
+		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_type" readonly="yes" />';
+		?>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-2">
+		<?php
+		echo '<select class="form-control input-sm" name="fermentable' . $i . '_use" >';
+		echo '<option>'; echo $fermentables[$i]['use']; echo '</option>';
+		?>
+		<option>Mashed</option>
+		<option>Steeped</option>
+		<option>Extract</option>
+		<option>Sugar</option>
+		<option>Other</option>
+		</select>
+		</div>
+		
+		<?php
+		// the fermentable id
+		echo '<input type="hidden" name="fermentable' . $i . '_id" />';
+		?>
+		
+		</div>
+		
+	<?php
 	}
 	?>
 	
-	<label>Brewer: </label>
-	<input list="persons" name="brewer">
-		<datalist id="persons">
-		<?php
-		$query = "SELECT person_first_name, person_last_name FROM persons ORDER BY person_last_name";
-		$result = mysqli_query($connection, $query);
+</fieldset>
+</div>
+
+<div class="row tab-pane fade" id="hops">
+<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
+
+	<div class="row">
+	
+		<div class="col-xs-6 col-sm-2 col-md-3">
+			<label class="label-sm">Hop</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Amount&nbsp;(g)</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-1">
+			<label class="label-sm">Alpha (%)</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Time (min)</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-2">
+			<label class="label-sm">Form</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-2">
+			<label class="label-sm">Use</label>
+		</div>
+		
+	</div>
+	
+	<?php
+	$ingredient = "'hop'";
+	for ($i=0; $i<=14; $i++)
+	{
+		echo '<div class="row margin-bottom-half_em">';
+		echo '<div class="col-xs-6 col-sm-2 col-md-3">';
+		echo '<select class="form-control input-sm" name="hop' . $i . '_name" onchange="gethopinfo(this.value,' .$i. ');">';
+		echo '<option>'; echo $hops[$i]['name']; echo '</option>';
+		$query = "SELECT hop_name FROM hops ORDER BY hop_name";
+		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		while ($row = mysqli_fetch_array ( $result ))
 		{
-			echo '<option value="' . $row['person_first_name'] . ' ' . $row['person_last_name'] .  '">';
+			echo '<option>' . $row['hop_name'] . '</option>';
 		}
-		?>
-		</datalist>
-	
-	<label>Batch Number: </label>
-	<input type="text" size=5 readonly="yes" name="batch_number" value="<?php echo $batch_number; ?>"/>
-	
-	<p></p>
-	
-	<label>Mash Temp (&deg;C): </label>
-	<input type="number" min="0" step="1" size=5 style="width: 5em" name="mash_temp" value="<?php echo $mash_temp; ?>"/>
-	
-	<label>Mash Time (mins): </label>
-	<input type="number" min="0" step="1" size=5 style="width: 5em" name="mash_time" value="<?php echo $mash_time; ?>"/>
-	
-	<input type="hidden" name="mash_efficiency" onchange="this.setCustomValidity('');calc_og_color_ibu();" value="<?php echo $mash_efficiency; ?>"/>
-	
-	<p></p>
-	
-	<label>Boil Size (L)*: </label>
-	<input type="number" min="0" step="0.5" size=5 style="width: 5em" name="boil_size" required oninvalid="this.setCustomValidity('Batch size required.')" onchange="this.setCustomValidity('');calc_og_color_ibu();" value="<?php echo $boil_size; ?>"/>
-	
-	<label>Boil Time (mins)*: </label>
-	<input type="number" min="0" step="1" size=5 style="width: 5em" name="boil_size" required oninvalid="this.setCustomValidity('Batch size required.')" onchange="this.setCustomValidity('');calc_og_color_ibu();" value="<?php echo $boil_time; ?>"/>
-	
-	<label>Batch Size (L)*: </label>
-	<input type="number" min="0" step="1" size=5 style="width: 5em" name="batch_size" required oninvalid="this.setCustomValidity('Batch size required.')" onchange="this.setCustomValidity('');calc_og_color_ibu();" value="<?php echo $batch_size; ?>"/>
-	
-	<p></p>
-	
-	<label>Fermentation Temp (&deg;C): </label>
-	<input type="number" min="0" step="1" size=5 style="width: 5em" name="boil_size" value="<?php echo $mash_temp; ?>"/>
-	
-	<p></p>
-	
-	<label>Recipe Notes:<br> </label>
-	<textarea rows=2 cols=100 readonly="yes" name="recipe_notes"></textarea>
-	
-	<p></p>
-	
-	<label>Brew Notes:<br> </label>
-	<textarea rows=2 cols=100 name="brew_notes"></textarea>
-	
-</fieldset>
-</div><!-- float_left -->
-</div><!-- seven_cols -->
+		echo '</select>';
+		echo '</div>';
+		
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
+		echo '<input type="number" class="form-control input-sm" min="0" step="any" name="hop' . $i . '_amount" onchange="hops_messages(' .$i. '); calc_ibu();" />';
+		echo '</div>';
 
-<div class="five_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Style Characteristics</legend>
-    <table class="list_table">
-        <tr><td>&nbsp;</td><td>Low</td><td></td><td>High</td></tr>
-            <td>OG</td>
-            <td><input type="text" name="style_og_min" size=6 readonly="yes" /></td>
-            <td><input type="number" min="0" step="0.5" size=6 style="width: 4.5em" name="act_og" /></td>
-            <td><input type="text" name="style_og_max" size=6 readonly="yes" /></td>
-        </tr>
-        <tr>
-            <td>FG</td>
-            <td><input type="text" name="style_fg_min" size=6 readonly="yes" /></td>
-            <td><input type="number" min="0" step="0.5" size=6 style="width: 4.5em" name="act_fg" /></td>
-            <td><input type="text" name="style_fg_max" size=6 readonly="yes" /></td>
-        </tr>
-        <tr>
-            <td>ABV %&nbsp;</td>
-            <td><input type="text" name="style_abv_min" size=6 readonly="yes" /></td>
-            <td><input type="text" name="act_abv" size=7 readonly="yes" /></td>
-            <td><input type="text" name="style_abv_max" size=6 readonly="yes" /></td>
-        </tr>
-        <tr>
-            <td>IBU</td>
-            <td><input type="text" name="style_ibu_min" size=6 readonly="yes" /></td>
-            <td><input type="text" name="est_ibu" size=7 readonly="yes" /></td>
-            <td><input type="text" name="style_ibu_max" size=6 readonly="yes" /></td>
-        </tr>
-        <tr>
-            <td>Color</td>
-            <td><input type="text" name="style_color_min" size=6 readonly="yes" /></td>
-            <td><input type="text" name="est_color" size=7 readonly="yes" /></td>
-            <td><input type="text" name="style_color_max" size=6 readonly="yes" /></td>
-        </tr>
-    </table>
-</fieldset>
-</div><!-- float_left -->
-</div><!-- five_cols -->
-</div><!-- row -->
+		echo '<div class="hidden-xs col-sm-2 col-md-1">';
+		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="hop' . $i . '_alpha" onchange="hops_messages(' .$i. '); calc_ibu();" />';
+		echo '</div>';
 
-<div class="row">
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-    <legend>Fermentables</legend>
-	<div class="five_ingredients">
-    <table>
-        <tr><td>Fermentable</td><td>Amount&nbsp;(kg)*</td><td>Yield&nbsp;(%)</td><td>Colour&nbsp;(L)</td><td>Use</td></tr>
-        <?php
-        for ($i=0; $i<=14; $i++)
-        {
-            echo '<tr>';
-            echo '<td><select name="fermentable' . $i . '_name" onchange="getfermentableinfo(this.value,' .$i. ')">';
-            echo '<option></option>';
-            $query = "SELECT fermentable_name FROM fermentables ORDER BY fermentable_name";
-            $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
-            while ($row = mysqli_fetch_array ( $result ))
-            {
-                echo '<option>' . $row['fermentable_name'] . '</option>';
-            }
-            echo '</select></td>';
-            echo '<td><input type="number" min="0" step="0.1" size=5 style="width: 5em" name="fermentable' . $i . '_amount" onchange="fermentables_messages(' .$i. '); calc_og_color_ibu();" /> </td>';
-            echo '<td><input type="text" size=6 readonly="yes" name="fermentable' . $i . '_yield" onchange="fermentables_messages(' .$i. '); calc_og_color_ibu();" /> </td>';
-            echo '<td><input type="text" size=6 readonly="yes" name="fermentable' . $i . '_color" onchange="fermentables_messages(' .$i. '); calc_color();" /> </td>';
-            echo '<td><select name="fermentable' . $i . '_use">';
-            echo '<option></option>';
-            echo '<option>Mashed</option>';
-            echo '<option>Steeped</option>';
-            echo '<option>Extract</option>';
-            echo '<option>Sugar</option>';
-            echo '<option>Other</option>';
-            echo '</select></td>';
-			echo '<td><input type="hidden" name="fermentable' . $i . '_id" /> </td>';
-            echo '</tr>';
-        }
-        ?>
-    </table>
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
+		echo '<input type="number" class="form-control input-sm" min="0" step="1" name="hop' . $i . '_time" onchange="hops_messages(' .$i. '); calc_ibu();" />';
+		echo '</div>';
+
+		echo '<div class="hidden-xs col-sm-2 col-md-2">';
+		echo '<select class="form-control input-sm" name="hop' . $i . '_form" >';
+		echo '<option>'; echo $hops[$i]['form']; echo '</option>';
+		echo '<option>Pellet</option>';
+		echo '<option>Plug</option>';
+		echo '<option>Whole</option>';
+		echo '</select>';
+		echo '</div>';
+
+		echo '<div class="hidden-xs col-sm-2 col-md-2">';
+		echo '<select class="form-control input-sm" name="hop' . $i . '_use" >';
+		echo '<option>'; echo $hops[$i]['use']; echo '</option>';
+		echo '<option>Aroma</option>';
+		echo '<option>Boil</option>';
+		echo '<option>Dry Hop</option>';
+		echo '<option>First Wort</option>';
+		echo '<option>Mash</option>';
+		echo '</select>';
+		echo '</div>';
+
+		// the hops id
+		echo '<input type="hidden" name="hop' . $i . '_id" />';
+		
+		echo '</div>';
+	}
+	?>
+</fieldset>
+</div>
+
+<div class="row tab-pane fade" id="yeast">
+<fieldset class="fieldset col-xs-12 col-md-12">
+
+	<div class="row">
+	
+		<div class="col-xs-6 col-sm-3 col-md-3">
+			<label class="label-sm">Yeast</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-3 col-md-2">
+			<label class="label-sm">Type</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-3 col-md-2">
+			<label class="label-sm">Form</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-3 col-md-2">
+			<label class="label-sm">Attenuation (%)</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-3 col-md-2">
+			<label class="label-sm">Flocculation</label>
+		</div>
+		
 	</div>
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-	<legend>Hops</legend>
-	<div class="five_ingredients">
-	<table>
-   	<tr><td>Hop</td><td>Amount&nbsp;(g)*</td><td>Alpha&nbsp;(%)*</td><td>Time&nbsp;(min)*</td><td>Form</td><td>Use</td></tr>
-		<?php
-		for ($i=0; $i<=14; $i++)
+	
+	<?php
+	$ingredient = "'yeast'";
+	for ($i=0; $i<=0; $i++)
+	{
+		echo '<div class="row margin-bottom-half_em">';
+		echo '<div class="col-xs-6 col-sm-3 col-md-3">';
+		echo '<select class="form-control input-sm" name="yeast' . $i . '_fullname" onchange="getyeastinfo(this.value,' .$i. ');">';
+		echo '<option>'; echo $yeasts[$i]['fullname']; echo '</option>';
+		$query = "SELECT yeast_fullname FROM yeasts ORDER BY yeast_fullname";
+		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+		while ($row = mysqli_fetch_array ( $result ))
 		{
-			echo '<tr>';
-			echo '<td><select name="hop' . $i . '_name" onchange="gethopinfo(this.value,' .$i. ')">';
-         echo '<option></option>';
-         $query = "SELECT hop_name FROM hops ORDER BY hop_name";
-			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
-			while ($row = mysqli_fetch_array ( $result ))
-			{
-				echo '<option>' . $row['hop_name'] . '</option>';
-			}
-			echo '</select></td>';
-			echo '<td><input type="number" min="0" step="1" size=5 style="width: 5em" name="hop' . $i . '_amount" onchange="hops_messages(' .$i. '); calc_ibu();" /> </td>';
-			echo '<td><input type="number" min="0" step="0.1" size=5 style="width: 5em" name="hop' . $i . '_alpha" onchange="hops_messages(' .$i. '); calc_ibu();" /> </td>';
-			echo '<td><input type="number" min="0" step="1" size=5 style="width: 5em" name="hop' . $i . '_time" onchange="hops_messages(' .$i. '); calc_ibu();" /> </td>';
-			echo '<td><select name="hop' . $i . '_form">';
-			echo '<option></option>';
-			echo '<option>Pellet</option>';
-			echo '<option>Plug</option>';
-			echo '<option>Whole</option>';
-			echo '</select></td>';
-			echo '<td><select name="hop' . $i . '_use">';
-			echo '<option></option>';
-			echo '<option>Aroma</option>';
-			echo '<option>Boil</option>';
-			echo '<option>Dry Hop</option>';
-			echo '<option>First Wort</option>';
-			echo '<option>Mash</option>';
-			echo '</select></td>';
-			echo '<td><input type="hidden" name="hop' . $i . '_id" /> </td>';
-			echo '</tr>';
+			echo '<option>' . $row['yeast_fullname'] . '</option>';
 		}
-		?>
-	</table>
+		echo '</select>';
+		echo '</div>';
+		
+		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
+		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_type" readonly="yes" />';
+		echo '</div>';
+		
+		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
+		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_form" readonly="yes" />';
+		echo '</div>';
+		
+		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
+		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_attenuation" readonly="yes" />';
+		echo '</div>';
+		
+		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
+		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_flocculation" readonly="yes" />';
+		echo '</div>';
+		
+		// the yeast id
+		echo '<input type="hidden" name="yeast' . $i . '_id" value="'; echo $yeasts[$i]['id']; echo '"/>';
+		
+		echo '</div>';
+	}
+	?>
+</fieldset>
+</div>
+
+<div class="row tab-pane fade" id="misc">
+<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
+
+	<div class="row">
+	
+		<div class="col-xs-6 col-sm-2 col-md-3">
+			<label class="label-sm">Ingredient</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Amount</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Unit</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-2">
+			<label class="label-sm">Type</label>
+		</div>
+		
 	</div>
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
-
-<div class="row">
-<div class="six_cols">
-<div class="float_left">
-<fieldset>
-	<legend>Yeast</legend>
-	<table>
-		<tr><td>Name</td><td>Type</td><td>Form</td><td>Atten.&nbsp;(%)</td><td>Floc.</td></tr>
-		<tr>
-			<td><select name="yeast0_fullname" onchange="getyeastinfo(this.value)">
-			<option></option>
-			<?php
-			$query = "SELECT yeast_laboratory, yeast_product_id, yeast_name FROM yeasts ORDER BY yeast_laboratory, yeast_name";
-			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
-			while ($row = mysqli_fetch_array ( $result ))
-			{
-				echo '<option>' . $row['yeast_laboratory'] . ' ' . $row['yeast_product_id'] . ' ' . $row['yeast_name'] . '</option>';
-			}
-			?>
-			</select></td>
-			<td><input type="text" name="yeast0_type" size=6 readonly="yes" /></td>
-			<td><input type="text" name="yeast0_form" size=6 readonly="yes" /></td>
-			<td><input type="text" name="yeast0_attenuation" size=6 readonly="yes" /></td>
-			<td><input type="text" name="yeast0_flocculation" size=6 readonly="yes" /></td>
-			<td><input type="hidden" name="yeast0_id" /> </td>
-			<td><input type="hidden" name="yeast0_laboratory" /></td>
-			<td><input type="hidden" name="yeast0_product_id" /></td>
-			<td><input type="hidden" name="yeast0_name" /></td>
-		</tr>
-	</table>
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-
-<div class="six-cols">
-<div class="float_left">
-<fieldset>
-	<legend>Misc. Ingredients</legend>
-	<div class="three_ingredients">
-	<table>
-		<tr><td>Name</td><td>Amount*</td><td>Unit*</td><td>Type</td></tr>
-		<?php
-		for ($i=0; $i<=4; $i++)
+	
+	<?php
+	$ingredient = "'misc'";
+	for ($i=0; $i<=14; $i++)
+	{
+		echo '<div class="row margin-bottom-half_em">';
+		
+		echo '<div class="col-xs-6 col-sm-2 col-md-3">';
+		echo '<select class="form-control input-sm" name="misc' . $i . '_name" onchange="getmiscinfo(this.value,' .$i. ');" >';
+		echo '<option>'; echo $miscs[$i]['name']; echo '</option>';
+        $query = "SELECT misc_name FROM miscs ORDER BY misc_name";
+		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+		while ($row = mysqli_fetch_array ( $result ))
 		{
-			echo '<tr>';
-			echo '<td><select name="misc' . $i . '_name" onchange="getmiscinfo(this.value,' .$i. ')">';
-			echo '<option></option>';
-         $query = "SELECT misc_name FROM miscs ORDER BY misc_name";
-			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
-			while ($row = mysqli_fetch_array ( $result ))
-			{
-				echo '<option>' . $row['misc_name'] . '</option>';
-			}
-			echo '</select></td>';
-         	echo '<td><input type="number" min="0" step="1" size=5 style="width: 5em" name="misc' . $i . '_amount" onchange="miscs_messages(' .$i. ');"/> </td>';
-         	echo '<td><input type="text" name="misc' . $i . '_unit" size=8 onchange="miscs_messages(' .$i. ');"/> </td>';
-			echo '<td><input type="text" name="misc' . $i . '_type" size=8 readonly="yes" /> </td>';
-			echo '<td><input type="hidden" name="misc' . $i . '_id" /> </td>';
-			echo '</tr>';
+			echo '<option>' . $row['misc_name'] . '</option>';
 		}
-		?>
-	</table>
-	</div>
-</fieldset>
-</div><!-- float_left -->
-</div><!-- six_cols -->
-</div><!-- row -->
+		echo '</select>';
+		echo '</div>';
+		
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
+		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="misc' . $i . '_amount" onchange="miscs_messages(' .$i. ');" /> ';
+		echo '</div>';
 
-<div class="row">
-<input class="button" type="submit" value="Save" />
-</div><!-- row -->
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
+		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_unit" onchange="miscs_messages(' .$i. ');" /> ';
+		echo '</div>';
+
+		echo '<div class="hidden-xs col-sm-2 col-md-2">';
+		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_type" readonly="yes" /> ';
+		echo '</div>';
+		
+		// the miscs id
+		echo '<input type="hidden" name="misc' . $i . '_id" value="'; echo $miscs[$i]['id']; echo '"/> ';
+		
+		echo '</div>';
+	}
+	?>
+	
+</fieldset>
+</div>
+
+<div class="row tab-pane fade" id="mash">
+<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
+
+	<div class="row margin-bottom-1em">
+	
+		<div class="col-xs-3 col-md-2">
+			<label for="mash_type" class="label-sm">Mash Type</label>
+			<select class="form-control input-sm" id="mash_type" name="mash_type" required >
+				<option value="" disabled selected>Select a brew method...</option>
+				<option>BIAB</option>
+				<option>Batch Sparge</option>
+				<option>Fly Sparge</option>
+				<option>No Sparge</option>
+			</select>
+		</div>
+		
+	</div>
+	
+	<div class="row">
+	
+		<div class="col-xs-6 col-sm-2 col-md-3">
+			<label class="label-sm">Ingredient</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Amount</label>
+		</div>
+		
+		<div class="col-xs-3 col-sm-2 col-md-1">
+			<label class="label-sm">Unit</label>
+		</div>
+		
+		<div class="hidden-xs col-sm-2 col-md-2">
+			<label class="label-sm">Type</label>
+		</div>
+		
+	</div>
+	
+	<?php
+	$ingredient = "'misc'";
+	for ($i=0; $i<=14; $i++)
+	{
+		echo '<div class="row margin-bottom-half_em">';
+		
+		echo '<div class="col-xs-6 col-sm-2 col-md-3">';
+		echo '<select class="form-control input-sm" name="misc' . $i . '_name" onchange="getmiscinfo(this.value,' .$i. ');" >';
+		echo '<option>'; echo $miscs[$i]['name']; echo '</option>';
+        $query = "SELECT misc_name FROM miscs ORDER BY misc_name";
+		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+		while ($row = mysqli_fetch_array ( $result ))
+		{
+			echo '<option>' . $row['misc_name'] . '</option>';
+		}
+		echo '</select>';
+		echo '</div>';
+		
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
+		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="misc' . $i . '_amount" onchange="miscs_messages(' .$i. ');" /> ';
+		echo '</div>';
+
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
+		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_unit" onchange="miscs_messages(' .$i. ');" /> ';
+		echo '</div>';
+
+		echo '<div class="hidden-xs col-sm-2 col-md-2">';
+		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_type" readonly="yes" /> ';
+		echo '</div>';
+		
+		// the miscs id
+		echo '<input type="hidden" name="misc' . $i . '_id" value="'; echo $miscs[$i]['id']; echo '"/> ';
+		
+		echo '</div>';
+	}
+	?>
+	
+</fieldset>
+</div>
+
+</div>
+
+<button type="submit" class="btn btn-default">Save</button>
 
 </form>
+
+</div>
 
 <?php
 include ('includes/footer.html');
