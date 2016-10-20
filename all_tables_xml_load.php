@@ -463,8 +463,8 @@ for ($i=0; $i<=count($array)-1; $i++)
 } // End of for loop.
 
 // Preferences
-$column = 'INSERT INTO preferences (preference_brew_type,preference_brew_method,preference_no_chill,preference_boil_size,preference_boil_time,preference_evaporation_rate,preference_batch_size,preference_mash_efficiency,preference_ibu_method,preference_loss,preference_packaging)';
-$value = 'VALUES ("All Grain","BIAB","True",28,60,4,23,72,"Tinseth",1,"Bottle");';
+$column = 'INSERT INTO preferences (preference_brew_type,preference_mash_type,preference_mash_volume,preference_sparge_volume,preference_no_chill,preference_boil_size,preference_boil_time,preference_evaporation_rate,preference_batch_size,preference_mash_efficiency,preference_ibu_method,preference_loss,preference_packaging)';
+$value = 'VALUES ("All Grain","BIAB",34,0,"True",28,60,4,23,72,"Tinseth",1,"Bottle");';
 $query .= $column . $value;
 
 // Persons
