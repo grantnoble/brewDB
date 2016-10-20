@@ -18,7 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $details['title'] = mysqli_real_escape_string($connection, test_input($_POST['title']));
     $details['sub_title'] = mysqli_real_escape_string($connection, test_input($_POST['sub_title']));
     $details['brew_type'] = mysqli_real_escape_string($connection, test_input($_POST['brew_type']));
-    $details['brew_method'] = mysqli_real_escape_string($connection, test_input($_POST['brew_method']));
+    $details['mash_type'] = mysqli_real_escape_string($connection, test_input($_POST['mash_type']));
+    $details['mash_volume'] = mysqli_real_escape_string($connection, test_input($_POST['mash_volume']));
+    $details['sparge_volume'] = mysqli_real_escape_string($connection, test_input($_POST['sparge_volume']));
     $details['no_chill'] = mysqli_real_escape_string($connection, test_input($_POST['no_chill']));
     $details['boil_size'] = mysqli_real_escape_string($connection, test_input($_POST['boil_size']));
     $details['boil_time'] = mysqli_real_escape_string($connection, test_input($_POST['boil_time']));
@@ -28,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $details['loss'] = mysqli_real_escape_string($connection, test_input($_POST['loss']));
     $details['packaging'] = mysqli_real_escape_string($connection, test_input($_POST['packaging']));
     
-    $query = "UPDATE preferences SET preference_page_title='" . $details['page_title'] . "', preference_title='" . $details['title'] . "', preference_sub_title='" . $details['sub_title'] . "', preference_brew_type='" . $details['brew_type'] . "', preference_brew_method='" . $details['brew_method'] . "', preference_no_chill='" . $details['no_chill'] . "', preference_boil_size=" . $details['boil_size'] . ", preference_boil_time=" . $details['boil_time'] . ", preference_evaporation_rate=" . $details['evaporation_rate'] . ", preference_batch_size=" . $details['batch_size'] . ", preference_mash_efficiency=" . $details['mash_efficiency'] . ", preference_loss=" . $details['loss'] . ", preference_packaging='" . $details['packaging'] . "' WHERE preference_id=" . $details['preference_id'] ;
+    $query = "UPDATE preferences SET preference_page_title='" . $details['page_title'] . "', preference_title='" . $details['title'] . "', preference_sub_title='" . $details['sub_title'] . "', preference_brew_type='" . $details['brew_type'] . "', preference_mash_type='" . $details['mash_type'] . "', preference_mash_volume=" . $details['mash_volume'] . ", preference_sparge_volume=" . $details['sparge_volume'] . ", preference_no_chill='" . $details['no_chill'] . "', preference_boil_size=" . $details['boil_size'] . ", preference_boil_time=" . $details['boil_time'] . ", preference_evaporation_rate=" . $details['evaporation_rate'] . ", preference_batch_size=" . $details['batch_size'] . ", preference_mash_efficiency=" . $details['mash_efficiency'] . ", preference_loss=" . $details['loss'] . ", preference_packaging='" . $details['packaging'] . "' WHERE preference_id=" . $details['preference_id'] ;
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     
     // After saving to the database, redirect back to the home page 
@@ -48,7 +50,9 @@ while ($row = mysqli_fetch_array ( $result ))
 	$title = $row['preference_title'];
 	$sub_title = $row['preference_sub_title'];
 	$brew_type = $row['preference_brew_type'];
-	$brew_method = $row['preference_brew_method'];
+	$mash_type = $row['preference_mash_type'];
+	$mash_volume = $row['preference_mash_volume'];
+	$sparge_volume = $row['preference_sparge_volume'];
 	$no_chill = $row['preference_no_chill'];
 	$boil_size = $row['preference_boil_size'];
 	$boil_time = $row['preference_boil_time'];
@@ -97,7 +101,7 @@ while ($row = mysqli_fetch_array ( $result ))
 
 			<div class="row margin-bottom-1em">
 
-				<div class="col-xs-3 col-md-3">
+				<div class="col-xs-2 col-md-2">
 					<label for="brew_type" class="label-sm">Brew Type</label>
 					<select name="brew_type" id="brew_type" class="form-control input-sm">
 						<option><?php if (isset($_POST['brew_type'])) {echo $_POST['brew_type'];} else {echo $brew_type;} ?></option>
@@ -107,10 +111,10 @@ while ($row = mysqli_fetch_array ( $result ))
 					</select>
 				</div>
     
-				<div class="col-xs-3 col-md-3">
-					<label for="brew_method" class="label-sm">Brew Method</label>
-					<select name="brew_method" id="brew_method" class="form-control input-sm">
-						<option><?php if (isset($_POST['brew_method'])) {echo $_POST['brew_method'];} else {echo $brew_method;} ?></option>
+				<div class="col-xs-2 col-md-2">
+					<label for="mash_type" class="label-sm">Mash Type</label>
+					<select name="mash_type" id="mash_type" class="form-control input-sm">
+						<option><?php if (isset($_POST['mash_type'])) {echo $_POST['mash_type'];} else {echo $mash_type;} ?></option>
 						<option>BIAB</option>
 						<option>Batch Sparge</option>
 						<option>Fly Sparge</option>
@@ -118,7 +122,17 @@ while ($row = mysqli_fetch_array ( $result ))
 					</select>
 				</div>
     
-				<div class="col-xs-3 col-md-3">
+				<div class="col-xs-2 col-md-2">
+					<label for="mash_volume" class="label-sm">Mash Volume (L)</label>
+					<input type="number" class="form-control input-sm" name="mash_volume" id="mash_volume" required value="<?php if (isset($_POST['mash_volume'])) {echo $_POST['mash_volume'];} else {echo $mash_volume;} ?>" />
+				</div>
+    
+				<div class="col-xs-2 col-md-2">
+					<label for="sparge_volume" class="label-sm">Sparge Volume (L)</label>
+					<input type="number" class="form-control input-sm" name="sparge_volume" id="sparge_volume" required value="<?php if (isset($_POST['sparge_volume'])) {echo $_POST['sparge_volume'];} else {echo $sparge_volume;} ?>" />
+				</div>
+    
+				<div class="col-xs-2 col-md-2">
 					<label for="no_chill" class="label-sm">No Chill?</label>
 					<select name="no_chill" id="no_chill" class="form-control input-sm">
 						<option><?php if (isset($_POST['no_chill'])) {echo $_POST['no_chill'];} else {echo $no_chill;} ?></option>
@@ -127,7 +141,7 @@ while ($row = mysqli_fetch_array ( $result ))
 					</select>
 				</div>
 				
-				<div class="col-xs-3 col-md-3">
+				<div class="col-xs-2 col-md-2">
 					<label for="packaging" class="label-sm">Packaging</label>
 					<select name="packaging" id="packaging" class="form-control input-sm">
 						<option><?php if (isset($_POST['packaging'])) {echo $_POST['packaging'];} else {echo $packaging;} ?></option>
