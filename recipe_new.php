@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	// for each fermentable, retrieve the fermentable id and insert the recipe_fermentable records
 	for ($i=0; $i <=14; $i++)
 	{
-		if ($fermentables[$i]['name'])
+		if ($fermentables[$i]['name'] && $fermentables[$i]['amount'] > 0)
 		{
 			$query = "INSERT INTO recipes_fermentables (recipe_fermentable_recipe_id, recipe_fermentable_fermentable_id, recipe_fermentable_amount, recipe_fermentable_use)
 					VALUES (" . $recipe_id . "," . $fermentables[$i]['id'] . "," . $fermentables[$i]['amount'] . ",'" . $fermentables[$i]['use'] . "')";
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	// for each hop, retrieve the hop id and insert the recipe_hop records
 	for ($i=0; $i <=14; $i++)
 	{
-		if ($hops[$i]['name'])
+		if ($hops[$i]['name'] && $hops[$i]['amount'] > 0)
 		{
 			$query = "INSERT INTO recipes_hops (recipe_hop_recipe_id, recipe_hop_hop_id, recipe_hop_amount, recipe_hop_alpha, recipe_hop_use, recipe_hop_time, recipe_hop_form)
 					VALUES (" . $recipe_id . "," . $hops[$i]['id'] . "," . $hops[$i]['amount'] . "," . $hops[$i]['alpha'] . ",'" . $hops[$i]['use'] . "'," . $hops[$i]['time'] . ",'" . $hops[$i]['form'] . "')";
@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	// for each misc, retrieve the misc id and insert the recipe_misc records
 	for ($i=0; $i <=14; $i++)
 	{
-		if ($miscs[$i]['name'])
+		if ($miscs[$i]['name'] && $miscs[$i]['amount'] > 0)
 		{
 			$query = "INSERT INTO recipes_miscs (recipe_misc_recipe_id, recipe_misc_misc_id, recipe_misc_amount, recipe_misc_unit)
 					VALUES (" . $recipe_id . "," . $miscs[$i]['id'] . "," . $miscs[$i]['amount'] . ",'" . $miscs[$i]['unit'] . "')";
