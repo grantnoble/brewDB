@@ -32,8 +32,6 @@ else
 
 	<form role="form" class="form-horizontal" name="recipeform" action="recipe_view.php" method="post">
 
-	<input type="hidden" name="id" value="<?php echo $details['id']; ?>" />
-
 	<div class="row">
 
 		<fieldset class="col-xs-12 col-sm-6 col-md-8">
@@ -612,9 +610,10 @@ else
 <!-- new form to submit only the recipe id using get not post-->
 <div class="container">
 
-<form role="form" class="form-horizontal" name="recipeformedit" action="recipe_edit.php" method="get">
+<form role="form" class="form-horizontal" name="recipeformedit" method="get">
 	<input type="hidden" name="id" value="<?php echo $details['id']; ?>" />
-	<input class="btn btn-default" type="submit" value="Edit" />
+	<input class="btn btn-default" type="submit" name="function" value="Edit" formaction="recipe_edit.php" />
+	<input class="btn btn-default" type="submit" name="function" value="Brew It" formaction="brew_new.php" />
 </form>
 
 </div>
