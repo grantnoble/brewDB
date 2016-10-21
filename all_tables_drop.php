@@ -16,7 +16,7 @@ header('Content-Type: text/html; charset="utf-8"', true);
 include('includes/database_connect.php');
 
 // array to hold the names of the tables to drop
-$array = ['fermentables', 'hops', 'yeasts', 'miscs', 'styles', 'persons', 'preferences', 'recipes', 'recipes_fermentables', 'recipes_hops', 'recipes_yeasts', 'recipes_miscs', 'recipes_persons', 'brews', 'mashes', 'fermentations', 'brews_fermentables', 'brews_hops', 'brews_yeasts', 'brews_miscs', 'brews_persons'];
+$array = ['fermentables', 'hops', 'yeasts', 'miscs', 'styles', 'persons', 'preferences', 'recipes', 'recipes_fermentables', 'recipes_hops', 'recipes_yeasts', 'recipes_miscs', 'recipes_persons', 'brews', 'brews_mashes', 'brews_ferments', 'brews_fermentables', 'brews_hops', 'brews_yeasts', 'brews_miscs', 'brews_persons'];
 
 // for each table name in the array, drop the table
 foreach($array as $table)

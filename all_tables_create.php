@@ -301,30 +301,32 @@ INDEX (brew_style_id),
 INDEX (brew_batch_num)
 ) AUTO_INCREMENT=200001 CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
-// Mash schedules
-$query['mashes'] = "CREATE TABLE mashes
+// brews_mashes, the mash schedules for the brew
+$query['brews_mashes'] = "CREATE TABLE brews_mashes
 (
-mash_id mediumint unsigned NOT NULL auto_increment,
-mash_brew_id mediumint unsigned NOT NULL,
-mash_step mediumint unsigned NOT NULL,
-mash_temp float,
-mash_time mediumint unsigned,
-PRIMARY KEY (mash_id),
-INDEX (mash_brew_id),
-INDEX (mash_step)
+brew_mash_id mediumint unsigned NOT NULL auto_increment,
+brew_mash_brew_id mediumint unsigned NOT NULL,
+brew_mash_step mediumint unsigned NOT NULL,
+brew_mash_temp float,
+brew_mash_time mediumint unsigned,
+PRIMARY KEY (brew_mash_id),
+INDEX (brew_mash_brew_id),
+INDEX (brew_mash_step)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
-// Fermenation schedules
-$query['fermentations'] = "CREATE TABLE fermentations
+// brews_ferments, the fermenation schedules for the brew
+$query['brews_ferments'] = "CREATE TABLE brews_ferments
 (
-fermentation_id mediumint unsigned NOT NULL auto_increment,
-fermentation_brew_id mediumint unsigned NOT NULL,
-fermentation_step mediumint unsigned NOT NULL,
-fermentation_temp float,
-fermentation_time mediumint unsigned,
-PRIMARY KEY (fermentation_id),
-INDEX (fermentation_brew_id),
-INDEX (fermentation_step)
+brew_ferment_id mediumint unsigned NOT NULL auto_increment,
+brew_ferment_brew_id mediumint unsigned NOT NULL,
+brew_ferment_step mediumint unsigned NOT NULL,
+brew_ferment_start_date date,
+brew_ferment_end_date date,
+brew_ferment_temp float,
+brew_ferment_measured_sg float,
+PRIMARY KEY (brew_ferment_id),
+INDEX (brew_ferment_brew_id),
+INDEX (brew_ferment_step)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // brews_fermentables
