@@ -16,7 +16,7 @@ header('Content-Type: text/html; charset="utf-8"', true);
 include('includes/database_connect.php');
 
 $backup_file = $database . "_backup_" . date("Y-m-d-H-i-s") . ".sql";
-$command = "mysqldump -u " . $username . " -p" . $password . " brewdb_dev > " . $backup_file;
+$command = "mysqldump -u " . $username . " -p" . $password . " brewdb_dev --result-file=" . $backup_file;
 
 system($command);
 
