@@ -11,15 +11,18 @@ include('includes/database_connect.php');
 // include the test_input function, which strips whitespace, slashes, and converts special characters
 include('includes/test_input.php');
 
-// retrieve preference details
-$query = "SELECT * FROM preferences ORDER BY preference_id DESC LIMIT 1";
-$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
-while ($row = mysqli_fetch_array ( $result ))
+// if not All Tables Create, retrieve preference details
+if ($page_title != "Create All Tables")
 {
-	$tab_title = $row['preference_page_title'] . " | " . $page_title;
-	$title = $row['preference_title'];
-	$sub_title = $row['preference_sub_title']; 
-} 
+	$query = "SELECT * FROM preferences ORDER BY preference_id DESC LIMIT 1";
+	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+	while ($row = mysqli_fetch_array ( $result ))
+	{
+		$tab_title = $row['preference_page_title'] . " | " . $page_title;
+		$title = $row['preference_title'];
+		$sub_title = $row['preference_sub_title']; 
+	} 
+}
 ?>
 
 <title><?php echo $page_title; ?></title>

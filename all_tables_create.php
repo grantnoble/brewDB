@@ -6,7 +6,7 @@ Create all table in the database
 */
 
 $page_title = 'Create All Tables';
-include ('includes/header_tables_create.html');
+include ('includes/header.html');
 header('Content-Type: text/html; charset="utf-8"', true);
 
 echo '<div class="container">';
