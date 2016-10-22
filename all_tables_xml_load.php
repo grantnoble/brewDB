@@ -5,12 +5,9 @@ all_tables_xml_load.php
 Load all table details from the XML files into the database
 */
 
-$page_title = 'Grant' . "'" . 's Brewing Database - Fermentables List';
+$page_title = 'Load Basic Table Data';
 include ('includes/header.html');
 header('Content-Type: text/html; charset="utf-8"', true);
-
-// connect to the database
-include('includes/database_connect.php');
 
 // Fermentables
 // Set up some variables.
@@ -475,7 +472,9 @@ $query .= $column . $value;
 $value = 'VALUES (\'Assistant\',\'Brewer\');';
 $query .= $column . $value;
 
-echo $query;
+echo '<div class="container">';
+echo '<h2>Load Basic Table Data</h2>';
+
 if (mysqli_multi_query($connection, $query))
 {
 	echo '<p>' . $fcount . ' records added to the fermentables table.</p>';
@@ -493,6 +492,10 @@ else
 }
 
 mysqli_close($connection);
+
+echo '<form action="index.php">';
+echo '<input class="btn btn-default" type="submit" value="Back" />';
+echo '</form>';
 
 include ('includes/footer.html');
 
