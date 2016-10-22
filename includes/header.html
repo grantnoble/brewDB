@@ -18,11 +18,11 @@ while ($row = mysqli_fetch_array ( $result ))
 {
 	$tab_title = $row['preference_page_title'] . " | " . $page_title;
 	$title = $row['preference_title'];
-	$sub_title = $row['preference_sub_title'];
-}
+	$sub_title = $row['preference_sub_title']; 
+} 
 ?>
 
-<title><?php echo $tab_title; ?></title>
+<title><?php echo $page_title; ?></title>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
