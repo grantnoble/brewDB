@@ -1,19 +1,16 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-    <title>All Tables Create</title>
-</head>
-<body>
-
 <?php
 
 /*
 all_tables_create.php
 Create all table in the database
 */
+
+$page_title = 'Create All Tables';
+include ('includes/header_tables_create.html');
 header('Content-Type: text/html; charset="utf-8"', true);
-// connect to the database
-include('includes/database_connect.php');
+
+echo '<div class="container">';
+echo '<h2>Create All Tables</h2>';
 
 // load all query statements into an associative array
 // Fermentables
@@ -400,7 +397,7 @@ foreach($query as $table => $sql)
 {
 	if (mysqli_query($connection, $sql))
 	{
-		echo $table . ' created.' . '<br />';
+		echo '<p>' . $table . ' table created.' . '</p>';
 	}
 	else
 	{
@@ -410,12 +407,9 @@ foreach($query as $table => $sql)
 
 mysqli_close($connection);
 
+echo '<form action="index.php">';
+echo '<input class="btn btn-default" type="submit" value="Back" />';
+echo '</form>';
+
+include ('includes/footer.html');
 ?>
-
-<form action="index.php">
-<br>
-<input type="submit" value="Back">
-</form>
-
-</body>
-</html>
