@@ -178,7 +178,7 @@
  <TIME>60.000</TIME>
  <AMOUNT_IS_WEIGHT>TRUE</AMOUNT_IS_WEIGHT>
  <USE_FOR>Water Agent</USE_FOR>
- <NOTES>Alters water profile and pH of mash.  Use the BeerSmith Water Profile tool to determine amount to add.</NOTES>
+ <NOTES>Alters water profile and pH of mash. Use the BeerSmith Water Profile tool to determine amount to add.</NOTES>
  <DISPLAY_AMOUNT>5.00 gm</DISPLAY_AMOUNT>
  <INVENTORY>0.00 gm</INVENTORY>
  <DISPLAY_TIME>60.0 min</DISPLAY_TIME>
@@ -207,7 +207,7 @@
  <TIME>5.000</TIME>
  <AMOUNT_IS_WEIGHT>FALSE</AMOUNT_IS_WEIGHT>
  <USE_FOR>Fruit Beer</USE_FOR>
- <NOTES>Cherry extract flavoring.  Mix into beer at bottling to add cherry flavor to light ales and wheat beers.  Use low hop rate to allow sweet flavor through.</NOTES>
+ <NOTES>Cherry extract flavoring. Mix into beer at bottling to add cherry flavor to light ales and wheat beers. Use low hop rate to allow sweet flavor through.</NOTES>
  <DISPLAY_AMOUNT>3.50 oz</DISPLAY_AMOUNT>
  <INVENTORY>0.00 oz</INVENTORY>
  <DISPLAY_TIME>5.0 min</DISPLAY_TIME>
@@ -221,7 +221,7 @@
  <TIME>5.000</TIME>
  <AMOUNT_IS_WEIGHT>FALSE</AMOUNT_IS_WEIGHT>
  <USE_FOR>Holiday Beer</USE_FOR>
- <NOTES>Used to add cinnamon flavor to holiday beers.  Goes well with ginger, honey and orange flavors.  Add one stick 5 minutes from the end of the boil.</NOTES>
+ <NOTES>Used to add cinnamon flavor to holiday beers.  Goes well with ginger, honey and orange flavors. Add one stick 5 minutes from the end of the boil.</NOTES>
  <DISPLAY_AMOUNT>0.10 oz</DISPLAY_AMOUNT>
  <INVENTORY>0.00 oz</INVENTORY>
  <DISPLAY_TIME>5.0 min</DISPLAY_TIME>
@@ -235,7 +235,7 @@
  <TIME>1440.000</TIME>
  <AMOUNT_IS_WEIGHT>FALSE</AMOUNT_IS_WEIGHT>
  <USE_FOR>Clarity</USE_FOR>
- <NOTES>Commercial blend of animal collagen and polysaccarides that helps rapidly precipitate yeast and tannins.  Mix with 2 oz cold water and add after fermentation has completed.</NOTES>
+ <NOTES>Commercial blend of animal collagen and polysaccarides that helps rapidly precipitate yeast and tannins. Mix with 2 oz cold water and add after fermentation has completed.</NOTES>
  <DISPLAY_AMOUNT>0.25 oz</DISPLAY_AMOUNT>
  <INVENTORY>0.00 oz</INVENTORY>
  <DISPLAY_TIME>1.0 days</DISPLAY_TIME>
@@ -264,7 +264,7 @@
  <TIME>5.000</TIME>
  <AMOUNT_IS_WEIGHT>FALSE</AMOUNT_IS_WEIGHT>
  <USE_FOR>Belgian Wit</USE_FOR>
- <NOTES>Used in Belgian Wit, Whites, and Holiday ales.  Very good when used in light wheat ales.  Often used with Bitter Orange Peel.</NOTES>
+ <NOTES>Used in Belgian Wit, Whites, and Holiday ales. Very good when used in light wheat ales.  Often used with Bitter Orange Peel.</NOTES>
  <DISPLAY_AMOUNT>0.75 oz</DISPLAY_AMOUNT>
  <INVENTORY>0.00 oz</INVENTORY>
  <DISPLAY_TIME>5.0 min</DISPLAY_TIME>
@@ -278,7 +278,7 @@
  <TIME>5.000</TIME>
  <AMOUNT_IS_WEIGHT>FALSE</AMOUNT_IS_WEIGHT>
  <USE_FOR>Fruit Beer</USE_FOR>
- <NOTES>Cranberry flavor extract.  Add to beer just before bottling.  Adds distinctive cranberry flavor to light ales and wheat beers.  Use low hop rate to allow sweet flavor through.</NOTES>
+ <NOTES>Cranberry flavor extract.  Add to beer just before bottling. Adds distinctive cranberry flavor to light ales and wheat beers.  Use low hop rate to allow sweet flavor through.</NOTES>
  <DISPLAY_AMOUNT>3.50 oz</DISPLAY_AMOUNT>
  <INVENTORY>0.00 oz</INVENTORY>
  <DISPLAY_TIME>5.0 min</DISPLAY_TIME>
@@ -336,9 +336,7 @@
  <TIME>60.000</TIME>
  <AMOUNT_IS_WEIGHT>FALSE</AMOUNT_IS_WEIGHT>
  <USE_FOR>Water Agent</USE_FOR>
- <NOTES>5.2 is a propriety blend of food-grade phosphate buffers (similar to brewer''s salts) that will lock in your mash and kettle water at a pH of 5.2 regardless of the starting pH of your water. 
-
-Use approximately 1 Table spoon (15 ml) per 5 gallons of bre</NOTES>
+ <NOTES>5.2 is a propriety blend of food-grade phosphate buffers (similar to brewer''s salts) that will lock in your mash and kettle water at a pH of 5.2 regardless of the starting pH of your water. Use approximately 1 Table spoon (15 ml) per 5 gallons of bre</NOTES>
  <DISPLAY_AMOUNT>1.00 tbsp</DISPLAY_AMOUNT>
  <INVENTORY>0.00 tbsp</INVENTORY>
  <DISPLAY_TIME>60.0 min</DISPLAY_TIME>
@@ -401,15 +399,15 @@ Use at a rate of up to 2 drops per gallon, or 1 oz for a 7 barrel system. Do not
  <DISPLAY_TIME>5.0 min</DISPLAY_TIME>
 </MISC>
 <MISC>
- <NAME>Gypsum (Calcium Sulfate)</NAME>
+ <NAME>Calcium Sulfate</NAME>
  <VERSION>1</VERSION>
  <TYPE>Water Agent</TYPE>
  <USE>Mash</USE>
  <AMOUNT>0.010000</AMOUNT>
  <TIME>60.000</TIME>
  <AMOUNT_IS_WEIGHT>TRUE</AMOUNT_IS_WEIGHT>
- <USE_FOR>Water Agent</USE_FOR>
- <NOTES>Reduces PH of water for mashing and sparging.   Alters water profile -- used to harden soft water.  Use the BeerSmith Water Profile tool to determine amount to add.</NOTES>
+ <USE_FOR>Adding minerals to the mash.</USE_FOR>
+ <NOTES>Reduces PH of water for mashing and sparging.</NOTES>
  <DISPLAY_AMOUNT>10.00 gm</DISPLAY_AMOUNT>
  <INVENTORY>0.00 gm</INVENTORY>
  <DISPLAY_TIME>60.0 min</DISPLAY_TIME>
@@ -552,9 +550,7 @@ Use at a rate of up to 2 drops per gallon, or 1 oz for a 7 barrel system. Do not
  <TIME>12.000</TIME>
  <AMOUNT_IS_WEIGHT>FALSE</AMOUNT_IS_WEIGHT>
  <USE_FOR></USE_FOR>
- <NOTES>Use to add a lemony taste in beer. Add at the end of the boil.
-
-</NOTES>
+ <NOTES>Use to add a lemony taste in beer. Add at the end of the boil.</NOTES>
  <DISPLAY_AMOUNT>1.00 oz</DISPLAY_AMOUNT>
  <INVENTORY>0.00 oz</INVENTORY>
  <DISPLAY_TIME>12.0 min</DISPLAY_TIME>
@@ -596,7 +592,7 @@ Use at a rate of up to 2 drops per gallon, or 1 oz for a 7 barrel system. Do not
  <TIME>5.000</TIME>
  <AMOUNT_IS_WEIGHT>FALSE</AMOUNT_IS_WEIGHT>
  <USE_FOR>Fruit Beer</USE_FOR>
- <NOTES>Mandarin Orange  flavor extract.  Add to beer just before bottling.  Adds distinctive Mandarin Orange  flavor to light ales and wheat beers.  Use low hop rate to allow sweet flavor through.</NOTES>
+ <NOTES>Mandarin Orange  flavor extract.  Add to beer just before bottling. Adds distinctive Mandarin Orange  flavor to light ales and wheat beers. Use low hop rate to allow sweet flavor through.</NOTES>
  <DISPLAY_AMOUNT>3.50 oz</DISPLAY_AMOUNT>
  <INVENTORY>0.00 oz</INVENTORY>
  <DISPLAY_TIME>5.0 min</DISPLAY_TIME>
@@ -626,7 +622,7 @@ Use at a rate of up to 2 drops per gallon, or 1 oz for a 7 barrel system. Do not
  <TIME>10080.000</TIME>
  <AMOUNT_IS_WEIGHT>FALSE</AMOUNT_IS_WEIGHT>
  <USE_FOR>Oak Flavor</USE_FOR>
- <NOTES>Can be added to the secondary or keg during aging to simulate oak flavor.  Boil first to sterilize and place in weighted bag so they do not float.  Amounts vary with chip size and time - smaller chips impart more flavor.</NOTES>
+ <NOTES>Can be added to the secondary or keg during aging to simulate oak flavor. Boil first to sterilize and place in weighted bag so they do not float. Amounts vary with chip size and time - smaller chips impart more flavor.</NOTES>
  <DISPLAY_AMOUNT>4.00 oz</DISPLAY_AMOUNT>
  <INVENTORY>0.00 oz</INVENTORY>
  <DISPLAY_TIME>7.0 days</DISPLAY_TIME>
@@ -640,7 +636,7 @@ Use at a rate of up to 2 drops per gallon, or 1 oz for a 7 barrel system. Do not
  <TIME>5.000</TIME>
  <AMOUNT_IS_WEIGHT>FALSE</AMOUNT_IS_WEIGHT>
  <USE_FOR>Oak Flavor</USE_FOR>
- <NOTES>Adds Oak Aged flavor to English Ales, IPAs.  Mix in prior to bottling.  Amouts vary with concentration, so check label or add to taste.</NOTES>
+ <NOTES>Adds Oak Aged flavor to English Ales, IPAs.  Mix in prior to bottling. Amounts vary with concentration, so check label or add to taste.</NOTES>
  <DISPLAY_AMOUNT>2.00 oz</DISPLAY_AMOUNT>
  <INVENTORY>0.00 oz</INVENTORY>
  <DISPLAY_TIME>5.0 min</DISPLAY_TIME>
@@ -782,10 +778,24 @@ Use at a rate of up to 2 drops per gallon, or 1 oz for a 7 barrel system. Do not
  <TIME>60.000</TIME>
  <AMOUNT_IS_WEIGHT>FALSE</AMOUNT_IS_WEIGHT>
  <USE_FOR>Root Beer Flavor</USE_FOR>
- <NOTES>Bark is safe (do not use the tree or root - they may be toxic!).  This is the original source of the flavor for root beer, and adds a great root beer flavor.</NOTES>
+ <NOTES>Bark is safe (do not use the tree or root - they may be toxic!). This is the original source of the flavor for root beer, and adds a great root beer flavor.</NOTES>
  <DISPLAY_AMOUNT>1.00 oz</DISPLAY_AMOUNT>
  <INVENTORY>0.00 oz</INVENTORY>
  <DISPLAY_TIME>60.0 min</DISPLAY_TIME>
+</MISC>
+<MISC>
+	<NAME>Sodium Bicarbonate</NAME>
+	<VERSION>1</VERSION>
+	<TYPE>Water Agent</TYPE>
+	<USE>Mash</USE>
+	<AMOUNT>0.014787</AMOUNT>
+	<TIME>60.000</TIME>
+	<AMOUNT_IS_WEIGHT>FALSE</AMOUNT_IS_WEIGHT>
+	<USE_FOR>Raise mash ph</USE_FOR>
+	<NOTES>Also known as baking soda.</NOTES>
+	<DISPLAY_AMOUNT>0.50 oz</DISPLAY_AMOUNT>
+	<INVENTORY>0.00 oz</INVENTORY>
+	<DISPLAY_TIME>60.0 min</DISPLAY_TIME>
 </MISC>
 <MISC>
  <NAME>Spruce Extract</NAME>
