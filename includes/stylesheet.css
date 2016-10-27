@@ -1,157 +1,132 @@
-html,body {
-	font-family: "Droid Sans", sans-serif;
-	font-size: .9em;
-	margin:0;
-	padding:0;
-	height:100%;
+html {
+	position: relative;
+	min-height: 100%;
 }
-
-input, select, button {font-size:.85em;} 
-textarea {font-size:1em;} 
-
-legend{font-weight:bold;}
-
-#container {
-	min-height:100%;
-	position:relative;
-	width:1200px;
-	margin:0 auto;
+body {
+	padding-top: 0px;
+	margin-bottom: 40px;
 }
-
-header {
-	background:#FFF;
-	height:150px;
-	position:fixed;
-	width:100%;
-}
-
-nav {
-	padding-bottom:50px;
-}
-
-nav ul {
-	margin:0;
-	padding:0;
-	list-style:none;
-}
-
-nav ul li {
-	margin:0;
-	padding:5px 20px;
-	position:relative;
-	height:20px;
-	line-height:20px;
-	background-color:#EEE;
-}
-
-nav > ul > li {
-	float: left;
-	height:30px;
-	line-height:30px;
-	background-color:#CCC;
-}
-
-nav li > ul {
-	visibility:hidden;
-	width:150px;
-	position: absolute;
-	top:0px;
-	left:150px;
-	border-left:1px solid #000;
-}
-
-nav > ul > li > ul {
-	top:40px;
-	left:0;
-	z-index:1;
-
-}
-
-nav li:hover {
-	background-color:#999;
-}
-
-nav li:hover > ul {
-	visibility:visible;
-}
-
-nav a:link {
-	color:blue;
-	text-decoration:none;
-}
-
-nav a:visited {
-	color:blue;
-	text-decoration:none;
-}
-
-section {
-	padding-top:150px;
-	min-height:100%;
-	clear:both;
-	padding-bottom:50px;
-}
-
-footer {
+.footer {
 	position:absolute;
 	bottom:0;
-	width:99%;
-	height:50px;
+	width:100%;
+	height:40px;
 	text-align:right;
 }
-
-.five_ingredients {
-	height:160px;
-	padding-right:15px;
-	overflow-x:hidden;
-	overflow-y:auto;
+.label-sm {
+	font-size:90%;
+}
+.margin-bottom-1em {
+	margin-bottom:1em;
 }
 
-.five_ingredients_view {
-	height:150px;
-	padding-right:15px;
-	overflow-x:hidden;
-	overflow-y:auto;
+.margin-bottom-half-em {
+	margin-bottom:0.5em;
 }
 
-.three_ingredients {
-	height:105px;
-	padding-right:15px;
-	overflow-x:hidden;
-	overflow-y:auto;
+fieldset.fieldset {
+/*    border: 2px solid #ccc !important;
+    border-radius: 8px;
+    padding: 0 0.5em 0.5em 0.5em !important; */
+    margin: 1.0em 1.0em 1.5em 0 !important;
+}
+legend.fieldset {
+        font-size: 1.0em !important;
+        font-weight: bold !important;
+        text-align: left !important;
+        padding: 0 1em 0 1em;
+        margin: 0 0 0.5em 0;
+        border: none;
+        width:auto;
 }
 
-.three_ingredients_view {
-	height:95px;
-	padding-right:15px;
-	overflow-x:hidden;
-	overflow-y:auto;
+.table-no-border>thead>tr>th, 
+.table-no-border>tbody>tr>th, 
+.table-no-border>tfoot>tr>th, 
+.table-no-border>thead>tr>td, 
+.table-no-border>tbody>tr>td, 
+.table-no-border>tfoot>tr>td {
+    border-top: none; 
+    padding-top: 0px;
+    padding-bottom: 5px;
 }
 
-.button { 
-	margin-top:10px;
+.table-no-border {
+	margin-bottom: 0px;
+} 
+
+/* limit the height of the ingredients display */
+.five-ingredients {
+	height: 240px;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
-.float_left {
-	float:left;
-	margin-top:10px;
-}
-.list_table td,th {
-	padding-right:15px;
+
+/* Turn off number spin wheels for Firefox */
+input[type='number'] {
+    -moz-appearance:textfield;
 }
 
-.row{clear:both}
-.three_cols{width:25%;float:left;}
-.four_cols{width:33.33%;float:left;}
-.five_cols{width:41.66%;float:left;}
-.six_cols{width:50%;float:left;}
-.seven_cols{width:58.33%;float:left;}
-.eight_cols{width:66.66%;float:left;}
-.nine_cols{width:75%;float:left;}
-
-
-fieldset{
-border-radius: 10px;
-padding: 10px; /*Just to prevent the content from being to close to the corner*/
+/* Turn off number spin wheels for webkit browsers like Safari and Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.dropdown-submenu {
+    position: relative;
 }
 
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
+
+/* Make the font in the datepicker a bit smaller */
+.datepicker { 
+	font-size: 12px;
+}
+
+/* special padding for the fields in Style Characteristics in brew_new */
+.padding-5px {
+	padding:5px;
+}
+
+/* Full width, 5 column layout for the Style Characteristics in brew_new */
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.col-xs-5ths {
+    width: 20%;
+    float: left;
+}
+
+@media (min-width: 768px) {
+	.col-sm-5ths {
+	width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-5ths {
+        width: 20%;
+        float: left;
+    }
+}
