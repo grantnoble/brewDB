@@ -7,10 +7,10 @@ function calc_percent()
 	// for each fermentable, if there is an amount, add it to the total amount
 	for (var i = 0; i < 15; i++)
 	{
-		if (document.recipeform["fermentable"+i+"_amount"].value)
+		if (document.forms[0]["fermentable"+i+"_amount"].value)
 		{
 			// multiply the fermentable amount by 1 to ensure it is treated as a number, not a string
-			total_amount += (document.recipeform["fermentable"+i+"_amount"].value * 1);
+			total_amount += (document.forms[0]["fermentable"+i+"_amount"].value * 1);
 			flag = 1;
 		}
 	}
@@ -19,10 +19,10 @@ function calc_percent()
 		// for each fermentable, if there is an amount, calculate the percentage of the batch
 		for (var i = 0; i < 15; i++)
 		{
-			if (document.recipeform["fermentable"+i+"_amount"].value)
+			if (document.forms[0]["fermentable"+i+"_amount"].value)
 			{
-				percentage = document.recipeform["fermentable"+i+"_amount"].value / total_amount;
-				document.recipeform["fermentable"+i+"_percent"].value = (percentage * 100).toFixed(2);
+				percentage = document.forms[0]["fermentable"+i+"_amount"].value / total_amount;
+				document.forms[0]["fermentable"+i+"_percent"].value = (percentage * 100).toFixed(2);
 			}
 		}
 	}

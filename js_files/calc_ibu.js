@@ -7,8 +7,8 @@ function calc_ibu()
 	var f_G = 0;
 	var f_T = 0;
 	var ibu = 0;
-	var og = document.recipeform.est_og.value;
-   var oglitres = document.recipeform.batch_size.value;
+	var og = document.forms[0].est_og.value;
+   var oglitres = document.forms[0].batch_size.value;
 
 	// boil converson factor used to calculate the starting boil volume
 	var boilconversion = 1.3;
@@ -32,12 +32,12 @@ function calc_ibu()
 	for (var i = 0; i < 15; i++)
 	{
 		// if there is an og and a hop amount and a hop alpha and a hop time, calculate the ibu for that row, otherwise try the next row
-		if (document.recipeform.est_og.value && document.recipeform["hop"+i+"_amount"].value && document.recipeform["hop"+i+"_alpha"].value && document.recipeform["hop"+i+"_time"].value)
+		if (document.forms[0].est_og.value && document.forms[0]["hop"+i+"_amount"].value && document.forms[0]["hop"+i+"_alpha"].value && document.forms[0]["hop"+i+"_time"].value)
 		{
 			// retrieve the amount, alpha acid rating, and boil time for the hop
-			gms = document.recipeform["hop"+i+"_amount"].value;
-			aa = document.recipeform["hop"+i+"_alpha"].value;
-			t = document.recipeform["hop"+i+"_time"].value;
+			gms = document.forms[0]["hop"+i+"_amount"].value;
+			aa = document.forms[0]["hop"+i+"_alpha"].value;
+			t = document.forms[0]["hop"+i+"_time"].value;
 
 			// calculate the alpha acid units for the hop
 			aau = aa * gms;
@@ -61,6 +61,6 @@ function calc_ibu()
 	// if a hop ibu value exists, display it
 	if (flag)
 	{
-		document.recipeform.est_ibu.value = ibu.toFixed(0);
+		document.forms[0].est_ibu.value = ibu.toFixed(0);
 	}
 }

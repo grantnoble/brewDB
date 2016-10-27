@@ -5,10 +5,10 @@ function validate_fermentables()
 
 	for (i=0; i<=14; i++)
 	{
-		var name = document.recipeform["fermentable"+i+"_name"].value;
-		var amount = document.recipeform["fermentable"+i+"_amount"].value;
-		var yield = document.recipeform["fermentable"+i+"_yield"].value;
-		var color = document.recipeform["fermentable"+i+"_color"].value;
+		var name = document.forms[0]["fermentable"+i+"_name"].value;
+		var amount = document.forms[0]["fermentable"+i+"_amount"].value;
+		var yield = document.forms[0]["fermentable"+i+"_yield"].value;
+		var color = document.forms[0]["fermentable"+i+"_color"].value;
 
 		if (name)
 		{

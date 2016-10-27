@@ -5,9 +5,9 @@ function validate_miscs()
 
 	for (i=0; i<=3; i++)
 	{
-		var name = document.recipeform["misc"+i+"_name"].value;
-		var amount = document.recipeform["misc"+i+"_amount"].value;
-		var unit = document.recipeform["misc"+i+"_unit"].value;
+		var name = document.forms[0]["misc"+i+"_name"].value;
+		var amount = document.forms[0]["misc"+i+"_amount"].value;
+		var unit = document.forms[0]["misc"+i+"_unit"].value;
 
 		if (name)
 		{

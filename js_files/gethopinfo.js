@@ -16,12 +16,12 @@ xmlhttp.onreadystatechange=function()
 	if (xmlhttp.readyState==4 && xmlhttp.status==200)
 	{
 		// the following use square bracket notation to include the row number in the field name
-		document.recipeform["hop"+num+"_id"].value = xmlhttp.responseXML.getElementsByTagName("hop_id")[0].childNodes[0].nodeValue;
-		document.recipeform["hop"+num+"_alpha"].value=xmlhttp.responseXML.getElementsByTagName("hop_alpha")[0].childNodes[0].nodeValue;
-		document.recipeform["hop"+num+"_amount"].value=10;
-		document.recipeform["hop"+num+"_time"].value=60;
-		document.recipeform["hop"+num+"_form"].value="Pellet";
-		document.recipeform["hop"+num+"_use"].value="Boil";
+		document.forms[0]["hop"+num+"_id"].value = xmlhttp.responseXML.getElementsByTagName("hop_id")[0].childNodes[0].nodeValue;
+		document.forms[0]["hop"+num+"_alpha"].value=xmlhttp.responseXML.getElementsByTagName("hop_alpha")[0].childNodes[0].nodeValue;
+		document.forms[0]["hop"+num+"_amount"].value=10;
+		document.forms[0]["hop"+num+"_time"].value=60;
+		document.forms[0]["hop"+num+"_form"].value="Pellet";
+		document.forms[0]["hop"+num+"_use"].value="Boil";
 		
 		// update the recipe ibu in the style characteristics table
 		calc_ibu();

@@ -17,36 +17,36 @@ xmlhttp.onreadystatechange=function()
 	{
 		// retrieve the values from the xml returned by getfermentableinfo.php
 		// the following use square bracket notation to include the row number in the field name
-		document.recipeform["fermentable"+num+"_id"].value = xmlhttp.responseXML.getElementsByTagName("fermentable_id")[0].childNodes[0].nodeValue;
+		document.forms[0]["fermentable"+num+"_id"].value = xmlhttp.responseXML.getElementsByTagName("fermentable_id")[0].childNodes[0].nodeValue;
 		var y = xmlhttp.responseXML.getElementsByTagName("fermentable_yield")[0].childNodes[0].nodeValue;
 		var c = xmlhttp.responseXML.getElementsByTagName("fermentable_color")[0].childNodes[0].nodeValue;
 		var t = xmlhttp.responseXML.getElementsByTagName("fermentable_type")[0].childNodes[0].nodeValue;
 		
 		// fill the yield, color, type, and use fields for the fermentable
-		if (!document.recipeform["fermentable"+num+"_amount"].value)
+		if (!document.forms[0]["fermentable"+num+"_amount"].value)
 		{
-			document.recipeform["fermentable"+num+"_amount"].value = 1;
+			document.forms[0]["fermentable"+num+"_amount"].value = 1;
 		}
-		document.recipeform["fermentable"+num+"_yield"].value = y;
-		document.recipeform["fermentable"+num+"_color"].value = c;
-		document.recipeform["fermentable"+num+"_type"].value = t;
+		document.forms[0]["fermentable"+num+"_yield"].value = y;
+		document.forms[0]["fermentable"+num+"_color"].value = c;
+		document.forms[0]["fermentable"+num+"_type"].value = t;
 		
 		// if type is "Grain", set use to "Mashed", otherwise "Extract", "Sugar", or "Other"
 		if (t=="Grain")
 		{
-			document.recipeform["fermentable"+num+"_use"].value = "Mashed";
+			document.forms[0]["fermentable"+num+"_use"].value = "Mashed";
 		}
 		else if (t=="Extract" || t=="Dry Extract")
 		{
-			document.recipeform["fermentable"+num+"_use"].value = "Extract";
+			document.forms[0]["fermentable"+num+"_use"].value = "Extract";
 		}
 		else if (t=="Sugar")
 		{
-			document.recipeform["fermentable"+num+"_use"].value = "Sugar";
+			document.forms[0]["fermentable"+num+"_use"].value = "Sugar";
 		}
 		else
 		{
-			document.recipeform["fermentable"+num+"_use"].value = "Other";
+			document.forms[0]["fermentable"+num+"_use"].value = "Other";
 		}
 		
 		// update the recipe og and fg, and color in the style characteristics table

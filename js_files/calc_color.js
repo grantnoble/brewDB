@@ -4,16 +4,16 @@ function calc_color()
 	var mcu = 0;
 	var kgs = 0;
 	var lbs = 0;
-	var litres = document.recipeform.batch_size.value;
+	var litres = document.forms[0].batch_size.value;
 	var gallons = 0;
 	var flag = 0;
 
 	for (var i = 0; i < 15; i++)
 	{
-		if (document.recipeform["fermentable"+i+"_name"].value)
+		if (document.forms[0]["fermentable"+i+"_name"].value)
 		{
-			color = document.recipeform["fermentable"+i+"_color"].value;
-			kgs = document.recipeform["fermentable"+i+"_amount"].value;
+			color = document.forms[0]["fermentable"+i+"_color"].value;
+			kgs = document.forms[0]["fermentable"+i+"_amount"].value;
 			lbs = kgs * 2.20462;
 			gallons = litres * 0.264172;
 			mcu += color * lbs / gallons;
@@ -23,6 +23,6 @@ function calc_color()
 	if (flag)
 	{
 		adjust_mcu = 1.49 * Math.pow(mcu,0.69);
-		document.recipeform.est_color.value = adjust_mcu.toFixed(0);
+		document.forms[0].est_color.value = adjust_mcu.toFixed(0);
 	}
 }
