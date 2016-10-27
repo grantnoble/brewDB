@@ -279,7 +279,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		</div>
 		
 		<div class="col-xs-3 col-md-3">
-			<label for="name" class="label-sm">Est.</label>
+			<label for="name" class="label-sm">Estimate</label>
 		</div>
 		
 		<div class="col-xs-3 col-md-3">
