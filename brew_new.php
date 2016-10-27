@@ -226,6 +226,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			</select>
 		</div>
 		
+		<?php
+		$brew_batch_num = 0;
+		$query = "SELECT brew_batch_num FROM brews ORDER BY brew_id DESC LIMIT 1";
+		$result = mysqli_query($connection, $query);
+		while ($row = mysqli_fetch_array ( $result ))
+		{
+			$brew_batch_num = $row['brew_batch_num'];
+		}
+		$brew_batch_num += 1;
+		?>
+		<div class="col-xs-2 col-md-2">
+			<label for="batch_number" class="label-sm">Batch Number</label>
+			<input type="text" class="form-control input-sm" id="batch_number" name="batch_number" required value="<?php echo $brew_batch_num; ?>"/>
+		</div>
+		
+		<div class="col-xs-5 col-sm-4 col-md-3">
+			<label for="date" class="label-sm">Date (yyyy-mm-dd)</label>
+			<input type="date" class="form-control input-sm" id="date" name="date" value="<?php echo date("Y-m-d"); ?>"/>
+		</div>
+		
 	</div>
 	
 	<div class="row margin-bottom-1em">
@@ -254,12 +274,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		}
 		?>
 		
-		<div class="col-xs-5 col-sm-4 col-md-3">
-			<label for="date" class="label-sm">Date (yyyy-mm-dd)</label>
-			<input type="date" class="form-control input-sm" id="date" name="date" value="<?php echo date("Y-m-d"); ?>"/>
-		</div>
-		
-		<div class="hidden-xs col-sm-4 col-md-5">
+		<div class="hidden-xs col-sm-3 col-md-4">
 			<label for="brewer" class="label-sm">Brewer</label>
 			<input list="persons" class="form-control input-sm" id="brewer" name="brewer" />
 				<datalist id="persons">
@@ -295,120 +310,142 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
  
 	<div class="row">
     
-		<div class="col-xs-3 col-md-3">
-			<label for="name" class="label-sm">&nbsp;</label>
+		<div class="col-xs-2 col-md-5ths">
+			<label class="label-sm">&nbsp;</label>
 		</div>
 		
-		<div class="col-xs-3 col-md-3">
-			<label for="name" class="label-sm">Low</label>
+		<div class="col-xs-2 col-md-5ths">
+			<label class="label-sm">Low</label>
 		</div>
 		
-		<div class="col-xs-3 col-md-3">
-			<label for="name" class="label-sm">Est.</label>
+		<div class="col-xs-2 col-md-5ths">
+			<label class="label-sm">Estimate</label>
 		</div>
 		
-		<div class="col-xs-3 col-md-3">
-			<label for="name" class="label-sm">High</label>
+		<div class="col-xs-2 col-md-5ths">
+			<label class="label-sm">Actual</label>
+		</div>
+		
+		<div class="col-xs-2 col-md-5ths">
+			<label class="label-sm">High</label>
 		</div>
 		
 	</div>
  
 	<div class="row">
 	
-		<div class="col-xs-3 col-md-3 col-lg-3">
-			<label for="name" class="label-sm">OG</label>
+		<div class="col-xs-2 col-md-5ths">
+			<label class="label-sm">OG</label>
 		</div>
 		
-		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_og_min" name="style_og_min" readonly="yes" />
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="style_og_min" name="style_og_min" readonly="yes" />
 		</div>
 		
-		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="est_og" name="est_og" readonly="yes" />
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="est_og" name="est_og" readonly="yes" />
 		</div>
 		
-		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_og_max" name="style_og_max" readonly="yes" />
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="act_og" name="act_og"  />
+		</div>
+		
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="style_og_max" name="style_og_max" readonly="yes" />
 		</div>
 		
 	</div>
  
 	<div class="row">
     
-		<div class="col-xs-3 col-md-3 col-lg-3">
-			<label for="name" class="label-sm">FG</label>
+		<div class="col-xs-2 col-md-5ths">
+			<label class="label-sm">FG</label>
 		</div>
         
-		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_fg_min" name="style_fg_min" readonly="yes" />
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="style_fg_min" name="style_fg_min" readonly="yes" />
 		</div>
         
-		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="est_fg" name="est_fg" readonly="yes" />
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="est_fg" name="est_fg" readonly="yes" />
 		</div>
         
-		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_fg_max" name="style_fg_max" readonly="yes" />
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="act_fg" name="act_fg" />
+		</div>
+        
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="style_fg_max" name="style_fg_max" readonly="yes" />
 		</div>
         
 	</div>
  
 	<div class="row">
 	
-		<div class="col-xs-3 col-md-3 col-lg-3">
-			<label for="name" class="label-sm">ABV %</label>
+		<div class="col-xs-2 col-md-5ths">
+			<label class="label-sm">ABV&nbsp;(%)</label>
 		</div>
         
-		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_abv_min" name="style_abv_min" readonly="yes" />
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="style_abv_min" name="style_abv_min" readonly="yes" />
 		</div>
         
-		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="est_abv" name="est_abv" readonly="yes" />
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="est_abv" name="est_abv" readonly="yes" />
 		</div>
         
-		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_abv_max" name="style_abv_max" readonly="yes" />
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="act_abv" name="act_abv" />
 		</div>
         
-	</div>
- 
-	<div class="row">
-    
-		<div class="col-xs-3 col-md-3 col-lg-3">
-			<label for="name" class="label-sm">IBU</label>
-		</div>
-        
-		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_ibu_min" name="style_ibu_min" readonly="yes" />
-		</div>
-        
-		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="est_ibu" name="est_ibu" readonly="yes" />
-		</div>
-        
-		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_ibu_max" name="style_ibu_max" readonly="yes" />
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="style_abv_max" name="style_abv_max" readonly="yes" />
 		</div>
         
 	</div>
  
 	<div class="row">
     
-		<div class="col-xs-3 col-md-3 col-lg-3">
-			<label for="name" class="label-sm">Color (L)</label>
+		<div class="col-xs-2 col-md-5ths">
+			<label class="label-sm">IBU</label>
 		</div>
         
-		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_color_min" name="style_color_min" readonly="yes" />
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="style_ibu_min" name="style_ibu_min" readonly="yes" />
 		</div>
         
-		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="est_color" name="est_color" readonly="yes" />
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="est_ibu" name="est_ibu" readonly="yes" />
 		</div>
         
-		<div class="col-xs-3 col-md-3">
-			<input type="text" class="form-control input-sm" id="style_color_max" name="style_color_max" readonly="yes" />
+		<div class="col-xs-2 col-md-5ths">
+		</div>
+        
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="style_ibu_max" name="style_ibu_max" readonly="yes" />
+		</div>
+        
+	</div>
+ 
+	<div class="row">
+    
+		<div class="col-xs-2 col-md-5ths">
+			<label class="label-sm">Color&nbsp;(L)</label>
+		</div>
+        
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="style_color_min" name="style_color_min" readonly="yes" />
+		</div>
+        
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="est_color" name="est_color" readonly="yes" />
+		</div>
+        
+		<div class="col-xs-2 col-md-5ths">
+		</div>
+        
+		<div class="col-xs-2 col-md-5ths">
+			<input type="text" class="form-control input-sm padding-5px" id="style_color_max" name="style_color_max" readonly="yes" />
 		</div>
         
 	</div>
