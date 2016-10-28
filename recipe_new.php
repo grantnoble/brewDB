@@ -442,7 +442,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	for ($i=0; $i<=14; $i++)
 	{
 	?>
-		<div class="row margin-bottom-half_em">
+		<div class="row margin-bottom-qtr-em">
 		
 		<div class="col-xs-6 col-sm-2 col-md-3">
 		<?php
@@ -550,7 +550,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$ingredient = "'hop'";
 	for ($i=0; $i<=14; $i++)
 	{
-		echo '<div class="row margin-bottom-half_em">';
+		echo '<div class="row margin-bottom-qtr-em">';
 		echo '<div class="col-xs-6 col-sm-2 col-md-3">';
 		echo '<select class="form-control input-sm" name="hop' . $i . '_name" onchange="gethopinfo(this.value,' .$i. ');">';
 		echo '<option>'; echo $hops[$i]['name']; echo '</option>';
@@ -635,7 +635,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$ingredient = "'yeast'";
 	for ($i=0; $i<=0; $i++)
 	{
-		echo '<div class="row margin-bottom-half_em">';
+		echo '<div class="row margin-bottom-qtr-em">';
 		echo '<div class="col-xs-6 col-sm-3 col-md-3">';
 		echo '<select class="form-control input-sm" name="yeast' . $i . '_fullname" onchange="getyeastinfo(this.value,' .$i. ');">';
 		echo '<option>'; echo $yeasts[$i]['fullname']; echo '</option>';
@@ -700,7 +700,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$ingredient = "'misc'";
 	for ($i=0; $i<=14; $i++)
 	{
-		echo '<div class="row margin-bottom-half_em">';
+		echo '<div class="row margin-bottom-qtr-em">';
 		
 		echo '<div class="col-xs-6 col-sm-2 col-md-3">';
 		echo '<select class="form-control input-sm" name="misc' . $i . '_name" onchange="getmiscinfo(this.value,' .$i. ');" >';

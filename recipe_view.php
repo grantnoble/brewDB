@@ -281,7 +281,7 @@ else
 				{
 			?>
 			
-			<div class="row margin-bottom-half_em">
+			<div class="row margin-bottom-qtr-em">
 		
 				<div class="col-xs-6 col-sm-2 col-md-3">
 					<?php
@@ -383,7 +383,7 @@ else
 				{
 			?>
 			
-			<div class="row margin-bottom-half_em">
+			<div class="row margin-bottom-qtr-em">
 		
 				<div class="col-xs-6 col-sm-2 col-md-3">
 					<?php
@@ -475,7 +475,7 @@ else
 				{
 			?>
 	
-			<div class="row margin-bottom-half_em">
+			<div class="row margin-bottom-qtr-em">
 		
 				<div class="col-xs-6 col-sm-3 col-md-3">
 					<?php
@@ -557,7 +557,7 @@ else
 				{
 			?>
 	
-			<div class="row margin-bottom-half_em">
+			<div class="row margin-bottom-qtr-em">
 		
 				<div class="col-xs-6 col-sm-2 col-md-3">
 					<?php
