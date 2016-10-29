@@ -25,18 +25,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 	// retrieve the basic brew details
 	$details['type'] = mysqli_real_escape_string($connection, test_input($_POST['type']));
+	
+	//query the database to retireve the recipe_id for the base recipe
+	$details['base_recipe'] = mysqli_real_escape_string($connection, test_input($_POST['base_recipe']));
+	$query = "SELECT recipe_id FROM recipes WHERE recipe_name='" . $details['base_recipe'] . "'";
+	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+	while ($row = mysqli_fetch_array ( $result ))
+	{
+		$details['recipe_id'] = $row['recipe_id'];
+	}
+	
+	$details['batch_number'] = mysqli_real_escape_string($connection, test_input($_POST['batch_number']));
+	
+	$details['date'] = mysqli_real_escape_string($connection, test_input($_POST['date']));
+	if (!$details['date'])
+	{
+		$details['date'] = "0000-00-00";
+	}
+
+	$details['mash_type'] = mysqli_real_escape_string($connection, test_input($_POST['mash_type']));
+	$details['boil_size'] = mysqli_real_escape_string($connection, test_input($_POST['boil_size']));
+	$details['boil_time'] = mysqli_real_escape_string($connection, test_input($_POST['boil_time']));
 	$details['batch_size'] = mysqli_real_escape_string($connection, test_input($_POST['batch_size']));
 	$details['mash_efficiency'] = mysqli_real_escape_string($connection, test_input($_POST['mash_efficiency']));
+	$details['brewer'] = mysqli_real_escape_string($connection, test_input($_POST['brewer']));
+	$details['notes'] = mysqli_real_escape_string($connection, test_input($_POST['notes']));
+
+	
 	$details['est_og'] = mysqli_real_escape_string($connection, test_input($_POST['est_og']));
 	if (!$details['est_og'])
 	{
 		$details['est_og'] = 0;
 	}
 
+	$details['act_og'] = mysqli_real_escape_string($connection, test_input($_POST['act_og']));
+	if (!$details['act_og'])
+	{
+		$details['act_og'] = 0;
+	}
+
 	$details['est_fg'] = mysqli_real_escape_string($connection, test_input($_POST['est_fg']));
 	if (!$details['est_fg'])
 	{
 		$details['est_fg'] = 0;
+	}
+
+	$details['act_fg'] = mysqli_real_escape_string($connection, test_input($_POST['act_fg']));
+	if (!$details['act_fg'])
+	{
+		$details['act_fg'] = 0;
 	}
 
 	$details['est_ibu'] = mysqli_real_escape_string($connection, test_input($_POST['est_ibu']));
@@ -57,14 +94,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		$details['est_abv'] = 0;
 	}
 
-	$details['date'] = mysqli_real_escape_string($connection, test_input($_POST['date']));
-	if (!$details['date'])
+	$details['act_abv'] = mysqli_real_escape_string($connection, test_input($_POST['act_abv']));
+	if (!$details['act_abv'])
 	{
-		$details['date'] = "0000-00-00";
+		$details['act_abv'] = 0;
 	}
-
-	$details['designer'] = mysqli_real_escape_string($connection, test_input($_POST['designer']));
-	$details['notes'] = mysqli_real_escape_string($connection, test_input($_POST['notes']));
 
 	// retrieve the brew fermentables
 	for ($i=0; $i<=14; $i++)
@@ -101,14 +135,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		$miscs[$i]['type'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_type']));
 	}
 
+	// retrieve the brew mash details
+	for ($i=0; $i<=4; $i++)
+	{
+		$mashes[$i]['id'] = mysqli_real_escape_string($connection, test_input($_POST['mash' . $i . '_id']));
+		$mashes[$i]['step'] = mysqli_real_escape_string($connection, test_input($_POST['mash' . $i . '_step']));
+		$mashes[$i]['temp'] = mysqli_real_escape_string($connection, test_input($_POST['mash' . $i . '_temp']));
+		$mashes[$i]['time'] = mysqli_real_escape_string($connection, test_input($_POST['mash' . $i . '_time']));
+	}
+
+	// retrieve the brew fermentation details
+	for ($i=0; $i<=4; $i++)
+	{
+		$ferments[$i]['id'] = mysqli_real_escape_string($connection, test_input($_POST['ferment' . $i . '_id']));
+		$ferments[$i]['name'] = mysqli_real_escape_string($connection, test_input($_POST['ferment' . $i . '_step']));
+		$ferments[$i]['start_date'] = mysqli_real_escape_string($connection, test_input($_POST['ferment' . $i . '_start_date']));
+		$ferments[$i]['end_date'] = mysqli_real_escape_string($connection, test_input($_POST['ferment' . $i . '_end_date']));
+		$ferments[$i]['temp'] = mysqli_real_escape_string($connection, test_input($_POST['ferment' . $i . '_temp']));
+		$ferments[$i]['measured_sg'] = mysqli_real_escape_string($connection, test_input($_POST['ferment' . $i . '_measured_sg']));
+	}
+
+	// retrieve the brew packaging details
+	$details['packaging'] = mysqli_real_escape_string($connection, test_input($_POST['packaging']));
+	$details['packaging_date'] = mysqli_real_escape_string($connection, test_input($_POST['packaging_date']));
+	$details['vol_co2'] = mysqli_real_escape_string($connection, test_input($_POST['vol_co2']));
+
 	// now insert the records into the database
 
 	// insert the brew record
-	$query = "INSERT INTO brews (brew_name, brew_type, brew_style_id, brew_batch_size, brew_mash_efficiency, brew_designer, brew_notes, brew_est_og, brew_est_fg, brew_est_color, brew_est_ibu, brew_est_abv, brew_date)
-		VALUES ('" . $details['name'] . "','" .  $details['type'] . "'," . $details['style_id'] . "," . $details['batch_size'] . "," .  $details['mash_efficiency'] . ",'" . $details['designer'] . "','" . $details['notes'] . "'," . $details['est_og'] . "," . $details['est_fg'] . "," . $details['est_color'] . "," . $details['est_ibu'] . "," . $details['est_abv'] . ",'" . $details['date'] . "')";
+	$query = "INSERT INTO brews (brew_name, brew_batch_num, brew_date, brew_recipe_id, brew_type, brew_style_id, brew_method, brew_mash_volume, brew_sparge_volume, brew_mash_id, brew_boil_size, brew_boil_time, brew_ibu_method, brew_batch_size, brew_mash_efficiency, brew_no_chill, brew_fermentation_id, brew_brewer, brew_notes, brew_est_og, brew_act_og, brew_est_fg, brew_act_fg, brew_est_color, brew_est_ibu, brew_est_abv, brew_act_abv, brew_packaging, brew_packaging_vol_co2, brew_packaging_date)
+		VALUES ('" . $details['name'] . "'," . $details['batch_num'] . ",'" . $details['date'] . "'," . $details['recipe_id'] . ",'" $details['type'] . "'," . $details['style_id'] . ",'" . $details['method'] . "'," . $details['mash_volume'] . "," . $details['sparge_volume'] . "," . $details['mash_id'] . "," . $details['boil_size'] . "," . $details['boil_time'] . ",'" . $details['ibu_method'] . "'," . $details['batch_size'] . "," . $details['mash_efficiency'] . ",'" . $details['no_chill'] . "'," . $details['fermentation_id'] . ",'" . $details['brewer'] . "','" . $details['notes'] . "'," . $details['est_og'] . "," . $details['act_og'] . "," . $details['est_fg'] . "," . $details['act_fg'] . "," . $details['est_color'] . "," . $details['est_ibu'] . "," . $details['est_abv'] . "," . $details['act_abv'] . ",'" . $details['packaging'] . "','" . $details['packaging_date'] . "'," . $details['vol_co2'] . ")"; 
 	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
-	// retrieve the id of the last insert as the brew_id for the brews_fermentables, brews_hops, brews_yeasts, and brews_miscs records
+	// retrieve the id of the last insert as the brew_id for the brews_fermentables, brews_hops, brews_yeasts, brews_miscs, brews_mashes, and brews_ferments records
 	$brew_id = mysqli_insert_id($connection);
 
 	// for each fermentable, retrieve the fermentable id and insert the brew_fermentable records
@@ -155,7 +214,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		}
 	}
 
-    // After saving to the database, redirect back to the new brew page
+	// for each mash, insert the brew_mash records
+	for ($i=0; $i <=4; $i++)
+	{
+		if ($mash[$i]['temp'] || $mash[$i]['time'])
+		{
+			$query = "INSERT INTO brews_mashes (brew_mash_brew_id, brew_mash_step, brew_mash_temp, brew_mash_time)
+					VALUES (" . $brew_id . "," . $i+1 . "," . $mash[$i]['temp'] . ",'" . $mash[$i]['time'] . "')";
+			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+		}
+	}
+
+	// for each ferment, insert the brew_ferment records
+	for ($i=0; $i <=4; $i++)
+	{
+		if ($miscs[$i]['name'] && $miscs[$i]['amount'] > 0)
+		{
+			$query = "INSERT INTO brews_miscs (brew_ferment_brew_id, brew_ferment_step, brew_ferment_start_date, brew_ferment_end_date, brew_ferment_temp, brew_ferment_measured_sg)
+					VALUES (" . $brew_id . "," . $i+1 . "," . $ferment[$i]['start_date'] . ",'" . $ferment[$i]['end_date'] . "'," . $ferment[$i]['temp'] ",". $ferment[$i]['measured_sg']. ")";
+			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+		}
+	}
+
     // After saving to the database, redirect back to the new brew page
 	echo '<script type="text/javascript">
 	window.location = "brew_new.php"
@@ -934,19 +1014,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	echo '<div class="row margin-bottom-qtr-em">';
 	
 	echo '<div class="col-xs-3 col-sm-2 col-md-2">';
-	echo '<select class="form-control input-sm" name="packaging' . $i . 'bottle_or_keg" >';
-	echo '<option>'; echo $packaging[$i]['bottle_or_keg']; echo '</option>';
+	echo '<select class="form-control input-sm" name="packaging" >';
+	echo '<option>'; echo $details['packaging']; echo '</option>';
 	echo '<option>Bottle</option>';
 	echo '<option>Keg</option>';
 	echo '</select>';
 	echo '</div>';
 		
 	echo '<div class="col-xs-3 col-sm-3 col-md-2">';
-	echo '<input type="text" class="form-control input-sm" name="packaging' . $i . '_date" />';
+	echo '<input type="date" class="form-control input-sm" name="packaging_date" />';
 	echo '</div>';
 		
 	echo '<div class="col-xs-3 col-sm-3 col-md-2">';
-	echo '<input type="text" class="form-control input-sm" name="packaging' . $i . '_vol_co2" />';
+	echo '<input type="number" min="0" step=".1" class="form-control input-sm" name="vol_co2" />';
 	echo '</div>';
 		
 	echo '</div>';
