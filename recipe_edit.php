@@ -376,7 +376,7 @@ else
 		
 	</div>
  
-	<div class="row">
+	<div class="row margin-bottom-qtr-em">
 	
 		<div class="col-xs-3 col-md-3 col-lg-3">
 			<label for="name" class="label-sm">OG</label>
@@ -396,7 +396,7 @@ else
 		
 	</div>
  
-	<div class="row">
+	<div class="row margin-bottom-qtr-em">
     
 		<div class="col-xs-3 col-md-3 col-lg-3">
 			<label for="name" class="label-sm">FG</label>
@@ -416,7 +416,7 @@ else
         
 	</div>
  
-	<div class="row">
+	<div class="row margin-bottom-qtr-em">
 	
 		<div class="col-xs-3 col-md-3 col-lg-3">
 			<label for="name" class="label-sm">ABV %</label>
@@ -436,7 +436,7 @@ else
         
 	</div>
  
-	<div class="row">
+	<div class="row margin-bottom-qtr-em">
     
 		<div class="col-xs-3 col-md-3 col-lg-3">
 			<label for="name" class="label-sm">IBU</label>

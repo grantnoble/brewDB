@@ -335,7 +335,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		
 	</div>
  
-	<div class="row">
+	<div class="row margin-bottom-qtr-em">
 	
 		<div class="col-xs-2 col-md-5ths">
 			<label class="label-sm">OG</label>
@@ -359,7 +359,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		
 	</div>
  
-	<div class="row">
+	<div class="row margin-bottom-qtr-em">
     
 		<div class="col-xs-2 col-md-5ths">
 			<label class="label-sm">FG</label>
@@ -383,7 +383,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         
 	</div>
  
-	<div class="row">
+	<div class="row margin-bottom-qtr-em">
 	
 		<div class="col-xs-2 col-md-5ths">
 			<label class="label-sm">ABV&nbsp;(%)</label>
@@ -407,7 +407,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         
 	</div>
  
-	<div class="row">
+	<div class="row margin-bottom-qtr-em">
     
 		<div class="col-xs-2 col-md-5ths">
 			<label class="label-sm">IBU</label>
