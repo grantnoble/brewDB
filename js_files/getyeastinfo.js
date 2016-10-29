@@ -18,7 +18,7 @@ xmlhttp.onreadystatechange=function()
 		document.forms[0]["yeast"+num+"_id"].value=xmlhttp.responseXML.getElementsByTagName("yeast_id")[0].childNodes[0].nodeValue;
 		document.forms[0]["yeast"+num+"_type"].value=xmlhttp.responseXML.getElementsByTagName("yeast_type")[0].childNodes[0].nodeValue;
 		document.forms[0]["yeast"+num+"_form"].value=xmlhttp.responseXML.getElementsByTagName("yeast_form")[0].childNodes[0].nodeValue;
-		document.forms[0]["yeast"+num+"_attenuation"].value=0;
+		document.forms[0]["yeast"+num+"_attenuation"].value=xmlhttp.responseXML.getElementsByTagName("yeast_attenuation")[0].childNodes[0].nodeValue;
 		document.forms[0]["yeast"+num+"_flocculation"].value=xmlhttp.responseXML.getElementsByTagName("yeast_flocculation")[0].childNodes[0].nodeValue;
 		
 		// update the recipe og and fg in the style characteristics table
