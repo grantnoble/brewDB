@@ -249,6 +249,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			<input type="date" class="form-control input-sm" id="date" name="date" value="<?php echo date("Y-m-d"); ?>"/>
 		</div>
 		
+		<div class="col-xs-3 col-md-3">
+			<label for="mash_type" class="label-sm">Mash Type</label>
+			<select class="form-control input-sm" id="mash_type" name="mash_type" required >
+				<option value="" disabled selected>Select a mash type...</option>
+				<option>BIAB</option>
+				<option>Batch Sparge</option>
+				<option>Fly Sparge</option>
+				<option>No Sparge</option>
+				<option>Partial Mash</option>
+				<option>Extract</option>
+			</select>
+		</div>
+		
 	</div>
 	
 	<div class="row margin-bottom-1em">
@@ -509,11 +522,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$ingredient = "'fermentable'";
 	for ($i=0; $i<=14; $i++)
 	{
-	?>
-		<div class="row margin-bottom-qtr-em">
+		echo '<div class="row margin-bottom-qtr-em">';
 		
-		<div class="col-xs-6 col-sm-2 col-md-3">
-		<?php
+		echo '<div class="col-xs-6 col-sm-2 col-md-3">';
 		echo '<select class="form-control input-sm" name="fermentable' . $i . '_name" onchange="getfermentableinfo(this.value,' .$i. ');">';
 		echo '<option>'; echo $fermentables[$i]['name']; echo '</option>';
 		$query = "SELECT fermentable_name FROM fermentables ORDER BY fermentable_name";
@@ -522,61 +533,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		{
 			echo '<option>' . $row['fermentable_name'] . '</option>';
 		}
-		?>
-		</select>
-		</div>
+		echo '</select>';
+		echo '</div>';
 			
-		<div class="col-xs-3 col-sm-2 col-md-1">
-		<?php
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
 		echo '<input type="number" class="form-control input-sm" min="0" step="0.001" name="fermentable' . $i . '_amount" onchange="fermentables_messages(' .$i. '); calc_og_color_ibu(); set_flag(' . $ingredient . ', ' . $i . ');"' . '"/>';
-		?>
-		</div>
+		echo '</div>';
 			
-		<div class="hidden-xs col-sm-2 col-md-1">
-		<?php
+		echo '<div class="hidden-xs col-sm-2 col-md-1">';
 		echo '<input type="number" class="form-control input-sm" name="fermentable' . $i . '_percent" readonly="yes" />';
-		?>
-		</div>
+		echo '</div>';
 			
-		<div class="hidden-xs col-sm-2 col-md-1">
-		<?php
+		echo '<div class="hidden-xs col-sm-2 col-md-1">';
 		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_yield" readonly="yes" />';
-		?>
-		</div>
+		echo '</div>';
 			
-		<div class="hidden-xs col-sm-2 col-md-1">
-		<?php
+		echo '<div class="hidden-xs col-sm-2 col-md-1">';
 		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_color" readonly="yes" />';
-		?>
-		</div>
+		echo '</div>';
 			
-		<div class="col-xs-3 col-sm-2 col-md-1">
-		<?php
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
 		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_type" readonly="yes" />';
-		?>
-		</div>
+		echo '</div>';
 		
-		<div class="col-xs-3 col-sm-2 col-md-2">
-		<?php
+		echo '<div class="col-xs-3 col-sm-2 col-md-2">';
 		echo '<select class="form-control input-sm" name="fermentable' . $i . '_use" >';
 		echo '<option>'; echo $fermentables[$i]['use']; echo '</option>';
-		?>
-		<option>Mashed</option>
-		<option>Steeped</option>
-		<option>Extract</option>
-		<option>Sugar</option>
-		<option>Other</option>
-		</select>
-		</div>
+		echo '<option>Mashed</option>';
+		echo '<option>Steeped</option>';
+		echo '<option>Extract</option>';
+		echo '<option>Sugar</option>';
+		echo '<option>Other</option>';
+		echo '</select>';
+		echo '</div>';
 		
-		<?php
 		// the fermentable id
 		echo '<input type="hidden" name="fermentable' . $i . '_id" />';
-		?>
 		
-		</div>
+		echo '</div>';
 		
-	<?php
 	}
 	?>
 	
@@ -809,43 +804,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 	<div class="row">
 	
-		<div class="col-xs-3 col-md-2">
-			<label for="mash_type" class="label-sm">Mash Type</label>
-			<select class="form-control input-sm" id="mash_type" name="mash_type" required >
-				<option value="" disabled selected>Select a mash type...</option>
-				<option>BIAB</option>
-				<option>Batch Sparge</option>
-				<option>Fly Sparge</option>
-				<option>No Sparge</option>
-			</select>
-		</div>
-		
 		<div class="col-xs-6 col-sm-2 col-md-1">
 			<label class="label-sm">Step</label>
-			<input type="number" class="form-control input-sm" min="1" step="1" name="mash0_step" />
 		</div>
 		
 		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Temp&nbsp;(&deg;C)</label>
-			<input type="text" class="form-control input-sm" name="mash0_temp" />
 		</div>
 		
 		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Time</label>
-			<input type="text" class="form-control input-sm" name="mash0_time" />
 		</div>
 		
 	</div>
 	
 	<?php
 	$ingredient = "'mash'";
-	for ($i=1; $i<=4; $i++)
+	for ($i=0; $i<=4; $i++)
 	{
-		echo '<div class="row">';
+		echo '<div class="row margin-bottom-qtr-em">';
 		
-		echo '<div class="col-xs-3 col-sm-2 col-md-2">';
-		echo '</div>';
-
 		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
 		echo '<input type="number" class="form-control input-sm" min="1" step="1" name="mash' . $i . '_step" /> ';
 		echo '</div>';
@@ -899,7 +877,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$ingredient = "'fermentation'";
 	for ($i=0; $i<=4; $i++)
 	{
-		echo '<div class="row">';
+		echo '<div class="row margin-bottom-qtr-em">';
 		
 		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
 		echo '<input type="number" class="form-control input-sm" min="1" step="1" name="fermentation' . $i . '_step" /> ';
@@ -937,7 +915,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	<div class="row">
 	
 		<div class="col-xs-6 col-sm-3 col-md-2">
-			<label class="label-sm">Keg or Bottle</label>
+			<label class="label-sm">Bottle or Keg</label>
 		</div>
 		
 		<div class="col-xs-3 col-sm-3 col-md-2">
@@ -952,43 +930,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	
 	<?php
 	$ingredient = "'packaging'";
-	for ($i=0; $i<=0; $i++)
-	{
-		echo '<div class="row margin-bottom-qtr-em">';
-		echo '<div class="col-xs-6 col-sm-3 col-md-3">';
-		echo '<select class="form-control input-sm" name="yeast' . $i . '_fullname" onchange="getyeastinfo(this.value,' .$i. ');">';
-		echo '<option>'; echo $yeasts[$i]['fullname']; echo '</option>';
-		$query = "SELECT yeast_fullname FROM yeasts ORDER BY yeast_fullname";
-		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
-		while ($row = mysqli_fetch_array ( $result ))
-		{
-			echo '<option>' . $row['yeast_fullname'] . '</option>';
-		}
-		echo '</select>';
-		echo '</div>';
+
+	echo '<div class="row margin-bottom-qtr-em">';
+	
+	echo '<div class="col-xs-3 col-sm-2 col-md-2">';
+	echo '<select class="form-control input-sm" name="packaging' . $i . 'bottle_or_keg" >';
+	echo '<option>'; echo $packaging[$i]['bottle_or_keg']; echo '</option>';
+	echo '<option>Bottle</option>';
+	echo '<option>Keg</option>';
+	echo '</select>';
+	echo '</div>';
 		
-		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
-		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_type" readonly="yes" />';
-		echo '</div>';
+	echo '<div class="col-xs-3 col-sm-3 col-md-2">';
+	echo '<input type="text" class="form-control input-sm" name="packaging' . $i . '_date" />';
+	echo '</div>';
 		
-		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
-		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_form" readonly="yes" />';
-		echo '</div>';
+	echo '<div class="col-xs-3 col-sm-3 col-md-2">';
+	echo '<input type="text" class="form-control input-sm" name="packaging' . $i . '_vol_co2" />';
+	echo '</div>';
 		
-		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
-		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_attenuation" readonly="yes" />';
-		echo '</div>';
-		
-		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
-		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_flocculation" readonly="yes" />';
-		echo '</div>';
-		
-		// the yeast id
-		echo '<input type="hidden" name="yeast' . $i . '_id" value="'; echo $yeasts[$i]['id']; echo '"/>';
-		
-		echo '</div>';
-	}
+	echo '</div>';
 	?>
+	
 </fieldset>
 </div>
 
