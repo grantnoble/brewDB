@@ -34,19 +34,18 @@
 <script src="js_files/calc_batch_size.js"></script>
 <script src="js_files/calc_boil_size.js"></script>
 
-<!--script to set the changed flag-->
+<!-- script to set the changed flag -->
 <script src="js_files/set_flag.js"></script>
 
 <script src="js_files/validator.min.js"></script>
 
 <!--datepicker script-->
+<!-- https://formden.com/blog/date-picker but removed the container option-->
 <script>
     $(document).ready(function(){
-      var date_input=$('input[name="date"]'); //our date input has the name "date"
-      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var date_input=$('input[name$="date"]'); // name$= specifies date input fields that end in "date"
       var options={
         format: 'yyyy-mm-dd',
-        container: container,
         todayHighlight: true,
         autoclose: true,
       };
