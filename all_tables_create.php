@@ -264,7 +264,7 @@ $query['brews'] = "CREATE TABLE brews
 brew_id mediumint unsigned NOT NULL auto_increment,
 brew_name varchar(255) NOT NULL,
 brew_version tinyint unsigned NOT NULL default 1,
-brew_batch_num mediumint unsigned NOT NULL,
+brew_batch_number mediumint unsigned NOT NULL,
 brew_date date,
 brew_recipe_id mediumint unsigned NOT NULL,
 brew_type enum('Extract', 'Partial Mash', 'All Grain') NOT NULL default 'All Grain',
