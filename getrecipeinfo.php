@@ -105,6 +105,96 @@ while ($row1 = mysqli_fetch_array($result1))
 	echo "</fermentable>";
 }
 
+// *** hops ***
+// build the SELECT statement for the recipes hops and query the database
+$query = "SELECT * FROM recipes_hops WHERE recipe_hop_recipe_id = '" . $recipe_id . "' ORDER BY recipe_hop_amount, recipe_hop_time DESC";
+$result1 = mysqli_query($connection, $query) or die(mysqli_error());
+
+// fetch the recipe hop details
+while ($row1 = mysqli_fetch_array($result1))
+{
+	// start the hop xml and output the hop amount xml
+	echo "<hop>";
+	echo "<hop_amount>" . $row1['recipe_hop_amount'] . "</hop_amount>";
+	echo "<hop_alpha>" . $row1['recipe_hop_alpha'] . "</hop_alpha>";
+	echo "<hop_use>" . $row1['recipe_hop_use'] . "</hop_use>";
+	echo "<hop_time>" . $row1['recipe_hop_time'] . "</hop_time>";
+	echo "<hop_form>" . $row1['recipe_hop_form'] . "</hop_form>";
+
+	// save the hop id to query for the hop details
+	$hop_id = $row1['recipe_hop_hop_id'];
+
+	// build the SELECT statement for the hop and query the database
+	$query = "SELECT * FROM hops where hop_id ='" . $hop_id . "' LIMIT 1";
+	$result2 = mysqli_query($connection, $query) or die(mysqli_error());
+
+	// fetch the hop details
+	$row2 = mysqli_fetch_array($result2);
+
+	// output the rest of the hop xml
+	echo "<hop_name>" . $row2['hop_name'] . "</hop_name>";
+	echo "</hop>";
+}
+
+// *** yeasts ***
+// build the SELECT statement for the recipes yeasts and query the database
+$query = "SELECT * FROM recipes_yeasts WHERE recipe_yeast_recipe_id = '" . $recipe_id . "'";
+$result1 = mysqli_query($connection, $query) or die(mysqli_error());
+
+// fetch the recipe yeast details
+while ($row1 = mysqli_fetch_array($result1))
+{
+	// start the yeast xml 
+	echo "<yeast>";
+
+	// save the yeast id to query for the yeast details
+	$yeast_id = $row1['recipe_yeast_yeast_id'];
+
+	// build the SELECT statement for the yeast and query the database
+	$query = "SELECT * FROM yeasts where yeast_id ='" . $yeast_id . "' LIMIT 1";
+	$result2 = mysqli_query($connection, $query) or die(mysqli_error());
+
+	// fetch the yeast details
+	$row2 = mysqli_fetch_array($result2);
+
+	// output the rest of the yeast xml
+	echo "<yeast_name>" . $row2['yeast_fullname'] . "</yeast_name>";
+	echo "<yeast_type>" . $row2['yeast_type'] . "</yeast_type>";
+	echo "<yeast_form>" . $row2['yeast_form'] . "</yeast_form>";
+	echo "<yeast_attenuation>" . $row2['yeast_attenuation'] . "</yeast_attenuation>";
+	echo "<yeast_flocculation>" . $row2['yeast_flocculation'] . "</yeast_flocculation>";
+	echo "</yeast>";
+}
+
+// *** miscs ***
+// build the SELECT statement for the recipes miscs and query the database
+$query = "SELECT * FROM recipes_miscs WHERE recipe_misc_recipe_id = '" . $recipe_id . "' ORDER BY recipe_misc_amount DESC";
+$result1 = mysqli_query($connection, $query) or die(mysqli_error());
+
+// fetch the recipe misc details
+while ($row1 = mysqli_fetch_array($result1))
+{
+	// start the misc xml and output the misc amount xml
+	echo "<misc>";
+	echo "<misc_amount>" . $row1['recipe_misc_amount'] . "</misc_amount>";
+	echo "<misc_unit>" . $row1['recipe_misc_unit'] . "</misc_unit>";
+
+	// save the misc id to query for the misc details
+	$misc_id = $row1['recipe_misc_misc_id'];
+
+	// build the SELECT statement for the misc and query the database
+	$query = "SELECT * FROM miscs where misc_id ='" . $misc_id . "' LIMIT 1";
+	$result2 = mysqli_query($connection, $query) or die(mysqli_error());
+
+	// fetch the misc details
+	$row2 = mysqli_fetch_array($result2);
+
+	// output the rest of the misc xml
+	echo "<misc_name>" . $row2['misc_name'] . "</misc_name>";
+	echo "<misc_type>" . $row2['misc_type'] . "</misc_type>";
+	echo "</misc>";
+}
+
 //close the top-level xml tag
 echo "</recipe>";
 
