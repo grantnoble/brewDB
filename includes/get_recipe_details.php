@@ -178,6 +178,7 @@
 			$miscs[$i]['id'] = $row['recipe_misc_misc_id'];
 			$miscs[$i]['amount'] = $row['recipe_misc_amount'];
 			$miscs[$i]['unit'] = $row['recipe_misc_unit'];
+			$miscs[$i]['use'] = $row['recipe_misc_use'];
 
 			$query = "SELECT * FROM miscs WHERE misc_id='" . $miscs[$i]['id'] . "'";
 			$result2 = mysqli_query($connection, $query) or die(mysqli_error($connection));
@@ -195,6 +196,7 @@
 			$miscs[$i]['unit'] = NULL;
 			$miscs[$i]['name'] = NULL;
 			$miscs[$i]['type'] = NULL;
+			$miscs[$i]['use'] = NULL;
 		}
 		// for each of the 15 possible miscs, set an update flag to 0
 		$miscs[$i]['flag'] = 0;
