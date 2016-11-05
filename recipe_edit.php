@@ -115,6 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		$miscs[$i]['amount'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_amount']));
 		$miscs[$i]['unit'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_unit']));
 		$miscs[$i]['type'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_type']));
+		$miscs[$i]['use'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_use']));
 		$miscs[$i]['record_id'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_record_id']));
 		$miscs[$i]['flag'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_flag']));
 	}
@@ -215,12 +216,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			// else if record_id and name, UPDATE 
 			elseif ($miscs[$i]['record_id'] && $miscs[$i]['name'])
 			{
-				$query = "UPDATE recipes_miscs SET recipe_misc_misc_id='" . $miscs[$i]['id'] . "', recipe_misc_amount='" . $miscs[$i]['amount'] . "', recipe_misc_unit='" . $miscs[$i]['unit'] . "' WHERE recipe_misc_id='" . $miscs[$i]['record_id'] . "'";
+				$query = "UPDATE recipes_miscs SET recipe_misc_misc_id='" . $miscs[$i]['id'] . "', recipe_misc_amount='" . $miscs[$i]['amount'] . "', recipe_misc_unit='" . $miscs[$i]['unit'] . "', recipe_misc_use='" . $miscs[$i]['use'] . "' WHERE recipe_misc_id='" . $miscs[$i]['record_id'] . "'";
 			}
 			// else if !record_id and name, INSERT
 			elseif ((!$miscs[$i]['record_id']) && $miscs[$i]['name'])
 			{
-				$query = "INSERT INTO recipes_miscs (recipe_misc_recipe_id, recipe_misc_misc_id, recipe_misc_amount, recipe_misc_unit) VALUES ('" . $details['id'] . "','" . $miscs[$i]['id'] . "'," . $miscs[$i]['amount'] . ",'" . $miscs[$i]['unit'] . "')";
+				$query = "INSERT INTO recipes_miscs (recipe_misc_recipe_id, recipe_misc_misc_id, recipe_misc_amount, recipe_misc_unit, recipe_misc_use) VALUES ('" . $details['id'] . "','" . $miscs[$i]['id'] . "'," . $miscs[$i]['amount'] . ",'" . $miscs[$i]['unit'] . "','" . $miscs[$i]['use'] ."')";
 			}
 			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		}
@@ -782,6 +783,10 @@ else
 			<label class="label-sm">Ingredient</label>
 		</div>
 		
+		<div class="hidden-xs col-sm-2 col-md-2">
+			<label class="label-sm">Type</label>
+		</div>
+		
 		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Amount</label>
 		</div>
@@ -791,7 +796,7 @@ else
 		</div>
 		
 		<div class="hidden-xs col-sm-2 col-md-2">
-			<label class="label-sm">Type</label>
+			<label class="label-sm">Use</label>
 		</div>
 		
 	</div>
@@ -814,6 +819,10 @@ else
 		echo '</select>';
 		echo '</div>';
 		
+		echo '<div class="hidden-xs col-sm-2 col-md-2">';
+		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_type" readonly="yes" value="'; echo $miscs[$i]['type']; echo '"/> ';
+		echo '</div>';
+		
 		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
 		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="misc' . $i . '_amount" onchange="miscs_messages(' .$i. '); set_flag(' . $ingredient . ', ' . $i . ')" value="'; echo $miscs[$i]['amount']; echo '"/> ';
 		echo '</div>';
@@ -823,7 +832,14 @@ else
 		echo '</div>';
 
 		echo '<div class="hidden-xs col-sm-2 col-md-2">';
-		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_type" readonly="yes" value="'; echo $miscs[$i]['type']; echo '"/> ';
+		echo '<select class="form-control input-sm" name="misc' . $i . '_use" onchange="miscs_messages(' .$i. '); set_flag(' . $ingredient . ', ' . $i . ')"'; echo '"> ';
+		echo '<option>'; echo $miscs[$i]['use']; echo '</option>';
+		echo '<option>Boil</option>';
+		echo '<option>Mash</option>';
+		echo '<option>Primary</option>';
+		echo '<option>Secondary</option>';
+		echo '<option>Bottling</option>';
+		echo '</select>';
 		echo '</div>';
 		
 		// the recipes_miscs record id
