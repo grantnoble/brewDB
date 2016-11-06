@@ -9,6 +9,7 @@ $page_title = 'View Recipe';
 include ('includes/header.html');
 header('Content-Type: text/html; charset="utf-8"', true);
 
+// retrieve the recipe details
 // check that the 'id' variable is set in URL and it is valid
 if (isset($_GET['id']) && is_numeric($_GET['id']))
 {
@@ -535,6 +536,10 @@ else
 					<label class="label-sm">Ingredient</label>
 				</div>
 		
+				<div class="hidden-xs col-sm-2 col-md-2">
+					<label class="label-sm">Type</label>
+				</div>
+		
 				<div class="col-xs-3 col-sm-2 col-md-1">
 					<label class="label-sm">Amount</label>
 				</div>
@@ -544,7 +549,7 @@ else
 				</div>
 		
 				<div class="hidden-xs col-sm-2 col-md-2">
-					<label class="label-sm">Type</label>
+					<label class="label-sm">Use</label>
 				</div>
 		
 			</div>
@@ -565,6 +570,12 @@ else
 					?>
 				</div>
 		
+				<div class="hidden-xs col-sm-2 col-md-2">
+					<?php
+					echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_type" readonly="yes" value="' . $miscs[$i]['type'] . '"/> ';
+					?>
+				</div>
+		
 				<div class="col-xs-3 col-sm-2 col-md-1">
 					<?php
 					echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_amount" readonly="yes" value="' . $miscs[$i]['amount'] . '"/> ';
@@ -579,7 +590,7 @@ else
 
 				<div class="hidden-xs col-sm-2 col-md-2">
 					<?php
-					echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_type" readonly="yes" value="' . $miscs[$i]['type'] . '"/> ';
+					echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_use" readonly="yes" value="' . $miscs[$i]['use'] . '"/> ';
 					?>
 				</div>
 		

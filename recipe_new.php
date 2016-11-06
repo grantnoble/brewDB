@@ -99,6 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		$miscs[$i]['amount'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_amount']));
 		$miscs[$i]['unit'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_unit']));
 		$miscs[$i]['type'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_type']));
+		$miscs[$i]['use'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_use']));
 	}
 
 	// now insert the records into the database
@@ -149,8 +150,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		if ($miscs[$i]['name'] && $miscs[$i]['amount'] > 0)
 		{
-			$query = "INSERT INTO recipes_miscs (recipe_misc_recipe_id, recipe_misc_misc_id, recipe_misc_amount, recipe_misc_unit)
-					VALUES (" . $recipe_id . "," . $miscs[$i]['id'] . "," . $miscs[$i]['amount'] . ",'" . $miscs[$i]['unit'] . "')";
+			$query = "INSERT INTO recipes_miscs (recipe_misc_recipe_id, recipe_misc_misc_id, recipe_misc_amount, recipe_misc_unit, recipe_misc_use)
+					VALUES (" . $recipe_id . "," . $miscs[$i]['id'] . "," . $miscs[$i]['amount'] . ",'" . $miscs[$i]['unit'] . "','" . $miscs[$i]['use'] . "')";
 			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		}
 	}
@@ -682,6 +683,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			<label class="label-sm">Ingredient</label>
 		</div>
 		
+		<div class="hidden-xs col-sm-2 col-md-2">
+			<label class="label-sm">Type</label>
+		</div>
+		
 		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Amount</label>
 		</div>
@@ -691,7 +696,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		</div>
 		
 		<div class="hidden-xs col-sm-2 col-md-2">
-			<label class="label-sm">Type</label>
+			<label class="label-sm">Use</label>
 		</div>
 		
 	</div>
@@ -714,6 +719,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		echo '</select>';
 		echo '</div>';
 		
+		echo '<div class="hidden-xs col-sm-2 col-md-2">';
+		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_type" readonly="yes" /> ';
+		echo '</div>';
+		
 		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
 		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="misc' . $i . '_amount" onchange="miscs_messages(' .$i. ');" /> ';
 		echo '</div>';
@@ -723,7 +732,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		echo '</div>';
 
 		echo '<div class="hidden-xs col-sm-2 col-md-2">';
-		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_type" readonly="yes" /> ';
+		echo '<select class="form-control input-sm" name="misc' . $i . '_use" onchange="miscs_messages(' .$i. ');" > ';
+		echo '<option>'; echo $miscs[$i]['use']; echo '</option>';
+		echo '<option>Boil</option>';
+		echo '<option>Mash</option>';
+		echo '<option>Primary</option>';
+		echo '<option>Secondary</option>';
+		echo '<option>Bottling</option>';
+		echo '</select>';
 		echo '</div>';
 		
 		// the miscs id
