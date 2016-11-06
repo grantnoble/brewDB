@@ -278,7 +278,6 @@ brew_boil_time mediumint unsigned,
 brew_ibu_method enum('Rager', 'Tinseth', 'Garetz') NOT NULL default 'Tinseth',
 brew_batch_size float,
 brew_mash_efficiency float,
-brew_no_chill enum('True', 'False') default 'True',
 brew_fermentation_id mediumint unsigned,
 brew_fermentation_start_date date,
 brew_fermentation_end_date date,
@@ -299,7 +298,7 @@ PRIMARY KEY (brew_id),
 INDEX (brew_name),
 INDEX (brew_type),
 INDEX (brew_style_id),
-INDEX (brew_batch_num)
+INDEX (brew_batch_number)
 ) AUTO_INCREMENT=200001 CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // brews_mashes, the mash schedules for the brew
@@ -310,6 +309,7 @@ brew_mash_brew_id mediumint unsigned NOT NULL,
 brew_mash_step mediumint unsigned NOT NULL,
 brew_mash_temp float,
 brew_mash_time mediumint unsigned,
+brew_mash_no_chill enum('True', 'False') default 'True',
 PRIMARY KEY (brew_mash_id),
 INDEX (brew_mash_brew_id),
 INDEX (brew_mash_step)
