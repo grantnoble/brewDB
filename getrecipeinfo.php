@@ -178,6 +178,7 @@ while ($row1 = mysqli_fetch_array($result1))
 	echo "<misc>";
 	echo "<misc_amount>" . $row1['recipe_misc_amount'] . "</misc_amount>";
 	echo "<misc_unit>" . $row1['recipe_misc_unit'] . "</misc_unit>";
+	echo "<misc_use>" . $row1['recipe_misc_use'] . "</misc_use>";
 
 	// save the misc id to query for the misc details
 	$misc_id = $row1['recipe_misc_misc_id'];
