@@ -35,7 +35,8 @@ xmlhttp.onreadystatechange=function()
 		document.forms[0].est_color.value=xmlhttp.responseXML.getElementsByTagName("recipe_est_color")[0].childNodes[0].nodeValue;
 		
 		var i;
-		// for each of the 15 possible fermentables, if there is one available, display it. Else set the rest of the fields to null
+		
+		// for each of the 15 possible fermentables, if there is one available (not undefined), display it, else set the rest of the fields to null
 		for (i = 0; i < 15; i++)
 		{
 			if (typeof xmlhttp.responseXML.getElementsByTagName("fermentable_name")[i] !== 'undefined')
@@ -58,8 +59,74 @@ xmlhttp.onreadystatechange=function()
 				document.forms[0]["fermentable"+i+"_use"].value=null;
 			}
 		}
-		// finally, calculate the fermentable percentages
+		
+		// after all the fermentables are displayed, calculate the fermentable percentages
 		calc_percent();
+
+		// for each of the 15 possible hops, if there is one available (not undefined), display it, else set the rest of the fields to null
+		for (i = 0; i < 15; i++)
+		{
+			if (typeof xmlhttp.responseXML.getElementsByTagName("hop_name")[i] !== 'undefined')
+			{
+				document.forms[0]["hop"+i+"_name"].value=xmlhttp.responseXML.getElementsByTagName("hop_name")[i].childNodes[0].nodeValue;
+				document.forms[0]["hop"+i+"_amount"].value=xmlhttp.responseXML.getElementsByTagName("hop_amount")[i].childNodes[0].nodeValue;
+				document.forms[0]["hop"+i+"_alpha"].value=xmlhttp.responseXML.getElementsByTagName("hop_alpha")[i].childNodes[0].nodeValue;
+				document.forms[0]["hop"+i+"_time"].value=xmlhttp.responseXML.getElementsByTagName("hop_time")[i].childNodes[0].nodeValue;
+				document.forms[0]["hop"+i+"_form"].value=xmlhttp.responseXML.getElementsByTagName("hop_form")[i].childNodes[0].nodeValue;
+				document.forms[0]["hop"+i+"_use"].value=xmlhttp.responseXML.getElementsByTagName("hop_use")[i].childNodes[0].nodeValue;
+			}
+			else
+			{
+				document.forms[0]["hop"+i+"_name"].value=null;
+				document.forms[0]["hop"+i+"_amount"].value=null;
+				document.forms[0]["hop"+i+"_alpha"].value=null;
+				document.forms[0]["hop"+i+"_time"].value=null;
+				document.forms[0]["hop"+i+"_form"].value=null;
+				document.forms[0]["hop"+i+"_use"].value=null;
+			}
+		}
+		
+		// for each of the 1 possible yeasts, if there is one available (not undefined), display it, else set the rest of the fields to null
+		for (i = 0; i < 1; i++)
+		{
+			if (typeof xmlhttp.responseXML.getElementsByTagName("yeast_name")[i] !== 'undefined')
+			{
+				document.forms[0]["yeast"+i+"_fullname"].value=xmlhttp.responseXML.getElementsByTagName("yeast_name")[i].childNodes[0].nodeValue;
+				document.forms[0]["yeast"+i+"_type"].value=xmlhttp.responseXML.getElementsByTagName("yeast_type")[i].childNodes[0].nodeValue;
+				document.forms[0]["yeast"+i+"_form"].value=xmlhttp.responseXML.getElementsByTagName("yeast_form")[i].childNodes[0].nodeValue;
+				document.forms[0]["yeast"+i+"_attenuation"].value=xmlhttp.responseXML.getElementsByTagName("yeast_attenuation")[i].childNodes[0].nodeValue;
+				document.forms[0]["yeast"+i+"_flocculation"].value=xmlhttp.responseXML.getElementsByTagName("yeast_flocculation")[i].childNodes[0].nodeValue;
+			}
+			else
+			{
+				document.forms[0]["yeast"+i+"_fullname"].value=null;
+				document.forms[0]["yeast"+i+"_type"].value=null;
+				document.forms[0]["yeast"+i+"_form"].value=null;
+				document.forms[0]["yeast"+i+"_attenuation"].value=null;
+				document.forms[0]["yeast"+i+"_flocculation"].value=null;
+			}
+		}
+		
+		// for each of the 15 possible miscs, if there is one available (not undefined), display it, else set the rest of the fields to null
+		for (i = 0; i < 15; i++)
+		{
+			if (typeof xmlhttp.responseXML.getElementsByTagName("misc_name")[i] !== 'undefined')
+			{
+				document.forms[0]["misc"+i+"_name"].value=xmlhttp.responseXML.getElementsByTagName("misc_name")[i].childNodes[0].nodeValue;
+				document.forms[0]["misc"+i+"_type"].value=xmlhttp.responseXML.getElementsByTagName("misc_type")[i].childNodes[0].nodeValue;
+				document.forms[0]["misc"+i+"_amount"].value=xmlhttp.responseXML.getElementsByTagName("misc_amount")[i].childNodes[0].nodeValue;
+				document.forms[0]["misc"+i+"_unit"].value=xmlhttp.responseXML.getElementsByTagName("misc_unit")[i].childNodes[0].nodeValue;
+				document.forms[0]["misc"+i+"_use"].value=xmlhttp.responseXML.getElementsByTagName("misc_use")[i].childNodes[0].nodeValue;
+			}
+			else
+			{
+				document.forms[0]["misc"+i+"_name"].value=null;
+				document.forms[0]["misc"+i+"_type"].value=null;
+				document.forms[0]["misc"+i+"_amount"].value=null;
+				document.forms[0]["misc"+i+"_unit"].value=null;
+				document.forms[0]["misc"+i+"_use"].value=null;
+			}
+		}
 	}
 }
 
