@@ -240,6 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 }
 
+// not a form submission, so retrieve the recipe details
 // check that the 'id' variable is set in URL and it is valid
 if (isset($_GET['id']) && is_numeric($_GET['id']))
 {
