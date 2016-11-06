@@ -42,13 +42,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		$details['date'] = "0000-00-00";
 	}
+	$details['brew_method'] = mysqli_real_escape_string($connection, test_input($_POST['brew_method']));
+	$details['brewer'] = mysqli_real_escape_string($connection, test_input($_POST['brewer']));
 
 	$details['mash_type'] = mysqli_real_escape_string($connection, test_input($_POST['mash_type']));
+	$details['mash_volume'] = mysqli_real_escape_string($connection, test_input($_POST['mash_volume']));
+	$details['sparge_volume'] = mysqli_real_escape_string($connection, test_input($_POST['sparge_volume']));
 	$details['boil_size'] = mysqli_real_escape_string($connection, test_input($_POST['boil_size']));
 	$details['boil_time'] = mysqli_real_escape_string($connection, test_input($_POST['boil_time']));
 	$details['batch_size'] = mysqli_real_escape_string($connection, test_input($_POST['batch_size']));
 	$details['mash_efficiency'] = mysqli_real_escape_string($connection, test_input($_POST['mash_efficiency']));
-	$details['brewer'] = mysqli_real_escape_string($connection, test_input($_POST['brewer']));
 	$details['notes'] = mysqli_real_escape_string($connection, test_input($_POST['notes']));
 
 	
@@ -133,6 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		$miscs[$i]['amount'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_amount']));
 		$miscs[$i]['unit'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_unit']));
 		$miscs[$i]['type'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_type']));
+		$miscs[$i]['use'] = mysqli_real_escape_string($connection, test_input($_POST['misc' . $i . '_use']));
 	}
 
 	// retrieve the brew mash details
@@ -163,8 +167,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	// now insert the records into the database
 
 	// insert the brew record
-	$insert = "INSERT INTO brews (brew_name, brew_batch_number, brew_date, brew_recipe_id, brew_type, brew_style_id, brew_method, brew_mash_volume, brew_sparge_volume, brew_mash_id, brew_boil_size, brew_boil_time, brew_ibu_method, brew_batch_size, brew_mash_efficiency, brew_no_chill, brew_fermentation_id, brew_brewer, brew_notes, brew_est_og, brew_act_og, brew_est_fg, brew_act_fg, brew_est_color, brew_est_ibu, brew_est_abv, brew_act_abv, brew_packaging, brew_packaging_vol_co2, brew_packaging_date)";
-	$values = "VALUES ('" . $details['name'] . "'," . $details['batch_number'] . ",'" . $details['date'] . "'," . $details['recipe_id'] . ",'" . $details['type'] . "'," . $details['style_id'] . ",'" . $details['method'] . "'," . $details['mash_volume'] . "," . $details['sparge_volume'] . "," . $details['mash_id'] . "," . $details['boil_size'] . "," . $details['boil_time'] . ",'" . $details['ibu_method'] . "'," . $details['batch_size'] . "," . $details['mash_efficiency'] . ",'" . $details['no_chill'] . "'," . $details['fermentation_id'] . ",'" . $details['brewer'] . "','" . $details['notes'] . "'," . $details['est_og'] . "," . $details['act_og'] . "," . $details['est_fg'] . "," . $details['act_fg'] . "," . $details['est_color'] . "," . $details['est_ibu'] . "," . $details['est_abv'] . "," . $details['act_abv'] . ",'" . $details['packaging'] . "','" . $details['packaging_date'] . "'," . $details['vol_co2'] . ")"; 
+	$insert = "INSERT INTO brews (brew_name, brew_batch_number, brew_date, brew_recipe_id, brew_type, brew_style_id, brew_method, brew_mash_volume, brew_sparge_volume, brew_boil_size, brew_boil_time, brew_batch_size, brew_mash_efficiency, brew_brewer, brew_notes, brew_est_og, brew_act_og, brew_est_fg, brew_act_fg, brew_est_color, brew_est_ibu, brew_est_abv, brew_act_abv, brew_packaging, brew_packaging_vol_co2, brew_packaging_date)";
+	$values = "VALUES ('" . $details['name'] . "'," . $details['batch_number'] . ",'" . $details['date'] . "'," . $details['recipe_id'] . ",'" . $details['type'] . "'," . $details['style_id'] . ",'" . $details['brew_method'] . "'," . $details['mash_volume'] . "," . $details['sparge_volume'] . "," . $details['boil_size'] . "," . $details['boil_time'] . "," . $details['batch_size'] . "," . $details['mash_efficiency'] . ",'" . $details['brewer'] . "','" . $details['notes'] . "'," . $details['est_og'] . "," . $details['act_og'] . "," . $details['est_fg'] . "," . $details['act_fg'] . "," . $details['est_color'] . "," . $details['est_ibu'] . "," . $details['est_abv'] . "," . $details['act_abv'] . ",'" . $details['packaging'] . "'," . $details['vol_co2'] . ",'" . $details['packaging_date'] . "')"; 
 	$query = $insert . " " . $values;
 	echo $query;
 	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
@@ -210,8 +214,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		if ($miscs[$i]['name'] && $miscs[$i]['amount'] > 0)
 		{
-			$query = "INSERT INTO brews_miscs (brew_misc_brew_id, brew_misc_misc_id, brew_misc_amount, brew_misc_unit)
-					VALUES (" . $brew_id . "," . $miscs[$i]['id'] . "," . $miscs[$i]['amount'] . ",'" . $miscs[$i]['unit'] . "')";
+			$query = "INSERT INTO brews_miscs (brew_misc_brew_id, brew_misc_misc_id, brew_misc_amount, brew_misc_unit, brew_misc_use)
+					VALUES (" . $brew_id . "," . $miscs[$i]['id'] . "," . $miscs[$i]['amount'] . ",'" . $miscs[$i]['unit'] . "','" . $miscs[$i]['use'] . "')";
 			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		}
 	}
@@ -306,7 +310,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		}
 		$brew_batch_number += 1;
 		?>
-		<div class="col-xs-2 col-md-3">
+		<div class="col-xs-2 col-md-2">
 			<label for="batch_number" class="label-sm">Batch Number</label>
 			<input type="text" class="form-control input-sm" id="batch_number" name="batch_number" required value="<?php echo $brew_batch_number; ?>"/>
 		</div>
@@ -316,7 +320,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			<input type="date" class="form-control input-sm" id="date" name="date" value="<?php echo date("Y-m-d"); ?>"/>
 		</div>
 		
-		<div class="col-xs-3 col-md-3">
+		<div class="col-xs-3 col-md-4">
 			<label for="brew_method" class="label-sm">Brew Method</label>
 			<select class="form-control input-sm" id="brew_method" name="brew_method" required >
 				<option value="" disabled selected>Select a brew method...</option>
@@ -329,19 +333,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			</select>
 		</div>
 		
-		<div class="hidden-xs col-sm-3 col-md-3">
-			<label for="brewer" class="label-sm">Brewer</label>
-			<input list="persons" class="form-control input-sm" id="brewer" name="brewer" />
-				<datalist id="persons">
-				<?php
-				$query = "SELECT person_first_name, person_last_name FROM persons ORDER BY person_last_name";
-				$result = mysqli_query($connection, $query);
-				while ($row = mysqli_fetch_array ( $result ))
-				{
-					echo '<option value="' . $row['person_first_name'] . ' ' . $row['person_last_name'] .  '">';
-				}
-				?>
-				</datalist>
+		<div class="col-xs-3 col-md-3">
+			<label for="no_chill" class="label-sm">No Chill?</label>
+			<select class="form-control input-sm" id="no_chill" name="no_chill" >
+				<option value="" disabled selected>True or False...</option>
+				<option>True</option>
+				<option>False</option>
+			</select>
 		</div>
 		
 	</div>
@@ -384,7 +382,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	
 	<div class="row">
 		
-		<div class="col-xs-12 col-md-12">
+		<div class="hidden-xs col-sm-3 col-md-3">
+			<label for="brewer" class="label-sm">Brewer</label>
+			<input list="persons" class="form-control input-sm" id="brewer" name="brewer" />
+				<datalist id="persons">
+				<?php
+				$query = "SELECT person_first_name, person_last_name FROM persons ORDER BY person_last_name";
+				$result = mysqli_query($connection, $query);
+				while ($row = mysqli_fetch_array ( $result ))
+				{
+					echo '<option value="' . $row['person_first_name'] . ' ' . $row['person_last_name'] .  '">';
+				}
+				?>
+				</datalist>
+		</div>
+		
+		<div class="col-xs-12 col-md-9">
 			<label for="notes" class="label-sm">Brew Notes</label>
 			<textarea class="form-control input-sm" rows=2 cols=100 id="notes" name="notes"></textarea>
 		</div>
@@ -820,6 +833,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			<label class="label-sm">Ingredient</label>
 		</div>
 		
+		<div class="hidden-xs col-sm-2 col-md-2">
+			<label class="label-sm">Type</label>
+		</div>
+		
 		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Amount</label>
 		</div>
@@ -829,7 +846,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		</div>
 		
 		<div class="hidden-xs col-sm-2 col-md-2">
-			<label class="label-sm">Type</label>
+			<label class="label-sm">Use</label>
 		</div>
 		
 	</div>
@@ -852,6 +869,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		echo '</select>';
 		echo '</div>';
 		
+		echo '<div class="hidden-xs col-sm-2 col-md-2">';
+		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_type" readonly="yes" /> ';
+		echo '</div>';
+		
 		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
 		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="misc' . $i . '_amount" onchange="miscs_messages(' .$i. ');" /> ';
 		echo '</div>';
@@ -861,7 +882,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		echo '</div>';
 
 		echo '<div class="hidden-xs col-sm-2 col-md-2">';
-		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_type" readonly="yes" /> ';
+		echo '<select class="form-control input-sm" name="misc' . $i . '_use" onchange="miscs_messages(' .$i. ');" > ';
+		echo '<option>'; echo $miscs[$i]['use']; echo '</option>';
+		echo '<option>Boil</option>';
+		echo '<option>Mash</option>';
+		echo '<option>Primary</option>';
+		echo '<option>Secondary</option>';
+		echo '<option>Bottling</option>';
+		echo '</select>';
 		echo '</div>';
 		
 		// the miscs id
@@ -879,10 +907,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 	<div class="row">
 	
-		<div class="col-xs-6 col-sm-2 col-md-1">
-			<label class="label-sm">Step</label>
-		</div>
-		
 		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Temp&nbsp;(&deg;C)</label>
 		</div>
@@ -899,9 +923,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		echo '<div class="row margin-bottom-qtr-em">';
 		
-		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
-		echo '<input type="number" class="form-control input-sm" min="1" step="1" name="mash' . $i . '_step" /> ';
-		echo '</div>';
+		echo '<input type="hidden" min="1" step="1" name="mash' . $i . '_step" value="'; echo $i+1; echo '"/> ';
 
 		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
 		echo '<input type="text" class="form-control input-sm" name="mash' . $i . '_temp" /> ';
