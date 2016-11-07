@@ -35,37 +35,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$details['est_og'] = mysqli_real_escape_string($connection, test_input($_POST['est_og']));
 	if (!$details['est_og'])
 	{
-		$details['est_og'] = 0;
+		$details['est_og'] = "NULL";
 	}
 
 	$details['est_fg'] = mysqli_real_escape_string($connection, test_input($_POST['est_fg']));
 	if (!$details['est_fg'])
 	{
-		$details['est_fg'] = 0;
+		$details['est_fg'] = "NULL";
 	}
 
 	$details['est_ibu'] = mysqli_real_escape_string($connection, test_input($_POST['est_ibu']));
 	if (!$details['est_ibu'])
 	{
-		$details['est_ibu'] = 0;
+		$details['est_ibu'] = "NULL";
 	}
 
 	$details['est_color'] = mysqli_real_escape_string($connection, test_input($_POST['est_color']));
 	if (!$details['est_color'])
 	{
-		$details['est_color'] = 0;
+		$details['est_color'] = "NULL";
 	}
 
 	$details['est_abv'] = mysqli_real_escape_string($connection, test_input($_POST['est_abv']));
 	if (!$details['est_abv'])
 	{
-		$details['est_abv'] = 0;
+		$details['est_abv'] = "NULL";
 	}
 
 	$details['date'] = mysqli_real_escape_string($connection, test_input($_POST['date']));
 	if (!$details['date'])
 	{
-		$details['date'] = "0000-00-00";
+		$details['date'] = "NULL";
 	}
 
 	$details['designer'] = mysqli_real_escape_string($connection, test_input($_POST['designer']));
@@ -232,14 +232,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	window.location = "recipes_list.php"
 	</script>';
 	
-// some required fields are empty so display the error message
-	if (false)
-	{
-		end:
-		echo '<p class="error">' . $error . '</p>';
-	}
-}
-
 // not a form submission, so retrieve the recipe details
 // check that the 'id' variable is set in URL and it is valid
 if (isset($_GET['id']) && is_numeric($_GET['id']))
