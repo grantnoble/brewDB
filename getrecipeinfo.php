@@ -98,6 +98,7 @@ while ($row1 = mysqli_fetch_array($result1))
 	$row2 = mysqli_fetch_array($result2);
 
 	// output the rest of the fermentable xml
+	echo "<fermentable_id>" . $row2['fermentable_id'] . "</fermentable_id>";
 	echo "<fermentable_name>" . $row2['fermentable_name'] . "</fermentable_name>";
 	echo "<fermentable_type>" . $row2['fermentable_type'] . "</fermentable_type>";
 	echo "<fermentable_yield>" . $row2['fermentable_yield'] . "</fermentable_yield>";
@@ -132,6 +133,7 @@ while ($row1 = mysqli_fetch_array($result1))
 	$row2 = mysqli_fetch_array($result2);
 
 	// output the rest of the hop xml
+	echo "<hop_id>" . $row2['hop_id'] . "</hop_id>";
 	echo "<hop_name>" . $row2['hop_name'] . "</hop_name>";
 	echo "</hop>";
 }
@@ -158,6 +160,7 @@ while ($row1 = mysqli_fetch_array($result1))
 	$row2 = mysqli_fetch_array($result2);
 
 	// output the rest of the yeast xml
+	echo "<yeast_id>" . $row2['yeast_id'] . "</yeast_id>";
 	echo "<yeast_name>" . $row2['yeast_fullname'] . "</yeast_name>";
 	echo "<yeast_type>" . $row2['yeast_type'] . "</yeast_type>";
 	echo "<yeast_form>" . $row2['yeast_form'] . "</yeast_form>";
@@ -191,6 +194,7 @@ while ($row1 = mysqli_fetch_array($result1))
 	$row2 = mysqli_fetch_array($result2);
 
 	// output the rest of the misc xml
+	echo "<misc_id>" . $row2['misc_id'] . "</misc_id>";
 	echo "<misc_name>" . $row2['misc_name'] . "</misc_name>";
 	echo "<misc_type>" . $row2['misc_type'] . "</misc_type>";
 	echo "</misc>";

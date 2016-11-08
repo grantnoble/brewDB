@@ -270,17 +270,14 @@ brew_recipe_id mediumint unsigned NOT NULL,
 brew_type enum('Extract', 'Partial Mash', 'All Grain') NOT NULL default 'All Grain',
 brew_style_id mediumint unsigned,
 brew_method enum('BIAB', 'Batch Sparge', 'Fly Sparge', 'No Sparge', 'Partial Mash', 'Extract') default 'BIAB',
+brew_no_chill enum('True', 'False') default 'True',
 brew_mash_volume float,
 brew_sparge_volume float,
-brew_mash_id mediumint unsigned,
 brew_boil_size float,
 brew_boil_time mediumint unsigned,
 brew_ibu_method enum('Rager', 'Tinseth', 'Garetz') NOT NULL default 'Tinseth',
 brew_batch_size float,
 brew_mash_efficiency float,
-brew_fermentation_id mediumint unsigned,
-brew_fermentation_start_date date,
-brew_fermentation_end_date date,
 brew_brewer varchar(255),
 brew_notes varchar(511),
 brew_est_og float,
@@ -300,35 +297,6 @@ INDEX (brew_type),
 INDEX (brew_style_id),
 INDEX (brew_batch_number)
 ) AUTO_INCREMENT=200001 CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
-
-// brews_mashes, the mash schedules for the brew
-$query['brews_mashes'] = "CREATE TABLE brews_mashes
-(
-brew_mash_id mediumint unsigned NOT NULL auto_increment,
-brew_mash_brew_id mediumint unsigned NOT NULL,
-brew_mash_step mediumint unsigned NOT NULL,
-brew_mash_temp float,
-brew_mash_time mediumint unsigned,
-brew_mash_no_chill enum('True', 'False') default 'True',
-PRIMARY KEY (brew_mash_id),
-INDEX (brew_mash_brew_id),
-INDEX (brew_mash_step)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
-
-// brews_ferments, the fermenation schedules for the brew
-$query['brews_ferments'] = "CREATE TABLE brews_ferments
-(
-brew_ferment_id mediumint unsigned NOT NULL auto_increment,
-brew_ferment_brew_id mediumint unsigned NOT NULL,
-brew_ferment_step mediumint unsigned NOT NULL,
-brew_ferment_start_date date,
-brew_ferment_end_date date,
-brew_ferment_temp float,
-brew_ferment_measured_sg float,
-PRIMARY KEY (brew_ferment_id),
-INDEX (brew_ferment_brew_id),
-INDEX (brew_ferment_step)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // brews_fermentables
 $query['brews_fermentables'] = "CREATE TABLE brews_fermentables
@@ -384,16 +352,28 @@ INDEX (brew_misc_brew_id),
 INDEX (brew_misc_misc_id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
-// brews_persons
-$query['brews_persons'] = "CREATE TABLE brews_persons
+// brews_mashes, the mash schedules for the brew
+$query['brews_mashes'] = "CREATE TABLE brews_mashes
 (
-brew_person_id mediumint unsigned NOT NULL auto_increment,
-brew_person_brew_id mediumint unsigned NOT NULL,
-brew_person_person_id mediumint unsigned NOT NULL,
-brew_person_is_assistant enum('True', 'False'),
-PRIMARY KEY (brew_person_id),
-INDEX (brew_person_brew_id),
-INDEX (brew_person_person_id)
+brew_mash_id mediumint unsigned NOT NULL auto_increment,
+brew_mash_brew_id mediumint unsigned NOT NULL,
+brew_mash_temp float,
+brew_mash_time mediumint unsigned,
+PRIMARY KEY (brew_mash_id),
+INDEX (brew_mash_brew_id)
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
+
+// brews_fermentations, the fermenation schedules for the brew
+$query['brews_fermentations'] = "CREATE TABLE brews_fermentations
+(
+brew_fermentation_id mediumint unsigned NOT NULL auto_increment,
+brew_fermentation_brew_id mediumint unsigned NOT NULL,
+brew_fermentation_start_date date,
+brew_fermentation_end_date date,
+brew_fermentation_temp float,
+brew_fermentation_measured_sg float,
+PRIMARY KEY (brew_fermentation_id),
+INDEX (brew_fermentation_brew_id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // for each table and query statement in the array, create the table

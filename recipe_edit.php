@@ -231,6 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	echo '<script type="text/javascript">
 	window.location = "recipes_list.php"
 	</script>';
+}
 	
 // not a form submission, so retrieve the recipe details
 // check that the 'id' variable is set in URL and it is valid

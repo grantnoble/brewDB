@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		$details['date'] = "0000-00-00";
 	}
 	$details['brew_method'] = mysqli_real_escape_string($connection, test_input($_POST['brew_method']));
-	$details['brewer'] = mysqli_real_escape_string($connection, test_input($_POST['brewer']));
+	$details['no_chill'] = mysqli_real_escape_string($connection, test_input($_POST['no_chill']));
 
 	$details['mash_type'] = mysqli_real_escape_string($connection, test_input($_POST['mash_type']));
 	$details['mash_volume'] = mysqli_real_escape_string($connection, test_input($_POST['mash_volume']));
@@ -52,55 +52,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$details['boil_time'] = mysqli_real_escape_string($connection, test_input($_POST['boil_time']));
 	$details['batch_size'] = mysqli_real_escape_string($connection, test_input($_POST['batch_size']));
 	$details['mash_efficiency'] = mysqli_real_escape_string($connection, test_input($_POST['mash_efficiency']));
+	$details['brewer'] = mysqli_real_escape_string($connection, test_input($_POST['brewer']));
 	$details['notes'] = mysqli_real_escape_string($connection, test_input($_POST['notes']));
 
 	
 	$details['est_og'] = mysqli_real_escape_string($connection, test_input($_POST['est_og']));
 	if (!$details['est_og'])
 	{
-		$details['est_og'] = 0;
+		$details['est_og'] = "NULL";
 	}
 
 	$details['act_og'] = mysqli_real_escape_string($connection, test_input($_POST['act_og']));
 	if (!$details['act_og'])
 	{
-		$details['act_og'] = 0;
+		$details['act_og'] = "NULL";
 	}
 
 	$details['est_fg'] = mysqli_real_escape_string($connection, test_input($_POST['est_fg']));
 	if (!$details['est_fg'])
 	{
-		$details['est_fg'] = 0;
+		$details['est_fg'] = "NULL";
 	}
 
 	$details['act_fg'] = mysqli_real_escape_string($connection, test_input($_POST['act_fg']));
 	if (!$details['act_fg'])
 	{
-		$details['act_fg'] = 0;
+		$details['act_fg'] = "NULL";
 	}
 
 	$details['est_ibu'] = mysqli_real_escape_string($connection, test_input($_POST['est_ibu']));
 	if (!$details['est_ibu'])
 	{
-		$details['est_ibu'] = 0;
+		$details['est_ibu'] = "NULL";
 	}
 
 	$details['est_color'] = mysqli_real_escape_string($connection, test_input($_POST['est_color']));
 	if (!$details['est_color'])
 	{
-		$details['est_color'] = 0;
+		$details['est_color'] = "NULL";
 	}
 
 	$details['est_abv'] = mysqli_real_escape_string($connection, test_input($_POST['est_abv']));
 	if (!$details['est_abv'])
 	{
-		$details['est_abv'] = 0;
+		$details['est_abv'] = "NULL";
 	}
 
 	$details['act_abv'] = mysqli_real_escape_string($connection, test_input($_POST['act_abv']));
 	if (!$details['act_abv'])
 	{
-		$details['act_abv'] = 0;
+		$details['act_abv'] = "NULL";
 	}
 
 	// retrieve the brew fermentables
@@ -142,35 +143,68 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	// retrieve the brew mash details
 	for ($i=0; $i<=4; $i++)
 	{
-		$mashes[$i]['id'] = mysqli_real_escape_string($connection, test_input($_POST['mash' . $i . '_id']));
-		$mashes[$i]['step'] = mysqli_real_escape_string($connection, test_input($_POST['mash' . $i . '_step']));
 		$mashes[$i]['temp'] = mysqli_real_escape_string($connection, test_input($_POST['mash' . $i . '_temp']));
+		if (!$mashes['temp'])
+		{
+			$mashes['temp'] = "NULL";
+		}
+	
 		$mashes[$i]['time'] = mysqli_real_escape_string($connection, test_input($_POST['mash' . $i . '_time']));
+		if (!$mashes['time'])
+		{
+			$mashes['time'] = "NULL";
+		}
 	}
 
 	// retrieve the brew fermentation details
 	for ($i=0; $i<=4; $i++)
 	{
-		$ferments[$i]['id'] = mysqli_real_escape_string($connection, test_input($_POST['ferment' . $i . '_id']));
-		$ferments[$i]['name'] = mysqli_real_escape_string($connection, test_input($_POST['ferment' . $i . '_step']));
-		$ferments[$i]['start_date'] = mysqli_real_escape_string($connection, test_input($_POST['ferment' . $i . '_start_date']));
-		$ferments[$i]['end_date'] = mysqli_real_escape_string($connection, test_input($_POST['ferment' . $i . '_end_date']));
-		$ferments[$i]['temp'] = mysqli_real_escape_string($connection, test_input($_POST['ferment' . $i . '_temp']));
-		$ferments[$i]['measured_sg'] = mysqli_real_escape_string($connection, test_input($_POST['ferment' . $i . '_measured_sg']));
+		$fermentations[$i]['start_date'] = mysqli_real_escape_string($connection, test_input($_POST['fermentation' . $i . '_start_date']));
+		if (!$fermentations['start_date'])
+		{
+			$fermentations['start_date'] = "NULL";
+		}
+	
+		$fermentations[$i]['end_date'] = mysqli_real_escape_string($connection, test_input($_POST['fermentation' . $i . '_end_date']));
+		if (!$fermentations['end_date'])
+		{
+			$fermentations['end_date'] = "NULL";
+		}
+	
+		$fermentations[$i]['temp'] = mysqli_real_escape_string($connection, test_input($_POST['fermentation' . $i . '_temp']));
+		if (!$fermentations['temp'])
+		{
+			$fermentations['temp'] = "NULL";
+		}
+	
+		$fermentations[$i]['measured_sg'] = mysqli_real_escape_string($connection, test_input($_POST['fermentation' . $i . '_measured_sg']));
+		if (!$fermentations['measured_sg'])
+		{
+			$fermentations['measured_sg'] = "NULL";
+		}
 	}
 
 	// retrieve the brew packaging details
 	$details['packaging'] = mysqli_real_escape_string($connection, test_input($_POST['packaging']));
 	$details['packaging_date'] = mysqli_real_escape_string($connection, test_input($_POST['packaging_date']));
+	if (!$details['packaging_date'])
+	{
+		$details['packaging_date'] = "NULL";
+	}
+	
 	$details['vol_co2'] = mysqli_real_escape_string($connection, test_input($_POST['vol_co2']));
+	if (!$details['vol_co2'])
+	{
+		$details['vol_co2'] = "NULL";
+	}
+	
 
 	// now insert the records into the database
 
 	// insert the brew record
-	$insert = "INSERT INTO brews (brew_name, brew_batch_number, brew_date, brew_recipe_id, brew_type, brew_style_id, brew_method, brew_mash_volume, brew_sparge_volume, brew_boil_size, brew_boil_time, brew_batch_size, brew_mash_efficiency, brew_brewer, brew_notes, brew_est_og, brew_act_og, brew_est_fg, brew_act_fg, brew_est_color, brew_est_ibu, brew_est_abv, brew_act_abv, brew_packaging, brew_packaging_vol_co2, brew_packaging_date)";
-	$values = "VALUES ('" . $details['name'] . "'," . $details['batch_number'] . ",'" . $details['date'] . "'," . $details['recipe_id'] . ",'" . $details['type'] . "'," . $details['style_id'] . ",'" . $details['brew_method'] . "'," . $details['mash_volume'] . "," . $details['sparge_volume'] . "," . $details['boil_size'] . "," . $details['boil_time'] . "," . $details['batch_size'] . "," . $details['mash_efficiency'] . ",'" . $details['brewer'] . "','" . $details['notes'] . "'," . $details['est_og'] . "," . $details['act_og'] . "," . $details['est_fg'] . "," . $details['act_fg'] . "," . $details['est_color'] . "," . $details['est_ibu'] . "," . $details['est_abv'] . "," . $details['act_abv'] . ",'" . $details['packaging'] . "'," . $details['vol_co2'] . ",'" . $details['packaging_date'] . "')"; 
+	$insert = "INSERT INTO brews (brew_name, brew_batch_number, brew_date, brew_recipe_id, brew_type, brew_style_id, brew_method, brew_no_chill, brew_mash_volume, brew_sparge_volume, brew_boil_size, brew_boil_time, brew_batch_size, brew_mash_efficiency, brew_brewer, brew_notes, brew_est_og, brew_act_og, brew_est_fg, brew_act_fg, brew_est_color, brew_est_ibu, brew_est_abv, brew_act_abv, brew_packaging, brew_packaging_vol_co2, brew_packaging_date)";
+	$values = "VALUES ('" . $details['name'] . "'," . $details['batch_number'] . ",'" . $details['date'] . "'," . $details['recipe_id'] . ",'" . $details['type'] . "'," . $details['style_id'] . ",'" . $details['brew_method'] . "','" . $details['no_chill'] . "'," . $details['mash_volume'] . "," . $details['sparge_volume'] . "," . $details['boil_size'] . "," . $details['boil_time'] . "," . $details['batch_size'] . "," . $details['mash_efficiency'] . ",'" . $details['brewer'] . "','" . $details['notes'] . "'," . $details['est_og'] . "," . $details['act_og'] . "," . $details['est_fg'] . "," . $details['act_fg'] . "," . $details['est_color'] . "," . $details['est_ibu'] . "," . $details['est_abv'] . "," . $details['act_abv'] . ",'" . $details['packaging'] . "'," . $details['vol_co2'] . ",'" . $details['packaging_date'] . "')"; 
 	$query = $insert . " " . $values;
-	echo $query;
 	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
 	// retrieve the id of the last insert as the brew_id for the brews_fermentables, brews_hops, brews_yeasts, brews_miscs, brews_mashes, and brews_ferments records
@@ -223,21 +257,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	// for each mash, insert the brew_mash records
 	for ($i=0; $i <=4; $i++)
 	{
-		if ($mash[$i]['temp'] || $mash[$i]['time'])
+		if ($mashes[$i]['temp'] || $mashes[$i]['time'])
 		{
-			$query = "INSERT INTO brews_mashes (brew_mash_brew_id, brew_mash_step, brew_mash_temp, brew_mash_time)
-					VALUES (" . $brew_id . "," . $i+1 . "," . $mashes[$i]['temp'] . "," . $mashes[$i]['time'] . ")";
+			$query = "INSERT INTO brews_mashes (brew_mash_brew_id, brew_mash_temp, brew_mash_time)
+					VALUES (" . $brew_id . "," . $mashes[$i]['temp'] . "," . $mashes[$i]['time'] . ")";
 			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		}
 	}
 
-	// for each ferment, insert the brew_ferment records
+	// for each fermentation, insert the brew_fermentation records
 	for ($i=0; $i <=4; $i++)
 	{
-		if ($ferments[$i]['temp'])
+		if ($fermentations[$i]['start_date'] || $fermentations[$i]['end_date'] || $fermentations[$i]['temp'] || $fermentations[$i]['measured_sg'])
 		{
-			$query = "INSERT INTO brews_ferments (brew_ferment_brew_id, brew_ferment_step, brew_ferment_start_date, brew_ferment_end_date, brew_ferment_temp, brew_ferment_measured_sg)
-					VALUES (" . $brew_id . "," . $i+1 . ",'" . $ferments[$i]['start_date'] . "','" . $ferments[$i]['end_date'] . "'," . $ferments[$i]['temp'] . "," . $ferments[$i]['measured_sg'] . ")";
+			$query = "INSERT INTO brews_fermentations (brew_fermentation_brew_id, brew_fermentation_start_date, brew_fermentation_end_date, brew_fermentation_temp, brew_fermentation_measured_sg)
+					VALUES (" . $brew_id . ",'" . $fermentations[$i]['start_date'] . "','" . $fermentations[$i]['end_date'] . "'," . $fermentations[$i]['temp'] . "," . $fermentations[$i]['measured_sg'] . ")";
 			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		}
 	}
@@ -246,6 +280,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	echo '<script type="text/javascript">
 	window.location = "brew_new.php"
 	</script>';
+}
+
+// not a form submission, so retrieve the recipe details
+// check that the 'id' variable is set in URL and it is valid
+if (isset($_GET['id']) && is_numeric($_GET['id']))
+{
+// get the recipe details
+include('includes/get_recipe_details.php');
 }
 
 // end of PHP section, now create the HTML form
@@ -274,7 +316,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		<div class="col-xs-4 col-md-3">
 			<label for="base_recipe" class="label-sm">Base Recipe</label>
 			<select class="form-control input-sm" id="base_recipe" name="base_recipe" onchange="getrecipeinfo(this.value);" >
-				<option value="" disabled selected>Select a base recipe...</option>
+				<option value="<?php echo $details['name']; ?>" selected><?php echo $details['name']; ?></option>
 				<?php
 				$query = "SELECT recipe_name FROM recipes ORDER BY recipe_date DESC";
 				$result = mysqli_query($connection, $query);
@@ -335,7 +377,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		
 		<div class="col-xs-3 col-md-3">
 			<label for="no_chill" class="label-sm">No Chill?</label>
-			<select class="form-control input-sm" id="no_chill" name="no_chill" >
+			<select class="form-control input-sm" id="no_chill" name="no_chill" required>
 				<option value="" disabled selected>True or False...</option>
 				<option>True</option>
 				<option>False</option>
@@ -923,8 +965,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		echo '<div class="row margin-bottom-qtr-em">';
 		
-		echo '<input type="hidden" min="1" step="1" name="mash' . $i . '_step" value="'; echo $i+1; echo '"/> ';
-
 		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
 		echo '<input type="text" class="form-control input-sm" name="mash' . $i . '_temp" /> ';
 		echo '</div>';
@@ -934,7 +974,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		echo '</div>';
 		
 		// the mash id
-		echo '<input type="hidden" name="mash' . $i . '_id" value="'; echo $mash[$i]['id']; echo '"/> ';
+		echo '<input type="hidden" name="mash' . $i . '_id" value="'; echo $mashes[$i]['id']; echo '"/> ';
 		
 		echo '</div>';
 	}
@@ -948,10 +988,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 	<div class="row">
 	
-		<div class="col-xs-6 col-sm-2 col-md-1">
-			<label class="label-sm">Step</label>
-		</div>
-		
 		<div class="col-xs-3 col-sm-2 col-md-2">
 			<label class="label-sm">Start Date (yyyy-mm-dd)</label>
 		</div>
@@ -976,10 +1012,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		echo '<div class="row margin-bottom-qtr-em">';
 		
-		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
-		echo '<input type="number" class="form-control input-sm" min="1" step="1" name="fermentation' . $i . '_step" /> ';
-		echo '</div>';
-
 		echo '<div class="col-xs-3 col-sm-2 col-md-2">';
 		echo '<input type="date" class="form-control input-sm" name="fermentation' . $i . '_start_date" /> ';
 		echo '</div>';
@@ -997,7 +1029,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		echo '</div>';
 		
 		// the fermentation id
-		echo '<input type="hidden" name="fermentation' . $i . '_id" value="'; echo $fermentation[$i]['id']; echo '"/> ';
+		echo '<input type="hidden" name="fermentation' . $i . '_id" value="'; echo $fermentations[$i]['id']; echo '"/> ';
 		
 		echo '</div>';
 	}

@@ -41,6 +41,7 @@ xmlhttp.onreadystatechange=function()
 		{
 			if (typeof xmlhttp.responseXML.getElementsByTagName("fermentable_name")[i] !== 'undefined')
 			{
+				document.forms[0]["fermentable"+i+"_id"].value=xmlhttp.responseXML.getElementsByTagName("fermentable_id")[i].childNodes[0].nodeValue;
 				document.forms[0]["fermentable"+i+"_name"].value=xmlhttp.responseXML.getElementsByTagName("fermentable_name")[i].childNodes[0].nodeValue;
 				document.forms[0]["fermentable"+i+"_amount"].value=xmlhttp.responseXML.getElementsByTagName("fermentable_amount")[i].childNodes[0].nodeValue;
 				document.forms[0]["fermentable"+i+"_type"].value=xmlhttp.responseXML.getElementsByTagName("fermentable_type")[i].childNodes[0].nodeValue;
@@ -50,6 +51,7 @@ xmlhttp.onreadystatechange=function()
 			}
 			else
 			{
+				document.forms[0]["fermentable"+i+"_id"].value=null;
 				document.forms[0]["fermentable"+i+"_name"].value=null;
 				document.forms[0]["fermentable"+i+"_amount"].value=null;
 				document.forms[0]["fermentable"+i+"_percent"].value=null;
@@ -68,6 +70,7 @@ xmlhttp.onreadystatechange=function()
 		{
 			if (typeof xmlhttp.responseXML.getElementsByTagName("hop_name")[i] !== 'undefined')
 			{
+				document.forms[0]["hop"+i+"_id"].value=xmlhttp.responseXML.getElementsByTagName("hop_id")[i].childNodes[0].nodeValue;
 				document.forms[0]["hop"+i+"_name"].value=xmlhttp.responseXML.getElementsByTagName("hop_name")[i].childNodes[0].nodeValue;
 				document.forms[0]["hop"+i+"_amount"].value=xmlhttp.responseXML.getElementsByTagName("hop_amount")[i].childNodes[0].nodeValue;
 				document.forms[0]["hop"+i+"_alpha"].value=xmlhttp.responseXML.getElementsByTagName("hop_alpha")[i].childNodes[0].nodeValue;
@@ -77,6 +80,7 @@ xmlhttp.onreadystatechange=function()
 			}
 			else
 			{
+				document.forms[0]["hop"+i+"_id"].value=null;
 				document.forms[0]["hop"+i+"_name"].value=null;
 				document.forms[0]["hop"+i+"_amount"].value=null;
 				document.forms[0]["hop"+i+"_alpha"].value=null;
@@ -91,6 +95,7 @@ xmlhttp.onreadystatechange=function()
 		{
 			if (typeof xmlhttp.responseXML.getElementsByTagName("yeast_name")[i] !== 'undefined')
 			{
+				document.forms[0]["yeast"+i+"_id"].value=xmlhttp.responseXML.getElementsByTagName("yeast_id")[i].childNodes[0].nodeValue;
 				document.forms[0]["yeast"+i+"_fullname"].value=xmlhttp.responseXML.getElementsByTagName("yeast_name")[i].childNodes[0].nodeValue;
 				document.forms[0]["yeast"+i+"_type"].value=xmlhttp.responseXML.getElementsByTagName("yeast_type")[i].childNodes[0].nodeValue;
 				document.forms[0]["yeast"+i+"_form"].value=xmlhttp.responseXML.getElementsByTagName("yeast_form")[i].childNodes[0].nodeValue;
@@ -99,6 +104,7 @@ xmlhttp.onreadystatechange=function()
 			}
 			else
 			{
+				document.forms[0]["yeast"+i+"_id"].value=null;
 				document.forms[0]["yeast"+i+"_fullname"].value=null;
 				document.forms[0]["yeast"+i+"_type"].value=null;
 				document.forms[0]["yeast"+i+"_form"].value=null;
@@ -112,6 +118,7 @@ xmlhttp.onreadystatechange=function()
 		{
 			if (typeof xmlhttp.responseXML.getElementsByTagName("misc_name")[i] !== 'undefined')
 			{
+				document.forms[0]["misc"+i+"_id"].value=xmlhttp.responseXML.getElementsByTagName("misc_id")[i].childNodes[0].nodeValue;
 				document.forms[0]["misc"+i+"_name"].value=xmlhttp.responseXML.getElementsByTagName("misc_name")[i].childNodes[0].nodeValue;
 				document.forms[0]["misc"+i+"_type"].value=xmlhttp.responseXML.getElementsByTagName("misc_type")[i].childNodes[0].nodeValue;
 				document.forms[0]["misc"+i+"_amount"].value=xmlhttp.responseXML.getElementsByTagName("misc_amount")[i].childNodes[0].nodeValue;
@@ -120,6 +127,7 @@ xmlhttp.onreadystatechange=function()
 			}
 			else
 			{
+				document.forms[0]["misc"+i+"_id"].value=null;
 				document.forms[0]["misc"+i+"_name"].value=null;
 				document.forms[0]["misc"+i+"_type"].value=null;
 				document.forms[0]["misc"+i+"_amount"].value=null;
