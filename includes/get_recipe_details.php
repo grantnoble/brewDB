@@ -158,6 +158,7 @@
 			$yeasts[$i]['record_id'] = NULL;
 			$yeasts[$i]['id'] = NULL;
 			$yeasts[$i]['fullname'] = NULL;
+			$yeasts[$i]['type'] = NULL;
 			$yeasts[$i]['form'] = NULL;
 			$yeasts[$i]['attenuation'] = NULL;
 			$yeasts[$i]['flocculation'] = NULL;
