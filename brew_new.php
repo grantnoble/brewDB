@@ -316,8 +316,16 @@ include('includes/get_recipe_details.php');
 		<div class="col-xs-4 col-md-3">
 			<label for="base_recipe" class="label-sm">Base Recipe</label>
 			<select class="form-control input-sm" id="base_recipe" name="base_recipe" onchange="getrecipeinfo(this.value);" >
-				<option value="<?php echo $details['name']; ?>" selected><?php echo $details['name']; ?></option>
+				<option value="<?php echo $details['name']; ?>" selected>Select a base recipe...</option>
 				<?php
+				if (isset($_GET['id']))
+				{
+					echo '<option value="' . $details['name'] . '" selected>' . $details['name'] . '</option>';
+				}
+				else
+				{
+					echo '<option value="" selected>Select a base recipe...</option>';
+				}
 				$query = "SELECT recipe_name FROM recipes ORDER BY recipe_date DESC";
 				$result = mysqli_query($connection, $query);
 				while ($row = mysqli_fetch_array ( $result ))
@@ -966,11 +974,11 @@ include('includes/get_recipe_details.php');
 		echo '<div class="row margin-bottom-qtr-em">';
 
 		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
-		echo '<input type="text" class="form-control input-sm" name="mash' . $i . '_temp" /> ';
+		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="mash' . $i . '_temp" /> ';
 		echo '</div>';
 
 		echo '<div class="hidden-xs col-sm-2 col-md-1">';
-		echo '<input type="text" class="form-control input-sm" name="mash' . $i . '_time" /> ';
+		echo '<input type="number" class="form-control input-sm" min="0" step="1" name="mash' . $i . '_time" /> ';
 		echo '</div>';
 
 		// the mash id
