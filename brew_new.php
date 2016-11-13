@@ -316,7 +316,7 @@ include('includes/get_recipe_details.php');
 		<div class="col-xs-4 col-md-3">
 			<label for="base_recipe" class="label-sm">Base Recipe</label>
 			<select class="form-control input-sm" id="base_recipe" name="base_recipe" onchange="getrecipeinfo(this.value);" >
-				<option value="<?php echo $details['name']; ?>" selected>Select a base recipe...</option>
+				<option value="<?php echo $details['base_recipe']; ?>" selected>Select a base recipe...</option>
 				<?php
 				if (isset($_GET['id']))
 				{
@@ -501,7 +501,7 @@ include('includes/get_recipe_details.php');
 		</div>
 
 		<div class="col-xs-2 col-md-5ths">
-			<input type="text" class="form-control input-sm padding-5px" id="act_og" name="act_og"  />
+			<input type="number" class="form-control input-sm padding-5px" id="act_og" name="act_og" min="0" step="0.001" />
 		</div>
 
 		<div class="col-xs-2 col-md-5ths">
@@ -525,7 +525,7 @@ include('includes/get_recipe_details.php');
 		</div>
 
 		<div class="col-xs-2 col-md-5ths">
-			<input type="text" class="form-control input-sm padding-5px" id="act_fg" name="act_fg" />
+			<input type="number" class="form-control input-sm padding-5px" id="act_fg" name="act_fg" min="0" step="0.001" />
 		</div>
 
 		<div class="col-xs-2 col-md-5ths">
@@ -549,7 +549,7 @@ include('includes/get_recipe_details.php');
 		</div>
 
 		<div class="col-xs-2 col-md-5ths">
-			<input type="text" class="form-control input-sm padding-5px" id="act_abv" name="act_abv" />
+			<input type="number" class="form-control input-sm padding-5px" id="act_abv" name="act_abv" min="0" step="0.1"/>
 		</div>
 
 		<div class="col-xs-2 col-md-5ths">
@@ -706,7 +706,7 @@ include('includes/get_recipe_details.php');
 		echo '</div>';
 
 		// the fermentable id
-		echo '<input type="hidden" name="fermentable' . $i . '_id" />';
+		echo '<input type="hidden" name="fermentable' . $i . '_id" value="' . $fermentables[$i]['id'] . '"/>';
 
 		echo '</div>';
 
@@ -797,7 +797,7 @@ include('includes/get_recipe_details.php');
 		echo '</div>';
 
 		// the hops id
-		echo '<input type="hidden" name="hop' . $i . '_id" />';
+		echo '<input type="hidden" name="hop' . $i . '_id" value="' . $hops[$i]['id'] . '"/>';
 
 		echo '</div>';
 	}
@@ -866,7 +866,7 @@ include('includes/get_recipe_details.php');
 		echo '</div>';
 
 		// the yeast id
-		echo '<input type="hidden" name="yeast' . $i . '_id" value="'; echo $yeasts[$i]['id']; echo '"/>';
+		echo '<input type="hidden" name="yeast' . $i . '_id" value="' . $yeasts[$i]['id'] . '"/>';
 
 		echo '</div>';
 	}
@@ -943,7 +943,7 @@ include('includes/get_recipe_details.php');
 		echo '</div>';
 
 		// the miscs id
-		echo '<input type="hidden" name="misc' . $i . '_id" value="'; echo $miscs[$i]['id']; echo '"/> ';
+		echo '<input type="hidden" name="misc' . $i . '_id" value="' . $miscs[$i]['id'] . '"/>';
 
 		echo '</div>';
 	}
@@ -980,9 +980,6 @@ include('includes/get_recipe_details.php');
 		echo '<div class="hidden-xs col-sm-2 col-md-1">';
 		echo '<input type="number" class="form-control input-sm" min="0" step="1" name="mash' . $i . '_time" /> ';
 		echo '</div>';
-
-		// the mash id
-		echo '<input type="hidden" name="mash' . $i . '_id" value="'; echo $mashes[$i]['id']; echo '"/> ';
 
 		echo '</div>';
 	}
@@ -1029,15 +1026,12 @@ include('includes/get_recipe_details.php');
 		echo '</div>';
 
 		echo '<div class="hidden-xs col-sm-2 col-md-1">';
-		echo '<input type="text" class="form-control input-sm" name="fermentation' . $i . '_temp" /> ';
+		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="fermentation' . $i . '_temp" /> ';
 		echo '</div>';
 
 		echo '<div class="hidden-xs col-sm-2 col-md-1">';
-		echo '<input type="text" class="form-control input-sm" name="fermentation' . $i . '_measured_sg" /> ';
+		echo '<input type="number" class="form-control input-sm" min="0" step="0.001" name="fermentation' . $i . '_measured_sg" /> ';
 		echo '</div>';
-
-		// the fermentation id
-		echo '<input type="hidden" name="fermentation' . $i . '_id" value="'; echo $fermentations[$i]['id']; echo '"/> ';
 
 		echo '</div>';
 	}

@@ -524,78 +524,60 @@ else
 	$ingredient = "'fermentable'";
 	for ($i=0; $i<=14; $i++)
 	{
-	?>
-		<div class="row margin-bottom-qtr-em">
-		
-		<div class="col-xs-6 col-sm-2 col-md-3">
-		<?php
+		echo '<div class="row margin-bottom-qtr-em">';
+
+		echo '<div class="col-xs-6 col-sm-2 col-md-3">';
 		echo '<select class="form-control input-sm" name="fermentable' . $i . '_name" onchange="getfermentableinfo(this.value,' .$i. '); set_flag(' . $ingredient . ', ' . $i . ');">';
-		echo '<option>'; echo $fermentables[$i]['name']; echo '</option>';
+		echo '<option value="' . $fermentables[$i]['name'] . '">' . $fermentables[$i]['name'] . '</option>';
 		$query = "SELECT fermentable_name FROM fermentables ORDER BY fermentable_name";
 		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		while ($row = mysqli_fetch_array ( $result ))
 		{
-			echo '<option>' . $row['fermentable_name'] . '</option>';
+			echo '<option value="' . $row['fermentable_name'] . '">' . $row['fermentable_name'] . '</option>';
 		}
-		?>
-		</select>
-		</div>
-			
-		<div class="col-xs-3 col-sm-2 col-md-1">
-		<?php
-		echo '<input type="number" class="form-control input-sm" min="0" step="0.001" name="fermentable' . $i . '_amount" onchange="fermentables_messages(' .$i. '); calc_og_color_ibu(); set_flag(' . $ingredient . ', ' . $i . ');" value="'; echo $fermentables[$i]['amount']; echo '"/>';
-		?>
-		</div>
-			
-		<div class="hidden-xs col-sm-2 col-md-1">
-		<?php
-		echo '<input type="number" class="form-control input-sm" name="fermentable' . $i . '_percent" readonly="yes" value="'; echo $fermentables[$i]['percent']; echo '"/>';
-		?>
-		</div>
-			
-		<div class="hidden-xs col-sm-2 col-md-1">
-		<?php
-		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_yield" readonly="yes" value="'; echo $fermentables[$i]['yield']; echo '"/>';
-		?>
-		</div>
-			
-		<div class="hidden-xs col-sm-2 col-md-1">
-		<?php
-		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_color" readonly="yes" value="'; echo $fermentables[$i]['color']; echo '"/>';
-		?>
-		</div>
-			
-		<div class="col-xs-3 col-sm-2 col-md-1">
-		<?php
-		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_type" readonly="yes" value="'; echo $fermentables[$i]['type']; echo '"/>';
-		?>
-		</div>
-		
-		<div class="col-xs-3 col-sm-2 col-md-2">
-		<?php
+		echo '</select>';
+		echo '</div>';
+
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
+		echo '<input type="number" class="form-control input-sm" min="0" step="0.001" name="fermentable' . $i . '_amount" value="' . $fermentables[$i]['amount'] . '"/>';
+		echo '</div>';
+
+		echo '<div class="hidden-xs col-sm-2 col-md-1">';
+		echo '<input type="number" class="form-control input-sm" name="fermentable' . $i . '_percent" value="' . $fermentables[$i]['percent'] . '" />';
+		echo '</div>';
+
+		echo '<div class="hidden-xs col-sm-2 col-md-1">';
+		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_yield" value="' . $fermentables[$i]['yield'] . '" />';
+		echo '</div>';
+
+		echo '<div class="hidden-xs col-sm-2 col-md-1">';
+		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_color" value="' . $fermentables[$i]['color'] . '" />';
+		echo '</div>';
+
+		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
+		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_type" value="' . $fermentables[$i]['type'] . '" />';
+		echo '</div>';
+
+		echo '<div class="col-xs-3 col-sm-2 col-md-2">';
 		echo '<select class="form-control input-sm" name="fermentable' . $i . '_use" onchange="set_flag(' . $ingredient . ', ' . $i . ')">';
-		echo '<option>'; echo $fermentables[$i]['use']; echo '</option>';
-		?>
-		<option>Mashed</option>
-		<option>Steeped</option>
-		<option>Extract</option>
-		<option>Sugar</option>
-		<option>Other</option>
-		</select>
-		</div>
-		
-		<?php
-		// the recipes_fermentables record id
-		echo '<input type="hidden" name="fermentable' . $i . '_record_id" value="'; echo $fermentables[$i]['record_id']; echo '"/>';
+		echo '<option value="' . $fermentables[$i]['use'] . '">' . $fermentables[$i]['use'] . '</option>';
+		echo '<option value="Mashed">Mashed</option>';
+		echo '<option value="Steeped">Steeped</option>';
+		echo '<option value="Extract">Extract</option>';
+		echo '<option value="Sugar">Sugar</option>';
+		echo '<option value="Other">Other</option>';
+		echo '</select>';
+		echo '</div>';
+
 		// the fermentable id
-		echo '<input type="hidden" name="fermentable' . $i . '_id" value="'; echo $fermentables[$i]['id']; echo '"/>';
+		// the recipes_fermentables record id
+		echo '<input type="hidden" name="fermentable' . $i . '_record_id" value="'.  $fermentables[$i]['record_id'] . '"/>';
+		// the fermentable id
+		echo '<input type="hidden" name="fermentable' . $i . '_id" value="' . $fermentables[$i]['id'] . '"/>';
 		// the update flag
-		echo '<input type="hidden" name="fermentable' . $i . '_flag" value="'; echo $fermentables[$i]['flag']; echo '"/>';
-		?>
-		
-		</div>
-		
-	<?php
+		echo '<input type="hidden" name="fermentable' . $i . '_flag" value="' . $fermentables[$i]['flag'] . '"/>';
+
+		echo '</div>';
 	}
 	?>
 	
@@ -640,12 +622,12 @@ else
 		echo '<div class="row margin-bottom-qtr-em">';
 		echo '<div class="col-xs-6 col-sm-2 col-md-3">';
 		echo '<select class="form-control input-sm" name="hop' . $i . '_name" onchange="gethopinfo(this.value,' .$i. '); set_flag(' . $ingredient . ', ' . $i . ');">';
-		echo '<option>'; echo $hops[$i]['name']; echo '</option>';
+		echo '<option value="' . $hops[$i]['name'] . '">' . $hops[$i]['name'] . '</option>';
 		$query = "SELECT hop_name FROM hops ORDER BY hop_name";
 		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		while ($row = mysqli_fetch_array ( $result ))
 		{
-			echo '<option>' . $row['hop_name'] . '</option>';
+			echo '<option value="' . $row['hop_name'] . '">' . $row['hop_name'] . '</option>';
 		}
 		echo '</select>';
 		echo '</div>';
@@ -664,21 +646,21 @@ else
 
 		echo '<div class="hidden-xs col-sm-2 col-md-2">';
 		echo '<select class="form-control input-sm" name="hop' . $i . '_form" onchange="set_flag(' . $ingredient . ', ' . $i . ')">';
-		echo '<option>'; echo $hops[$i]['form']; echo '</option>';
-		echo '<option>Pellet</option>';
-		echo '<option>Plug</option>';
-		echo '<option>Whole</option>';
+		echo '<option value="' . $hops[$i]['form'] . '">' . $hops[$i]['form'] . '</option>';
+		echo '<option value="Pellet">Pellet</option>';
+		echo '<option value="Plug">Plug</option>';
+		echo '<option value="Whole">Whole</option>';
 		echo '</select>';
 		echo '</div>';
 
 		echo '<div class="hidden-xs col-sm-2 col-md-2">';
 		echo '<select class="form-control input-sm" name="hop' . $i . '_use" onchange="set_flag(' . $ingredient . ', ' . $i . ')">';
-		echo '<option>'; echo $hops[$i]['use']; echo '</option>';
-		echo '<option>Aroma</option>';
-		echo '<option>Boil</option>';
-		echo '<option>Dry Hop</option>';
-		echo '<option>First Wort</option>';
-		echo '<option>Mash</option>';
+		echo '<option value="' . $hops[$i]['use'] . '">' . $hops[$i]['use'] . '</option>';
+		echo '<option value="Aroma">Aroma</option>';
+		echo '<option value="Boil">Boil</option>';
+		echo '<option value="Dry Hop">Dry Hop</option>';
+		echo '<option value="First Wort">First Wort</option>';
+		echo '<option value="Mash">Mash</option>';
 		echo '</select>';
 		echo '</div>';
 
@@ -692,6 +674,7 @@ else
 		echo '</div>';
 	}
 	?>
+	
 </fieldset>
 </div>
 
@@ -729,12 +712,12 @@ else
 		echo '<div class="row margin-bottom-qtr-em">';
 		echo '<div class="col-xs-6 col-sm-3 col-md-3">';
 		echo '<select class="form-control input-sm" name="yeast' . $i . '_fullname" onchange="getyeastinfo(this.value,' .$i. '); set_flag(' . $ingredient . ', ' . $i . ');">';
-		echo '<option>'; echo $yeasts[$i]['fullname']; echo '</option>';
+		echo '<option value="' . $yeasts[$i]['fullname'] . '">' . $yeasts[$i]['fullname'] . '</option>';
 		$query = "SELECT yeast_fullname FROM yeasts ORDER BY yeast_fullname";
 		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		while ($row = mysqli_fetch_array ( $result ))
 		{
-			echo '<option>' . $row['yeast_fullname'] . '</option>';
+			echo '<option value="' . $row['yeast_fullname'] . '">' . $row['yeast_fullname'] . '</option>';
 		}
 		echo '</select>';
 		echo '</div>';
@@ -765,6 +748,7 @@ else
 		echo '</div>';
 	}
 	?>
+	
 </fieldset>
 </div>
 
@@ -803,12 +787,12 @@ else
 		
 		echo '<div class="col-xs-6 col-sm-2 col-md-3">';
 		echo '<select class="form-control input-sm" name="misc' . $i . '_name" onchange="getmiscinfo(this.value,' .$i. '); set_flag(' . $ingredient . ', ' . $i . ');">';
-		echo '<option>'; echo $miscs[$i]['name']; echo '</option>';
+		echo '<option value="' . $miscs[$i]['name'] . '">' . $miscs[$i]['name'] . '</option>';
         $query = "SELECT misc_name FROM miscs ORDER BY misc_name";
 		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		while ($row = mysqli_fetch_array ( $result ))
 		{
-			echo '<option>' . $row['misc_name'] . '</option>';
+			echo '<option value="' . $row['misc_name'] . '">' . $row['misc_name'] . '</option>';
 		}
 		echo '</select>';
 		echo '</div>';
@@ -827,12 +811,12 @@ else
 
 		echo '<div class="hidden-xs col-sm-2 col-md-2">';
 		echo '<select class="form-control input-sm" name="misc' . $i . '_use" onchange="miscs_messages(' .$i. '); set_flag(' . $ingredient . ', ' . $i . ')"'; echo '"> ';
-		echo '<option>'; echo $miscs[$i]['use']; echo '</option>';
-		echo '<option>Boil</option>';
-		echo '<option>Mash</option>';
-		echo '<option>Primary</option>';
-		echo '<option>Secondary</option>';
-		echo '<option>Bottling</option>';
+		echo '<option value="' . $miscs[$i]['use'] . '">' . $miscs[$i]['use'] . '</option>';
+		echo '<option value="Boil">Boil</option>';
+		echo '<option value="Mash">Mash</option>';
+		echo '<option value="Primary">Primary</option>';
+		echo '<option value="Secondary">Secondary</option>';
+		echo '<option value="Bottling">Bottling</option>';
 		echo '</select>';
 		echo '</div>';
 		

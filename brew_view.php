@@ -370,7 +370,7 @@ else
 			echo '</div>';
 
 			// the fermentable id
-			echo '<input type="hidden" name="fermentable' . $i . '_id" />';
+			echo '<input type="hidden" name="fermentable' . $i . '_id" value="' . $fermentables[$i]['id'] . '"/> ';
 
 			echo '</div>';
 		}
@@ -444,7 +444,7 @@ else
 			echo '</div>';
 
 			// the hops id
-			echo '<input type="hidden" name="hop' . $i . '_id" />';
+			echo '<input type="hidden" name="hop' . $i . '_id" value="' . $hops[$i]['id'] . '"/> ';
 
 			echo '</div>';
 		}
@@ -509,7 +509,7 @@ else
 			echo '</div>';
 
 			// the yeast id
-			echo '<input type="hidden" name="yeast' . $i . '_id" value="'; echo $yeasts[$i]['id']; echo '"/>';
+			echo '<input type="hidden" name="yeast' . $i . '_id" value="' . $yeasts[$i]['id'] . '"/> ';
 
 			echo '</div>';
 		}
@@ -574,7 +574,7 @@ else
 			echo '</div>';
 
 			// the miscs id
-			echo '<input type="hidden" name="misc' . $i . '_id" value="'; echo $miscs[$i]['id']; echo '"/> ';
+			echo '<input type="hidden" name="misc' . $i . '_id" value="' . $miscs[$i]['id'] . '"/> ';
 
 			echo '</div>';
 		}
@@ -616,7 +616,7 @@ else
 			echo '</div>';
 
 			// the mash id
-			echo '<input type="hidden" name="mash' . $i . '_id" value="'; echo $mashes[$i]['id']; echo '"/> ';
+			echo '<input type="hidden" name="mash' . $i . '_id" value="' . $mashes[$i]['id'] . '"/> ';
 
 			echo '</div>';
 		}
@@ -658,23 +658,23 @@ else
 			echo '<div class="row margin-bottom-qtr-em">';
 
 			echo '<div class="col-xs-3 col-sm-2 col-md-2">';
-			echo '<input type="date" class="form-control input-sm" name="fermentation' . $i . '_start_date" /> ';
+			echo '<input type="date" class="form-control input-sm" name="fermentation' . $i . '_start_date" readonly="yes" value="' . $fermentations[$i]['start_date'] . '"/> ';
 			echo '</div>';
 
 			echo '<div class="hidden-xs col-sm-2 col-md-2">';
-			echo '<input type="date" class="form-control input-sm" name="fermentation' . $i . '_end_date" /> ';
+			echo '<input type="date" class="form-control input-sm" name="fermentation' . $i . '_end_date" readonly="yes" value="' . $fermentations[$i]['end_date'] . '"/> ';
 			echo '</div>';
 
 			echo '<div class="hidden-xs col-sm-2 col-md-1">';
-			echo '<input type="text" class="form-control input-sm" name="fermentation' . $i . '_temp" /> ';
+			echo '<input type="text" class="form-control input-sm" name="fermentation' . $i . '_temp" readonly="yes" value="' . $fermentations[$i]['temp'] . '"/> ';
 			echo '</div>';
 
 			echo '<div class="hidden-xs col-sm-2 col-md-1">';
-			echo '<input type="text" class="form-control input-sm" name="fermentation' . $i . '_measured_sg" /> ';
+			echo '<input type="text" class="form-control input-sm" name="fermentation' . $i . '_measured_sg" readonly="yes" value="' . $fermentations[$i]['measured_sg'] . '"/> ';
 			echo '</div>';
 
 			// the fermentation id
-			echo '<input type="hidden" name="fermentation' . $i . '_id" value="'; echo $fermentations[$i]['id']; echo '"/> ';
+			echo '<input type="hidden" name="fermentation' . $i . '_id" value="' . $fermentations[$i]['start_date'] . '"/> ';
 
 			echo '</div>';
 		}
@@ -709,19 +709,15 @@ else
 	echo '<div class="row margin-bottom-qtr-em">';
 
 	echo '<div class="col-xs-3 col-sm-2 col-md-2">';
-	echo '<select class="form-control input-sm" name="packaging" >';
-	echo '<option>'; echo $details['packaging']; echo '</option>';
-	echo '<option>Bottle</option>';
-	echo '<option>Keg</option>';
-	echo '</select>';
+	echo '<input type="text" class="form-control input-sm" name="packaging" readonly="yes" value="' . $details['packaging'] . '"/> ';
 	echo '</div>';
 
 	echo '<div class="col-xs-3 col-sm-3 col-md-2">';
-	echo '<input type="date" class="form-control input-sm" name="packaging_date" />';
+	echo '<input type="date" class="form-control input-sm" name="packaging_date" readonly="yes" value="' . $details['packaging_date'] . '"/> ';
 	echo '</div>';
 
 	echo '<div class="col-xs-3 col-sm-3 col-md-2">';
-	echo '<input type="number" min="0" step=".1" class="form-control input-sm" name="vol_co2" />';
+	echo '<input type="number" class="form-control input-sm" name="vol_co2" readonly="yes" value="' . $details['vol_co2'] . '"/> ';
 	echo '</div>';
 
 	echo '</div>';
