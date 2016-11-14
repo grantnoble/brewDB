@@ -276,13 +276,13 @@ else
 		<div class="col-xs-4 col-md-5">
 			<label for="style" class="label-sm">Style</label>
 			<select class="form-control input-sm" id="style" name="style" required onchange="getstyleinfo(this.value);">
-				<option><?php echo $style['name']; ?></option>
+				<option value="<?php echo $style['name']; ?>"><?php echo $style['name']; ?></option>
 				<?php
 				$query = "SELECT style_name FROM styles ORDER BY style_name";
 				$result = mysqli_query($connection, $query);
 				while ($row = mysqli_fetch_array ( $result ))
 				{
-					echo '<option>' . $row['style_name'] . '</option>';
+					echo '<option value="' . $row['style_name'] . '">' . $row['style_name'] . '</option>';
 				}
 				?>
 			</select>
@@ -291,7 +291,7 @@ else
 		<div class="col-xs-4 col-md-3">
 			<label for="type" class="label-sm">Type</label>
 			<select class="form-control input-sm" id="type" name="type" required >
-				<option><?php echo $details['type']; ?></option>
+				<option value="<?php echo $details['type']; ?>"><?php echo $details['type']; ?></option>
 				<option>All Grain</option>
 				<option>Extract</option>
 				<option>Partial Mash</option>
