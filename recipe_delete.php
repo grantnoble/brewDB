@@ -57,7 +57,7 @@ include('includes/get_recipe_details.php');
 <div class="well">
 <legend>Recipe Details</legend>
 
-	<div class="row margin-bottom-qtr-em">
+	<div class="row margin-bottom-1em">
 
 		<div class="col-xs-4 col-md-4">
 			<label for="name" class="label-sm">Recipe Name</label>
@@ -76,7 +76,7 @@ include('includes/get_recipe_details.php');
 
 	</div>
 
-	<div class="row margin-bottom-qtr-em">
+	<div class="row margin-bottom-1em">
 
 		<div class="col-xs-4 col-sm-4 col-md-2">
 			<label for="batch_size" class="label-sm">Batch Size (L)</label>
