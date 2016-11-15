@@ -13,6 +13,23 @@ header('Content-Type: text/html; charset="utf-8"', true);
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 	$details['name'] = mysqli_real_escape_string($connection, test_input($_POST['name']));
+	$details['batch_number'] = mysqli_real_escape_string($connection, test_input($_POST['batch_number']));
+	$details['date'] = mysqli_real_escape_string($connection, test_input($_POST['date']));
+	if (!$details['date'])
+	{
+		$details['date'] = "0000-00-00";
+	}
+
+	//query the database to retireve the recipe_id for the base recipe
+	$details['base_recipe'] = mysqli_real_escape_string($connection, test_input($_POST['base_recipe']));
+	$query = "SELECT recipe_id FROM recipes WHERE recipe_name='" . $details['base_recipe'] . "'";
+	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+	while ($row = mysqli_fetch_array ( $result ))
+	{
+		$details['recipe_id'] = $row['recipe_id'];
+	}
+
+	$details['type'] = mysqli_real_escape_string($connection, test_input($_POST['type']));
 
 	// query the database to retrieve the style_id for the style
 	$details['style'] = mysqli_real_escape_string($connection, test_input($_POST['style']));
@@ -24,28 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 
 	// retrieve the basic brew details
-	$details['type'] = mysqli_real_escape_string($connection, test_input($_POST['type']));
-
-	//query the database to retireve the recipe_id for the base recipe
-	$details['base_recipe'] = mysqli_real_escape_string($connection, test_input($_POST['base_recipe']));
-	$query = "SELECT recipe_id FROM recipes WHERE recipe_name='" . $details['base_recipe'] . "'";
-	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
-	while ($row = mysqli_fetch_array ( $result ))
-	{
-		$details['recipe_id'] = $row['recipe_id'];
-	}
-
-	$details['batch_number'] = mysqli_real_escape_string($connection, test_input($_POST['batch_number']));
-
-	$details['date'] = mysqli_real_escape_string($connection, test_input($_POST['date']));
-	if (!$details['date'])
-	{
-		$details['date'] = "0000-00-00";
-	}
-	$details['brew_method'] = mysqli_real_escape_string($connection, test_input($_POST['brew_method']));
+	$details['method'] = mysqli_real_escape_string($connection, test_input($_POST['method']));
 	$details['no_chill'] = mysqli_real_escape_string($connection, test_input($_POST['no_chill']));
 
-	$details['mash_type'] = mysqli_real_escape_string($connection, test_input($_POST['mash_type']));
 	$details['mash_volume'] = mysqli_real_escape_string($connection, test_input($_POST['mash_volume']));
 	$details['sparge_volume'] = mysqli_real_escape_string($connection, test_input($_POST['sparge_volume']));
 	$details['boil_size'] = mysqli_real_escape_string($connection, test_input($_POST['boil_size']));
@@ -203,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 	// insert the brew record
 	$insert = "INSERT INTO brews (brew_name, brew_batch_number, brew_date, brew_recipe_id, brew_type, brew_style_id, brew_method, brew_no_chill, brew_mash_volume, brew_sparge_volume, brew_boil_size, brew_boil_time, brew_batch_size, brew_mash_efficiency, brew_brewer, brew_notes, brew_est_og, brew_act_og, brew_est_fg, brew_act_fg, brew_est_color, brew_est_ibu, brew_est_abv, brew_act_abv, brew_packaging, brew_packaging_vol_co2, brew_packaging_date)";
-	$values = "VALUES ('" . $details['name'] . "'," . $details['batch_number'] . ",'" . $details['date'] . "'," . $details['recipe_id'] . ",'" . $details['type'] . "'," . $details['style_id'] . ",'" . $details['brew_method'] . "','" . $details['no_chill'] . "'," . $details['mash_volume'] . "," . $details['sparge_volume'] . "," . $details['boil_size'] . "," . $details['boil_time'] . "," . $details['batch_size'] . "," . $details['mash_efficiency'] . ",'" . $details['brewer'] . "','" . $details['notes'] . "'," . $details['est_og'] . "," . $details['act_og'] . "," . $details['est_fg'] . "," . $details['act_fg'] . "," . $details['est_color'] . "," . $details['est_ibu'] . "," . $details['est_abv'] . "," . $details['act_abv'] . ",'" . $details['packaging'] . "'," . $details['vol_co2'] . ",'" . $details['packaging_date'] . "')";
+	$values = "VALUES ('" . $details['name'] . "'," . $details['batch_number'] . ",'" . $details['date'] . "'," . $details['recipe_id'] . ",'" . $details['type'] . "'," . $details['style_id'] . ",'" . $details['method'] . "','" . $details['no_chill'] . "'," . $details['mash_volume'] . "," . $details['sparge_volume'] . "," . $details['boil_size'] . "," . $details['boil_time'] . "," . $details['batch_size'] . "," . $details['mash_efficiency'] . ",'" . $details['brewer'] . "','" . $details['notes'] . "'," . $details['est_og'] . "," . $details['act_og'] . "," . $details['est_fg'] . "," . $details['act_fg'] . "," . $details['est_color'] . "," . $details['est_ibu'] . "," . $details['est_abv'] . "," . $details['act_abv'] . ",'" . $details['packaging'] . "'," . $details['vol_co2'] . ",'" . $details['packaging_date'] . "')";
 	$query = $insert . " " . $values;
 	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
@@ -316,7 +314,6 @@ include('includes/get_recipe_details.php');
 		<div class="col-xs-4 col-md-3">
 			<label for="base_recipe" class="label-sm">Base Recipe</label>
 			<select class="form-control input-sm" id="base_recipe" name="base_recipe" onchange="getrecipeinfo(this.value);" >
-				<option value="<?php echo $details['base_recipe']; ?>" selected>Select a base recipe...</option>
 				<?php
 				if (isset($_GET['id']))
 				{
@@ -324,7 +321,7 @@ include('includes/get_recipe_details.php');
 				}
 				else
 				{
-					echo '<option value="" selected>Select a base recipe...</option>';
+					echo '<option value selected disabled></option>';
 				}
 				$query = "SELECT recipe_name FROM recipes ORDER BY recipe_date DESC";
 				$result = mysqli_query($connection, $query);
