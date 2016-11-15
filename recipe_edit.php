@@ -208,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		// if the update flag is set, a DELETE, UPDATE, or INSERT is required, else do nothing.
 		if ($miscs[$i]['flag'])
 		{
-			// if record_id and name is DELETE, DELETE
+			// if record_id and amount is zero, DELETE
 			if ($miscs[$i]['record_id'] && $miscs[$i]['amount']==0)
 			{
 				$query = "DELETE FROM recipes_miscs WHERE recipe_misc_id='" . $miscs[$i]['record_id'] . "'";
