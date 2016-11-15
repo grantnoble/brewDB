@@ -373,22 +373,22 @@ include('includes/get_recipe_details.php');
 		<div class="col-xs-3 col-md-4">
 			<label for="brew_method" class="label-sm">Brew Method</label>
 			<select class="form-control input-sm" id="brew_method" name="brew_method" required >
-				<option value="" disabled selected>Select a brew method...</option>
-				<option>BIAB</option>
-				<option>Batch Sparge</option>
-				<option>Fly Sparge</option>
-				<option>No Sparge</option>
-				<option>Partial Mash</option>
-				<option>Extract</option>
+				<option value disabled selected></option>
+				<option value="BIAB">BIAB</option>
+				<option value="Batch Sparge">Batch Sparge</option>
+				<option value="Fly Sparge">Fly Sparge</option>
+				<option value="No Sparge">No Sparge</option>
+				<option value="Partial Mash">Partial Mash</option>
+				<option value="Extract">Extract</option>
 			</select>
 		</div>
 
 		<div class="col-xs-3 col-md-3">
 			<label for="no_chill" class="label-sm">No Chill?</label>
 			<select class="form-control input-sm" id="no_chill" name="no_chill" required>
-				<option value="" disabled selected>True or False...</option>
-				<option>True</option>
-				<option>False</option>
+				<option value disabled selected></option>
+				<option value="True">True</option>
+				<option value="False">False</option>
 			</select>
 		</div>
 
@@ -664,12 +664,12 @@ include('includes/get_recipe_details.php');
 
 		echo '<div class="col-xs-6 col-sm-2 col-md-3">';
 		echo '<select class="form-control input-sm" name="fermentable' . $i . '_name" onchange="getfermentableinfo(this.value,' .$i. ');">';
-		echo '<option>'; echo $fermentables[$i]['name']; echo '</option>';
+		echo '<option value="' . $fermentables[$i]['name'] . '">' . $fermentables[$i]['name'] . '</option>';
 		$query = "SELECT fermentable_name FROM fermentables ORDER BY fermentable_name";
 		$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		while ($row = mysqli_fetch_array ( $result ))
 		{
-			echo '<option>' . $row['fermentable_name'] . '</option>';
+			echo '<option value="' . $row['fermentable_name'] . '">' . $row['fermentable_name'] . '</option>';
 		}
 		echo '</select>';
 		echo '</div>';
@@ -696,7 +696,7 @@ include('includes/get_recipe_details.php');
 
 		echo '<div class="col-xs-3 col-sm-2 col-md-2">';
 		echo '<select class="form-control input-sm" name="fermentable' . $i . '_use" >';
-		echo '<option>'; echo $fermentables[$i]['use']; echo '</option>';
+		echo '<option value="' . $fermentables[$i]['use'] . '">' . $fermentables[$i]['use'] . '</option>';
 		echo '<option>Mashed</option>';
 		echo '<option>Steeped</option>';
 		echo '<option>Extract</option>';
