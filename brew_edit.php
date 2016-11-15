@@ -414,8 +414,7 @@ else
 		echo '</select>';
 		echo '</div>';
 
-		// the fermentable id
-		// the recipes_fermentables record id
+		// the brews_fermentables record id
 		echo '<input type="hidden" name="fermentable' . $i . '_record_id" value="'.  $fermentables[$i]['record_id'] . '"/>';
 		// the fermentable id
 		echo '<input type="hidden" name="fermentable' . $i . '_id" value="' . $fermentables[$i]['id'] . '"/>';
@@ -509,7 +508,7 @@ else
 		echo '</select>';
 		echo '</div>';
 
-		// the recipes_hops record id
+		// the brews_hops record id
 		echo '<input type="hidden" name="hop' . $i . '_record_id" value="'; echo $hops[$i]['record_id']; echo '"/>';
 		// the hops id
 		echo '<input type="hidden" name="hop' . $i . '_id" value="'; echo $hops[$i]['id']; echo '"/>';
@@ -583,7 +582,7 @@ else
 		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_flocculation" readonly="yes" value="'; echo $yeasts[$i]['flocculation']; echo '"/>';
 		echo '</div>';
 		
-		// the recipes_yeasts record id
+		// the brews_yeasts record id
 		echo '<input type="hidden" name="yeast' . $i . '_record_id" value="'; echo $yeasts[$i]['record_id']; echo '"/>';
 		// the yeast id
 		echo '<input type="hidden" name="yeast' . $i . '_id" value="'; echo $yeasts[$i]['id']; echo '"/>';
@@ -665,7 +664,7 @@ else
 		echo '</select>';
 		echo '</div>';
 		
-		// the recipes_miscs record id
+		// the brews_miscs record id
 		echo '<input type="hidden" name="misc' . $i . '_record_id" value="'; echo $miscs[$i]['record_id']; echo '"/> ';
 		// the miscs id
 		echo '<input type="hidden" name="misc' . $i . '_id" value="'; echo $miscs[$i]['id']; echo '"/> ';
@@ -710,8 +709,8 @@ else
 			echo '<input type="number" class="form-control input-sm" name="mash' . $i . '_time" value="' . $mashes[$i]['time'] . '"/> ';
 			echo '</div>';
 
-			// the mash id
-			echo '<input type="hidden" name="mash' . $i . '_id" value="' . $mashes[$i]['id'] . '"/> ';
+			// the brews_mashes record_id
+			echo '<input type="hidden" name="mash' . $i . '_record_id" value="' . $mashes[$i]['record_id'] . '"/> ';
 
 			echo '</div>';
 		}
@@ -768,8 +767,8 @@ else
 			echo '<input type="number" class="form-control input-sm" name="fermentation' . $i . '_measured_sg" min="0" step="0.001" value="' . $fermentations[$i]['measured_sg'] . '"/> ';
 			echo '</div>';
 
-			// the fermentation id
-			echo '<input type="hidden" name="fermentation' . $i . '_id" value="' . $fermentations[$i]['start_date'] . '"/> ';
+			// the brews_fermentations record_id
+			echo '<input type="hidden" name="fermentation' . $i . '_record_id" value="' . $fermentations[$i]['record_id'] . '"/> ';
 
 			echo '</div>';
 		}
@@ -805,18 +804,18 @@ else
 
 	echo '<div class="col-xs-3 col-sm-2 col-md-2">';
 	echo '<select class="form-control input-sm" name="packaging" >';
-	echo '<option>'; echo $details['packaging']; echo '</option>';
-	echo '<option>Bottle</option>';
-	echo '<option>Keg</option>';
+	echo '<option value="' . $details['packaging'] . '">' . $details['packaging'] . '</option>';
+	echo '<option value="Bottle">Bottle</option>';
+	echo '<option value="Keg">Keg</option>';
 	echo '</select>';
 	echo '</div>';
 
 	echo '<div class="col-xs-3 col-sm-3 col-md-2">';
-	echo '<input type="date" class="form-control input-sm" name="packaging_date" />';
+	echo '<input type="date" class="form-control input-sm" name="packaging_date" value="' . $details['packaging_date'] . '" />';
 	echo '</div>';
 
 	echo '<div class="col-xs-3 col-sm-3 col-md-2">';
-	echo '<input type="number" min="0" step=".1" class="form-control input-sm" name="vol_co2" />';
+	echo '<input type="number" min="0" step=".1" class="form-control input-sm" value="' . $details['vol_co2'] . '" />';
 	echo '</div>';
 
 	echo '</div>';
