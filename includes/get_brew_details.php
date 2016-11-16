@@ -14,7 +14,7 @@
 		$details['recipe_id'] = $row['brew_recipe_id'];
 		$details['type'] = $row['brew_type'];
 		$details['style_id'] = $row['brew_style_id'];
-		$details['brew_method'] = $row['brew_method'];
+		$details['method'] = $row['brew_method'];
 		$details['no_chill'] = $row['brew_no_chill'];
 		$details['mash_volume'] = $row['brew_mash_volume'];
 		$details['sparge_volume'] = $row['brew_sparge_volume'];
