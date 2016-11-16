@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			{
 				$query = "DELETE FROM recipes_fermentables WHERE recipe_fermentable_id='" . $fermentables[$i]['record_id'] . "'";
 			}
-			// else if record_id and name, UPDATE 
+			// else if record_id and name, UPDATE
 			elseif ($fermentables[$i]['record_id'] && $fermentables[$i]['name'])
 			{
 				$query = "UPDATE recipes_fermentables SET recipe_fermentable_fermentable_id='" . $fermentables[$i]['id'] . "', recipe_fermentable_amount='" . $fermentables[$i]['amount'] . "', recipe_fermentable_use='" . $fermentables[$i]['use'] . "' WHERE recipe_fermentable_id='" . $fermentables[$i]['record_id'] . "'";
@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			{
 				$query = "DELETE FROM recipes_hops WHERE recipe_hop_id='" . $hops[$i]['record_id'] . "'";
 			}
-			// else if record_id and name, UPDATE 
+			// else if record_id and name, UPDATE
 			elseif ($hops[$i]['record_id'] && $hops[$i]['name'])
 			{
 				$query = "UPDATE recipes_hops SET recipe_hop_hop_id='" . $hops[$i]['id'] . "', recipe_hop_amount=" . $hops[$i]['amount'] . ", recipe_hop_alpha=" . $hops[$i]['alpha'] . ",recipe_hop_use='" . $hops[$i]['use'] . "', recipe_hop_time=" . $hops[$i]['time'] . ", recipe_hop_form='" . $hops[$i]['form'] . "' WHERE recipe_hop_id='" . $hops[$i]['record_id'] . "'";
@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		}
 	}
 
-	
+
 	// for each yeast, do the update process
 	for ($i=0; $i<=0; $i++)
 	{
@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			{
 				$query = "DELETE FROM recipes_yeasts WHERE recipe_yeast_id='" . $yeasts[$i]['record_id'] . "'";
 			}*/
-			// else if record_id and name, UPDATE 
+			// else if record_id and name, UPDATE
 			if ($yeasts[$i]['record_id'] && $yeasts[$i]['fullname'])
 			{
 				$query = "UPDATE recipes_yeasts SET recipe_yeast_yeast_id='" . $yeasts[$i]['id'] . "' WHERE recipe_yeast_id='" . $yeasts[$i]['record_id'] . "'";
@@ -213,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			{
 				$query = "DELETE FROM recipes_miscs WHERE recipe_misc_id='" . $miscs[$i]['record_id'] . "'";
 			}
-			// else if record_id and name, UPDATE 
+			// else if record_id and name, UPDATE
 			elseif ($miscs[$i]['record_id'] && $miscs[$i]['name'])
 			{
 				$query = "UPDATE recipes_miscs SET recipe_misc_misc_id='" . $miscs[$i]['id'] . "', recipe_misc_amount='" . $miscs[$i]['amount'] . "', recipe_misc_unit='" . $miscs[$i]['unit'] . "', recipe_misc_use='" . $miscs[$i]['use'] . "' WHERE recipe_misc_id='" . $miscs[$i]['record_id'] . "'";
@@ -232,7 +232,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	window.location = "recipes_list.php"
 	</script>';
 }
-	
+
 // not a form submission, so retrieve the recipe details
 // check that the 'id' variable is set in URL and it is valid
 if (isset($_GET['id']) && is_numeric($_GET['id']))
@@ -252,7 +252,7 @@ else
 ?>
 
 <div class="container">
-	
+
 <h2>Edit Recipe</h2>
 
 <form role="form" class="form-horizontal" name="recipeform" action="recipe_edit.php" method="post">
@@ -267,12 +267,12 @@ else
 <legend>Recipe Details</legend>
 
 	<div class="row margin-bottom-1em">
-		
+
 		<div class="col-xs-4 col-md-4">
 			<label for="name" class="label-sm">Recipe Name</label>
 			<input type="text" class="form-control input-sm" id="name" name="name" required value="<?php echo $details['name']; ?>" />
 		</div>
-		
+
 		<div class="col-xs-4 col-md-5">
 			<label for="style" class="label-sm">Style</label>
 			<select class="form-control input-sm" id="style" name="style" required onchange="getstyleinfo(this.value);">
@@ -287,7 +287,7 @@ else
 				?>
 			</select>
 		</div>
-		
+
 		<div class="col-xs-4 col-md-3">
 			<label for="type" class="label-sm">Type</label>
 			<select class="form-control input-sm" id="type" name="type" required >
@@ -297,26 +297,26 @@ else
 				<option>Partial Mash</option>
 			</select>
 		</div>
-		
+
 	</div>
 
 	<div class="row margin-bottom-1em">
-	
+
 		<div class="col-xs-4 col-sm-4 col-md-2">
 			<label for="batch_size" class="label-sm">Batch Size (L)</label>
 			<input type="number" class="form-control input-sm" min="0" step=".1" id="batch_size" name="batch_size" required onchange="calc_og_color_ibu();" value="<?php echo $details['batch_size']; ?>"/>
 		</div>
-		
+
 		<div class="col-xs-4 col-sm-4 col-md-2">
 			<label for="mash_efficiency" class="label-sm">Mash Eff (%)</label>
 			<input type="number" class="form-control input-sm" min="0" step=".01" id="mash_efficiency" name="mash_efficiency" required onchange="calc_og_color_ibu();" value="<?php echo $details['mash_efficiency']; ?>"/>
 		</div>
-		
+
 		<div class="col-xs-5 col-sm-4 col-md-3">
 			<label for="date" class="label-sm">Date (yyyy-mm-dd)</label>
 			<input type="date" class="form-control input-sm" id="date" name="date" value="<?php echo $details['date']; ?>"/>
 		</div>
-		
+
 		<div class="hidden-xs col-sm-4 col-md-5">
 			<label for="designer" class="label-sm">Designer</label>
 			<input list="persons" class="form-control input-sm" id="designer" name="designer" value="<?php echo $details['designer']; ?>"/>
@@ -331,146 +331,146 @@ else
 				?>
 				</datalist>
 		</div>
-		
+
 	</div>
-	
+
 	<div class="row">
-		
+
 		<div class="col-xs-12 col-md-12">
 			<label for="notes" class="label-sm">Recipe Notes</label>
 			<textarea class="form-control input-sm" rows=2 cols=100 id="notes" name="notes"><?php echo $details['notes']; ?></textarea>
 		</div>
-		
+
 	</div>
 </div>
-	
+
 </fieldset>
 
 <fieldset class="col-xs-12 col-sm-5 col-md-4">
 
 <div class="well">
 <legend>Style Characteristics</legend>
- 
+
 	<div class="row">
-    
+
 		<div class="col-xs-3 col-md-3">
 			<label for="name" class="label-sm">&nbsp;</label>
 		</div>
-		
+
 		<div class="col-xs-3 col-md-3">
 			<label for="name" class="label-sm">Low</label>
 		</div>
-		
+
 		<div class="col-xs-3 col-md-3">
 			<label for="name" class="label-sm">Est.</label>
 		</div>
-		
+
 		<div class="col-xs-3 col-md-3">
 			<label for="name" class="label-sm">High</label>
 		</div>
-		
+
 	</div>
- 
+
 	<div class="row margin-bottom-qtr-em">
-	
+
 		<div class="col-xs-3 col-md-3 col-lg-3">
 			<label for="name" class="label-sm">OG</label>
 		</div>
-		
+
 		<div class="col-xs-3 col-md-3">
 			<input type="text" class="form-control input-sm" id="style_og_min" name="style_og_min" readonly="yes" value="<?php echo $style['og_min']; ?>" />
 		</div>
-		
+
 		<div class="col-xs-3 col-md-3">
 			<input type="text" class="form-control input-sm" id="est_og" name="est_og" readonly="yes" value="<?php echo $details['est_og']; ?>" />
 		</div>
-		
+
 		<div class="col-xs-3 col-md-3">
 			<input type="text" class="form-control input-sm" id="style_og_max" name="style_og_max" readonly="yes" value="<?php echo $style['og_max']; ?>" />
 		</div>
-		
+
 	</div>
- 
+
 	<div class="row margin-bottom-qtr-em">
-    
+
 		<div class="col-xs-3 col-md-3 col-lg-3">
 			<label for="name" class="label-sm">FG</label>
 		</div>
-        
+
 		<div class="col-xs-3 col-md-3">
 			<input type="text" class="form-control input-sm" id="style_fg_min" name="style_fg_min" readonly="yes" value="<?php echo $style['fg_min']; ?>" />
 		</div>
-        
+
 		<div class="col-xs-3 col-md-3">
 			<input type="text" class="form-control input-sm" id="est_fg" name="est_fg" readonly="yes" value="<?php echo $details['est_fg']; ?>" />
 		</div>
-        
+
 		<div class="col-xs-3 col-md-3">
 			<input type="text" class="form-control input-sm" id="style_fg_max" name="style_fg_max" readonly="yes" value="<?php echo $style['fg_max']; ?>" />
 		</div>
-        
+
 	</div>
- 
+
 	<div class="row margin-bottom-qtr-em">
-	
+
 		<div class="col-xs-3 col-md-3 col-lg-3">
 			<label for="name" class="label-sm">ABV %</label>
 		</div>
-        
+
 		<div class="col-xs-3 col-md-3">
 			<input type="text" class="form-control input-sm" id="style_abv_min" name="style_abv_min" readonly="yes" value="<?php echo $style['abv_min']; ?>" />
 		</div>
-        
+
 		<div class="col-xs-3 col-md-3">
 			<input type="text" class="form-control input-sm" id="est_abv" name="est_abv" readonly="yes" value="<?php echo $details['est_abv']; ?>" />
 		</div>
-        
+
 		<div class="col-xs-3 col-md-3">
 			<input type="text" class="form-control input-sm" id="style_abv_max" name="style_abv_max" readonly="yes" value="<?php echo $style['abv_max']; ?>" />
 		</div>
-        
+
 	</div>
- 
+
 	<div class="row margin-bottom-qtr-em">
-    
+
 		<div class="col-xs-3 col-md-3 col-lg-3">
 			<label for="name" class="label-sm">IBU</label>
 		</div>
-        
+
 		<div class="col-xs-3 col-md-3">
 			<input type="text" class="form-control input-sm" id="style_ibu_min" name="style_ibu_min" readonly="yes" value="<?php echo $style['ibu_min']; ?>" />
 		</div>
-        
+
 		<div class="col-xs-3 col-md-3">
 			<input type="text" class="form-control input-sm" id="est_ibu" name="est_ibu" readonly="yes" value="<?php echo $details['est_ibu']; ?>" />
 		</div>
-        
+
 		<div class="col-xs-3 col-md-3">
 			<input type="text" class="form-control input-sm" id="style_ibu_max" name="style_ibu_max" readonly="yes" value="<?php echo $style['ibu_max']; ?>" />
 		</div>
-        
+
 	</div>
- 
+
 	<div class="row">
-    
+
 		<div class="col-xs-3 col-md-3 col-lg-3">
 			<label for="name" class="label-sm">Color (L)</label>
 		</div>
-        
+
 		<div class="col-xs-3 col-md-3">
 			<input type="text" class="form-control input-sm" id="style_color_min" name="style_color_min" readonly="yes" value="<?php echo $style['color_min']; ?>" />
 		</div>
-        
+
 		<div class="col-xs-3 col-md-3">
 			<input type="text" class="form-control input-sm" id="est_color" name="est_color" readonly="yes" value="<?php echo $details['est_color']; ?>" />
 		</div>
-        
+
 		<div class="col-xs-3 col-md-3">
 			<input type="text" class="form-control input-sm" id="style_color_max" name="style_color_max" readonly="yes" value="<?php echo $style['color_max']; ?>" />
 		</div>
-        
+
 	</div>
-	
+
 </div>
 
 </fieldset>
@@ -489,37 +489,37 @@ else
 <fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
 
 	<div class="row">
-	
+
 		<div class="col-xs-6 col-sm-2 col-md-3">
 			<label class="label-sm">Fermentable</label>
 		</div>
-		
+
 		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Amount&nbsp;(kg)</label>
 		</div>
-		
+
 		<div class="hidden-xs col-sm-2 col-md-1">
 			<label class="label-sm">Percentage</label>
 		</div>
-		
+
 		<div class="hidden-xs col-sm-2 col-md-1">
 			<label class="label-sm">Yield (%)</label>
 		</div>
-		
+
 		<div class="hidden-xs col-sm-2 col-md-1">
 			<label class="label-sm">Color (L)</label>
 		</div>
-		
+
 		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Type</label>
 		</div>
-		
+
 		<div class="col-xs-3 col-sm-2 col-md-2">
 			<label class="label-sm">Use</label>
 		</div>
-		
+
 	</div>
-	
+
 	<?php
 	$ingredient = "'fermentable'";
 	for ($i=0; $i<=14; $i++)
@@ -539,23 +539,23 @@ else
 		echo '</div>';
 
 		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
-		echo '<input type="number" class="form-control input-sm" min="0" step="0.001" name="fermentable' . $i . '_amount" value="' . $fermentables[$i]['amount'] . '"/>';
+		echo '<input type="number" class="form-control input-sm" min="0" step="0.001" name="fermentable' . $i . '_amount" value="' . $fermentables[$i]['amount'] . '" onchange="calc_og_color_ibu(); set_flag(' . $ingredient . ', ' . $i . ');" />';
 		echo '</div>';
 
 		echo '<div class="hidden-xs col-sm-2 col-md-1">';
-		echo '<input type="number" class="form-control input-sm" name="fermentable' . $i . '_percent" value="' . $fermentables[$i]['percent'] . '" />';
+		echo '<input type="number" class="form-control input-sm" name="fermentable' . $i . '_percent" readonly="yes" value="' . $fermentables[$i]['percent'] . '" />';
 		echo '</div>';
 
 		echo '<div class="hidden-xs col-sm-2 col-md-1">';
-		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_yield" value="' . $fermentables[$i]['yield'] . '" />';
+		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_yield" readonly="yes" value="' . $fermentables[$i]['yield'] . '" />';
 		echo '</div>';
 
 		echo '<div class="hidden-xs col-sm-2 col-md-1">';
-		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_color" value="' . $fermentables[$i]['color'] . '" />';
+		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_color" readonly="yes" value="' . $fermentables[$i]['color'] . '" />';
 		echo '</div>';
 
 		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
-		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_type" value="' . $fermentables[$i]['type'] . '" />';
+		echo '<input type="text" class="form-control input-sm" name="fermentable' . $i . '_type" readonly="yes" value="' . $fermentables[$i]['type'] . '" />';
 		echo '</div>';
 
 		echo '<div class="col-xs-3 col-sm-2 col-md-2">';
@@ -580,7 +580,7 @@ else
 		echo '</div>';
 	}
 	?>
-	
+
 </fieldset>
 </div>
 
@@ -588,33 +588,33 @@ else
 <fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
 
 	<div class="row">
-	
+
 		<div class="col-xs-6 col-sm-2 col-md-3">
 			<label class="label-sm">Hop</label>
 		</div>
-		
+
 		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Amount&nbsp;(g)</label>
 		</div>
-		
+
 		<div class="hidden-xs col-sm-2 col-md-1">
 			<label class="label-sm">Alpha (%)</label>
 		</div>
-		
+
 		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Time (min)</label>
 		</div>
-		
+
 		<div class="hidden-xs col-sm-2 col-md-2">
 			<label class="label-sm">Form</label>
 		</div>
-		
+
 		<div class="hidden-xs col-sm-2 col-md-2">
 			<label class="label-sm">Use</label>
 		</div>
-		
+
 	</div>
-	
+
 	<?php
 	$ingredient = "'hop'";
 	for ($i=0; $i<=14; $i++)
@@ -631,7 +631,7 @@ else
 		}
 		echo '</select>';
 		echo '</div>';
-		
+
 		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
 		echo '<input type="number" class="form-control input-sm" min="0" step="any" name="hop' . $i . '_amount" onchange="hops_messages(' .$i. '); calc_ibu(); set_flag(' . $ingredient . ', ' . $i . ');" value="'; echo $hops[$i]['amount']; echo '"/>';
 		echo '</div>';
@@ -670,11 +670,11 @@ else
 		echo '<input type="hidden" name="hop' . $i . '_id" value="'; echo $hops[$i]['id']; echo '"/>';
 		// the update flag
 		echo '<input type="hidden" name="hop' . $i . '_flag" value="'; echo $hops[$i]['flag']; echo '"/>';
-		
+
 		echo '</div>';
 	}
 	?>
-	
+
 </fieldset>
 </div>
 
@@ -682,29 +682,29 @@ else
 <fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
 
 	<div class="row">
-	
+
 		<div class="col-xs-6 col-sm-3 col-md-3">
 			<label class="label-sm">Yeast</label>
 		</div>
-		
+
 		<div class="col-xs-3 col-sm-3 col-md-2">
 			<label class="label-sm">Type</label>
 		</div>
-		
+
 		<div class="col-xs-3 col-sm-3 col-md-2">
 			<label class="label-sm">Form</label>
 		</div>
-		
+
 		<div class="col-xs-3 col-sm-3 col-md-2">
 			<label class="label-sm">Attenuation (%)</label>
 		</div>
-		
+
 		<div class="col-xs-3 col-sm-3 col-md-2">
 			<label class="label-sm">Flocculation</label>
 		</div>
-		
+
 	</div>
-	
+
 	<?php
 	$ingredient = "'yeast'";
 	for ($i=0; $i<=0; $i++)
@@ -721,34 +721,34 @@ else
 		}
 		echo '</select>';
 		echo '</div>';
-		
+
 		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
 		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_type" readonly="yes" value="'; echo $yeasts[$i]['type']; echo '"/>';
 		echo '</div>';
-		
+
 		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
 		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_form" readonly="yes" value="'; echo $yeasts[$i]['form']; echo '"/>';
 		echo '</div>';
-		
+
 		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
 		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_attenuation" readonly="yes" value="'; echo $yeasts[$i]['attenuation']; echo '"/>';
 		echo '</div>';
-		
+
 		echo '<div class="col-xs-3 col-sm-3 col-md-2">';
 		echo '<input type="text" class="form-control input-sm" name="yeast' . $i . '_flocculation" readonly="yes" value="'; echo $yeasts[$i]['flocculation']; echo '"/>';
 		echo '</div>';
-		
+
 		// the recipes_yeasts record id
 		echo '<input type="hidden" name="yeast' . $i . '_record_id" value="'; echo $yeasts[$i]['record_id']; echo '"/>';
 		// the yeast id
 		echo '<input type="hidden" name="yeast' . $i . '_id" value="'; echo $yeasts[$i]['id']; echo '"/>';
 		// the update flag
 		echo '<input type="hidden" name="yeast' . $i . '_flag" value="'; echo $yeasts[$i]['flag']; echo '"/>';
-		
+
 		echo '</div>';
 	}
 	?>
-	
+
 </fieldset>
 </div>
 
@@ -756,35 +756,35 @@ else
 <fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
 
 	<div class="row">
-	
+
 		<div class="col-xs-6 col-sm-2 col-md-3">
 			<label class="label-sm">Ingredient</label>
 		</div>
-		
+
 		<div class="hidden-xs col-sm-2 col-md-2">
 			<label class="label-sm">Type</label>
 		</div>
-		
+
 		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Amount</label>
 		</div>
-		
+
 		<div class="col-xs-3 col-sm-2 col-md-1">
 			<label class="label-sm">Unit</label>
 		</div>
-		
+
 		<div class="hidden-xs col-sm-2 col-md-2">
 			<label class="label-sm">Use</label>
 		</div>
-		
+
 	</div>
-	
+
 	<?php
 	$ingredient = "'misc'";
 	for ($i=0; $i<=14; $i++)
 	{
 		echo '<div class="row margin-bottom-qtr-em">';
-		
+
 		echo '<div class="col-xs-6 col-sm-2 col-md-3">';
 		echo '<select class="form-control input-sm" name="misc' . $i . '_name" onchange="getmiscinfo(this.value,' .$i. '); set_flag(' . $ingredient . ', ' . $i . ');">';
 		echo '<option value="' . $miscs[$i]['name'] . '">' . $miscs[$i]['name'] . '</option>';
@@ -796,11 +796,11 @@ else
 		}
 		echo '</select>';
 		echo '</div>';
-		
+
 		echo '<div class="hidden-xs col-sm-2 col-md-2">';
 		echo '<input type="text" class="form-control input-sm" name="misc' . $i . '_type" readonly="yes" value="'; echo $miscs[$i]['type']; echo '"/> ';
 		echo '</div>';
-		
+
 		echo '<div class="col-xs-3 col-sm-2 col-md-1">';
 		echo '<input type="number" class="form-control input-sm" min="0" step="0.1" name="misc' . $i . '_amount" onchange="miscs_messages(' .$i. '); set_flag(' . $ingredient . ', ' . $i . ')" value="'; echo $miscs[$i]['amount']; echo '"/> ';
 		echo '</div>';
@@ -819,18 +819,18 @@ else
 		echo '<option value="Bottling">Bottling</option>';
 		echo '</select>';
 		echo '</div>';
-		
+
 		// the recipes_miscs record id
 		echo '<input type="hidden" name="misc' . $i . '_record_id" value="'; echo $miscs[$i]['record_id']; echo '"/> ';
 		// the miscs id
 		echo '<input type="hidden" name="misc' . $i . '_id" value="'; echo $miscs[$i]['id']; echo '"/> ';
 		// the update flag
 		echo '<input type="hidden" name="misc' . $i . '_flag" value="'; echo $miscs[$i]['flag']; echo '"/> ';
-		
+
 		echo '</div>';
 	}
 	?>
-	
+
 </fieldset>
 </div>
 
