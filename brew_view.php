@@ -79,7 +79,7 @@ else
 
 				<div class="col-xs-3 col-md-4">
 					<label for="brew_method" class="label-sm">Brew Method</label>
-					<input type="text" class="form-control input-sm" id="brew_method" name="brew_method" readonly="yes" value="<?php echo $details['brew_method']; ?>" />
+					<input type="text" class="form-control input-sm" id="brew_method" name="brew_method" readonly="yes" value="<?php echo $details['method']; ?>" />
 				</div>
 
 				<div class="col-xs-3 col-md-3">
