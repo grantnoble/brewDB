@@ -1,5 +1,4 @@
 <?php
-
 /* 
 misc_new.php
 Add a misc to the database
@@ -28,37 +27,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     // After saving to the database, redirect back to the list miscs page 
 	echo '<script type="text/javascript">
 	window.location = "miscs_list.php"
-	</script>';
-    
+	</script>'; 
 }
-
 ?>
 
 <div class="container">
 
-	<h2>New Miscellaneous</h2>
+	<h2>New Miscellaneous Ingredient</h2>
 
-	<form role="form" class="form-horizontal" name="miscform" action="misc_new.php" method="post">
+	<form role="form" name="miscform" data-toggle="validator" action="misc_new.php" method="post">
     
-	<input type="hidden" name="id" value="<?php echo $id; ?>" />
-
-	<div class="row">
-
-		<fieldset class="col-xs-12 col-md-12">
-
 		<div class="well">
 		
-			<div class="row margin-bottom-1em">
+			<div class="row ">
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="name" class="label-sm">Name</label>
-					<input type="text" class="form-control input-sm" name="name" id="name" required />
+					<input type="text" class="form-control input-sm" name="name" id="name" required data-error="Ingredient name required" />
+					<div class="help-block with-errors"></div>
 				</div>
 				
 				<div class="col-xs-3 col-md-2">
 					<label for="type" class="label-sm">Type</label>
 					<select name="type" id="type" class="form-control input-sm">
-						<option></option>
+						<option value selected disabled></option>
 						<option>Spice</option>
 						<option>Fining</option>
 						<option>Water Agent</option>
@@ -71,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				<div class="col-xs-3 col-md-2">
 					<label for="use" class="label-sm">Use</label>
 					<select name="use" id="use" class="form-control input-sm">
-						<option></option>
+						<option value selected disabled></option>
 						<option>Mash</option>
 						<option>Boil</option>
 						<option>Primary</option>
@@ -81,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				</div>
     
     
-				<div class="col-xs-3 col-md-4">
+				<div class="col-xs-3 col-md-3">
 					<label for="use_for" class="label-sm">Use For</label>
 					<input type="text" class="form-control input-sm" name="use_for" id="use_for" />
 				</div>
@@ -99,10 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 		</div>
 		
-		</fieldset>
-    
-	</div>
-	
 	<button type="submit" class="btn btn-default">Save</button>
 
 	</form>

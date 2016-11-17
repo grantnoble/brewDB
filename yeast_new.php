@@ -1,5 +1,4 @@
 <?php
-
 /* 
 yeast_new.php
 Add a yeast to the database
@@ -36,28 +35,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	echo '<script type="text/javascript">
 	window.location = "yeasts_list.php"
 	</script>';
-    
 }
-
 ?>
 
 <div class="container">
 
 	<h2>New Yeast</h2>
 
-	<form role="form" class="form-horizontal" name="yeastform" action="yeast_new.php" method="post">
+	<form role="form" name="yeastform" data-toggle="validator" action="yeast_new.php" method="post">
     
-	<input type="hidden" name="id" value="<?php echo $id; ?>" />
-	
-	<div class="row">
-	
-		<fieldset class="col-xs-12 col-md-12">
-
 		<div class="well">
 		
-			<div class="row margin-bottom-1em">
+			<div class="row">
 
-				<div class="col-xs-3 col-md-2">
+				<div class="fcol-xs-3 col-md-2">
 					<label for="laboratory" class="label-sm">Laboratory</label>
 					<input type="text" class="form-control input-sm" name="laboratory" id="laboratory" />
 				</div>
@@ -67,15 +58,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					<input type="text" class="form-control input-sm" name="product_id" id="product_id" />
 				</div>
     
-				<div class="col-xs-3 col-md-3">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="name" class="label-sm">Name</label>
-					<input type="text" class="form-control input-sm" name="name" id="name" required />
+					<input type="text" class="form-control input-sm" name="name" id="name" required data-error="Yeast name required" />
+					<div class="help-block with-errors"></div>
 				</div>
     
 				<div class="col-xs-3 col-md-2">
 					<label for="type" class="label-sm">Type</label>
 					<select name="type" id="type" class="form-control input-sm">
-						<option></option>
+						<option value selected disabled></option>
 						<option>Ale</option>
 						<option>Lager</option>
 						<option>Wheat</option>
@@ -87,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				<div class="col-xs-3 col-md-2">
 					<label for="form" class="label-sm">Form</label>
 					<select name="form" id="form" class="form-control input-sm">
-						<option></option>
+						<option value selected disabled></option>
 						<option>Liquid</option>
 						<option>Dry</option>
 						<option>Slant</option>
@@ -117,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				<div class="col-xs-3 col-md-2">
 					<label for="flocculation" class="label-sm">Flocculation</label>
 					<select name="flocculation" id="flocculation" class="form-control input-sm">
-						<option></option>
+						<option value selected disabled></option>
 						<option>Low</option>
 						<option>Medium</option>
 						<option>High</option>
@@ -148,10 +140,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 		</div>
 		
-		</fieldset>
-		
-	</div>
-
 	<button type="submit" class="btn btn-default">Save</button>
 
 	</form>

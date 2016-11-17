@@ -1,5 +1,4 @@
 <?php
-
 /* 
 hop_new.php
 Add a hop to the database
@@ -29,28 +28,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	echo '<script type="text/javascript">
 	window.location = "hops_list.php"
 	</script>';
-    
 }
-
 ?>
 
 <div class="container">
 
 	<h2>New Hop</h2>
 
-	<form role="form" class="form-horizontal" name="hopform" action="hop_new.php" method="post">
+	<form role="form" name="hopform" data-toggle="validator" action="hop_new.php" method="post">
     
-	<div class="row">
-	
-		<fieldset class="col-xs-12 col-md-12">
-		
 		<div class="well">
 		
-			<div class="row margin-bottom-1em">
+			<div class="row">
 
-				<div class="col-xs-3 col-md-3">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="name" class="label-sm">Name</label>
-					<input type="text" class="form-control input-sm" name="name" id="name" required />
+					<input type="text" class="form-control input-sm" name="name" id="name" required data-error="Hop name required" />
+					<div class="help-block with-errors"></div>
 				</div>
 		
 				<div class="col-xs-2 col-md-2">
@@ -81,9 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 		</div>
     
-		</fieldset>
-		
-	</div>
 
 	<button type="submit" class="btn btn-default">Save</button>
 

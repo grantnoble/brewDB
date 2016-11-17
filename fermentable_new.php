@@ -1,5 +1,4 @@
 <?php
-
 /* 
 fermentable_new.php
 Add a fermentable to the database
@@ -34,34 +33,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	echo '<script type="text/javascript">
 	window.location = "fermentables_list.php"
 	</script>';
-    
 }
-
 ?>
 
 <div class="container">
 
 	<h2>New Fermentable</h2>
 
-	<form role="form" class="form-horizontal" name="fermentableform" action="fermentable_new.php" method="post">
+	<form role="form" name="fermentableform" data-toggle="validator" action="fermentable_new.php" method="post">
     
-	<div class="row">
-
-		<fieldset class="col-xs-12 col-md-12">
-
 		<div class="well">
 
-			<div class="row margin-bottom-1em">
+			<div class="row">
 
-				<div class="col-xs-3 col-md-3">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="name" class="label-sm">Name</label>
-					<input type="text" class="form-control input-sm" name="name" id="name" required  />
+					<input type="text" class="form-control input-sm" name="name" id="name" required data-error="Fermentable name required" />
+					<div class="help-block with-errors"></div>
 				</div>
 		
 				<div class="col-xs-3 col-md-2">
 					<label for="type" class="label-sm">Type</label>
 					<select name="type" id="type" class="form-control input-sm">
-						<option></option>
+						<option value selected disabled></option>
 						<option>Grain</option>
 						<option>Extract</option>
 						<option>Dry Extract</option>
@@ -86,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				<div class="hidden-xs col-md-2">
 					<label for="add_after_boil" class="label-sm">Add after boil?</label>
 					<select name="add_after_boil" id="add_after_boil" class="form-control input-sm">
-						<option></option>
+						<option value selected disabled></option>
 						<option>True</option>
 						<option>False</option>
 					</select>
@@ -100,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				<div class="col-xs-3 col-md-2">
 					<label for="recommend_mash" class="label-sm">Mash?</label>
 					<select name="recommend_mash" id="recommend_mash" class="form-control input-sm">
-						<option></option>
+						<option value selected disabled></option>
 						<option>True</option>
 						<option>False</option>
 					</select>
@@ -129,10 +123,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 		</div>
     
-		</fieldset>
-		
-	</div>
-
 	<button type="submit" class="btn btn-default">Save</button>
 
 	</form>
