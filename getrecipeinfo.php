@@ -1,25 +1,26 @@
 <?php
 /*
-getrecipeinfo.php
-Get the style information for a selected style.
+recipe_get_info.php
+Get all recipe information for a selected recipe name.
+Build the appropriate xml files for use by recipe_get_info.js
 */
 
 // since we are outputting xml, set the content type to be xml
-header("Content-type: text/xml"); 
+header("Content-type: text/xml");
 
 // connect to the database
 include('includes/database_connect.php');
 
 // build the xml output
 echo '<?xml version="1.0" encoding="utf-8"?>';
-echo '<recipe>'; 
+echo '<recipe>';
 
 // *** recipe ***
 // build the sql SELECT stament and query the database
 $recipe_name = $_GET['q'];
 $query = "SELECT * FROM recipes WHERE recipe_name = '" . $recipe_name . "' ORDER BY recipe_date DESC LIMIT 1";
 $result = mysqli_query($connection, $query) or die(mysqli_error());
- 
+
 // fetch the recipe details
 $row = mysqli_fetch_array($result);
 
@@ -146,7 +147,7 @@ $result1 = mysqli_query($connection, $query) or die(mysqli_error());
 // fetch the recipe yeast details
 while ($row1 = mysqli_fetch_array($result1))
 {
-	// start the yeast xml 
+	// start the yeast xml
 	echo "<yeast>";
 
 	// save the yeast id to query for the yeast details
