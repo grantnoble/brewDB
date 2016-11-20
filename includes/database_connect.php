@@ -5,7 +5,7 @@ Connects to the database
 */
 
 // Database variables
-$server = '127.0.0.1';
+$server = 'localhost';
 $username = 'root';
 $password = 'beer';
 $database = 'brewdb_dev';
