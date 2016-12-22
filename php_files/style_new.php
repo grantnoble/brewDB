@@ -6,7 +6,7 @@ Create a style in the database
 */
 
 $page_title = 'New Style';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 // check for form submission
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	
 	<div class="form-group margin-bottom">
 		<div class="col-xs-4 col-md-2">
-			<label>Style Guide</label>
+			<label for="style_guide" class="label-sm">Style Guide</label>
 			<select class="form-control input-sm" id="style_guide" name="style_guide" required >
 				<option></option>
 				<option>BJCP 2008</option>
@@ -204,5 +204,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </div><!-- container -->
 
 <?php 
-include ('includes/footer.html');
+include '../includes/footer.html';
 ?>

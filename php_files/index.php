@@ -6,7 +6,7 @@ Display the brewers dashboard
 */
 
 $page_title = 'Home';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 ?>
@@ -23,5 +23,5 @@ header('Content-Type: text/html; charset="utf-8"', true);
 </div>
 
 <?php 
-include ('includes/footer.html');
+include '../includes/footer.html';
 ?>

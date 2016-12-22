@@ -6,7 +6,7 @@ List the styles in the database
 */
 
 $page_title = 'List Styles';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 // get results from database
@@ -70,5 +70,5 @@ echo '</div>';
 ?>
 
 <?php 
-include ('includes/footer.html');
+include '../includes/footer.html';
 ?>

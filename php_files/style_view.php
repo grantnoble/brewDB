@@ -6,7 +6,7 @@ View a style in the database
 */
 
 $page_title = 'View Style';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 // check if the 'id' variable is set in URL, and check that it is valid
@@ -163,5 +163,5 @@ while($row = mysqli_fetch_array( $result ))
 </div><!-- container -->
 
 <?php 
-include ('includes/footer.html');
+include '../includes/footer.html';
 ?>

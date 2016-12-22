@@ -6,10 +6,10 @@
 
 <?php
 // connect to the database
-include('includes/database_connect.php');
+include '../includes/database_connect.php';
 
 // include the test_input function, which strips whitespace, slashes, and converts special characters
-include('includes/test_input.php');
+include '../includes/test_input.php';
 
 // if not All Tables Create, retrieve preference details
 if ($page_title != "Create All Tables")
@@ -28,7 +28,7 @@ if ($page_title != "Create All Tables")
 <title><?php echo $page_title; ?></title>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
-<link rel="stylesheet" href="includes/stylesheet.css" />
+<link rel="stylesheet" href="../includes/stylesheet.css" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
@@ -48,7 +48,7 @@ if ($page_title != "Create All Tables")
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.php"><?php echo $title; ?></a>
+			<a class="navbar-brand" href="../index.php"><?php echo $title; ?></a>
 		</div><!-- navbar-header -->
 	
 		<div id="navbar" class="navbar-collapse collapse">
@@ -66,7 +66,7 @@ if ($page_title != "Create All Tables")
 						<li class="dropdown-submenu">
 							<a class="test" tabindex="-1" href="#">Fermentables<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a tabindex="-1" href="fermentables_list.php">List</a></li>
+								<li><a tabindex="-1" href="./php_files/fermentables_list.php">List</a></li>
 								<li><a tabindex="-1" href="fermentable_new.php">New</a></li>
 								<!-- <li class="dropdown-submenu">
 									<a class="test" href="#">Another dropdown <span class="caret"></span></a>
