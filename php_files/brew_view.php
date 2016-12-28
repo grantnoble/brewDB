@@ -6,7 +6,7 @@ View a brew in the database
 */
 
 $page_title = 'View Brew';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 // retrieve the brew details
@@ -14,7 +14,7 @@ header('Content-Type: text/html; charset="utf-8"', true);
 if (isset($_GET['id']) && is_numeric($_GET['id']))
 {
 // get the recipe details
-include('includes/get_brew_details.php');
+include '../includes/get_brew_details.php';
 }
 // else if the id isn't set, or isn't valid, redirect back to list brews page
 else
@@ -38,7 +38,7 @@ else
 		<fieldset class="col-xs-12 col-sm-6 col-md-8">
 
 		<div class="well">
-	
+
 		<legend>Brew Details</legend>
 
 			<div class="row margin-bottom-1em">
@@ -95,27 +95,27 @@ else
 					<label for="mash_volume" class="label-sm">Mash Vol (L)</label>
 					<input type="number" class="form-control input-sm" min="0" step=".1" id="mash_volume" name="mash_volume" readonly="yes" value="<?php echo $details['mash_volume']; ?>" />
 				</div>
-			
+
 				<div class="col-xs-4 col-sm-4 col-md-2">
 					<label for="sparge_volume" class="label-sm">Sparge Vol (L)</label>
 					<input type="number" class="form-control input-sm" min="0" step=".1" id="sparge_volume" name="sparge_volume" readonly="yes" value="<?php echo $details['sparge_volume']; ?>" />
 				</div>
-			
+
 				<div class="col-xs-4 col-sm-4 col-md-2">
 					<label for="boil_size" class="label-sm">Boil Size (L)</label>
 					<input type="number" class="form-control input-sm" min="0" step=".1" id="boil_size" name="boil_size" readonly="yes" value="<?php echo $details['boil_size']; ?>" />
 				</div>
-			
+
 				<div class="col-xs-4 col-sm-4 col-md-2">
 					<label for="boil_time" class="label-sm">Boil Time</label>
 					<input type="number" class="form-control input-sm" min="0" step="1" id="boil_time" name="boil_time" readonly="yes" value="<?php echo $details['boil_time']; ?>" />
 				</div>
-			
+
 				<div class="col-xs-4 col-sm-4 col-md-2">
 					<label for="batch_size" class="label-sm">Batch Size (L)</label>
 					<input type="number" class="form-control input-sm" min="0" step=".1" id="batch_size" name="batch_size" readonly="yes" value="<?php echo $details['batch_size']; ?>" />
 				</div>
-			
+
 				<div class="col-xs-4 col-sm-4 col-md-2">
 					<label for="mash_efficiency" class="label-sm">Mash Eff (%)</label>
 					<input type="number" class="form-control input-sm" min="0" step=".01" id="mash_efficiency" name="mash_efficiency" readonly="yes" value="<?php echo $details['mash_efficiency']; ?>" />
@@ -136,7 +136,7 @@ else
 				</div>
 
 			</div>
-			
+
 		</div>
 
 		</fieldset>
@@ -144,7 +144,7 @@ else
 		<fieldset class="col-xs-12 col-sm-5 col-md-4">
 
 		<div class="well">
-	
+
 		<legend>Style Characteristics</legend>
 
 			<div class="row">
@@ -292,7 +292,7 @@ else
 		</div>
 
 		</fieldset>
-	
+
 	</div>
 
 	<ul class="nav nav-tabs">
@@ -308,7 +308,7 @@ else
 	<div class="tab-content">
 
 		<div class="row tab-pane fade in active" id="fermentables">
-	
+
 		<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
 
 			<div class="row">
@@ -388,11 +388,11 @@ else
 			?>
 
 		</fieldset>
-		
+
 		</div>
 
 		<div class="row tab-pane fade" id="hops">
-		
+
 		<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
 
 			<div class="row">
@@ -462,13 +462,13 @@ else
 				}
 			}
 			?>
-			
+
 		</fieldset>
-		
+
 		</div>
 
 		<div class="row tab-pane fade" id="yeast">
-		
+
 		<fieldset class="fieldset col-xs-12 col-md-12">
 
 			<div class="row">
@@ -530,13 +530,13 @@ else
 				}
 			}
 			?>
-			
+
 		</fieldset>
-		
+
 		</div>
 
 		<div class="row tab-pane fade" id="misc">
-		
+
 		<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
 
 			<div class="row">
@@ -600,11 +600,11 @@ else
 			?>
 
 		</fieldset>
-		
+
 		</div>
 
 		<div class="row tab-pane fade" id="mash">
-		
+
 		<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
 
 			<div class="row">
@@ -648,7 +648,7 @@ else
 		</div>
 
 		<div class="row tab-pane fade" id="fermentation">
-		
+
 		<fieldset class="fieldset col-xs-12 col-md-12 five-ingredients">
 
 			<div class="row">
@@ -708,7 +708,7 @@ else
 		</div>
 
 		<div class="row tab-pane fade" id="packaging">
-		
+
 		<fieldset class="fieldset col-xs-12 col-md-12">
 
 			<div class="row">
@@ -746,7 +746,7 @@ else
 			?>
 
 		</fieldset>
-		
+
 		</div>
 
 	</div>
@@ -766,5 +766,5 @@ else
 </div>
 
 <?php
-include ('includes/footer.html');
+include '../includes/footer.html';
 ?>

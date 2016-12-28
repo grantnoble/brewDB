@@ -1,22 +1,24 @@
 <?php
+
 /*
 getstyleinfo.php
 Get the style information for a selected style.
 */
+
 // since we are outputting xml, set the content type to be xml
-header("Content-type: text/xml"); 
+header("Content-type: text/xml");
 
 // connect to the database
-include('includes/database_connect.php');
+include '../includes/database_connect.php';
 
 // build the sql SELECT stament and query the database
 $q = $_GET['q'];
 $query = "SELECT * FROM styles WHERE style_name = '" . $q . "'";
 $result = mysqli_query($connection, $query) or die(mysqli_error());
- 
+
 // build the xml output
 echo '<?xml version="1.0" encoding="utf-8"?>';
-echo '<style>'; 
+echo '<style>';
 
 while ($row = mysqli_fetch_array ( $result ))
 {

@@ -6,7 +6,7 @@ Create a brew, either from scratch or from a recipe, in the database
 */
 
 $page_title = 'New Brew';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 // check for form submission
@@ -1092,5 +1092,5 @@ include('includes/get_recipe_details.php');
 </div>
 
 <?php
-include ('includes/footer.html');
+include '../includes/footer.html';
 ?>

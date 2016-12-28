@@ -1,12 +1,12 @@
 <?php
 
-/* 
+/*
 hops_list.php
 List the hops in the database
 */
 
 $page_title = 'List Hops';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 // set list by hop_name as the default
@@ -29,8 +29,8 @@ else
 }
 
 // get results from database
-$hops = mysqli_query($connection, $query) or die(mysqli_error($connection));  
-                
+$hops = mysqli_query($connection, $query) or die(mysqli_error($connection));
+
 // display data in table
 echo '<div class="container">';
 echo "<h2>List Hops</h2>";
@@ -52,8 +52,8 @@ while($row = mysqli_fetch_array( $hops ))
     echo '<td>' . $row['hop_alpha'] . '</td>';
     echo '<td>' . $row['hop_origin'] . '</td>';
     echo '<td>' . $row['hop_substitutes'] . '</td>';
-    echo "</tr>"; 
-    } 
+    echo "</tr>";
+    }
 
 // close table
 echo '</table>';
@@ -62,6 +62,6 @@ echo '</div>';
 
 ?>
 
-<?php 
-include ('includes/footer.html');
+<?php
+include '../includes/footer.html';
 ?>

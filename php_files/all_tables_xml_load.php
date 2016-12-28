@@ -1,17 +1,17 @@
 <?php
 
-/* 
+/*
 all_tables_xml_load.php
 Load all table details from the XML files into the database
 */
 
 $page_title = 'Load Basic Table Data';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 // Fermentables
 // Set up some variables.
-$xml_file = './xml_files/fermentables.xml';
+$xml_file = '../xml_files/fermentables.xml';
 $xml_parser = xml_parser_create();
 
 // Open the file and read the data.
@@ -59,7 +59,7 @@ for ($i=0; $i<=count($array)-1; $i++)
 	// Else, if a level 3 item, concatenate 'tag' and 'value' values to $column and $value.
 	elseif ($array[$i]['level'] == 3)
 	{
-		if (($array[$i]['tag'] == 'NAME') || ($array[$i]['tag'] == 'VERSION') || ($array[$i]['tag'] == 'TYPE') || ($array[$i]['tag'] == 'YIELD') || ($array[$i]['tag'] == 'COLOR') || ($array[$i]['tag'] == 'ADD_AFTER_BOIL') || 
+		if (($array[$i]['tag'] == 'NAME') || ($array[$i]['tag'] == 'VERSION') || ($array[$i]['tag'] == 'TYPE') || ($array[$i]['tag'] == 'YIELD') || ($array[$i]['tag'] == 'COLOR') || ($array[$i]['tag'] == 'ADD_AFTER_BOIL') ||
 		($array[$i]['tag'] == 'ORIGIN') || ($array[$i]['tag'] == 'SUPPLIER') || ($array[$i]['tag'] == 'NOTES') || ($array[$i]['tag'] == 'MAX_IN_BATCH') || ($array[$i]['tag'] == 'RECOMMEND_MASH'))
     	{
     		$column .= $prefix;
@@ -202,8 +202,8 @@ for ($i=0; $i<=count($array)-1; $i++)
 	// Else, if a level 3 item, concatenate 'tag' and 'value' values to $column and $value.
 	elseif ($array[$i]['level'] == 3)
     {
-    	if (($array[$i]['tag'] == 'NAME') || ($array[$i]['tag'] == 'VERSION') || ($array[$i]['tag'] == 'TYPE') || ($array[$i]['tag'] == 'FORM') || ($array[$i]['tag'] == 'LABORATORY') || ($array[$i]['tag'] == 'PRODUCT_ID') || 
-		($array[$i]['tag'] == 'MIN_TEMPERATURE') || ($array[$i]['tag'] == 'MAX_TEMPERATURE') || ($array[$i]['tag'] == 'FLOCCULATION') || ($array[$i]['tag'] == 'ATTENUATION') || ($array[$i]['tag'] == 'NOTES') || 
+    	if (($array[$i]['tag'] == 'NAME') || ($array[$i]['tag'] == 'VERSION') || ($array[$i]['tag'] == 'TYPE') || ($array[$i]['tag'] == 'FORM') || ($array[$i]['tag'] == 'LABORATORY') || ($array[$i]['tag'] == 'PRODUCT_ID') ||
+		($array[$i]['tag'] == 'MIN_TEMPERATURE') || ($array[$i]['tag'] == 'MAX_TEMPERATURE') || ($array[$i]['tag'] == 'FLOCCULATION') || ($array[$i]['tag'] == 'ATTENUATION') || ($array[$i]['tag'] == 'NOTES') ||
 		($array[$i]['tag'] == 'BEST_FOR') || ($array[$i]['tag'] == 'MAX_REUSE'))
     	{
 			$column .= $prefix;
@@ -418,11 +418,11 @@ for ($i=0; $i<=count($array)-1; $i++)
 	// Else, if a level 3 item, concatenate 'tag' and 'value' values to $column and $value.
 	elseif ($array[$i]['level'] == 3)
     {
-    	if (($array[$i]['tag'] == 'NAME') || ($array[$i]['tag'] == 'VERSION') || ($array[$i]['tag'] == 'CATEGORY_NAME') || ($array[$i]['tag'] == 'CATEGORY_NUMBER') || ($array[$i]['tag'] == 'SUBCATEGORY') || 
-		($array[$i]['tag'] == 'STYLE_GUIDE') || ($array[$i]['tag'] == 'TYPE') || ($array[$i]['tag'] == 'OG_MIN') || ($array[$i]['tag'] == 'OG_MAX') || ($array[$i]['tag'] == 'FG_MIN') || ($array[$i]['tag'] == 'FG_MAX') || 
-		($array[$i]['tag'] == 'IBU_MIN') || ($array[$i]['tag'] == 'IBU_MAX') || ($array[$i]['tag'] == 'COLOR_MIN') || ($array[$i]['tag'] == 'COLOR_MAX') || ($array[$i]['tag'] == 'ABV_MIN') || ($array[$i]['tag'] == 'ABV_MAX') || 
-		($array[$i]['tag'] == 'NOTES') || ($array[$i]['tag'] == 'PROFILE') || ($array[$i]['tag'] == 'INGREDIENTS') || ($array[$i]['tag'] == 'EXAMPLES') || ($array[$i]['tag'] == 'IMPRESSION') || ($array[$i]['tag'] == 'AROMA') || 
-		($array[$i]['tag'] == 'APPEARANCE') || ($array[$i]['tag'] == 'FLAVOR') || ($array[$i]['tag'] == 'MOUTHFEEL') || ($array[$i]['tag'] == 'COMMENTS') || ($array[$i]['tag'] == 'HISTORY') || 
+    	if (($array[$i]['tag'] == 'NAME') || ($array[$i]['tag'] == 'VERSION') || ($array[$i]['tag'] == 'CATEGORY_NAME') || ($array[$i]['tag'] == 'CATEGORY_NUMBER') || ($array[$i]['tag'] == 'SUBCATEGORY') ||
+		($array[$i]['tag'] == 'STYLE_GUIDE') || ($array[$i]['tag'] == 'TYPE') || ($array[$i]['tag'] == 'OG_MIN') || ($array[$i]['tag'] == 'OG_MAX') || ($array[$i]['tag'] == 'FG_MIN') || ($array[$i]['tag'] == 'FG_MAX') ||
+		($array[$i]['tag'] == 'IBU_MIN') || ($array[$i]['tag'] == 'IBU_MAX') || ($array[$i]['tag'] == 'COLOR_MIN') || ($array[$i]['tag'] == 'COLOR_MAX') || ($array[$i]['tag'] == 'ABV_MIN') || ($array[$i]['tag'] == 'ABV_MAX') ||
+		($array[$i]['tag'] == 'NOTES') || ($array[$i]['tag'] == 'PROFILE') || ($array[$i]['tag'] == 'INGREDIENTS') || ($array[$i]['tag'] == 'EXAMPLES') || ($array[$i]['tag'] == 'IMPRESSION') || ($array[$i]['tag'] == 'AROMA') ||
+		($array[$i]['tag'] == 'APPEARANCE') || ($array[$i]['tag'] == 'FLAVOR') || ($array[$i]['tag'] == 'MOUTHFEEL') || ($array[$i]['tag'] == 'COMMENTS') || ($array[$i]['tag'] == 'HISTORY') ||
 		($array[$i]['tag'] == 'COMPARISONS'))
     	{
 			$column .= $prefix;
@@ -478,8 +478,8 @@ echo '<h2>Load Basic Table Data</h2>';
 if (mysqli_multi_query($connection, $query))
 {
 	echo '<p>' . $fcount . ' records added to the fermentables table.</p>';
-	echo '<p>' . $hcount . ' records added to the hops table.</p>';	
-	echo '<p>' . $ycount . ' records added to the yeasts table.</p>';	
+	echo '<p>' . $hcount . ' records added to the hops table.</p>';
+	echo '<p>' . $ycount . ' records added to the yeasts table.</p>';
 	echo '<p>' . $mcount . ' records added to the miscs table.</p>';
 	/* echo '<p>' . $bcount . ' records added to the bjcp_categories table.</p>'; */
 	echo '<p>' . $scount . ' records added to the styles table.</p>';
@@ -497,6 +497,6 @@ echo '<form action="index.php">';
 echo '<input class="btn btn-default" type="submit" value="Back" />';
 echo '</form>';
 
-include ('includes/footer.html');
+include '../includes/footer.html';
 
-?> 
+?>

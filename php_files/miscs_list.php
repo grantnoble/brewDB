@@ -1,12 +1,12 @@
 <?php
 
-/* 
+/*
 miscs_list.php
 List the miscellaneous ingredients in the database
 */
 
 $page_title = 'List Miscellaneous Ingredients';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 // set list by misc_name as the default
@@ -34,8 +34,8 @@ else
 
 
 // get results from database
-$miscs = mysqli_query($connection, $query) or die(mysqli_error($connection));  
-                
+$miscs = mysqli_query($connection, $query) or die(mysqli_error($connection));
+
 // display data in table
 echo '<div class="container">';
 echo "<h2>List Miscellaneous</h2>";
@@ -56,8 +56,8 @@ while($row = mysqli_fetch_array( $miscs ))
     echo '</ul></div></td>';
 	echo '<td>' . $row['misc_type'] . '</td>';
 	echo '<td>' . $row['misc_use'] . '</td>';
-	echo "</tr>"; 
-    } 
+	echo "</tr>";
+    }
 
 // close table
 echo "</table>";
@@ -66,6 +66,6 @@ echo '</div>';
 
 ?>
 
-<?php 
-include ('includes/footer.html');
+<?php
+include '../includes/footer.html';
 ?>

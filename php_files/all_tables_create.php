@@ -6,7 +6,7 @@ Create all table in the database
 */
 
 $page_title = 'Create All Tables';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 echo '<div class="container">';
@@ -395,5 +395,5 @@ echo '<form action="index.php">';
 echo '<input class="btn btn-default" type="submit" value="Back" />';
 echo '</form>';
 
-include ('includes/footer.html');
+include '../includes/footer.html';
 ?>

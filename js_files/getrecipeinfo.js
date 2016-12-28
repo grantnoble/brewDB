@@ -138,6 +138,6 @@ xmlhttp.onreadystatechange=function()
 	}
 }
 
-xmlhttp.open("GET","getrecipeinfo.php?q="+string,true);
+xmlhttp.open("GET","../php_files/getrecipeinfo.php?q="+string,true);
 xmlhttp.send();
 }

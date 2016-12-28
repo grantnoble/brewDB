@@ -7,7 +7,7 @@ Get the fermentable information for a selected fermentable.
 header("Content-type: text/xml"); 
 
 // connect to the database
-include('includes/database_connect.php');
+include '../includes/database_connect.php';
 
 // build the sql SELECT stament and query the database
 $q = $_GET['q'];

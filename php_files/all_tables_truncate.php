@@ -7,13 +7,14 @@
 
 <?php
 
-/* 
+/*
 all_tables_truncate.php
 Delete the data in all tables in the database
 */
+
 header('Content-Type: text/html; charset="utf-8"', true);
 // connect to the database
-include('includes/database_connect.php');
+include '../includes/database_connect.php';
 
 // fermentables
 $query = "TRUNCATE TABLE fermentables;";
@@ -83,12 +84,12 @@ if (mysqli_multi_query($connection, $query))
 
 mysqli_close($connection);
 
-?> 
+?>
 
 <form action="index.php">
 <br>
 <input type="submit" value="Back">
-</form> 
+</form>
 
 </body>
-</html> 
+</html>

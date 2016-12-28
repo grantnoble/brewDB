@@ -1,12 +1,12 @@
 <?php
 
-/* 
+/*
 brewdb_backup.php
 Backup the brewdb database
 */
 
 $page_title = 'Backup Database';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 echo '<div class="container">';
@@ -25,5 +25,5 @@ echo '<form action="index.php">';
 echo '<input class="btn btn-default" type="submit" value="Back" />';
 echo '</form>';
 
-include ('includes/footer.html');
-?> 
+include '../includes/footer.html';
+?>

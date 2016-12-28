@@ -54,6 +54,6 @@ xmlhttp.onreadystatechange=function()
 	}
 }
 
-xmlhttp.open("GET","getfermentableinfo.php?q="+string,true);
+xmlhttp.open("GET","../php_files/getfermentableinfo.php?q="+string,true);
 xmlhttp.send();
 }

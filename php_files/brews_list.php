@@ -6,7 +6,7 @@ List the brews in the database by date
 */
 
 $page_title = 'List Brews';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 // set list by date as the default
@@ -68,5 +68,5 @@ echo '</div>';
 ?>
 
 <?php
-include ('includes/footer.html');
+include '../includes/footer.html';
 ?>

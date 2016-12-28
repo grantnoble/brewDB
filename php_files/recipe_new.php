@@ -6,7 +6,7 @@ Create a recipe in the database
 */
 
 $page_title = 'New Recipe';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 // check for form submission
@@ -223,7 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				echo '<label for="batch_size" class="label-sm">Batch Size (L)</label>';
 				echo '<input type="number" class="form-control input-sm" min="0" step=".1" id="batch_size" name="batch_size" required onchange="calc_og_color_ibu();" value="' . $row['preference_batch_size'] . '"/>';
 			echo '</div>';
-			
+
 			echo '<div class="col-xs-4 col-sm-4 col-md-2">';
 				echo '<label for="mash_efficiency" class="label-sm">Mash Eff (%)</label>';
 				echo '<input type="number" class="form-control input-sm" min="0" step=".01" id="mash_efficiency" name="mash_efficiency" required onchange="calc_og_color_ibu();" value="' . $row['preference_mash_efficiency'] . '"/>';
@@ -743,5 +743,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </div>
 
 <?php
-include ('includes/footer.html');
+include '../includes/footer.html';
 ?>

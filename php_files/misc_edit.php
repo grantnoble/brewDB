@@ -1,13 +1,12 @@
 <?php
 
-/* 
+/*
 misc_edit.php
 Edit a misc in the database
 */
 
-$page_title = 'Edit Misc';
-$error = "";
-include ('includes/header.html');
+$page_title = 'Edit Miscellaneous Ingredients';
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 // check for form submission
@@ -20,15 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $misc['use'] = mysqli_real_escape_string($connection, test_input($_POST['use']));
     $misc['use_for'] = mysqli_real_escape_string($connection, test_input($_POST['use_for']));
     $misc['notes'] = mysqli_real_escape_string($connection, test_input($_POST['notes']));
-    
+
     $query = "UPDATE miscs SET misc_name='" . $misc['name'] . "', misc_type='" . $misc['type'] . "', misc_use='" . $misc['use'] . "', misc_use_for='" . $misc['use_for'] . "', misc_notes='" . $misc['notes'] . "' WHERE misc_id='" . $misc['id'] . "'";
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
-    
-    // After saving to the database, redirect back to the list miscs page 
+
+    // After saving to the database, redirect back to the list miscs page
 	echo '<script type="text/javascript">
 	window.location = "miscs_list.php"
 	</script>';
-    
+
 }
 
 // check if the 'id' variable is set in URL, and check that it is valid
@@ -36,8 +35,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
 {
     // get the misc
     $query = "SELECT * FROM miscs WHERE misc_id='" . $_GET['id'] . "'";
-    $result = mysqli_query($connection, $query) or die(mysqli_error($connection)); 
- 
+    $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+
 }
 // if id isn't set, or isn't valid, redirect back to the list miscs page
 else
@@ -64,7 +63,7 @@ while($row = mysqli_fetch_array( $result ))
 	<h2>Edit Miscellaneous</h2>
 
 	<form role="form" class="form-horizontal" name="miscform" action="misc_edit.php" method="post">
-    
+
 	<input type="hidden" name="id" value="<?php echo $id; ?>" />
 
 	<div class="row">
@@ -72,14 +71,14 @@ while($row = mysqli_fetch_array( $result ))
 		<fieldset class="col-xs-12 col-md-12">
 
 		<div class="well">
-		
+
 			<div class="row margin-bottom-1em">
 
 				<div class="col-xs-3 col-md-2">
 					<label for="name" class="label-sm">Name</label>
 					<input type="text" class="form-control input-sm" name="name" id="name" required value="<?php if (isset($_POST['name'])) {echo $_POST['name'];} else {echo $name;} ?>" />
 				</div>
-				
+
 				<div class="col-xs-3 col-md-2">
 					<label for="type" class="label-sm">Type</label>
 					<select name="type" id="type" class="form-control input-sm">
@@ -92,7 +91,7 @@ while($row = mysqli_fetch_array( $result ))
 						<option>Other</option>
 					</select>
 				</div>
-    
+
 				<div class="col-xs-3 col-md-2">
 					<label for="use" class="label-sm">Use</label>
 					<select name="use" id="use" class="form-control input-sm">
@@ -104,36 +103,36 @@ while($row = mysqli_fetch_array( $result ))
 						<option>Bottling</option>
 					</select>
 				</div>
-    
-    
+
+
 				<div class="col-xs-3 col-md-4">
 					<label for="use_for" class="label-sm">Use For</label>
 					<input type="text" class="form-control input-sm" name="use_for" id="use_for" value="<?php if (isset($_POST['use_for'])) {echo $_POST['use_for'];} else {echo $use_for;} ?>" />
 				</div>
-				
+
 			</div>
-    
+
 			<div class="row">
-		
+
 				<div class="col-xs-12 col-md-12">
 					<label for="notes" class="label-sm">Notes</label>
 					<textarea rows=3 cols=130 class="form-control input-sm" name="notes" id="notes"><?php if (isset($_POST['notes'])) {echo $_POST['notes'];} else {echo $notes;} ?></textarea>
 				</div>
-				
+
 			</div>
-			
+
 		</div>
-		
+
 		</fieldset>
-    
+
 	</div>
-	
+
 	<button type="submit" class="btn btn-default">Save</button>
 
 	</form>
-	
+
 </div>
 
-<?php 
-include ('includes/footer.html');
+<?php
+include '../includes/footer.html';
 ?>

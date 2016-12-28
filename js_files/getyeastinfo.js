@@ -26,6 +26,6 @@ xmlhttp.onreadystatechange=function()
 	}
 }
 
-xmlhttp.open("GET","getyeastinfo.php?q="+string,true);
+xmlhttp.open("GET","../php_files/getyeastinfo.php?q="+string,true);
 xmlhttp.send();
 }

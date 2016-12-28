@@ -6,7 +6,7 @@ Edit a brew in the database
 */
 
 $page_title = 'Edit Brew';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 // check for form submission
@@ -340,7 +340,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 if (isset($_GET['id']) && is_numeric($_GET['id']))
 {
 // get the brew details
-include('includes/get_brew_details.php');
+include '../includes/get_brew_details.php';
 }
 // else if the id isn't set, or isn't valid, redirect back to list brews page
 else
@@ -1165,5 +1165,5 @@ else
 </div>
 
 <?php
-include ('includes/footer.html');
+include '../includes/footer.html';
 ?>

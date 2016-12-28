@@ -6,9 +6,7 @@ Edit a recipe in the database
 */
 
 $page_title = 'Edit Recipe';
-$error = "";
-$total_amount = 0;
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 // if form submission, retrieve the field values
@@ -238,7 +236,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 if (isset($_GET['id']) && is_numeric($_GET['id']))
 {
 // get the recipe details
-include('includes/get_recipe_details.php');
+include '../includes/get_recipe_details.php';
 }
 // else if the id isn't set, or isn't valid, redirect back to list recipes page
 else
@@ -844,5 +842,5 @@ else
 
 
 <?php
-include ('includes/footer.html');
+include '../includes/footer.html';
 ?>

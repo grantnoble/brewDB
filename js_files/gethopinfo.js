@@ -28,6 +28,6 @@ xmlhttp.onreadystatechange=function()
 	}
 }
 
-xmlhttp.open("GET","gethopinfo.php?q="+string,true);
+xmlhttp.open("GET","../php_files/gethopinfo.php?q="+string,true);
 xmlhttp.send();
 }

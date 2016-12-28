@@ -1,12 +1,12 @@
 <?php
 
-/* 
+/*
 fermentables_list.php
 List the fermentables in the database
 */
 
 $page_title = 'List Fermentables';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 // set list by fermentable_name as the default
@@ -37,8 +37,8 @@ else
 }
 
 // get results from database
-$fermentables = mysqli_query($connection, $query) or die(mysqli_error($connection));  
-                
+$fermentables = mysqli_query($connection, $query) or die(mysqli_error($connection));
+
 // display data in table
 echo '<div class="container">';
 echo "<h2>List Fermentables</h2>";
@@ -65,8 +65,8 @@ while($row = mysqli_fetch_array( $fermentables ))
 	echo '<td>' . $row['fermentable_recommend_mash'] . '</td>';
 	echo '<td>' . $row['fermentable_origin'] . '</td>';
 	echo '<td>' . $row['fermentable_supplier'] . '</td>';
-	echo "</tr>"; 
-    } 
+	echo "</tr>";
+    }
 
 // close table
 echo '</table>';
@@ -75,6 +75,6 @@ echo '</div>';
 
 ?>
 
-<?php 
-include ('includes/footer.html');
+<?php
+include '../includes/footer.html';
 ?>

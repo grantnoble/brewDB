@@ -1,12 +1,12 @@
 <?php
 
-/* 
+/*
 yeasts_list.php
 List the yeasts in the database
 */
 
 $page_title = 'List Yeasts';
-include ('includes/header.html');
+include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
 // set list by yeast_fullname as the default
@@ -41,8 +41,8 @@ else
 }
 
 // get results from database
-$yeasts = mysqli_query($connection, $query) or die(mysqli_error($connection));  
-                
+$yeasts = mysqli_query($connection, $query) or die(mysqli_error($connection));
+
 // display data in table
 echo '<div class="container">';
 echo "<h2>List Yeasts</h2>";
@@ -65,8 +65,8 @@ while($row = mysqli_fetch_array( $yeasts ))
     echo '<td>' . $row['yeast_form'] . '</td>';
     echo '<td>' . $row['yeast_attenuation'] . '</td>';
     echo '<td>' . $row['yeast_flocculation'] . '</td>';
-    echo '</tr>'; 
-    } 
+    echo '</tr>';
+    }
 
 // close table
 echo '</table>';
@@ -75,6 +75,6 @@ echo '</div>';
 
 ?>
 
-<?php 
-include ('includes/footer.html');
+<?php
+include '../includes/footer.html';
 ?>

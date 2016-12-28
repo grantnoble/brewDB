@@ -1,4 +1,5 @@
 <?php
+
 /*
 recipe_get_info.php
 Get all recipe information for a selected recipe name.
@@ -9,7 +10,7 @@ Build the appropriate xml files for use by recipe_get_info.js
 header("Content-type: text/xml");
 
 // connect to the database
-include('includes/database_connect.php');
+include '../includes/database_connect.php';
 
 // build the xml output
 echo '<?xml version="1.0" encoding="utf-8"?>';
