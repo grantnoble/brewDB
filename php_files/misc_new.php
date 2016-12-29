@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					<div class="help-block with-errors"></div>
 				</div>
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="type" class="label-sm">Type</label>
 					<select name="type" id="type" class="form-control input-sm">
 						<option value selected disabled></option>
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					</select>
 				</div>
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="use" class="label-sm">Use</label>
 					<select name="use" id="use" class="form-control input-sm">
 						<option value selected disabled></option>
@@ -72,8 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					</select>
 				</div>
 
-
-				<div class="col-xs-3 col-md-3">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="use_for" class="label-sm">Use For</label>
 					<input type="text" class="form-control input-sm" name="use_for" id="use_for" />
 				</div>
@@ -82,20 +81,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 			<div class="row">
 
-				<div class="col-xs-12 col-md-12">
+				<div class="form-group col-xs-12 col-md-12">
 					<label for="notes" class="label-sm">Notes</label>
 					<textarea rows=3 cols=130 class="form-control input-sm" name="notes" id="notes"></textarea>
 				</div>
 
 			</div>
 
-		</div>
+		</div><!-- well -->
 
 	<button type="submit" class="btn btn-default">Save</button>
 
 	</form>
 
-</div>
+</div><!-- container -->
 
 <?php
 include '../includes/footer.html';

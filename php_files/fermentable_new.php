@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					<div class="help-block with-errors"></div>
 				</div>
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="type" class="label-sm">Type</label>
 					<select name="type" id="type" class="form-control input-sm">
 						<option value selected disabled></option>
@@ -63,21 +63,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					</select>
 				</div>
 
-				<div class="col-xs-2 col-md-2">
+				<div class="form-group col-xs-2 col-md-2">
 					<label for="yield" class="label-sm">Yield (%)</label>
 					<input type="number" class="form-control input-sm" name="yield" id="yield" />
 				</div>
 
-				<div class="col-xs-2 col-md-2">
+				<div class="form-group col-xs-2 col-md-2">
 					<label for="color" class="label-sm">Color (L)</label>
 					<input type="number" class="form-control input-sm" name="color" id="color" />
 				</div>
 
 			</div>
 
-			<div class="row margin-bottom-1em">
+			<div class="row">
 
-				<div class="hidden-xs col-md-2">
+				<div class="form-group hidden-xs col-md-2">
 					<label for="add_after_boil" class="label-sm">Add after boil?</label>
 					<select name="add_after_boil" id="add_after_boil" class="form-control input-sm">
 						<option value selected disabled></option>
@@ -86,12 +86,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					</select>
 				</div>
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="max_in_batch" class="label-sm">Max in Batch (%)</label>
 					<input type="max_in_batch" class="form-control input-sm" name="max_in_batch" id="max_in_batch" />
 				</div>
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="recommend_mash" class="label-sm">Mash?</label>
 					<select name="recommend_mash" id="recommend_mash" class="form-control input-sm">
 						<option value selected disabled></option>
@@ -100,12 +100,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					</select>
 				</div>
 
-				<div class="col-xs-3 col-md-3">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="origin" class="label-sm">Origin</label>
 					<input type="text" class="form-control input-sm" name="origin" id="origin" />
 				</div>
 
-				<div class="col-xs-3 col-md-3">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="supplier" class="label-sm">Supplier</label>
 					<input type="text" class="form-control input-sm" name="supplier" id="supplier" />
 				</div>
@@ -114,20 +114,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 			<div class="row">
 
-				<div class="col-xs-12 col-md-12">
+				<div class="form-group col-xs-12 col-md-12">
 					<label for="notes" class="label-sm">Notes</label>
 					<textarea class="form-control input-sm" rows=3 cols=100 name="notes" id="notes"></textarea>
 				</div>
 
 			</div>
 
-		</div>
+		</div><!-- well -->
 
 	<button type="submit" class="btn btn-default">Save</button>
 
 	</form>
 
-</div>
+</div><!-- container -->
 
 <?php
 include '../includes/footer.html';

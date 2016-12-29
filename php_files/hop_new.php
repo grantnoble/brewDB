@@ -47,17 +47,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					<div class="help-block with-errors"></div>
 				</div>
 
-				<div class="col-xs-2 col-md-2">
+				<div class="form-group col-xs-2 col-md-2">
 					<label for="alpha" class="label-sm">Alpha (%)</label>
 					<input type="number" class="form-control input-sm" name="alpha" id="alpha" />
 				</div>
 
-				<div class="col-xs-3 col-md-3">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="origin" class="label-sm">Origin</label>
 					<input type="text" class="form-control input-sm" name="origin" id="origin" />
 				</div>
 
-				<div class="col-xs-3 col-md-3">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="substitutes" class="label-sm">Substitutes</label>
 					<input type="text" class="form-control input-sm" name="substitutes" id="substitutes" />
 				</div>
@@ -66,21 +66,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 			<div class="row">
 
-				<div class="col-xs-12 col-md-12">
+				<div class="form-group col-xs-12 col-md-12">
 					<label for="notes" class="label-sm">Notes</label>
 					<textarea class="form-control input-sm" rows=3 cols=100 name="notes" id="notes"></textarea>
 				</div>
 
 			</div>
 
-		</div>
+		</div><!-- well -->
 
 
 	<button type="submit" class="btn btn-default">Save</button>
 
 	</form>
 
-</div>
+</div><!-- container -->
 
 <?php
 include '../includes/footer.html';

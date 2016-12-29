@@ -48,12 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 			<div class="row">
 
-				<div class="fcol-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="laboratory" class="label-sm">Laboratory</label>
 					<input type="text" class="form-control input-sm" name="laboratory" id="laboratory" />
 				</div>
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="product_id" class="label-sm">Product ID</label>
 					<input type="text" class="form-control input-sm" name="product_id" id="product_id" />
 				</div>
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					<div class="help-block with-errors"></div>
 				</div>
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="type" class="label-sm">Type</label>
 					<select name="type" id="type" class="form-control input-sm">
 						<option value selected disabled></option>
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					</select>
 				</div>
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="form" class="label-sm">Form</label>
 					<select name="form" id="form" class="form-control input-sm">
 						<option value selected disabled></option>
@@ -89,24 +89,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 			</div>
 
-			<div class="row margin-bottom-1em">
+			<div class="row">
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="min_temperature" class="label-sm">Min&nbsp;Temp&nbsp;(&deg;C)</label>
 					<input type="number" class="form-control input-sm" name="min_temperature" id="min_temperature" />
 				</div>
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="max_temperature" class="label-sm">Max&nbsp;Temp&nbsp;(&deg;C)</label>
 					<input type="number" class="form-control input-sm" name="max_temperature" id="max_temperature" />
 				</div>
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="attenuation" class="label-sm">Attenuation&nbsp;(%)</label>
 					<input type="number" class="form-control input-sm" name="attenuation" id="attenuation" />
 				</div>
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="flocculation" class="label-sm">Flocculation</label>
 					<select name="flocculation" id="flocculation" class="form-control input-sm">
 						<option value selected disabled></option>
@@ -117,12 +117,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					</select>
 				</div>
 
-				<div class="col-xs-3 col-md-3">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="best_for" class="label-sm">Best For</label>
 					<input type="text" class="form-control input-sm" name="best_for" id="best_for" />
 				</div>
 
-				<div class="col-xs-3 col-md-1">
+				<div class="form-group col-xs-3 col-md-1">
 					<label for="max_reuse" class="label-sm">Max&nbsp;Reuse</label>
 					<input type="number" class="form-control input-sm" name="max_reuse" id="max_reuse" />
 				</div>
@@ -131,20 +131,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 			<div class="row">
 
-				<div class="col-xs-12 col-md-12">
+				<div class="form-group col-xs-12 col-md-12">
 					<label for="notes" class="label-sm">Notes</label>
 					<textarea rows=3 cols=130 class="form-control input-sm" name="notes" id="notes"></textarea>
 				</div>
 
 			</div>
 
-		</div>
+		</div><!-- well -->
 
 	<button type="submit" class="btn btn-default">Save</button>
 
 	</form>
 
-</div>
+</div><!-- container -->
 
 <?php
 include '../includes/footer.html';
