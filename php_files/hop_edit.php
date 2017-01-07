@@ -1,5 +1,4 @@
 <?php
-
 /*
 hop_edit.php
 Edit a hop in the database
@@ -27,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	echo '<script type="text/javascript">
 	window.location = "hops_list.php"
 	</script>';
-
 }
 
 // check if the 'id' variable is set in URL, and check that it is valid
@@ -36,7 +34,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id']))
     // get the hop
     $query = "SELECT * FROM hops WHERE hop_id='" . $_GET['id'] . "'";
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
-
 }
 // if id isn't set, or isn't valid, redirect back to view page
 else
@@ -63,34 +60,31 @@ while($row = mysqli_fetch_array( $result ))
 
 	<h2>Edit Hop</h2>
 
-	<form role="form" class="form-horizontal" name="hopform" action="hop_edit.php" method="post">
+	<form role="form" name="hopform" data-toggle="validator" action="hop_edit.php" method="post">
 
 	<input type="hidden" name="id" value="<?php echo $id; ?>" />
 
-	<div class="row">
-
-		<fieldset class="col-xs-12 col-md-12">
-
 		<div class="well">
 
-			<div class="row margin-bottom-1em">
+			<div class="row">
 
-				<div class="col-xs-3 col-md-3">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="name" class="label-sm">Name</label>
-					<input type="text" class="form-control input-sm" name="name" id="name" required value="<?php if (isset($_POST['name'])) {echo $_POST['name'];} else {echo $name;} ?>" />
+					<input type="text" class="form-control input-sm" name="name" id="name" required data-error="Hop name required" value="<?php if (isset($_POST['name'])) {echo $_POST['name'];} else {echo $name;} ?>" />
+					<div class="help-block with-errors"></div>
 				</div>
 
-				<div class="col-xs-2 col-md-2">
+				<div class="form-group col-xs-2 col-md-2">
 					<label for="alpha" class="label-sm">Alpha (%)</label>
 					<input type="number" class="form-control input-sm" name="alpha" id="alpha" value="<?php if (isset($_POST['alpha'])) {echo $_POST['alpha'];} else {echo $alpha;} ?>" />
 				</div>
 
-				<div class="col-xs-3 col-md-3">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="origin" class="label-sm">Origin</label>
 					<input type="text" class="form-control input-sm" name="origin" id="origin" value="<?php if (isset($_POST['origin'])) {echo $_POST['origin'];} else {echo $origin;} ?>" />
 				</div>
 
-				<div class="col-xs-3 col-md-3">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="substitutes" class="label-sm">Substitutes</label>
 					<input type="text" class="form-control input-sm" name="substitutes" id="substitutes" value="<?php if (isset($_POST['substitutes'])) {echo $_POST['substitutes'];} else {echo $substitutes;} ?>" />
 				</div>
@@ -99,24 +93,20 @@ while($row = mysqli_fetch_array( $result ))
 
 			<div class="row">
 
-				<div class="col-xs-12 col-md-12">
+				<div class="form-group col-xs-12 col-md-12">
 					<label for="notes" class="label-sm">Notes</label>
 					<textarea class="form-control input-sm" rows=3 cols=100 name="notes" id="notes"><?php if (isset($_POST['notes'])) {echo $_POST['notes'];} else {echo $notes;} ?></textarea>
 				</div>
 
 			</div>
 
-		</div>
+		</div><!-- well -->
 
-		</fieldset>
-
-	</div>
-
-	<button type="submit" class="btn btn-default">Save</button>
+		<button type="submit" class="btn btn-default">Save</button>
 
 	</form>
 
-</div>
+</div><!-- container -->
 
 <?php
 include '../includes/footer.html';

@@ -74,27 +74,24 @@ while($row = mysqli_fetch_array( $result ))
 
 	<h2>Edit Fermentable</h2>
 
-	<form role="form" class="form-horizontal" name="fermentableform" action="fermentable_edit.php" method="post">
+	<form role="form" name="fermentableform" data-toggle="validator" action="fermentable_edit.php" method="post">
 
-	<input type="hidden" name="id" value="<?php echo $id; ?>" />
-
-	<div class="row">
-
-		<fieldset class="col-xs-12 col-md-12">
+		<input type="hidden" name="id" value="<?php echo $id; ?>" />
 
 		<div class="well">
 
-			<div class="row margin-bottom-1em">
+			<div class="row">
 
-				<div class="col-xs-3 col-md-3">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="name" class="label-sm">Name</label>
-					<input type="text" class="form-control input-sm" name="name" id="name" required value="<?php if (isset($_POST['name'])) {echo $_POST['name'];} else {echo $name;} ?>" />
+					<input type="text" class="form-control input-sm" name="name" id="name" required data-error="Fermentable name required" value="<?php if (isset($_POST['name'])) {echo $_POST['name'];} else {echo $name;} ?>" />
+					<div class="help-block with-errors"></div>
 				</div>
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="type" class="label-sm">Type</label>
 					<select name="type" id="type" class="form-control input-sm">
-						<option><?php if (isset($_POST['type'])) {echo $_POST['type'];} else {echo $type;} ?></option>
+						<option selected><?php if (isset($_POST['type'])) {echo $_POST['type'];} else {echo $type;} ?></option>
 						<option>Grain</option>
 						<option>Extract</option>
 						<option>Dry Extract</option>
@@ -102,49 +99,49 @@ while($row = mysqli_fetch_array( $result ))
 					</select>
 				</div>
 
-				<div class="col-xs-2 col-md-2">
+				<div class="form-group col-xs-2 col-md-2">
 					<label for="yield" class="label-sm">Yield (%)</label>
 					<input type="number" class="form-control input-sm" name="yield" id="yield" value="<?php if (isset($_POST['yield'])) {echo $_POST['yield'];} else {echo $yield;} ?>" />
 				</div>
 
-				<div class="col-xs-2 col-md-2">
+				<div class="form-group col-xs-2 col-md-2">
 					<label for="color" class="label-sm">Color (L)</label>
 					<input type="number" class="form-control input-sm" name="color" id="color" value="<?php if (isset($_POST['color'])) {echo $_POST['color'];} else {echo $color;} ?>" />
 				</div>
 
 			</div>
 
-			<div class="row margin-bottom-1em">
+			<div class="row">
 
-				<div class="hidden-xs col-md-2">
+				<div class="form-group hidden-xs col-md-2">
 					<label for="add_after_boil" class="label-sm">Add after boil?</label>
 					<select name="add_after_boil" id="add_after_boil" class="form-control input-sm">
-						<option><?php if (isset($_POST['add_after_boil'])) {echo $_POST['add_after_boil'];} else {echo $add_after_boil;} ?></option>
+						<option selected><?php if (isset($_POST['add_after_boil'])) {echo $_POST['add_after_boil'];} else {echo $add_after_boil;} ?></option>
 						<option>True</option>
 						<option>False</option>
 					</select>
 				</div>
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="max_in_batch" class="label-sm">Max in Batch (%)</label>
 					<input type="max_in_batch" class="form-control input-sm" name="max_in_batch" id="max_in_batch" value="<?php if (isset($_POST['max_in_batch'])) {echo $_POST['max_in_batch'];} else {echo $max_in_batch;} ?>" />
 				</div>
 
-				<div class="col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-2">
 					<label for="recommend_mash" class="label-sm">Mash?</label>
 					<select name="recommend_mash" id="recommend_mash" class="form-control input-sm">
-						<option><?php if (isset($_POST['recommend_mash'])) {echo $_POST['recommend_mash'];} else {echo $recommend_mash;} ?></option>
+						<option selected><?php if (isset($_POST['recommend_mash'])) {echo $_POST['recommend_mash'];} else {echo $recommend_mash;} ?></option>
 						<option>True</option>
 						<option>False</option>
 					</select>
 				</div>
 
-				<div class="col-xs-3 col-md-3">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="origin" class="label-sm">Origin</label>
 					<input type="text" class="form-control input-sm" name="origin" id="origin" value="<?php if (isset($_POST['origin'])) {echo $_POST['origin'];} else {echo $origin;} ?>" />
 				</div>
 
-				<div class="col-xs-3 col-md-3">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="supplier" class="label-sm">Supplier</label>
 					<input type="text" class="form-control input-sm" name="supplier" id="supplier" value="<?php if (isset($_POST['supplier'])) {echo $_POST['supplier'];} else {echo $supplier;} ?>" />
 				</div>
@@ -153,24 +150,20 @@ while($row = mysqli_fetch_array( $result ))
 
 			<div class="row">
 
-				<div class="col-xs-12 col-md-12">
+				<div class="form-group col-xs-12 col-md-12">
 					<label for="notes" class="label-sm">Notes</label>
 					<textarea class="form-control input-sm" rows=3 cols=100 name="notes" id="notes"><?php if (isset($_POST['notes'])) {echo $_POST['notes'];} else {echo $notes;} ?></textarea>
 				</div>
 
 			</div>
 
-		</div>
+		</div><!-- well -->
 
-		</fieldset>
-
-	</div>
-
-	<button type="submit" class="btn btn-default">Save</button>
+		<button type="submit" class="btn btn-default">Save</button>
 
 	</form>
 
-</div>
+</div><!-- container -->
 
 <?php
 include '../includes/footer.html';

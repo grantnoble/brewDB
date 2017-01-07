@@ -4,7 +4,7 @@ misc_new.php
 Add a misc to the database
 */
 
-$page_title = 'New Miscellaneous Ingredients';
+$page_title = 'New Miscellaneous Ingredient';
 include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 		<div class="well">
 
-			<div class="row ">
+			<div class="row">
 
 				<div class="form-group col-xs-3 col-md-3">
 					<label for="name" class="label-sm">Name</label>
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				<div class="form-group col-xs-3 col-md-2">
 					<label for="type" class="label-sm">Type</label>
 					<select name="type" id="type" class="form-control input-sm">
-						<option value selected disabled></option>
+						<option selected disabled></option>
 						<option>Spice</option>
 						<option>Fining</option>
 						<option>Water Agent</option>
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				<div class="form-group col-xs-3 col-md-2">
 					<label for="use" class="label-sm">Use</label>
 					<select name="use" id="use" class="form-control input-sm">
-						<option value selected disabled></option>
+						<option selected disabled></option>
 						<option>Mash</option>
 						<option>Boil</option>
 						<option>Primary</option>
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 		</div><!-- well -->
 
-	<button type="submit" class="btn btn-default">Save</button>
+		<button type="submit" class="btn btn-default">Save</button>
 
 	</form>
 

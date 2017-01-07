@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				<div class="form-group col-xs-3 col-md-2">
 					<label for="type" class="label-sm">Type</label>
 					<select name="type" id="type" class="form-control input-sm">
-						<option value selected disabled></option>
+						<option selected disabled></option>
 						<option>Grain</option>
 						<option>Extract</option>
 						<option>Dry Extract</option>
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				<div class="form-group hidden-xs col-md-2">
 					<label for="add_after_boil" class="label-sm">Add after boil?</label>
 					<select name="add_after_boil" id="add_after_boil" class="form-control input-sm">
-						<option value selected disabled></option>
+						<option selected disabled></option>
 						<option>True</option>
 						<option>False</option>
 					</select>
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				<div class="form-group col-xs-3 col-md-2">
 					<label for="recommend_mash" class="label-sm">Mash?</label>
 					<select name="recommend_mash" id="recommend_mash" class="form-control input-sm">
-						<option value selected disabled></option>
+						<option selected disabled></option>
 						<option>True</option>
 						<option>False</option>
 					</select>
@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 		</div><!-- well -->
 
-	<button type="submit" class="btn btn-default">Save</button>
+		<button type="submit" class="btn btn-default">Save</button>
 
 	</form>
 
