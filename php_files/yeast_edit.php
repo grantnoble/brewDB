@@ -75,29 +75,33 @@ while($row = mysqli_fetch_array( $result ))
 
 	<form role="form" name="yeastform" data-toggle="validator" action="yeast_edit.php" method="post">
 
-		<input type="hidden" name="id" value="<?php echo $id; ?>" />
+	<input type="hidden" name="id" value="<?php echo $id; ?>" />
+
+	<div class="row">
+
+		<fieldset class="col-xs-12 col-md-12">
 
 		<div class="well">
 
-			<div class="row">
+			<div class="row margin-bottom-1em">
 
-				<div class="form-group col-xs-3 col-md-2">
+				<div class="col-xs-3 col-md-2">
 					<label for="laboratory" class="label-sm">Laboratory</label>
 					<input type="text" class="form-control input-sm" name="laboratory" id="laboratory" value="<?php if (isset($_POST['laboratory'])) {echo $_POST['laboratory'];} else {echo $laboratory;} ?>" />
 				</div>
 
-				<div class="form-group col-xs-3 col-md-2">
+				<div class="col-xs-3 col-md-2">
 					<label for="product_id" class="label-sm">Product ID</label>
 					<input type="text" class="form-control input-sm" name="product_id" id="product_id" value="<?php if (isset($_POST['product_id'])) {echo $_POST['product_id'];} else {echo $product_id;} ?>" />
 				</div>
 
-				<div class="form-group col-xs-3 col-md-3">
+				<div class="col-xs-3 col-md-3">
 					<label for="name" class="label-sm">Name</label>
 					<input type="text" class="form-control input-sm" name="name" id="name" required data-error="Yeast name required" value="<?php if (isset($_POST['name'])) {echo $_POST['name'];} else {echo $name;} ?>" />
 					<div class="help-block with-errors"></div>
 				</div>
 
-				<div class="form-group col-xs-3 col-md-2">
+				<div class="col-xs-3 col-md-2">
 					<label for="type" class="label-sm">Type</label>
 					<select name="type" id="type" class="form-control input-sm">
 						<option><?php if (isset($_POST['type'])) {echo $_POST['type'];} else {echo $type;} ?></option>
@@ -109,7 +113,7 @@ while($row = mysqli_fetch_array( $result ))
 					</select>
 				</div>
 
-				<div class="form-group col-xs-3 col-md-2">
+				<div class="col-xs-3 col-md-2">
 					<label for="form" class="label-sm">Form</label>
 					<select name="form" id="form" class="form-control input-sm">
 						<option><?php if (isset($_POST['form'])) {echo $_POST['form'];} else {echo $form;} ?></option>
@@ -122,24 +126,24 @@ while($row = mysqli_fetch_array( $result ))
 
 			</div>
 
-			<div class="row">
+			<div class="row margin-bottom-1em">
 
-				<div class="form-group col-xs-3 col-md-2">
+				<div class="col-xs-3 col-md-2">
 					<label for="min_temperature" class="label-sm">Min&nbsp;Temp&nbsp;(&deg;C)</label>
 					<input type="number" class="form-control input-sm" name="min_temperature" id="min_temperature" value="<?php if (isset($_POST['min_temperature'])) {echo $_POST['min_temperature'];} else {echo $min_temperature;} ?>" />
 				</div>
 
-				<div class="form-group col-xs-3 col-md-2">
+				<div class="col-xs-3 col-md-2">
 					<label for="max_temperature" class="label-sm">Max&nbsp;Temp&nbsp;(&deg;C)</label>
 					<input type="number" class="form-control input-sm" name="max_temperature" id="max_temperature" value="<?php if (isset($_POST['max_temperature'])) {echo $_POST['max_temperature'];} else {echo $max_temperature;} ?>" />
 				</div>
 
-				<div class="form-group col-xs-3 col-md-2">
+				<div class="col-xs-3 col-md-2">
 					<label for="attenuation" class="label-sm">Attenuation&nbsp;(%)</label>
 					<input type="number" class="form-control input-sm" name="attenuation" id="attenuation" value="<?php if (isset($_POST['attenuation'])) {echo $_POST['attenuation'];} else {echo $attenuation;} ?>" />
 				</div>
 
-				<div class="form-group col-xs-3 col-md-2">
+				<div class="col-xs-3 col-md-2">
 					<label for="flocculation" class="label-sm">Flocculation</label>
 					<select name="flocculation" id="flocculation" class="form-control input-sm">
 						<option><?php if (isset($_POST['flocculation'])) {echo $_POST['flocculation'];} else {echo $flocculation;} ?></option>
@@ -150,12 +154,12 @@ while($row = mysqli_fetch_array( $result ))
 					</select>
 				</div>
 
-				<div class="form-group col-xs-3 col-md-3">
+				<div class="col-xs-3 col-md-3">
 					<label for="best_for" class="label-sm">Best For</label>
 					<input type="text" class="form-control input-sm" name="best_for" id="best_for" value="<?php if (isset($_POST['best_for'])) {echo $_POST['best_for'];} else {echo $best_for;} ?>" />
 				</div>
 
-				<div class="form-group col-xs-3 col-md-1">
+				<div class="col-xs-3 col-md-1">
 					<label for="max_reuse" class="label-sm">Max&nbsp;Reuse</label>
 					<input type="number" class="form-control input-sm" name="max_reuse" id="max_reuse" value="<?php if (isset($_POST['max_reuse'])) {echo $_POST['max_reuse'];} else {echo $max_reuse;} ?>" />
 				</div>
@@ -164,20 +168,24 @@ while($row = mysqli_fetch_array( $result ))
 
 			<div class="row">
 
-				<div class="form-group col-xs-12 col-md-12">
+				<div class="col-xs-12 col-md-12">
 					<label for="notes" class="label-sm">Notes</label>
 					<textarea rows=3 cols=130 class="form-control input-sm" name="notes" id="notes"><?php if (isset($_POST['notes'])) {echo $_POST['notes'];} else {echo $notes;} ?></textarea>
 				</div>
 
 			</div>
 
-		</div><!-- well -->
+		</div>
+
+		</fieldset>
+
+	</div>
 
 	<button type="submit" class="btn btn-default">Save</button>
 
 	</form>
 
-</div><!-- container -->
+</div>
 
 <?php
 include '../includes/footer.html';

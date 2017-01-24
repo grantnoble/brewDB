@@ -60,7 +60,7 @@ while($row = mysqli_fetch_array( $result ))
 
 			<div class="row">
 
-				<div class="form-group col-xs-3 col-md-2">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="name" class="label-sm">Name</label>
 					<input type="text" class="form-control input-sm" name="name" id="name" readonly="yes" value="<?php if (isset($_POST['name'])) {echo $_POST['name'];} else {echo $name;} ?>" />
 				</div>
@@ -75,7 +75,7 @@ while($row = mysqli_fetch_array( $result ))
 					<input type="text" class="form-control input-sm" name="use" id="use" readonly="yes" value="<?php if (isset($_POST['use'])) {echo $_POST['use'];} else {echo $use;} ?>" />
 				</div>
 
-				<div class="form-group col-xs-3 col-md-4">
+				<div class="form-group col-xs-3 col-md-3">
 					<label for="use_for" class="label-sm">Use For</label>
 					<input type="text" class="form-control input-sm" name="use_for" id="use_for" readonly="yes" value="<?php if (isset($_POST['use_for'])) {echo $_POST['use_for'];} else {echo $use_for;} ?>" />
 				</div>

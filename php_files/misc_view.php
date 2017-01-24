@@ -88,7 +88,7 @@ while($row = mysqli_fetch_array( $result ))
 <!-- new form to submit only the fermentable id using get not post-->
 <div class="container">
 
-	<form role="form" class="form-horizontal" name="miscformedit" action="misc_edit.php" method="get">
+	<form role="form" name="miscformedit" action="misc_edit.php" method="get">
 		<input type="hidden" name="id" value="<?php echo $id; ?>" />
 		<input class="btn btn-default" type="submit" value="Edit" />
 	</form>
