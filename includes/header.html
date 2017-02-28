@@ -25,7 +25,7 @@ if ($page_title != "Create All Tables")
 }
 ?>
 
-<title><?php echo $page_title; ?></title>
+<title><?php echo $tab_title; ?></title>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 <link rel="stylesheet" href="../includes/stylesheet.css" />
@@ -38,9 +38,9 @@ if ($page_title != "Create All Tables")
 
 <body>
 	
-<div class="container-fluid">
 
 	<nav class="navbar navbar-inverse">
+<div class="container">
 
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -48,7 +48,7 @@ if ($page_title != "Create All Tables")
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="../index.php"><?php echo $title; ?></a>
+			<a class="navbar-brand" href="index.php"><?php echo $title; ?></a>
 		</div><!-- navbar-header -->
 	
 		<div id="navbar" class="navbar-collapse collapse">
@@ -130,11 +130,16 @@ if ($page_title != "Create All Tables")
 					</ul>
 				</li>
 			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">Development DB</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			</ul>
 		</div>
+</div>
 	
 	</nav>
 
-</div>
 
 <script>
 $(document).ready(function(){

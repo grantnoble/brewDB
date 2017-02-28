@@ -11,11 +11,11 @@ header('Content-Type: text/html; charset="utf-8"', true);
 
 ?>
 
-<div class="container-fluid">
+<div class="container">
 
 	<div class="jumbotron">
       
-		<h1>brewDB</h1>
+		<h1>brewDB - Development</h1>
 		<p>Use the pre-loaded style and ingredient information to create your favourite beer recipes and record your brews.</p>
 
 	</div>
