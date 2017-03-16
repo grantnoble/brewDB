@@ -4,6 +4,11 @@
 	</div>
 </footer>
 
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+	
 <!--scripts to validate the entire form if browser not HTML5 compatible-->
 <script src="../js_files/validate_form.js"></script>
 <script src="../js_files/validate_details.js"></script>
@@ -51,6 +56,17 @@
       date_input.datepicker(options);
     })
 </script>
+
+<!--dropdown script-->
+<script>
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+</script>	
 
 </body>
 </html>
