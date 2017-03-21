@@ -31,8 +31,8 @@ while($row = mysqli_fetch_array( $result ))
     $id = $row['style_id'];
     $style_guide = $row['style_style_guide'];
 	$category_number = $row['style_category_number'];
-	$style_letter = $row['style_style_letter'];
-	$category = $row['style_category'];
+	$subcategory = $row['style_subcategory'];
+	$category_name = $row['style_category_name'];
     $name = $row['style_name'];
     $type = $row['style_type'];
 	$og_min = $row['style_og_min'];
@@ -61,25 +61,25 @@ while($row = mysqli_fetch_array( $result ))
 	
 	<!-- xs and sm media -->
 	<div class="form-group margin-bottom">
-		<div class="col-xs-4 col-md-2">
+		<div class="col-xs-3 col-md-2">
 			<label for="style_guide" class="label-sm">Style Guide</label>
 			<input type="text" class="form-control input-sm" id="style_guide" name="style_guide" readonly="yes" value="<?php echo $style_guide; ?>" />
 		</div>
 		<div class="col-xs-3 col-md-2">
-			<label for="category_number" class="label-sm">Number</label>
+			<label for="category_number" class="label-sm"><span class="visible-xs-block">Cat. Number</span><span class="hidden-xs">Category Number</span></label>
 			<input type="text" class="form-control input-sm" id="category_number" name="category_number" readonly="yes" value="<?php echo $category_number; ?>" />
 		</div>
 		<div class="col-xs-3 col-md-2">
-			<label for="style_letter" class="label-sm">Letter</label>
-			<input type="text" class="form-control input-sm" id="style_letter" name="style_letter" readonly="yes" value="<?php echo $style_letter; ?>" />
+			<label for="style_letter" class="label-sm"><span class="visible-xs">Sub Cat.</span><span class="hidden-xs">Sub Category</span></label>
+			<input type="text" class="form-control input-sm" id="style_letter" name="style_letter" readonly="yes" value="<?php echo $subcategory; ?>" />
+		</div>
+		<div class="col-xs-3 col-md-3">
+			<label for="category" class="label-sm"><span class="visible-xs">Cat. Name</span><span class="hidden-xs">Category Name</span></label>
+			<input type="text" class="form-control input-sm" id="category" name="category" readonly="yes" value="<?php echo $category_name; ?>" />
 		</div>
 	</div>
 	<div class="form-group margin-bottom">
-		<div class="col-xs-4 col-md-4">
-			<label for="category" class="label-sm">Category</label>
-			<input type="text" class="form-control input-sm" id="category" name="category" readonly="yes" value="<?php echo $category; ?>" />
-		</div>
-		<div class="col-xs-4 col-md-4">
+		<div class="col-xs-4 col-md-3">
 			<label for="name" class="label-sm">Style Name</label>
 			<input type="text" class="form-control input-sm" id="name" name="name" readonly="yes" value="<?php echo $name; ?>" />
 		</div>

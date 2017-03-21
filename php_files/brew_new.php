@@ -142,15 +142,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	for ($i=0; $i<=4; $i++)
 	{
 		$mashes[$i]['temp'] = mysqli_real_escape_string($connection, test_input($_POST['mash' . $i . '_temp']));
-		if (!$mashes['temp'])
+		if (!$mashes[$i]['temp'])
 		{
-			$mashes['temp'] = "NULL";
+			$mashes[$i]['temp'] = "NULL";
 		}
 
 		$mashes[$i]['time'] = mysqli_real_escape_string($connection, test_input($_POST['mash' . $i . '_time']));
-		if (!$mashes['time'])
+		if (!$mashes[$i]['time'])
 		{
-			$mashes['time'] = "NULL";
+			$mashes[$i]['time'] = "NULL";
 		}
 	}
 
@@ -158,27 +158,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	for ($i=0; $i<=4; $i++)
 	{
 		$fermentations[$i]['start_date'] = mysqli_real_escape_string($connection, test_input($_POST['fermentation' . $i . '_start_date']));
-		if (!$fermentations['start_date'])
+		if (!$fermentations[$i]['start_date'])
 		{
-			$fermentations['start_date'] = "NULL";
+			$fermentations[$i]['start_date'] = NULL;
 		}
 
 		$fermentations[$i]['end_date'] = mysqli_real_escape_string($connection, test_input($_POST['fermentation' . $i . '_end_date']));
-		if (!$fermentations['end_date'])
+		if (!$fermentations[$i]['end_date'])
 		{
-			$fermentations['end_date'] = "NULL";
+			$fermentations[$i]['end_date'] = NULL;
 		}
 
 		$fermentations[$i]['temp'] = mysqli_real_escape_string($connection, test_input($_POST['fermentation' . $i . '_temp']));
-		if (!$fermentations['temp'])
+		if (!$fermentations[$i]['temp'])
 		{
-			$fermentations['temp'] = "NULL";
+			$fermentations[$i]['temp'] = "NULL";
 		}
 
 		$fermentations[$i]['measured_sg'] = mysqli_real_escape_string($connection, test_input($_POST['fermentation' . $i . '_measured_sg']));
-		if (!$fermentations['measured_sg'])
+		if (!$fermentations[$i]['measured_sg'])
 		{
-			$fermentations['measured_sg'] = "NULL";
+			$fermentations[$i]['measured_sg'] = "NULL";
 		}
 	}
 
@@ -187,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$details['packaging_date'] = mysqli_real_escape_string($connection, test_input($_POST['packaging_date']));
 	if (!$details['packaging_date'])
 	{
-		$details['packaging_date'] = "NULL";
+		$details['packaging_date'] = NULL;
 	}
 
 	$details['vol_co2'] = mysqli_real_escape_string($connection, test_input($_POST['vol_co2']));
@@ -198,10 +198,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 
 	// now insert the records into the database
-
+	
+	// routine to fix up null packaging date, or otherwise in the date field for the insert
+	if ($details['packaging_date'] === NULL)
+		{
+			$packaging_date = 'NULL';
+		}
+		else 
+		{
+			$packaging_date = $details['packaging_date'];
+			$packaging_date = "'$packaging_date'";
+		}
+	
 	// insert the brew record
 	$insert = "INSERT INTO brews (brew_name, brew_batch_number, brew_date, brew_recipe_id, brew_type, brew_style_id, brew_method, brew_no_chill, brew_mash_volume, brew_sparge_volume, brew_boil_size, brew_boil_time, brew_batch_size, brew_mash_efficiency, brew_brewer, brew_notes, brew_est_og, brew_act_og, brew_est_fg, brew_act_fg, brew_est_color, brew_est_ibu, brew_est_abv, brew_act_abv, brew_packaging, brew_packaging_vol_co2, brew_packaging_date)";
-	$values = "VALUES ('" . $details['name'] . "'," . $details['batch_number'] . ",'" . $details['date'] . "'," . $details['recipe_id'] . ",'" . $details['type'] . "'," . $details['style_id'] . ",'" . $details['method'] . "','" . $details['no_chill'] . "'," . $details['mash_volume'] . "," . $details['sparge_volume'] . "," . $details['boil_size'] . "," . $details['boil_time'] . "," . $details['batch_size'] . "," . $details['mash_efficiency'] . ",'" . $details['brewer'] . "','" . $details['notes'] . "'," . $details['est_og'] . "," . $details['act_og'] . "," . $details['est_fg'] . "," . $details['act_fg'] . "," . $details['est_color'] . "," . $details['est_ibu'] . "," . $details['est_abv'] . "," . $details['act_abv'] . ",'" . $details['packaging'] . "'," . $details['vol_co2'] . ",'" . $details['packaging_date'] . "')";
+	$values = "VALUES ('" . $details['name'] . "'," . $details['batch_number'] . ",'" . $details['date'] . "'," . $details['recipe_id'] . ",'" . $details['type'] . "'," . $details['style_id'] . ",'" . $details['method'] . "','" . $details['no_chill'] . "'," . $details['mash_volume'] . "," . $details['sparge_volume'] . "," . $details['boil_size'] . "," . $details['boil_time'] . "," . $details['batch_size'] . "," . $details['mash_efficiency'] . ",'" . $details['brewer'] . "','" . $details['notes'] . "'," . $details['est_og'] . "," . $details['act_og'] . "," . $details['est_fg'] . "," . $details['act_fg'] . "," . $details['est_color'] . "," . $details['est_ibu'] . "," . $details['est_abv'] . "," . $details['act_abv'] . ",'" . $details['packaging'] . "'," . $details['vol_co2'] . "," . $packaging_date . "'";
 	$query = $insert . " " . $values;
 	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
@@ -255,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	// for each mash, insert the brew_mash records
 	for ($i=0; $i <=4; $i++)
 	{
-		if ($mashes[$i]['temp'] || $mashes[$i]['time'])
+		if ($mashes[$i]['temp'] > 0 || $mashes[$i]['time'] > 0)
 		{
 			$query = "INSERT INTO brews_mashes (brew_mash_brew_id, brew_mash_temp, brew_mash_time)
 					VALUES (" . $brew_id . "," . $mashes[$i]['temp'] . "," . $mashes[$i]['time'] . ")";
@@ -266,10 +277,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	// for each fermentation, insert the brew_fermentation records
 	for ($i=0; $i <=4; $i++)
 	{
-		if ($fermentations[$i]['start_date'] || $fermentations[$i]['end_date'] || $fermentations[$i]['temp'] || $fermentations[$i]['measured_sg'])
+		if ($fermentations[$i]['temp'] > 0 || $fermentations[$i]['measured_sg'] > 0)
 		{
+			// routine to fix up null dates, or otherwise in the date fields for the insert
+			if ($fermentations[$i]['start_date'] === NULL) 
+			{
+				$start_date = 'NULL';
+			}
+			else 
+			{
+				$start_date = $fermentations[$i]['start_date'];
+				$start_date = "'$start_date'";
+			}
+
+			if ($fermentations[$i]['end_date'] === NULL) 
+			{
+				$end_date = 'NULL';
+			}
+			else 
+			{
+				$end_date = $fermentations[$i]['end_date'];
+				$end_date = "'$end_date'";
+			}
+
 			$query = "INSERT INTO brews_fermentations (brew_fermentation_brew_id, brew_fermentation_start_date, brew_fermentation_end_date, brew_fermentation_temp, brew_fermentation_measured_sg)
-					VALUES (" . $brew_id . ",'" . $fermentations[$i]['start_date'] . "','" . $fermentations[$i]['end_date'] . "'," . $fermentations[$i]['temp'] . "," . $fermentations[$i]['measured_sg'] . ")";
+					VALUES (" . $brew_id . "," . $start_date . "," . $end_date . "," . $fermentations[$i]['temp'] . "," . $fermentations[$i]['measured_sg'] . ")";
 			$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 		}
 	}
@@ -369,7 +401,7 @@ include('includes/get_recipe_details.php');
 
 		<div class="col-xs-3 col-md-4">
 			<label for="brew_method" class="label-sm">Brew Method</label>
-			<select class="form-control input-sm" id="brew_method" name="brew_method" required >
+			<select class="form-control input-sm" id="method" name="method" required >
 				<option value disabled selected></option>
 				<option value="BIAB">BIAB</option>
 				<option value="Batch Sparge">Batch Sparge</option>

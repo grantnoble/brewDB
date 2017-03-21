@@ -1,37 +1,59 @@
 <?php
 
 /*
-brew_view.php
-View a brew in the database
+brew_delete.php
+Delete a brew in the database
 */
 
-$page_title = 'View Brew';
+$page_title = 'Delete Brew';
 include '../includes/header.html';
 header('Content-Type: text/html; charset="utf-8"', true);
 
-// retrieve the brew details
-// check that the 'id' variable is set in URL and it is valid
-if (isset($_GET['id']) && is_numeric($_GET['id']))
+// check for form submission
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-// get the recipe details
-include '../includes/get_brew_details.php';
-}
-// else if the id isn't set, or isn't valid, redirect back to list brews page
-else
-{
+    if ($_POST['sure'] == 'Yes')
+    {
+        $brew_id = mysqli_real_escape_string($connection, htmlspecialchars($_POST['id']));
+
+        $query = "DELETE from brews_fermentables WHERE brew_fermentable_brew_id='" . $brew_id . "'";
+        $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+
+        $query = "DELETE from brews_hops WHERE brew_hop_brew_id='" . $brew_id . "'";
+        $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+
+        $query = "DELETE from brews_yeasts WHERE brew_yeast_brew_id='" . $brew_id . "'";
+        $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+
+        $query = "DELETE from brews_miscs WHERE brew_misc_brew_id='" . $brew_id . "'";
+        $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+
+        $query = "DELETE from brews_mashes WHERE brew_mash_brew_id='" . $brew_id . "'";
+        $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+
+        $query = "DELETE from brews_fermentations WHERE brew_fermentation_brew_id='" . $brew_id . "'";
+        $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+
+        $query = "DELETE from brews WHERE brew_id='" . $brew_id . "'";
+        $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+    }
+
+    // After deleting or not, redirect back to the hops_list page
 	echo '<script type="text/javascript">
 	window.location = "brews_list.php"
 	</script>';
 }
 
-// end of PHP section, now create the HTML form
+// if not form submission, get the brew details
+include '../includes/get_brew_details.php';
+
 ?>
 
 <div class="container">
 
-	<h2>View Brew</h2>
+	<h2>Delete Brew</h2>
 
-	<form role="form" class="form-horizontal" name="brewform" action="brew_view.php" method="post">
+	<form role="form" class="form-horizontal" name="brewform" action="brew_delete.php" method="post">
 
 	<div class="row">
 
@@ -427,7 +449,7 @@ else
 			$ingredient = "'hop'";
 			for ($i=0; $i<=14; $i++)
 			{
-				if ($hops[$i]['name'])
+				if ($fermentables[$i]['name'])
 				{
 					echo '<div class="row margin-bottom-qtr-em">';
 
@@ -751,17 +773,16 @@ else
 
 	</div>
 
+	<input type="hidden" name="id" id="id" value="<?php echo $details['id']; ?>" />
+	<p>Are you sure you want to delete this record?</p>
+	<label class="checkbox-inline">
+		<input type="checkbox" name="sure" id="sure" value="Yes">Yes
+	</label>
+	<label class="checkbox-inline">
+		<input class="btn btn-default" type="submit" value="Delete">
+	</label>
+
 	</form>
-
-</div>
-
-<!-- new form to submit only the brew id using get not post-->
-<div class="container">
-
-<form role="form" class="form-horizontal" name="recipeformedit" method="get">
-	<input type="hidden" name="id" value="<?php echo $details['id']; ?>" />
-	<input class="btn btn-default" type="submit" name="function" value="Edit" formaction="brew_edit.php" />
-</form>
 
 </div>
 
