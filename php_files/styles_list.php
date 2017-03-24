@@ -36,7 +36,6 @@ while($row = mysqli_fetch_array( $styles ))
 		echo '<ul class="dropdown-menu">';
 		echo '<li><a href="style_view.php?style_id=' . $row['style_id'] . '" role="button">View</a></li>';
 		echo '<li><a href="style_edit.php?style_id=' . $row['style_id'] . '" role="button">Edit</a></li>';
-		echo '<li><a href="style_delete.php?style_id=' . $row['style_id'] . '" role="button">Delete</a></li>';
 		echo '</ul></div></td>';
 		echo '<td class="text-right">' . $row['style_type'] . '</td><td class="text-right">' . $row['style_og_min'] . '</td><td class="text-right">' . $row['style_og_max'] . '</td>';
 		echo '<td class="text-right">' . $row['style_fg_min'] . '</td><td class="text-right">' . $row['style_fg_max'] . '</td><td class="text-right">' . $row['style_ibu_min'] . '</td>';
