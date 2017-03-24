@@ -233,7 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 		<div class="col-xs-5 col-sm-4 col-md-3">
 			<label for="date" class="label-sm">Date (yyyy-mm-dd)</label>
-			<input type="date" class="form-control input-sm" id="date" name="date" value="<?php echo date("Y-m-d"); ?>"/>
+			<input type="text" class="form-control input-sm" id="date" name="date" value="<?php echo date("Y-m-d"); ?>"/>
 		</div>
 
 		<div class="hidden-xs col-sm-4 col-md-5">

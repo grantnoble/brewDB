@@ -312,7 +312,7 @@ else
 
 		<div class="col-xs-5 col-sm-4 col-md-3">
 			<label for="date" class="label-sm">Date (yyyy-mm-dd)</label>
-			<input type="date" class="form-control input-sm" id="date" name="date" value="<?php echo $details['date']; ?>"/>
+			<input type="text" class="form-control input-sm" id="date" name="date" value="<?php echo $details['date']; ?>"/>
 		</div>
 
 		<div class="hidden-xs col-sm-4 col-md-5">

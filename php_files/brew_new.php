@@ -396,7 +396,7 @@ include('includes/get_recipe_details.php');
 
 		<div class="col-xs-5 col-sm-4 col-md-3">
 			<label for="date" class="label-sm">Date (yyyy-mm-dd)</label>
-			<input type="date" class="form-control input-sm" id="date" name="date" value="<?php echo date("Y-m-d"); ?>"/>
+			<input type="text" class="form-control input-sm" id="date" name="date" value="<?php echo date("Y-m-d"); ?>"/>
 		</div>
 
 		<div class="col-xs-3 col-md-4">
