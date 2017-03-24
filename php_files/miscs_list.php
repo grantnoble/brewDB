@@ -41,7 +41,7 @@ echo '<div class="container">';
 echo "<h2>List Miscellaneous</h2>";
 echo '<div class="table-responsive">';
 echo '<table class="table table-hover table-condensed">';
-echo '<tr> <th><a href="miscs_list.php?id=misc_name">Name</a></th> <th><a href="miscs_list.php?id=misc_type">Type</a></th> <th><a href="miscs_list.php?id=misc_use">Use</a></th> </tr>';
+echo '<tr class="info"> <th><a href="miscs_list.php?id=misc_name">Name</a></th> <th><a href="miscs_list.php?id=misc_type">Type</a></th> <th><a href="miscs_list.php?id=misc_use">Use</a></th> </tr>';
 
 // loop through results of database query, displaying them in the table
 while($row = mysqli_fetch_array( $miscs ))
