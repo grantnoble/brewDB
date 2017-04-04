@@ -31,12 +31,7 @@ while($row = mysqli_fetch_array( $styles ))
 		$category = $row['style_category_number'];
 		echo '<tr class="info"><th colspan="12">' . $row['style_style_guide'] . ' - Category ' . $row['style_category_number'] . ' ' . $row['style_category_name'] . '</th></tr>';
 		echo '<tr>';
-		echo '<td><div class="dropdown">';
-		echo '<a class="dropdown-toggle" data-toggle="dropdown">' . $row['style_category_number'] . $row['style_subcategory'] . ' ' . $row['style_name'] . '</a>';
-		echo '<ul class="dropdown-menu">';
-		echo '<li><a href="style_view.php?style_id=' . $row['style_id'] . '" role="button">View</a></li>';
-		echo '<li><a href="style_edit.php?style_id=' . $row['style_id'] . '" role="button">Edit</a></li>';
-		echo '</ul></div></td>';
+		echo '<td><div class="dropdown"><a href="style_view.php?style_id=' . $row['style_id'] . '">' . $row['style_category_number'] . $row['style_subcategory'] . ' ' . $row['style_name'] . '</a></td>';
 		echo '<td class="text-right">' . $row['style_type'] . '</td><td class="text-right">' . $row['style_og_min'] . '</td><td class="text-right">' . $row['style_og_max'] . '</td>';
 		echo '<td class="text-right">' . $row['style_fg_min'] . '</td><td class="text-right">' . $row['style_fg_max'] . '</td><td class="text-right">' . $row['style_ibu_min'] . '</td>';
 		echo '<td class="text-right">' . $row['style_ibu_max'] . '</td><td class="text-right">' . $row['style_color_min'] . '</td><td class="text-right">' . $row['style_color_max'] . '</td>';
@@ -47,13 +42,7 @@ while($row = mysqli_fetch_array( $styles ))
 	else
 	{
 		echo '<tr>';
-		echo '<td><div class="dropdown">';
-		echo '<a class="dropdown-toggle" data-toggle="dropdown">' . $row['style_category_number'] . $row['style_subcategory'] . ' ' . $row['style_name'] . '</a>';
-		echo '<ul class="dropdown-menu">';
-		echo '<li><a href="style_view.php?id=' . $row['style_id'] . '" role="button">View</a></li>';
-		echo '<li><a href="style_edit.php?id=' . $row['style_id'] . '" role="button">Edit</a></li>';
-		echo '<li><a href="style_delete.php?id=' . $row['style_id'] . '" role="button">Delete</a></li>';
-		echo '</ul></div></td>';
+		echo '<td><div class="dropdown"><a href="style_view.php?style_id=' . $row['style_id'] . '">' . $row['style_category_number'] . $row['style_subcategory'] . ' ' . $row['style_name'] . '</a></td>';
 		echo '<td class="text-right">' . $row['style_type'] . '</td><td class="text-right">' . $row['style_og_min'] . '</td><td class="text-right">' . $row['style_og_max'] . '</td>';
 		echo '<td class="text-right">' . $row['style_fg_min'] . '</td><td class="text-right">' . $row['style_fg_max'] . '</td><td class="text-right">' . $row['style_ibu_min'] . '</td>';
 		echo '<td class="text-right">' . $row['style_ibu_max'] . '</td><td class="text-right">' . $row['style_color_min'] . '</td><td class="text-right">' . $row['style_color_max'] . '</td>';
