@@ -212,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	
 	// insert the brew record
 	$insert = "INSERT INTO brews (brew_name, brew_batch_number, brew_date, brew_recipe_id, brew_type, brew_style_id, brew_method, brew_no_chill, brew_mash_volume, brew_sparge_volume, brew_boil_size, brew_boil_time, brew_batch_size, brew_mash_efficiency, brew_brewer, brew_notes, brew_est_og, brew_act_og, brew_est_fg, brew_act_fg, brew_est_color, brew_est_ibu, brew_est_abv, brew_act_abv, brew_packaging, brew_packaging_vol_co2, brew_packaging_date)";
-	$values = "VALUES ('" . $details['name'] . "'," . $details['batch_number'] . ",'" . $details['date'] . "'," . $details['recipe_id'] . ",'" . $details['type'] . "'," . $details['style_id'] . ",'" . $details['method'] . "','" . $details['no_chill'] . "'," . $details['mash_volume'] . "," . $details['sparge_volume'] . "," . $details['boil_size'] . "," . $details['boil_time'] . "," . $details['batch_size'] . "," . $details['mash_efficiency'] . ",'" . $details['brewer'] . "','" . $details['notes'] . "'," . $details['est_og'] . "," . $details['act_og'] . "," . $details['est_fg'] . "," . $details['act_fg'] . "," . $details['est_color'] . "," . $details['est_ibu'] . "," . $details['est_abv'] . "," . $details['act_abv'] . ",'" . $details['packaging'] . "'," . $details['vol_co2'] . "," . $packaging_date . "'";
+	$values = "VALUES ('" . $details['name'] . "'," . $details['batch_number'] . ",'" . $details['date'] . "'," . $details['recipe_id'] . ",'" . $details['type'] . "'," . $details['style_id'] . ",'" . $details['method'] . "','" . $details['no_chill'] . "'," . $details['mash_volume'] . "," . $details['sparge_volume'] . "," . $details['boil_size'] . "," . $details['boil_time'] . "," . $details['batch_size'] . "," . $details['mash_efficiency'] . ",'" . $details['brewer'] . "','" . $details['notes'] . "'," . $details['est_og'] . "," . $details['act_og'] . "," . $details['est_fg'] . "," . $details['act_fg'] . "," . $details['est_color'] . "," . $details['est_ibu'] . "," . $details['est_abv'] . "," . $details['act_abv'] . ",'" . $details['packaging'] . "'," . $details['vol_co2'] . ",'" . $packaging_date . "')";
 	$query = $insert . " " . $values;
 	$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
@@ -317,7 +317,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 if (isset($_GET['id']) && is_numeric($_GET['id']))
 {
 // get the recipe details
-include('includes/get_recipe_details.php');
+include '../includes/get_recipe_details.php';
 }
 
 // end of PHP section, now create the HTML form
