@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     // set up the SQL INSERT
     $columns = "INSERT into hops (hop_name, hop_alpha, hop_origin, hop_substitutes, hop_notes) ";
-    $values = "VALUES ('" . $hop['name'] . "', '" . $hop['alpha'] . "', '" . $hop['origin'] . "', '" . $hop['substitutes'] . "', '" . $hop['notes'] . "')";
+    $values = "VALUES ('" . $hop['name'] . "', " . $hop['alpha'] . ", '" . $hop['origin'] . "', '" . $hop['substitutes'] . "', '" . $hop['notes'] . "')";
     $query = $columns . $values;
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 				<div class="form-group col-xs-2 col-md-2">
 					<label for="alpha" class="label-sm">Alpha (%)</label>
-					<input type="number" class="form-control input-sm" name="alpha" id="alpha" />
+					<input type="number" step="any" class="form-control input-sm" name="alpha" id="alpha" />
 				</div>
 
 				<div class="form-group col-xs-3 col-md-3">

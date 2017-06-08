@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $yeast['max_reuse'] = mysqli_real_escape_string($connection, test_input($_POST['max_reuse']));
     $yeast['notes'] = mysqli_real_escape_string($connection, test_input($_POST['notes']));
 
-    $query = "UPDATE yeasts SET yeast_name='" . $yeast['name'] . "', yeast_type='" . $yeast['type'] . "', yeast_form='" . $yeast['form'] . "', yeast_laboratory='" . $yeast['laboratory'] . "' , yeast_product_id='" . $yeast['product_id'] . "' , yeast_min_temperature='" . $yeast['min_temperature'] . "' , yeast_max_temperature='" . $yeast['max_temperature'] . "' , yeast_flocculation='" . $yeast['flocculation'] . "' , yeast_attenuation='" . $yeast['attenuation'] . "' , yeast_best_for='" . $yeast['best_for'] . "' , yeast_max_reuse='" . $yeast['max_reuse'] . "' , yeast_notes='" . $yeast['notes'] . "' WHERE yeast_id='" . $yeast['id'] . "'";
+    $query = "UPDATE yeasts SET yeast_name='" . $yeast['name'] . "', yeast_type='" . $yeast['type'] . "', yeast_form='" . $yeast['form'] . "', yeast_laboratory='" . $yeast['laboratory'] . "' , yeast_product_id='" . $yeast['product_id'] . "' , yeast_min_temperature=" . $yeast['min_temperature'] . " , yeast_max_temperature=" . $yeast['max_temperature'] . " , yeast_flocculation='" . $yeast['flocculation'] . "' , yeast_attenuation=" . $yeast['attenuation'] . " , yeast_best_for='" . $yeast['best_for'] . "' , yeast_max_reuse=" . $yeast['max_reuse'] . " , yeast_notes='" . $yeast['notes'] . "' WHERE yeast_id='" . $yeast['id'] . "'";
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
     // After saving to the database, redirect back to the list yeasts page
@@ -130,17 +130,17 @@ while($row = mysqli_fetch_array( $result ))
 
 				<div class="col-xs-3 col-md-2">
 					<label for="min_temperature" class="label-sm">Min&nbsp;Temp&nbsp;(&deg;C)</label>
-					<input type="number" class="form-control input-sm" name="min_temperature" id="min_temperature" value="<?php if (isset($_POST['min_temperature'])) {echo $_POST['min_temperature'];} else {echo $min_temperature;} ?>" />
+					<input type="number" step="any" class="form-control input-sm" name="min_temperature" id="min_temperature" value="<?php if (isset($_POST['min_temperature'])) {echo $_POST['min_temperature'];} else {echo $min_temperature;} ?>" />
 				</div>
 
 				<div class="col-xs-3 col-md-2">
 					<label for="max_temperature" class="label-sm">Max&nbsp;Temp&nbsp;(&deg;C)</label>
-					<input type="number" class="form-control input-sm" name="max_temperature" id="max_temperature" value="<?php if (isset($_POST['max_temperature'])) {echo $_POST['max_temperature'];} else {echo $max_temperature;} ?>" />
+					<input type="number" step="any" class="form-control input-sm" name="max_temperature" id="max_temperature" value="<?php if (isset($_POST['max_temperature'])) {echo $_POST['max_temperature'];} else {echo $max_temperature;} ?>" />
 				</div>
 
 				<div class="col-xs-3 col-md-2">
 					<label for="attenuation" class="label-sm">Attenuation&nbsp;(%)</label>
-					<input type="number" class="form-control input-sm" name="attenuation" id="attenuation" value="<?php if (isset($_POST['attenuation'])) {echo $_POST['attenuation'];} else {echo $attenuation;} ?>" />
+					<input type="number" step="any" class="form-control input-sm" name="attenuation" id="attenuation" value="<?php if (isset($_POST['attenuation'])) {echo $_POST['attenuation'];} else {echo $attenuation;} ?>" />
 				</div>
 
 				<div class="col-xs-3 col-md-2">
@@ -161,7 +161,7 @@ while($row = mysqli_fetch_array( $result ))
 
 				<div class="col-xs-3 col-md-1">
 					<label for="max_reuse" class="label-sm">Max&nbsp;Reuse</label>
-					<input type="number" class="form-control input-sm" name="max_reuse" id="max_reuse" value="<?php if (isset($_POST['max_reuse'])) {echo $_POST['max_reuse'];} else {echo $max_reuse;} ?>" />
+					<input type="number" step="1" class="form-control input-sm" name="max_reuse" id="max_reuse" value="<?php if (isset($_POST['max_reuse'])) {echo $_POST['max_reuse'];} else {echo $max_reuse;} ?>" />
 				</div>
 
 			</div>

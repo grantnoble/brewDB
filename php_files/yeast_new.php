@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     // set up the SQL INSERT
     $columns = "INSERT into yeasts (yeast_name, yeast_type, yeast_form, yeast_laboratory, yeast_product_id, yeast_min_temperature, yeast_max_temperature, yeast_flocculation, yeast_attenuation, yeast_best_for, yeast_max_reuse, yeast_notes) ";
-    $values = "VALUES ('" . $yeast['name'] . "', '" . $yeast['type'] . "', '" . $yeast['form'] . "', '" . $yeast['laboratory'] . "', '" . $yeast['product_id'] . "', '" . $yeast['min_temperature'] . "', '" . $yeast['max_temperature'] . "', '" . $yeast['flocculation'] . "', '" . $yeast['attenuation'] . "', '" . $yeast['best_for'] . "', '" . $yeast['max_reuse'] . "', '" . $yeast['notes'] . "')";
+    $values = "VALUES ('" . $yeast['name'] . "', '" . $yeast['type'] . "', '" . $yeast['form'] . "', '" . $yeast['laboratory'] . "', '" . $yeast['product_id'] . "', " . $yeast['min_temperature'] . ", " . $yeast['max_temperature'] . ", '" . $yeast['flocculation'] . "', " . $yeast['attenuation'] . ", '" . $yeast['best_for'] . "', " . $yeast['max_reuse'] . ", '" . $yeast['notes'] . "')";
     $query = $columns . $values;
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
@@ -93,17 +93,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 				<div class="form-group col-xs-3 col-md-2">
 					<label for="min_temperature" class="label-sm">Min&nbsp;Temp&nbsp;(&deg;C)</label>
-					<input type="number" class="form-control input-sm" name="min_temperature" id="min_temperature" />
+					<input type="number" step="any" class="form-control input-sm" name="min_temperature" id="min_temperature" />
 				</div>
 
 				<div class="form-group col-xs-3 col-md-2">
 					<label for="max_temperature" class="label-sm">Max&nbsp;Temp&nbsp;(&deg;C)</label>
-					<input type="number" class="form-control input-sm" name="max_temperature" id="max_temperature" />
+					<input type="number" step="any" class="form-control input-sm" name="max_temperature" id="max_temperature" />
 				</div>
 
 				<div class="form-group col-xs-3 col-md-2">
 					<label for="attenuation" class="label-sm">Attenuation&nbsp;(%)</label>
-					<input type="number" class="form-control input-sm" name="attenuation" id="attenuation" />
+					<input type="number" step="any" class="form-control input-sm" name="attenuation" id="attenuation" />
 				</div>
 
 				<div class="form-group col-xs-3 col-md-2">
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 				<div class="form-group col-xs-3 col-md-1">
 					<label for="max_reuse" class="label-sm">Max&nbsp;Reuse</label>
-					<input type="number" class="form-control input-sm" name="max_reuse" id="max_reuse" />
+					<input type="number" step="1" class="form-control input-sm" name="max_reuse" id="max_reuse" />
 				</div>
 
 			</div>

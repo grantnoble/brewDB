@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $hop['substitutes'] = mysqli_real_escape_string($connection, test_input($_POST['substitutes']));
     $hop['notes'] = mysqli_real_escape_string($connection, test_input($_POST['notes']));
 
-    $query = "UPDATE hops SET hop_name='" . $hop['name'] . "', hop_alpha='" . $hop['alpha'] . "', hop_origin='" . $hop['origin'] . "', hop_substitutes='" . $hop['substitutes'] . "', hop_notes='" . $hop['notes'] . "' WHERE hop_id='" . $hop['id'] . "'";
+    $query = "UPDATE hops SET hop_name='" . $hop['name'] . "', hop_alpha=" . $hop['alpha'] . ", hop_origin='" . $hop['origin'] . "', hop_substitutes='" . $hop['substitutes'] . "', hop_notes='" . $hop['notes'] . "' WHERE hop_id='" . $hop['id'] . "'";
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
     // After saving to the database, redirect back to the list fermentables page
@@ -76,7 +76,7 @@ while($row = mysqli_fetch_array( $result ))
 
 				<div class="form-group col-xs-2 col-md-2">
 					<label for="alpha" class="label-sm">Alpha (%)</label>
-					<input type="number" class="form-control input-sm" name="alpha" id="alpha" value="<?php if (isset($_POST['alpha'])) {echo $_POST['alpha'];} else {echo $alpha;} ?>" />
+					<input type="number" step="any" class="form-control input-sm" name="alpha" id="alpha" value="<?php if (isset($_POST['alpha'])) {echo $_POST['alpha'];} else {echo $alpha;} ?>" />
 				</div>
 
 				<div class="form-group col-xs-3 col-md-3">
