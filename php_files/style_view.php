@@ -29,8 +29,8 @@ else
 while($row = mysqli_fetch_array( $result ))
 {
     $id = $row['style_id'];
-    $style_guide = $row['style_style_guide'];
-	$category_number = $row['style_category_number'];
+    $guide = $row['style_guide'];
+	$category = $row['style_category'];
 	$subcategory = $row['style_subcategory'];
 	$category_name = $row['style_category_name'];
     $name = $row['style_name'];
@@ -63,29 +63,35 @@ while($row = mysqli_fetch_array( $result ))
 	
 			<!-- xs and sm media -->
 			<div class="form-group margin-bottom visible-xs visible-sm">
-				<div class="col-xs-3">
-					<label for="style_guide" class="label-sm">Style Guide</label>
-					<input type="text" class="form-control input-sm" id="style_guide" name="style_guide" readonly="yes" value="<?php echo $style_guide; ?>" />
+				<div class="col-xs-4">
+					<label for="guide" class="label-sm">Guide</label>
+					<input type="text" class="form-control input-sm" id="guide" name="guide" readonly="yes" value="<?php echo $guide; ?>" />
 				</div>
 				<div class="col-xs-3">
-					<label for="category_number" class="label-sm"><span class="visible-xs">Cat. Num.</span><span class="hidden-xs">Category Number</span></label>
-					<input type="text" class="form-control input-sm" id="category_number" name="category_number" readonly="yes" value="<?php echo $category_number; ?>" />
+					<label for="category" class="label-sm">Category</label>
+					<input type="text" class="form-control input-sm" id="category" name="category" readonly="yes" value="<?php echo $category; ?>" />
 				</div>
-				<div class="col-xs-3">
-					<label for="style_letter" class="label-sm"><span class="visible-xs">Sub Cat.</span><span class="hidden-xs">Sub Category</span></label>
-					<input type="text" class="form-control input-sm" id="style_letter" name="style_letter" readonly="yes" value="<?php echo $subcategory; ?>" />
-				</div>
-				<div class="col-xs-3">
-					<label for="category" class="label-sm"><span class="visible-xs">Cat. Name</span><span class="hidden-xs">Category Name</span></label>
-					<input type="text" class="form-control input-sm" id="category" name="category" readonly="yes" value="<?php echo $category_name; ?>" />
+				<div class="col-xs-5">
+					<label for="category_name" class="label-sm">Category Name</label>
+					<input type="text" class="form-control input-sm" id="category_name" name="category_name" readonly="yes" value="<?php echo $category_name; ?>" />
 				</div>
 			</div>
 			<div class="form-group margin-bottom visible-xs visible-sm">
+				<div class="col-xs-12">
+					<label for="category_notes" class="label-sm">Category Notes</label>
+					<textarea class="form-control input-sm" rows="2" id="category_notes" name="category_notes" readonly="yes"><?php echo $category_notes; ?></textarea>
+				</div>
+			</div>
+			<div class="form-group margin-bottom visible-xs visible-sm">
+				<div class="col-xs-3">
+					<label for="subcategory" class="label-sm">Subcategory</label>
+					<input type="text" class="form-control input-sm" id="subcategory" name="subcategory" readonly="yes" value="<?php echo $subcategory; ?>" />
+				</div>
 				<div class="col-xs-5">
 					<label for="name" class="label-sm">Style Name</label>
 					<input type="text" class="form-control input-sm" id="name" name="name" readonly="yes" value="<?php echo $name; ?>" />
 				</div>
-				<div class="col-xs-5">
+				<div class="col-xs-4">
 					<label for="type" class="label-sm">Style Type</label>
 					<input type="text" class="form-control input-sm" id="type" name="type" readonly="yes" value="<?php echo $type; ?>" />
 				</div>
@@ -94,20 +100,28 @@ while($row = mysqli_fetch_array( $result ))
 			<!-- md media and larger -->
 			<div class="form-group margin-bottom hidden-xs hidden-sm">
 				<div class="col-md-2">
-					<label for="style_guide" class="label-sm">Style Guide</label>
-					<input type="text" class="form-control input-sm" id="style_guide" name="style_guide" readonly="yes" value="<?php echo $style_guide; ?>" />
+					<label for="guide" class="label-sm">Guide</label>
+					<input type="text" class="form-control input-sm" id="guide" name="guide" readonly="yes" value="<?php echo $guide; ?>" />
 				</div>
 				<div class="col-md-2">
-					<label for="category_number" class="label-sm">Category Number</label>
-					<input type="text" class="form-control input-sm" id="category_number" name="category_number" readonly="yes" value="<?php echo $category_number; ?>" />
+					<label for="category" class="label-sm">Category</label>
+					<input type="text" class="form-control input-sm" id="category" name="category" readonly="yes" value="<?php echo $category; ?>" />
 				</div>
-				<div class="col-md-2">
-					<label for="style_letter" class="label-sm">Sub Category</label>
-					<input type="text" class="form-control input-sm" id="style_letter" name="style_letter" readonly="yes" value="<?php echo $subcategory; ?>" />
+				<div class="col-md-3">
+					<label for="category_name" class="label-sm">Category Name</label>
+					<input type="text" class="form-control input-sm" id="category_name" name="category_name" readonly="yes" value="<?php echo $category_name; ?>" />
 				</div>
+			</div>
+			<div class="form-group margin-bottom hidden-xs hidden-sm">
+				<div class="col-md-12">
+					<label for="category_notes" class="label-sm">Category Notes</label>
+					<textarea class="form-control input-sm" rows="2" id="category_notes" name="category_notes" readonly="yes"><?php echo $category_notes; ?></textarea>
+				</div>
+			</div>
+			<div class="form-group margin-bottom hidden-xs hidden-sm">
 				<div class="col-md-2">
-					<label for="category" class="label-sm">Category Name</label>
-					<input type="text" class="form-control input-sm" id="category" name="category" readonly="yes" value="<?php echo $category_name; ?>" />
+					<label for="subcategory" class="label-sm">Subcategory</label>
+					<input type="text" class="form-control input-sm" id="subcategory" name="subcategory" readonly="yes" value="<?php echo $subcategory; ?>" />
 				</div>
 				<div class="col-md-2">
 					<label for="name" class="label-sm">Style Name</label>
@@ -167,7 +181,7 @@ while($row = mysqli_fetch_array( $result ))
 			<div class="form-group margin-bottom">
 				<div class="col-xs-12">
 					<label for="notes" class="label-sm">Notes</label>
-					<textarea class="form-control input-sm" rows="3" id="notes" name="notes" readonly="yes"><?php echo $notes; ?></textarea>
+					<textarea class="form-control input-sm" rows="2" id="notes" name="notes" readonly="yes"><?php echo $notes; ?></textarea>
 				</div>
 			</div>
 			<div class="form-group margin-bottom">

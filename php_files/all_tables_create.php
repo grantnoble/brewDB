@@ -103,11 +103,12 @@ $query['styles'] = "CREATE TABLE styles
 (
 style_id mediumint unsigned NOT NULL auto_increment,
 style_version tinyint unsigned NOT NULL default 1,
-style_name varchar(255) NOT NULL,
-style_style_guide enum ('BJCP-2008', 'BJCP-2015'),
+style_guide enum ('BJCP-2008', 'BJCP-2015'),
+style_category tinyint unsigned NOT NULL,
 style_category_name varchar(255) NOT NULL,
-style_category_number tinyint unsigned NOT NULL,
+style_category_notes varchar(2047),
 style_subcategory varchar(1) NOT NULL,
+style_name varchar(255) NOT NULL,
 style_type enum('Lager', 'Ale', 'Mead', 'Wheat', 'Mixed', 'Cider'),
 style_og_min float(5,3),
 style_og_max float(5,3),
@@ -124,10 +125,11 @@ style_profile varchar(2047),
 style_ingredients varchar(2047),
 style_examples varchar(2047),
 PRIMARY KEY (style_id),
-INDEX (style_name),
+INDEX (style_guide),
+INDEX (style_category),
 INDEX (style_category_name),
-INDEX (style_category_number),
 INDEX (style_subcategory),
+INDEX (style_name),
 INDEX (style_type)
 ) AUTO_INCREMENT=50001 CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
@@ -163,7 +165,7 @@ preference_ibu_method enum('Rager', 'Tinseth', 'Garetz') NOT NULL default 'Tinse
 preference_loss float,
 preference_packaging enum('Bottle', 'Keg') default 'Bottle',
 PRIMARY KEY (preference_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
+) AUTO_INCREMENT=70001 CHARACTER SET utf8 COLLATE utf8_unicode_ci;";
 
 // Recipes
 $query['recipes'] = "CREATE TABLE recipes

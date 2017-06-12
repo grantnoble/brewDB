@@ -418,8 +418,8 @@ for ($i=0; $i<=count($array)-1; $i++)
 	// Else, if a level 3 item, concatenate 'tag' and 'value' values to $column and $value.
 	elseif ($array[$i]['level'] == 3)
     {
-    	if (($array[$i]['tag'] == 'NAME') || ($array[$i]['tag'] == 'VERSION') || ($array[$i]['tag'] == 'CATEGORY_NAME') || ($array[$i]['tag'] == 'CATEGORY_NUMBER') || ($array[$i]['tag'] == 'SUBCATEGORY') ||
-		($array[$i]['tag'] == 'STYLE_GUIDE') || ($array[$i]['tag'] == 'TYPE') || ($array[$i]['tag'] == 'OG_MIN') || ($array[$i]['tag'] == 'OG_MAX') || ($array[$i]['tag'] == 'FG_MIN') || ($array[$i]['tag'] == 'FG_MAX') ||
+    	if (($array[$i]['tag'] == 'NAME') || ($array[$i]['tag'] == 'VERSION') || ($array[$i]['tag'] == 'CATEGORY_NAME') || ($array[$i]['tag'] == 'CATEGORY') || ($array[$i]['tag'] == 'SUBCATEGORY') ||
+		($array[$i]['tag'] == 'GUIDE') || ($array[$i]['tag'] == 'TYPE') || ($array[$i]['tag'] == 'OG_MIN') || ($array[$i]['tag'] == 'OG_MAX') || ($array[$i]['tag'] == 'FG_MIN') || ($array[$i]['tag'] == 'FG_MAX') ||
 		($array[$i]['tag'] == 'IBU_MIN') || ($array[$i]['tag'] == 'IBU_MAX') || ($array[$i]['tag'] == 'COLOR_MIN') || ($array[$i]['tag'] == 'COLOR_MAX') || ($array[$i]['tag'] == 'ABV_MIN') || ($array[$i]['tag'] == 'ABV_MAX') ||
 		($array[$i]['tag'] == 'NOTES') || ($array[$i]['tag'] == 'PROFILE') || ($array[$i]['tag'] == 'INGREDIENTS') || ($array[$i]['tag'] == 'EXAMPLES') || ($array[$i]['tag'] == 'IMPRESSION') || ($array[$i]['tag'] == 'AROMA') ||
 		($array[$i]['tag'] == 'APPEARANCE') || ($array[$i]['tag'] == 'FLAVOR') || ($array[$i]['tag'] == 'MOUTHFEEL') || ($array[$i]['tag'] == 'COMMENTS') || ($array[$i]['tag'] == 'HISTORY') ||
